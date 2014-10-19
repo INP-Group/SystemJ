@@ -1,0 +1,23 @@
+#ifndef __XCANADC40_DRV_I_H
+#define __XCANADC40_DRV_I_H
+
+
+#include "drv_i/kozdev_common_drv_i.h"
+
+
+enum
+{
+    XCANADC40_CHAN_ADC_n_base    = KOZDEV_CHAN_ADC_n_base,  XCANADC40_CHAN_ADC_n_count = 40,
+    XCANADC40_CHAN_REGS_base     = KOZDEV_CHAN_REGS_base,
+    
+    XCANADC40_CHAN_REGS_WR8_base = KOZDEV_CHAN_REGS_WR8_base,
+    XCANADC40_CHAN_REGS_RD8_base = KOZDEV_CHAN_REGS_RD8_base,
+    XCANADC40_CHAN_REGS_WR1      = KOZDEV_CHAN_REGS_WR1,
+    XCANADC40_CHAN_REGS_RD1      = KOZDEV_CHAN_REGS_RD1,
+    XCANADC40_CHAN_REGS_last     = KOZDEV_CHAN_REGS_last,
+
+    XCANADC40_NUMCHANS           = KOZDEV_NUMCHANS
+};
+
+
+#endif /* __XCANADC40_DRV_I_H */

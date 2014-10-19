@@ -1,0 +1,2 @@
+dl200me		dl200me		0	w64,r16,w10,r10	-	fast
+adc200me	adc200me	0	w20		1*20+0i/20+400000i

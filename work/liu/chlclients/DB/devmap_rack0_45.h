@@ -1,0 +1,27 @@
+#ifndef __DEVMAP_RACK0_45_H
+#define __DEVMAP_RACK0_45_H
+
+
+enum
+{
+    EBC_BASE      = 0,
+    GVI_BASE      = 28,
+    C124_BASE     = 74,
+    BIIP1_BASE    = 152,
+    BIIP2_BASE    = 222,
+    RSRVD_208_BASE= 292,
+    BELLENS_BASE  = 390,
+
+    BEAM_C_WORK  = EBC_BASE+SENKOV_EBC_CHAN_REGS_WR8_BASE+0,
+    BEAM_C_RESET = EBC_BASE+SENKOV_EBC_CHAN_REGS_WR8_BASE+1,
+
+    EX_BELCHRG_BASE  = 488,
+    NKSHD485_BASE    = 586,
+    PANOV_FROLOV_BASE= 686,
+    PANOV_CAMSEL_BASE= 796,
+    VAC124_BASE      = 906,
+    DOORILKS_BASE    = 984,
+};
+
+
+#endif /* __DEVMAP_RACK0_45_H */

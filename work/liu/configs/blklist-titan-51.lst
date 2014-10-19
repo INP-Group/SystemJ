@@ -1,0 +1,5 @@
+# blklist-titan-51 -- a test setup for Tantal/VCh-300@Kuznetsov's
+# file	driver	bus_id	main_i			big_i	auxinfo
+
+# 
+cangw	cangw	0,63	r8,w2,w8,r8,w1,r1	-	cangw-vch300:cdac20

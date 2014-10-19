@@ -1,0 +1,98 @@
+# ring1:35 -- reserved for Rogovsky/ADC4
+#
+# file  driver  bus_id  main_i  biginfo auxinfo
+#
+
+# 192.168.8.151   ppc-ringbpm1.V5Booster.private.net      ppc-ringbpm1
+# 192.168.8.152   ppc-ringbpm2.V5Booster.private.net      ppc-ringbpm2
+
+# ADC4: each driver has 100 ordinary channels: 60 writable parameters-aliases and 40 - writable 
+
+
+:bpm01:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+:bpm02:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+
+
+:bpm03:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+:bpm04:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+
+
+:bpm05:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+:bpm06:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+
+
+:bpm07:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+:bpm08:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+
+
+:bpm09:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+:bpm10:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+
+
+:bpm11:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+:bpm12:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+
+
+:bpm13:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+:bpm14:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+
+
+:bpm15:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+:bpm16:host_bpmd  host_bpmd  -      w60,r40   1*100+0i/100+150000i  mgd=0  v5r scale=1.0mA@a:7,s:1000
+
+
+# Delay Unit: each driver has 4 ordinary channels, but we pad the number up to 10 for siplictisiti
+remdrv  remdrv  8       r4,r6     -                     ppc/ppc-ringbpm1:cm5307_delayunit  vepp5
+remdrv  remdrv  8       r4,r6     -                     ppc/ppc-ringbpm2:cm5307_delayunit  vepp5
+remdrv  remdrv  9       r4,r6     -                     ppc/ppc-ringbpm2:cm5307_delayunit  vepp5
+remdrv  remdrv  9       r4,r6     -                     ppc/ppc-ringbpm1:cm5307_delayunit  vepp5
+
+
+# PS Control Unit: each driver has 8 ordinary channels, but we pad the number up to 10 for siplictisiti
+remdrv  remdrv  2       r8,r2     -                     ppc/ppc-ringbpm1:cm5307_psctrlunit  vepp5
+remdrv  remdrv  2       r8,r2     -                     ppc/ppc-ringbpm2:cm5307_psctrlunit  vepp5
+
+
+# ADC Subsampler Unit
+remdrv  remdrv   6      w5,r15    -                     ppc/ppc-ringbpm1:cm5307_nadc4decimator_v5  factor=100
+remdrv  remdrv   6      w5,r15    -                     ppc/ppc-ringbpm2:cm5307_nadc4decimator_v5  factor=100
+
+
+# conversion drivers
+:txz01:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm01.0  bpm_id=1   clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz02:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm02.0  bpm_id=2   clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz03:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm03.0  bpm_id=3   clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz04:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm04.0  bpm_id=4   clb_id=2  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz05:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm05.0  bpm_id=5   clb_id=2  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz06:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm06.0  bpm_id=7   clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz07:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm07.0  bpm_id=8   clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz08:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm08.0  bpm_id=9   clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz09:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm09.0  bpm_id=10  clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz10:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm10.0  bpm_id=11  clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz11:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm11.0  bpm_id=12  clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz12:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm12.0  bpm_id=13  clb_id=2  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz13:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm13.0  bpm_id=14  clb_id=2  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz14:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm14.0  bpm_id=15  clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz15:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm15.0  bpm_id=16  clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz16:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+150000i    src=bpm16.0  bpm_id=17  clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+
+# configuration drivers
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_01/bpm01:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_02/bpm02:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_03/bpm03:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_04/bpm04:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_05/bpm05:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_07/bpm06:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_08/bpm07:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_09/bpm08:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_10/bpm09:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_11/bpm10:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_12/bpm11:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_13/bpm12:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_14/bpm13:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_15/bpm14:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_16/bpm15:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r20    -     v5r_bpm_17/bpm16:trololo
+
+# put data in another way
+bpmd_txzi_out    bpmd_txzi_out -    -          -     txz01.0|txz02.0|txz03.0|txz04.0|txz05.0|txz06.0|txz07.0|txz08.0|txz09.0|txz10.0|txz11.0|txz12.0|txz13.0|txz14.0|txz15.0|txz16.0    s_port=10001 t_port=10002

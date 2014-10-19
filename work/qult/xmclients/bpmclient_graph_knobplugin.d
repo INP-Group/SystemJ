@@ -1,0 +1,29 @@
+bpmclient_graph_knobplugin.o bpmclient_graph_knobplugin.d: bpmclient_graph_knobplugin.c \
+ /home/warmonger/work/cx/src/../exports/include/misc_macros.h \
+ /home/warmonger/work/cx/src/../exports/include/misc_types.h \
+ /home/warmonger/work/cx/src/../exports/include/misclib.h \
+ /home/warmonger/work/cx/src/../exports/include/misc_macros.h \
+ /home/warmonger/work/cx/src/../exports/include/misc_sepchars.h \
+ /home/warmonger/work/cx/src/../exports/include/paramstr_parser.h \
+ /home/warmonger/work/cx/src/../exports/include/cda.h \
+ /home/warmonger/work/cx/src/../exports/include/cx.h \
+ /home/warmonger/work/cx/src/../exports/include/cxdata.h \
+ /home/warmonger/work/cx/src/../exports/include/cx_version.h \
+ /home/warmonger/work/cx/src/../exports/include/Cdr.h \
+ /home/warmonger/work/cx/src/../exports/include/cda.h \
+ /home/warmonger/work/cx/src/../exports/include/Knobs_types.h \
+ /home/warmonger/work/cx/src/../exports/include/datatree.h \
+ /home/warmonger/work/cx/src/../exports/include/memcasecmp.h \
+ /home/warmonger/work/cx/src/../exports/include/Knobs.h \
+ /home/warmonger/work/cx/src/../exports/include/Xh_types.h \
+ /home/warmonger/work/cx/src/../exports/include/Xh.h \
+ /home/warmonger/work/cx/src/../exports/include/Xh_globals.h \
+ /home/warmonger/work/cx/src/../exports/include/Xh_fallbacks.h \
+ /home/warmonger/work/cx/src/../exports/include/Knobs.h \
+ /home/warmonger/work/cx/src/../exports/include/Knobs_typesP.h \
+ /home/warmonger/work/cx/src/../exports/include/KnobsI.h \
+ /home/warmonger/work/cx/src/../exports/include/paramstr_parser.h \
+ /home/warmonger/work/cx/src/../exports/include/Knobs_typesP.h \
+ ../include/bpmclient.h \
+ /home/warmonger/work/v2hw/include/drv_i/karpov_monster_drv_i.h \
+ bpmclient_graph_knobplugin.h

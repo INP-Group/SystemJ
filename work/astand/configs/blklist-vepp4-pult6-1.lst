@@ -1,0 +1,64 @@
+
+# Rack1, left half
+:ceac1:  remdrv remdrv 0,63,0  w20,w8,r8,w1,r1,r12,r16,w8,r4    - cangw/cangw-gimn25:xceac124 beg=0 end=7 time=3
+:gvi1:   remdrv remdrv 0,61,0  w8,w8,w8,w1,w1,w1,w1,w8,r8,w1,r1 - cangw/cangw-gimn25:cgvi8
+:biip1a: remdrv remdrv 0,1,0   w20,w8,r8,w1,r1,r12,w10,r10      - cangw/cangw-gimn25:vsdc2 ch0start=stop0 ch0stop=start0 ch1start=stop1 ch1stop=start1
+:biip1b: remdrv remdrv 0,2,0   w20,w8,r8,w1,r1,r12,w10,r10      - cangw/cangw-gimn25:vsdc2 ch0start=stop0 ch0stop=start0 ch1start=stop1 ch1stop=start1
+
+:uizm1a: trig_read trig_read - r1 - biip1a.50//ceac1.50
+:uizm1b: trig_read trig_read - r1 - biip1a.51//ceac1.52
+:uizm1c: trig_read trig_read - r1 - biip1b.50//ceac1.54
+:uizm1d: trig_read trig_read - r1 - biip1b.51//ceac1.56
+:uuvh1a: trig_read trig_read - r1 - biip1a.50//ceac1.51
+:uuvh1b: trig_read trig_read - r1 - biip1a.51//ceac1.53
+:uuvh1c: trig_read trig_read - r1 - biip1b.50//ceac1.55
+:uuvh1d: trig_read trig_read - r1 - biip1b.51//ceac1.57
+
+# Rack1, right half
+:ceac2:  remdrv remdrv 0,62,0  w20,w8,r8,w1,r1,r12,r16,w8,r4    - cangw/cangw-gimn25:xceac124 beg=0 end=7 time=3
+:gvi2:   remdrv remdrv 0,60,0  w8,w8,w8,w1,w1,w1,w1,w8,r8,w1,r1 - cangw/cangw-gimn25:cgvi8
+:biip2a: remdrv remdrv 0,3,0   w20,w8,r8,w1,r1,r12,w10,r10      - cangw/cangw-gimn25:vsdc2 ch0start=stop0 ch0stop=start0 ch1start=stop1 ch1stop=start1
+:biip2b: remdrv remdrv 0,4,0   w20,w8,r8,w1,r1,r12,w10,r10      - cangw/cangw-gimn25:vsdc2 ch0start=stop0 ch0stop=start0 ch1start=stop1 ch1stop=start1
+
+:uizm2a: trig_read trig_read - r1 - biip2a.50//ceac2.50
+:uizm2b: trig_read trig_read - r1 - biip2a.51//ceac2.52
+:uizm2c: trig_read trig_read - r1 - biip2b.50//ceac2.54
+:uizm2d: trig_read trig_read - r1 - biip2b.51//ceac2.56
+:uuvh2a: trig_read trig_read - r1 - biip2a.50//ceac2.51
+:uuvh2b: trig_read trig_read - r1 - biip2a.51//ceac2.53
+:uuvh2c: trig_read trig_read - r1 - biip2b.50//ceac2.55
+:uuvh2d: trig_read trig_read - r1 - biip2b.51//ceac2.57
+
+# Rack2, left half
+:ceac3:  remdrv remdrv 0,59,0  w20,w8,r8,w1,r1,r12,r16,w8,r4    - cangw/cangw-gimn25:xceac124 beg=0 end=7 time=3
+:gvi3:   remdrv remdrv 0,57,0  w8,w8,w8,w1,w1,w1,w1,w8,r8,w1,r1 - cangw/cangw-gimn25:cgvi8
+:biip3a: remdrv remdrv 0,17,0  w20,w8,r8,w1,r1,r12,w10,r10      - cangw/cangw-gimn25:vsdc2 ch0start=stop0 ch0stop=start0 ch1start=stop1 ch1stop=start1
+:biip3b: remdrv remdrv 0,18,0  w20,w8,r8,w1,r1,r12,w10,r10      - cangw/cangw-gimn25:vsdc2 ch0start=stop0 ch0stop=start0 ch1start=stop1 ch1stop=start1
+
+:uizm3a: trig_read trig_read - r1 - biip3a.50//ceac3.50
+:uizm3b: trig_read trig_read - r1 - biip3a.51//ceac3.52
+:uizm3c: trig_read trig_read - r1 - biip3b.50//ceac3.54
+:uizm3d: trig_read trig_read - r1 - biip3b.51//ceac3.56
+:uuvh3a: trig_read trig_read - r1 - biip3a.50//ceac3.51
+:uuvh3b: trig_read trig_read - r1 - biip3a.51//ceac3.53
+:uuvh3c: trig_read trig_read - r1 - biip3b.50//ceac3.55
+:uuvh3d: trig_read trig_read - r1 - biip3b.51//ceac3.57
+
+# Rack2, right half
+:ceac4:  remdrv remdrv 0,58,0  w20,w8,r8,w1,r1,r12,r16,w8,r4    - cangw/cangw-gimn25:xceac124 beg=0 end=7 time=3
+:gvi4:   remdrv remdrv 0,56,0  w8,w8,w8,w1,w1,w1,w1,w8,r8,w1,r1 - cangw/cangw-gimn25:cgvi8
+:biip4a: remdrv remdrv 0,19,0  w20,w8,r8,w1,r1,r12,w10,r10      - cangw/cangw-gimn25:vsdc2 ch0start=stop0 ch0stop=start0 ch1start=stop1 ch1stop=start1
+:biip4b: remdrv remdrv 0,20,0  w20,w8,r8,w1,r1,r12,w10,r10      - cangw/cangw-gimn25:vsdc2 ch0start=stop0 ch0stop=start0 ch1start=stop1 ch1stop=start1
+
+:uizm4a: trig_read trig_read - r1 - biip4a.50//ceac4.50
+:uizm4b: trig_read trig_read - r1 - biip4a.51//ceac4.52
+:uizm4c: trig_read trig_read - r1 - biip4b.50//ceac4.54
+:uizm4d: trig_read trig_read - r1 - biip4b.51//ceac4.56
+:uuvh4a: trig_read trig_read - r1 - biip4a.50//ceac4.51
+:uuvh4b: trig_read trig_read - r1 - biip4a.51//ceac4.53
+:uuvh4c: trig_read trig_read - r1 - biip4b.50//ceac4.55
+:uuvh4d: trig_read trig_read - r1 - biip4b.51//ceac4.57
+
+# IST-reversible
+:icdr:   remdrv		remdrv		0,31,0	w40,r20,w8,r8,w1,r1,r22,r100,w64,r36	- cangw/cangw-gimn25:xcdac20 spd=-400000
+:istr:   ist_xcdac20	ist_xcdac20	-	w50,r50					- -icdr

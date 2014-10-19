@@ -1,0 +1,27 @@
+# hemera:2 - BEP BPM subsystem with CAMAC electronics for Rogovsky Yury
+# file  driver  bus_id  main_i  biginfo auxinfo
+#
+
+# ADC4: each ADC has 100 ordinary channels:
+#	12 parameters-aliases, 88 (last ones) treated as time-since-measurement-start 
+
+#remdrv  remdrv	13	w12,r88	1*20+0i/20+131072i	ppc/172.16.1.151:cm5307_nadc4_fake
+
+#remdrv  remdrv	15	w20,w80   1*100+0i/100+131072i	ppc/172.16.1.151:cm5307_nadc4   zero0=-24 zero1=-13 zero2=-30 zero3=-29
+#remdrv  remdrv	17	w20,w80   1*100+0i/100+131072i	ppc/172.16.1.151:cm5307_nadc4   zero0=-31 zero1=-22 zero2=-17 zero3=-04
+#remdrv  remdrv	19	w20,w80   1*100+0i/100+131072i	ppc/172.16.1.151:cm5307_nadc4   zero0=-28 zero1=-23 zero2=-12 zero3=-14
+#remdrv  remdrv	21	w20,w80   1*100+0i/100+131072i	ppc/172.16.1.151:cm5307_nadc4   zero0=-25 zero1=-21 zero2=-25 zero3=-07
+
+remdrv  remdrv	15	w20,w80   1*100+0i/100+131072i	ppc/172.16.1.151:cm5307_nadc4m   zero0=-24 zero1=-13 zero2=-30 zero3=-29  n_del=10 c_del=0 n_atn=6 c_atn=0
+remdrv  remdrv	17	w20,w80   1*100+0i/100+131072i	ppc/172.16.1.151:cm5307_nadc4m   zero0=-31 zero1=-22 zero2=-17 zero3=-04  n_del=10 c_del=1 n_atn=6 c_atn=1
+remdrv  remdrv	19	w20,w80   1*100+0i/100+131072i	ppc/172.16.1.151:cm5307_nadc4m   zero0=-28 zero1=-23 zero2=-12 zero3=-14  n_del=10 c_del=2 n_atn=6 c_atn=2
+remdrv  remdrv	21	w20,w80   1*100+0i/100+131072i	ppc/172.16.1.151:cm5307_nadc4m   zero0=-25 zero1=-21 zero2=-25 zero3=-07  n_del=10 c_del=3 n_atn=6 c_atn=3
+
+# Delay Unit
+remdrv	remdrv	10      w4,r6	-			ppc/172.16.1.151:cm5307_delayunit_dbody
+
+# PS Control Unit
+remdrv	remdrv  6	w4,r6	-       		ppc/172.16.1.151:cm5307_psctrlunit_dbody
+
+# ADC Subsampler Unit
+remdrv	remdrv	8	w5,r6	-			ppc/172.16.1.151:cm5307_nadc4decimator_v2

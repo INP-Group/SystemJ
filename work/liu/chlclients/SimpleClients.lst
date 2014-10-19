@@ -1,0 +1,25 @@
+#sysname|app_name[@srvref[;options=OPTS][;clientprog=CPRG]]|app_class|[icon]|Window title
+liu|+liu@rack0:44;clientprog=liuclient|LiuCC||ЛИУ - центр управления
+kazstand|kazstand@rack9:48;options=vertical|KazStand||In-kazemat-11 modulator test stand app
+b14stand|b14stand@cp6003:48;options=vertical|B14Stand||Building 14 hall 1 modulator test stand app
+fatcalc|+fatcalc@rack0:44|FatCalc||Fatkin's DL200MEs calculations
+#### Chl-faces for drivers ###########################################
+dl200me_s|dl200me_s|DL200ME_S||Slow DL200ME
+dl200me_f|dl200me_f|DL200ME_F||Fast DL200ME
+panov_ubs|panov_ubs|PanovUBS||Panov's UBS (modulator controller)
+tvac320|tvac320|TVAC320||TVAC320 - LIU charger controller
+doorilks|doorilks|DoorIlks||Door Interlocks
+## kshd485 parameters: 1000steps/circle; start_speed=100,top=500,acc=1000
+
+#### Old/obsolete, but still not removed #############################
+#liucc|+liucc@rack0:44;clientprog=liuclient;options=histring_size:432000|LiuCC||Центр управления ЛИУ
+liubpms|liubpms@rack0:46;clientprog=liuclient;options=resizable,notoolbar,vspc:2|LiuBPMs||ЛИУ: BPMы
+beam|+beam@rack0:45;options=logperiod:1|Beam||ЛИУ: управление пучком
+pursen|+pursen@rack0:44;clientprog=liuclient;options=logperiod:1|PurSen||EBC logger for Pureskin+Senkov
+
+#### Antique #########################################################
+tantal|tantal@titan:51;clientprog=tantalclient|Tantal||Тантал с ВЧ-300
+
+#### For VEPP-5 ######################################################
+v5h1adc200s|v5h1adc200s@foxy-eth3:40;clientprog=liuclient;options=resizable,notoolbar,vspc:2|v5h1adc200s||VEPP-5 Hall-1 ADC200MEs
+######################################################################

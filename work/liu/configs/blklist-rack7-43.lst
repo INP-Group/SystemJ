@@ -1,0 +1,46 @@
+# rackX:43 LIU "slave" crate functions
+# file		driver		bus_id	main_i			big_i	auxinfo
+
+dl200me		dl200me		0	w64,r16,w10,r10		-	fast
+sktcankoz	panov_ubs	0,1,0	w30,r10,w30,r64,w64,r2	-
+sktcankoz	panov_ubs	0,2,0	w30,r10,w30,r64,w64,r2	-
+sktcankoz	panov_ubs	0,3,0	w30,r10,w30,r64,w64,r2	-
+sktcankoz	panov_ubs	0,4,0	w30,r10,w30,r64,w64,r2	-
+sktcankoz	panov_ubs	0,5,0	w30,r10,w30,r64,w64,r2	-
+sktcankoz	panov_ubs	0,6,0	w30,r10,w30,r64,w64,r2	-
+# Note: devices are enumerated top to bottom, than left to right
+:adc200a:adc200me	adc200me	4	w20	1*20+0i/20+400000i
+:adc200b:adc200me	adc200me	2	w20	1*20+0i/20+400000i
+:adc200c:adc200me	adc200me	0	w20	1*20+0i/20+400000i
+:adc200d:adc200me	adc200me	1	w20	1*20+0i/20+400000i
+:adc200e:adc200me	adc200me	3	w20	1*20+0i/20+400000i
+:adc200f:adc200me	adc200me	5	w20	1*20+0i/20+400000i
+# Note: only rack7 has adc812me's 1 and 0 exchanged because of Cadyrov's carrier
+:adc812l:adc812me	adc812me	1	w50	1*50+0i/50+400000i ptsofs=28000 numpts=10000 frqdiv=8
+:adc812r:adc812me	adc812me	0	w50	1*50+0i/50+400000i ptsofs=28000 numpts=10000 frqdiv=8
+#---
+fadiffer fadiffer - r1 - src=adc200a.0 maxpts=10000
+fadiffer fadiffer - r1 - src=adc200a.1 maxpts=10000
+fadiffer fadiffer - r1 - src=adc200b.0 maxpts=10000
+fadiffer fadiffer - r1 - src=adc200b.1 maxpts=10000
+fadiffer fadiffer - r1 - src=adc200c.0 maxpts=10000
+fadiffer fadiffer - r1 - src=adc200c.1 maxpts=10000
+fadiffer fadiffer - r1 - src=adc200d.0 maxpts=10000
+fadiffer fadiffer - r1 - src=adc200d.1 maxpts=10000
+fadiffer fadiffer - r1 - src=adc200e.0 maxpts=10000
+fadiffer fadiffer - r1 - src=adc200e.1 maxpts=10000
+fadiffer fadiffer - r1 - src=adc200f.0 maxpts=10000
+fadiffer fadiffer - r1 - src=adc200f.1 maxpts=10000
+#
+fadiffer fadiffer - r1 - src=adc812l.0 maxpts=10000
+fadiffer fadiffer - r1 - src=adc812l.1 maxpts=10000
+fadiffer fadiffer - r1 - src=adc812l.2 maxpts=10000
+fadiffer fadiffer - r1 - src=adc812l.3 maxpts=10000
+fadiffer fadiffer - r1 - src=adc812l.4 maxpts=10000
+fadiffer fadiffer - r1 - src=adc812l.5 maxpts=10000
+fadiffer fadiffer - r1 - src=adc812r.0 maxpts=10000
+fadiffer fadiffer - r1 - src=adc812r.1 maxpts=10000
+fadiffer fadiffer - r1 - src=adc812r.2 maxpts=10000
+fadiffer fadiffer - r1 - src=adc812r.3 maxpts=10000
+fadiffer fadiffer - r1 - src=adc812r.4 maxpts=10000
+fadiffer fadiffer - r1 - src=adc812r.5 maxpts=10000

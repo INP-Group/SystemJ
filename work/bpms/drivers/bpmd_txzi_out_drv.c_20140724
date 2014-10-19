@@ -1,0 +1,591 @@
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <fcntl.h>
+#include <ctype.h>
+#include <math.h>
+
+#include "cx.h"
+#include "cxsd_driver.h"
+#include "fdiolib.h"
+#include "misclib.h"
+
+#include "drv_i/bpmd_txzi_drv_i.h"
+
+
+//////////////////////////////////////////////////////////////////////
+// Listening
+
+static int CreateListenSocket(int devid, const char *which, int port)
+{
+  int                 sockfd;
+  struct sockaddr_in  iaddr;    /* Address to bind `inet_entry' to */
+  socklen_t           len;
+  int                 on = 1;   /* "1" for REUSE_ADDR */
+  int                 r;
+
+     /* Create a socket */
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0)
+    {
+        DoDriverLog(devid, 0, "%s: FATAL: socket() :-(", __FUNCTION__);
+        goto FAILURE;
+    }
+    if (sockfd >= FD_SETSIZE)
+    {
+        DoDriverLog(devid, 0, "%s: FATAL: socket()=%d, >=FD_SETSIZE=%d :-(",
+                    __FUNCTION__, sockfd, FD_SETSIZE);
+        goto FAILURE;
+    }
+
+    /* Bind it to a name */
+    iaddr.sin_family      = AF_INET;
+    iaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    iaddr.sin_port        = htons(port);
+
+    set_fd_flags(sockfd, O_NONBLOCK, 1);
+    setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
+
+    len = sizeof(iaddr);
+    r = bind(sockfd, (struct sockaddr *)&iaddr, len);
+    if (r < 0)
+    {
+        DoDriverLog(devid, 0, "%s: FATAL: socket()=%d, unable to bind() :-(",
+                    __FUNCTION__, sockfd);
+        goto FAILURE;
+    }
+
+    /* Mark it as listening */
+    r = listen(sockfd, 10);
+    if (r < 0)
+    {
+        DoDriverLog(devid, 0, "%s: FATAL: socket()=%d, unable to listen() :-(",
+                    __FUNCTION__, sockfd);
+        goto FAILURE;
+    }
+
+    DoDriverLog(devid, 0, "%s: Socket FD=%d for %s", __FUNCTION__, sockfd, which);
+    return sockfd;
+
+FAILURE:
+    close(sockfd);
+    return -1;    
+}
+
+//////////////////////////////////////////////////////////////////////
+//
+
+//////////////////////////////////////////////////////////////////////
+
+enum
+{
+    DATA_SIZE =
+        BPMD_TXZI_NUM_LINES  *
+        BPMD_TXZI_MAX_NUMPTS *
+        BPMD_TXZI_DATAUNITS
+};
+
+enum {HEARTBEAT_PERIOD = 2 * 1000 * 1000};
+enum {TRIG_CHAN_COUNT  = 100}; // an arbitrary limit
+
+enum
+{
+    CLIENT_TYPE_UNUSED = 0,
+    CLIENT_TYPE_SLOW   = 1,
+    CLIENT_TYPE_TURN   = 2,
+};
+
+typedef struct
+{
+    int            type;
+    fdio_handle_t  iohandle;
+    int            fd;
+} txt_clnt_t;
+
+typedef struct
+{
+    int           s_port;
+    int           t_port;
+
+    int           s_sock;
+    int           t_sock;
+
+    txt_clnt_t   *clients_list;
+    int           clients_list_allocd;
+
+    int                  inputs_count;
+    inserver_refmetric_t inputs[TRIG_CHAN_COUNT];
+
+    tag_t         tag;
+    rflags_t      rflags;
+    int32         mes_params[CX_MAX_BIGC_PARAMS];
+
+    int           slw_data_len;
+    int           tbt_data_len;
+    uint8         mes_data[DATA_SIZE];
+    uint8         slw_data[DATA_SIZE + 1024];
+    uint8         tbt_data[DATA_SIZE + 1024];
+
+    int           was_trigger;
+} privrec_t;
+
+static psp_paramdescr_t text2bpmd_params[] =
+{
+    PSP_P_INT ("s_port", privrec_t, s_port, 10001, 10000, 30000),
+    PSP_P_INT ("t_port", privrec_t, t_port, 20002, 10000, 30000),
+
+    PSP_P_END ()
+};
+
+// GetClientSlot()
+GENERIC_SLOTARRAY_DEFINE_GROWING(static, Client, txt_clnt_t,
+                                 clients, type, CLIENT_TYPE_UNUSED, CLIENT_TYPE_SLOW,
+                                 1, 2, 100,
+                                 me->, me,
+                                 privrec_t *me, privrec_t *me);
+
+static void RlsClientSlot(int id, privrec_t *me)
+{
+  txt_clnt_t *cp = AccessClientSlot(id, me);
+
+    if (cp->type <= 0) return;
+    if (cp->iohandle >= 0) fdio_deregister(cp->iohandle);
+    if (cp->fd >= 0)       close          (cp->fd);
+    
+    cp->type     = CLIENT_TYPE_UNUSED;
+    cp->iohandle = -1;
+    cp->fd       = -1;
+}
+
+static inline int cp2cd(txt_clnt_t *cp, privrec_t *me)
+{
+    return cp - me->clients_list;
+}
+
+
+static void PrintInitialConfiguration(int devid, void *devptr)
+{
+  privrec_t   *me = (privrec_t *)devptr;
+
+    DoDriverLog(devid, 0, "%s) Configuration obtained from auxinfo at %s:", __FUNCTION__, __FILE__);
+    DoDriverLog(devid, 0, "%s) port for connection with   ...  (slw) = %d", __FUNCTION__, me->s_port);
+    DoDriverLog(devid, 0, "%s) port for connection with   ...  (tbt) = %d", __FUNCTION__, me->t_port);
+}
+
+/* adapted from cx/src/lib/misc/misc_iso8601.c */
+static char* cas_format_time(struct timeval *when, char *dts)
+{
+  static char  buf[100];
+  struct tm   *st      = localtime(&(when->tv_sec));
+  
+    sprintf(buf, "%02d.%02d.%04d%s%02d_%02d_%02d.%03d",
+            st->tm_mday, st->tm_mon + 1, st->tm_year + 1900,
+            dts,
+            st->tm_hour, st->tm_min, st->tm_sec, (int)(when->tv_usec / 1000));
+
+    return buf;
+}
+
+static int DoSendData(txt_clnt_t *cp, void *privptr)
+{
+  privrec_t      *me = privptr;
+  uint8          *buf;
+  int             len;
+
+    if (cp->type == CLIENT_TYPE_SLOW)
+    {
+        buf = me->slw_data;
+        len = me->slw_data_len;
+    }
+    else
+    {
+        buf = me->tbt_data;
+        len = me->tbt_data_len;
+    }
+    if (fdio_send(cp->iohandle, buf, len) < 0)
+        RlsClientSlot(cp2cd(cp, me), me);
+
+    return 0;
+}
+
+static void SendDataToClients(int devid __attribute__((unused)), void *devptr,
+                              int tid __attribute__((unused)), void *privptr __attribute__((unused)))
+{
+  privrec_t      *me = (privrec_t *) devptr;
+  
+  struct timeval  timenow;
+  int             ofs;
+  int             len;
+  float           scale;
+  size_t          wbytes;
+
+    gettimeofday(&timenow, NULL);
+
+    me->mes_params[BPMD_TXZI_CHAN_IMEAN  ] *= me->mes_params[BPMD_TXZI_CHAN_IMEAN  ] >= 0 ? 1 : -1;
+    me->mes_params[BPMD_TXZI_CHAN_ISTDDEV] *= me->mes_params[BPMD_TXZI_CHAN_ISTDDEV] >= 0 ? 1 : -1;
+
+    // slw packet template string
+    // p:pic1|n:1024|time:08.03.1982 09_30_12.567|x:1.0|sx:2.0|z:3.0|sz:3.14|I:150.0|sI:2.7\n
+    
+    /* 1. write data header and data */
+    scale = 1.0e-4; // see the same scale in bpmd_txzi_drv.c::ReadMeasurements::217
+    ofs = 0;
+    len = sprintf(me->slw_data + ofs,
+        "p:pic%d|n:%d|time:%s|x:%+.5f|sx:%+.5f|z:%+.5f|sz:%+.5f|I:%+.5f|sI:%+.5f\n",
+        me->mes_params[BPMD_TXZI_CHAN_BPMID ],
+        me->mes_params[BPMD_TXZI_CHAN_NUMPTS],
+        cas_format_time(&timenow, " "),
+        scale * me->mes_params[BPMD_TXZI_CHAN_XMEAN  ],
+        scale * me->mes_params[BPMD_TXZI_CHAN_XSTDDEV],
+        scale * me->mes_params[BPMD_TXZI_CHAN_ZMEAN  ],
+        scale * me->mes_params[BPMD_TXZI_CHAN_ZSTDDEV],
+        scale * me->mes_params[BPMD_TXZI_CHAN_IMEAN  ],
+        scale * me->mes_params[BPMD_TXZI_CHAN_ISTDDEV]);
+    ofs += len;
+
+    me->slw_data_len = ofs;
+
+    // tbt packet template string
+    // p:pic1|n:1024|time:08.03.1982 09_30_12.567|start:ext|bytes:<sizeof(float) * n>\n<binary data>
+
+    /* 1. write data header */
+    wbytes =
+        BPMD_TXZI_NUM_LINES                   *
+        me->mes_params[BPMD_TXZI_CHAN_NUMPTS] *
+        BPMD_TXZI_DATAUNITS;
+
+    ofs = 0;
+    len = sprintf(me->tbt_data + ofs,
+        "p:pic%d|n:%d|time:%s|start:%s|bytes:%d\n",
+        me->mes_params[BPMD_TXZI_CHAN_BPMID ],
+        me->mes_params[BPMD_TXZI_CHAN_NUMPTS],
+        cas_format_time(&timenow, " "),
+        me->mes_params[BPMD_TXZI_CHAN_ISTART] ? "int" : "ext",  
+	wbytes);
+    ofs += len;
+
+    /* 2. write binary data */
+    len  = wbytes;
+    memcpy(me->tbt_data + ofs, me->mes_data, len);
+    ofs += len;
+
+    me->tbt_data_len = ofs;
+
+    ForeachClientSlot(DoSendData, me, me);
+}
+
+static void rfm_bigc_evproc(int                 devid, void *devptr,
+                            inserver_chanref_t  ref,
+                            int                 reason __attribute__((unused)),
+                            void               *privptr)
+{
+  privrec_t      *me  = (privrec_t *)devptr;
+  int             r   = 0;
+  int             it  = 0;
+  size_t          retdataunits;
+
+  inserver_refmetric_t *m_p = privptr;
+
+    /* NB!!!!!: 'reason' value is 0 for a moment */
+
+    if ( m_p != NULL)
+	DoDriverLog(devid, 0 * DRIVERLOG_DEBUG | DRIVERLOG_C_ENTRYPOINT,
+		    "%s(%s.%d->%d.%d)", __FUNCTION__,
+		    m_p->targ_name, m_p->chan_n, m_p->targ_ref, m_p->chan_ref);
+    else return;
+
+    if (me->was_trigger) return;
+
+    me->was_trigger = 1;
+
+    /* Get data */
+    /* 1. Read ststistics */
+    r = inserver_get_bigc_stats (devid, ref, &me->tag, &me->rflags);
+
+    /* 2. Read parameters */
+    r = inserver_get_bigc_params(devid, ref, 0, BPMD_TXZI_CHAN_COUNT, me->mes_params);
+#if 0
+    for (it = 0; it < r; ++it)
+        if (0)
+            fprintf(stderr, "%s:%d:%s() statistics_param[%d] = %d\n",
+                    __FILE__, __LINE__, __FUNCTION__, it, me->params[it]);
+#endif
+    /* 3. Read data */
+    r = inserver_get_bigc_data  (devid, ref, 0, DATA_SIZE, me->mes_data, &retdataunits);
+#if 0
+    for (it = 0; it < me->mes_params[BPMD_TXZI_CHAN_NUMPTS]; ++it)
+    {
+        if (0 && !(it % 400))
+        {
+            fprintf(stderr, "%s) retdataunits = %d | %d, %f, %f, %f\n",
+                    __FUNCTION__, retdataunits,
+                    *(int32 *)(me->mes_data + (0 * me->mes_params[BPMD_TXZI_CHAN_NUMPTS] + it) * sizeof(float)),
+                    *(float *)(me->mes_data + (1 * me->mes_params[BPMD_TXZI_CHAN_NUMPTS] + it) * sizeof(float)),
+                    *(float *)(me->mes_data + (2 * me->mes_params[BPMD_TXZI_CHAN_NUMPTS] + it) * sizeof(float)),
+                    *(float *)(me->mes_data + (3 * me->mes_params[BPMD_TXZI_CHAN_NUMPTS] + it) * sizeof(float)));
+        }
+    }
+#endif
+    SendDataToClients(devid, devptr, 0, privptr);
+    me->was_trigger = 0;
+}
+
+static void ReadDataFromClient(int devid, void *devptr,
+                               fdio_handle_t iohandle, int reason,
+                               void *inpkt, size_t inpktsize,
+                               void *privptr)
+{
+  privrec_t      *me = (privrec_t *)devptr;
+  int             id = ptr2lint(privptr);
+
+    switch (reason)
+    {
+        case FDIO_R_DATA:
+            fprintf(stderr, "%s) NOTICE: Read from client %d bytes of msg = %s\n",
+                    __FUNCTION__, inpktsize, (char *)inpkt);
+            break;
+            
+        case FDIO_R_CLOSED:
+            DoDriverLog(devid, 0, "%s) FATAL: conn-socket closed by", __FUNCTION__);
+            goto FATAL;
+            break;
+
+        case FDIO_R_IOERR:
+            DoDriverLog(devid, 0, "%s) FATAL: fdio_lasterr(handle) ", __FUNCTION__);
+            goto FATAL;
+            break;
+
+        case FDIO_R_PROTOERR:
+            /* In fact, as of 10.09.2009, FDIO_R_PROTOERR is unused by fdiolib */
+            DoDriverLog(devid, 0, "%s) FATAL: fdio_lasterr(handle) ", __FUNCTION__);
+            goto FATAL;
+            break;
+
+        case FDIO_R_INPKT2BIG:
+            DoDriverLog(devid, 0, "%s) FATAL: overlong packet from ", __FUNCTION__);
+            goto FATAL;
+            break;
+
+        case FDIO_R_ENOMEM:
+            DoDriverLog(devid, 0, "%s) FATAL: enomem               ", __FUNCTION__);
+            goto FATAL;
+            break;
+
+        default:
+            DoDriverLog(devid, 0, "%s) FATAL: unknown reason       ", __FUNCTION__);
+            goto FATAL;
+    }
+
+    return;
+FATAL:
+    RlsClientSlot(id, me);
+}
+
+static void AcceptClientConnection(int devid, void *devptr,
+                                   fdio_handle_t iohandle, int reason,
+                                   void *inpkt __attribute__((unused)), size_t inpktsize __attribute__((unused)),
+                                   void *privptr)
+{
+  privrec_t          *me   = (privrec_t *)devptr;
+  int                 type = ptr2lint(privptr);
+ 
+  int                 s;
+  // struct sockaddr_un  usrc;
+  struct sockaddr_in  isrc;
+  struct sockaddr    *clnt_addr;
+  socklen_t           addrlen;
+  int                 on = 1;   /* "1" for KEEPALIVE */
+  char                remoteIP[INET_ADDRSTRLEN + 1];
+
+  int                 id;
+  txt_clnt_t         *cp;
+
+    if (reason != FDIO_R_ACCEPT)
+    {
+        // logline(LOGF_SYSTEM, 0, "%s::%s(handle=%d): reason=%d, !=FDIO_R_ACCEPT=%d",
+        //         __FILE__, __FUNCTION__, handle, reason, FDIO_R_ACCEPT);
+        return;
+    }
+
+    /* 1. Accept connection */
+    clnt_addr = (struct sockaddr *)&isrc;
+    addrlen   = sizeof(isrc);
+
+    s = fdio_accept(iohandle, clnt_addr, &addrlen);
+    if (s < 0)
+    {
+        fprintf(stderr, "%s) FATAL: accept()=%d: %s :(\n", __FUNCTION__, s, strerror(errno));
+        return;
+    }
+    
+    /* 2. KEEPALIVE */
+    setsockopt(s, SOL_SOCKET, SO_KEEPALIVE, &on, sizeof(on));
+
+    if ((id = GetClientSlot(me)) < 0)
+    {
+        close(s);
+        return;
+    }
+    cp = AccessClientSlot(id, me);
+    cp->type     = type;
+    cp->iohandle = -1;
+    cp->fd       = s;
+
+    /* 3. Add descriptor for watching */
+    cp->iohandle = fdio_register_fd(devid, devptr, s, FDIO_STREAM,
+                                    ReadDataFromClient, lint2ptr(id),
+                                    1 /* maxpktsize */, 1  /* hdr_size   */,
+                                    0 /* len_offset */, 0  /* len_size   */,
+                                    FDIO_LEN_LITTLE_ENDIAN /* len_endian */,
+                                    0 /* len_units  */, 1  /* len_add    */);
+    if (cp->iohandle < 0)
+    {
+        /* TODO: add DoDriverLog with message */
+        RlsClientSlot(id, me);
+        return;
+    }
+
+    DoDriverLog(devid, 0, "%s: New connection from \'%s\' fd = %d", __FUNCTION__,
+                inet_ntop(AF_INET, &(isrc.sin_addr), remoteIP, sizeof(remoteIP)), s);
+
+    // getsockname()
+    return;
+}
+
+static int init_d(int devid, void *devptr, 
+                  int businfocount __attribute__((unused)), int businfo[] __attribute__((unused)),
+                  const char *auxinfo)
+{
+  privrec_t      *me = (privrec_t *)devptr;
+  const char     *p  = auxinfo;
+  int             r  = 0;
+  size_t          it = 0;
+
+  char            input_name[100];
+
+    me->s_sock = -1;
+    me->t_sock = -1;
+
+    /* I. Parse auxinfo */
+    /* 0. Is there anything at all? */
+    if (auxinfo == NULL || auxinfo[0] == '\0')
+    {
+        DoDriverLog(devid, 0, "%s: auxinfo is empty...", __FUNCTION__);
+        return -CXRF_CFG_PROBL;
+    }
+    p = auxinfo;
+
+    while (1)
+    {
+        check_snprintf(input_name, sizeof(input_name), "input%d", me->inputs_count);
+
+        if (me->inputs_count >= countof(me->inputs))
+        {
+            DoDriverLog(devid, 0, "too many input-references; limit is %d", countof(me->inputs));
+            return -CXRF_CFG_PROBL;
+        }
+        DoDriverLog(devid, DRIVERLOG_DEBUG, "%s: about to parse %s from <%s>", __FUNCTION__, input_name, p);
+
+        if ((r = inserver_parse_d_c_ref(devid, input_name,
+                                        &p, me->inputs + me->inputs_count)) < 0)
+            return r;
+
+	me->inputs[me->inputs_count].chan_is_bigc = 1;
+        me->inputs[me->inputs_count].data_cb      = rfm_bigc_evproc;
+        me->inputs[me->inputs_count].privptr      = me->inputs + me->inputs_count;
+
+	me->inputs_count++;
+
+        if (*p == '\0'  ||  isspace(*p)) break;
+
+        if (*p != '|')
+        {
+            DoDriverLog(devid, 0, "unexpected character '%c' at auxinfo while parsing inputs' list", *p);
+            return -CXRF_CFG_PROBL;
+        }
+        p++;
+    }
+
+    auxinfo = p;
+
+    /* 2. parse port */
+    if (psp_parse(auxinfo, NULL,
+                  me,
+                  '=', " \t", "",
+                  text2bpmd_params) != PSP_R_OK)
+    {
+        DoDriverLog(devid, 0, "psp_parse(auxinfo): %s", psp_error());
+        return -CXRF_CFG_PROBL;
+    }
+    PrintInitialConfiguration(devid, devptr);
+
+    /* II. Create auxilary recources for communication with clients */
+    /* 1. Create Socket for connection with clients */
+    me->s_sock = CreateListenSocket(devid, "Socket for slow data",         me->s_port);
+    if (me->s_sock < 0)
+    {
+        DoDriverLog(devid, 0, "%s: FATAL: unable to initialise socket for slow data :-(",        __FUNCTION__);
+        return -CXRF_CFG_PROBL;
+    }
+
+    me->t_sock = CreateListenSocket(devid, "Socket for turn by turn data", me->t_port);
+    if (me->t_sock < 0)
+    {
+        DoDriverLog(devid, 0, "%s: FATAL: unable to initialise socket for tur by turn data :-(", __FUNCTION__);
+        return -CXRF_CFG_PROBL;
+    }
+
+    /* 3. Register socket for ready to read as usual for listening socket */
+    fdio_register_fd(devid, devptr, me->s_sock, FDIO_LISTEN,
+                     AcceptClientConnection, lint2ptr(CLIENT_TYPE_SLOW),
+                     0 /* maxpktsize */, 0  /* hdr_size   */,
+                     0 /* len_offset */, 0  /* len_size   */,
+                     FDIO_LEN_LITTLE_ENDIAN /* len_endian */,
+                     0 /* len_units  */, 0  /* len_add    */);
+    fdio_register_fd(devid, devptr, me->t_sock, FDIO_LISTEN,
+                     AcceptClientConnection, lint2ptr(CLIENT_TYPE_TURN),
+                     0 /* maxpktsize */, 0  /* hdr_size   */,
+                     0 /* len_offset */, 0  /* len_size   */,
+                     FDIO_LEN_LITTLE_ENDIAN /* len_endian */,
+                     0 /* len_units  */, 0  /* len_add    */);
+
+    /* III. Run */
+    me->inputs[0].m_count = me->inputs_count;
+
+    inserver_new_watch_list(devid, me->inputs, HEARTBEAT_PERIOD);
+
+    return DEVSTATE_OPERATING;
+}
+
+static void term_d(int devid __attribute__((unused)), void *devptr)
+{
+  privrec_t      *me = (privrec_t *)devptr;
+
+    /* We rely on server to release all inserver* resources */
+
+    DestroyClientSlotArray(me);
+}
+
+/* 
+    Note Bene!!!
+    
+    DEFINE_DRIVER(
+        name, comment,                     \
+        init_mod, term_mod,                \
+        privrecsize, paramtable,           \
+        min_businfo_n, max_businfo_n,      \
+        layer, layerver,                   \
+        main_nsegs, main_info,             \
+        bigc_nsegs, bigc_info,             \
+        init_dev, term_dev, rw_p, bigc_p   \
+    )
+*/
+
+DEFINE_DRIVER(bpmd_txzi_out, "PC driver for sending x/z/I mean/sigma values to everyone",
+              NULL, NULL,
+              sizeof(privrec_t), NULL,
+              0, 20, /*!!! CXSD_DB_MAX_BUSINFOCOUNT */
+              NULL, 0,
+              -1, NULL,
+              -1, NULL,
+              init_d, term_d, NULL, NULL);

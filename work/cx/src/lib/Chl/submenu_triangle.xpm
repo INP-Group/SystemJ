@@ -1,0 +1,9 @@
+/* XPM */
+static char * submenu_triangle_xpm[] = {
+"7 4 2 1",
+" 	c #0000FFFFFFFF",
+".	c #000000000000",
+".......",
+" ..... ",
+"  ...  ",
+"   .   "};

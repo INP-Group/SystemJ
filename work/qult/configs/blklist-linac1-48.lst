@@ -1,0 +1,5 @@
+# linac1:48 -- Korepanov's & Bak's 8hrs measurements
+# file	driver	bus_id	main_i	biginfo	auxinfo
+
+# c0609 + KAS-128G
+cm5307	cm5307	2572	r64	-	ppc/ppc-magcorr:cm5307_c0609,set2=4

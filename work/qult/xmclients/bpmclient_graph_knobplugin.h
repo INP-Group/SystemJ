@@ -1,0 +1,8 @@
+#ifndef __BPMCLIENT_GRAPH_KNOBPLUGIN_H
+#define __BPMCLIENT_GRAPH_KNOBPLUGIN_H
+
+
+extern knobs_vmt_t BPM_GRAPH_VMT;
+
+
+#endif /* __BPMCLIENT_GRAPH_KNOBPLUGIN_H */

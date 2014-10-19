@@ -1,0 +1,6 @@
+#define UTS_VERSION "#288 Û’¬ È¿Ã 14 00:01:23 NOVST 2001"
+#define LINUX_COMPILE_TIME "00:01:23"
+#define LINUX_COMPILE_BY "root"
+#define LINUX_COMPILE_HOST "L6-1-521-1.inp.nsk.su"
+#define LINUX_COMPILE_DOMAIN "inp.nsk.su"
+#define LINUX_COMPILER "gcc version egcs-2.91.66 19990314 (egcs-1.1.2 release)"

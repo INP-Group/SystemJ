@@ -1,0 +1,58 @@
+#
+devtype	adc812me r1i2097144,r8i262143,r1i,w20,r10 {
+	data		0
+	line0		1
+	line1		2
+	line2		3
+	line3		4
+	line4		5
+	line5		6
+	line6		7
+	line7		8
+
+	shot		10
+	stop		11
+	istart		12:data
+	waittime	13:data
+	ptsofs		14:data
+	numpts		15:data
+
+	timing		20:data
+	frqdiv		21:data
+	range0		22:data
+	range1		23:data
+	range2		24:data
+	range3		25:data
+	range4		26:data
+	range5		27:data
+	range6		28:data
+	range7		29:data
+
+	xs_per_step	30
+	line0on		31
+	line1on		32
+	line2on		33
+	line3on		34
+	line4on		35
+	line5on		36
+	line6on		37
+	line7on		38
+	line0rangemin	39
+	line1rangemin	40
+	line2rangemin	41
+	line3rangemin	42
+	line4rangemin	43
+	line5rangemin	44
+	line6rangemin	45
+	line7rangemin	46
+	line0rangemax	47
+	line1rangemax	48
+	line2rangemax	49
+	line3rangemax	50
+	line4rangemax	51
+	line5rangemax	52
+	line6rangemax	53
+	line7rangemax	54
+
+	serial		59
+}

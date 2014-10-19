@@ -1,0 +1,2 @@
+extern dataknob_knob_vmt_t motifknobs_text_vmt;
+extern dataknob_knob_vmt_t motifknobs_defknob_vmt;

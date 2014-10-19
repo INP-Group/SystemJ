@@ -1,0 +1,1 @@
+vacclient: vacclient.o vacclient_db.o vacclient_gui.o vacclient_meat.o 

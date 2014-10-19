@@ -1,0 +1,9 @@
+# bike:46 -- weld control
+
+sktcankoz	senkov_vip	0,10	w8,w4,r12,r8,r16,r2		-				
+sktcankoz	weld02		0,12	w8,r10				-				
+sktcankoz	xcac208		0,13	w20,w8,r8,w1,r1,r12,r24,w16,r8	8*1+58i/1+58i,1*1+261i/1+261i	beg=0 end=5
+sktcankoz	xceac124	0,14	w20,w8,r8,w1,r1,r12,r16,w8,r4	4*1+58i/1+58i,1*1+261i/1+261i	
+sktcankoz	xceac124	0,15	w20,w8,r8,w1,r1,r12,r16,w8,r4	4*1+58i/1+58i,1*1+261i/1+261i	
+remdrv		remdrv		2	w6,r4				-				ppc/ppc-weldsyn:cm5307_frolov_bfp
+remdrv		remdrv		4	w10				-				ppc/ppc-weldsyn:cm5307_dds300

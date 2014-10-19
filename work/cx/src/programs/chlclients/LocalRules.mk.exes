@@ -1,0 +1,90 @@
+######################################################################
+#                                                                    #
+#  programs/chlclients/LocalRules.mk                                 #
+#      Rules for making Chl-based clients                            #
+#                                                                    #
+######################################################################
+#                                                                    #
+#  External usage:                                                   #
+#     +---------------------------------------------------+          #
+#     |SRCDIR=<some-path>/cx/src                          |          #
+#     |include $(SRCDIR)/programs/chlclients/LocalRules.mk|          #
+#     +---------------------------------------------------+          #
+#  In this case there must be a ./SimpleClients.lst file,            #
+#  containing the clients-database, and the DB/ subdir must          #
+#  contain the db_SUBSYS.h files.                                    #
+#                                                                    #
+#  SimpleClients.lst is a one-record-per-line file, with records'    #
+#  fields separated with "|" (pipes).  Record format:                #
+#                                                                    #
+#      system_name|app_name|app_class|[icon]|Window Title            #
+#                                                                    #
+#  Icon is optional (may be empty string) and Window Title may       #
+#  contain spaces                                                    #
+#                                                                    #
+######################################################################
+
+# ==== Introduction/setup ============================================
+
+.PHONY:		firsttarget
+firsttarget:	all
+
+include $(SRCDIR)/Rules.mk
+
+
+# ==== List of targets ===============================================
+
+SIMPLECLIENTSLIST=	SimpleClients.lst
+SIMPLECLIENTS:=	$(shell grep -v '^ *\#' $(SIMPLECLIENTSLIST) | grep '^[a-z][a-z_0-9]*[|]' | awk -F'|' '{print $$1}')
+
+ALLSYSTEMS_H=	allsystems.h
+
+TARGETFILES=	$(SIMPLECLIENTS)
+
+EXPORTSFILES=	$(TARGETFILES)
+EXPORTSDIR=	bin
+
+
+# ==== File lists ====================================================
+
+files:		$(TARGETFILES)
+
+CLIENTSSOURCES=	$(TARGETFILES:=.c)
+
+ALLSOURCES=	$(CLIENTSSOURCES)
+ALLOBJECTS=	$(ALLSOURCES:.c=.o)
+ALLDEPENDS=	$(ALLSOURCES:.c=.d)
+
+INTMFILES+=	$(CLIENTSSOURCES)
+BCKPFILES+=	DB/*\~
+GENERATEDFILES+=$(ALLSYSTEMS_H)
+
+
+# ==== Targets =======================================================
+
+files:		$(TARGETFILES)
+
+LIBS+=		$(MOTIF_LIBS)
+
+ifeq "$(OUTOFTREE)" ""
+  MKCLIENT_PATH=	.
+else
+  MKCLIENT_PATH=	$(SRCDIR)/programs/chlclients
+endif
+MKCLIENT=	$(MKCLIENT_PATH)/mkclient.sh
+MKPHYSDB=	$(MKCLIENT_PATH)/mkphysdb.sh
+
+$(ALLSYSTEMS_H):	$(SIMPLECLIENTSLIST) $(MKPHYSDB)
+		$(MKPHYSDB) -o $@ $(SIMPLECLIENTSLIST)
+
+$(CLIENTSSOURCES):	$(SIMPLECLIENTSLIST) $(MKCLIENT) $(ALLSYSTEMS_H)
+		$(MKCLIENT) -o $@ -s $(@:.c=) $(SIMPLECLIENTSLIST)
+
+$(TARGETFILES):	$(LIBCHL) $(LIBCDR) $(LIBKNOBS) $(LIBXH) $(LIBAUXMOTIFWIDGETS) \
+		$(LIBMISC) \
+		$(LIBCDA) $(LIBCX)
+
+# -- *.o: Dependencies are regenerated automatically --
+include		$(ALLDEPENDS)
+
+# ---- END OF LocalRules.mk ------------------------------------------

@@ -1,0 +1,1 @@
+libChl.a: libChl.a(Chl_gui.o Chl_priv2.o Chl_internals.o Chl_canvas.o Chl_multicol.o Chl_tabber.o Chl_subwin.o Chl_invisible.o Chl_submenu.o Chl_rowcol.o Chl_knobprops.o Chl_bigvals.o Chl_histplot.o Chl_help.o Chl_elog.o elog_api.o Chl_app.o Chl_stdtoolbar.o Chl_leds.o Chl_leds_knob.o Chl_actionknobs.o Chl_scenario.o)

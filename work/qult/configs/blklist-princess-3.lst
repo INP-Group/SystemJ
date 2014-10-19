@@ -1,0 +1,1 @@
+usbkshd485	usbkshd485	1,0,0	r12,w12	- work_current=5 hold_current=1 hold_delay=30 config_byte=45 min_velocity=100 max_velocity=500 acceleration=1000

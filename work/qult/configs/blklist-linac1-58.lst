@@ -1,0 +1,4 @@
+# linac1:58 -- Frolov's D16-based RFSyn
+cm5307	cm5307	6	w20	-	ppc/ppc-rfsyn:cm5307_frolov_d16
+cm5307	cm5307	8	w20	-	ppc/ppc-rfsyn:cm5307_frolov_d16
+cm5307	cm5307	10	w20	-	ppc/ppc-rfsyn:cm5307_frolov_d16

@@ -1,0 +1,30 @@
+Utilities:
+cm5307_test.c -- should be re-implemented, including LAM support
+
+Ex-abstract drivers:
+(Legend:
+	"-" obsolete,
+	"+" reimplemented as direct,
+	"=" re-implemented as abstract)
+-adc200
+-adc333
+=c0601
+-c0602		// No CAMAC IVAs any more; and if were -- direct much better
++c0609		// set1,set2 -- ?  Use LAM, and, probably, ring-queue?
++c0612		// similar to c0609
++c0642		// Is simple, but requires tuning for 6/10V
+=frolov_bfp	// Weld-specific
+=frolov_bl700
+-frolov_d16
+=frolov_spd
++g0601		// Requires privrec for cache
++g0603		// Requires privrec for cache
++gzi11		// Requires privrec for type memorization
+=ind=i0633
++karpov_delayunit	// Requires privrec for cache
++l0403		// A non-trivial device, requires privrec for type memorization
+-podval_comm81	// Was it ever used?
+=r0601
+=sukh_comm24
+-+v0628		// Because of output-register dualism ported to direct long ago
+-v06rr		// Superseded by v06xx

@@ -1,0 +1,4 @@
+# Old data: first@linac:55, second@linac:54, astar@astar:54, vepp4@linac:53
+#sysname|app_name[@srvref[;options=OPTS][;clientprog=CPRG]]|app_class|[icon]|Window title
+ndbp_hall1|ndbp_hall1@linac:51;clientprog=ndbp|NDBP||Non-Destructive Beam Probe control center -- Hall 1
+ndbp_hall2|ndbp_hall2@linac:52;clientprog=ndbp|NDBP||Non-Destructive Beam Probe control center -- Hall 2

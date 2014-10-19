@@ -1,0 +1,1 @@
+libKnobs.a: libKnobs.a(Knobs_internals.o Knobs_public.o Knobs_simple.o Knobs_widgetset.o Knobs_text_widget.o Knobs_alarmonoffled_widget.o Knobs_dial_widget.o Knobs_button_widget.o Knobs_selector_widget.o Knobs_choicebs_widget.o Knobs_light_widget.o Knobs_slider_widget.o Knobs_sep_widget.o Knobs_label_widget.o Knobs_usertext_widget.o)

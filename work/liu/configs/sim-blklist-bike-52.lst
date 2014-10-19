@@ -1,0 +1,14 @@
+# blklist-bike-52 -- a test setup for LIU
+# file	driver	bus_id	main_i	big_i			auxinfo
+
+# 
+noop	noop	3	w20	-			ppc/dds:cm5307_frolov_d16
+noop	noop	5	w20	-			ppc/dds:cm5307_frolov_d16
+
+# ADC200*2
+sim	sim	9	-	1*10+0i/10+16384b	b len=16384 period=100 magn=100 nparams=10
+sim	sim	10	-	1*10+0i/10+16384b	b len=16384 period=100 magn=100 nparams=10
+
+# ADC333*2
+sim	sim	15	-	1*7+0b/7+65536i		i len=65536 period=100 magn=4000000 nparams=7 msecs=500 shift=10
+sim	sim	17	-	1*7+0b/7+65536i		i len=65536 period=100 magn=4000000 nparams=7 msecs=500 shift=-10

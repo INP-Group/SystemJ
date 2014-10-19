@@ -1,0 +1,10 @@
+# linac1:34 -- thermostabilization (2nd generation -- CANGW)
+# file driver bus_id main_info
+
+remdrv	remdrv	0,63	w40,r20,w8,r8,w1,r1,r22,r100,w64,r36	-	cangw/cangw-thermo:xcandac16
+remdrv	remdrv	0,62	w40,r20,w8,r8,w1,r1,r22,r100,w64,r36	-	cangw/cangw-thermo:xcandac16
+remdrv	remdrv	0,61	w40,r20,w8,r8,w1,r1,r22,r100,w64,r36	-	cangw/cangw-thermo:xcanadc40 time=4
+remdrv	remdrv	0,60	w40,r20,w8,r8,w1,r1,r22,r100,w64,r36	-	cangw/cangw-thermo:xcanadc40 time=4
+
+# Artificial channels (post-boxes)
+noop	noop	0	w100	-

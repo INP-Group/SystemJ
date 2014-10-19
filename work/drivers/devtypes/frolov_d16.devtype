@@ -1,0 +1,33 @@
+devtype frolov_d16 w30i {
+	A0		0
+	A1		1
+	A2		2
+	A3		3
+	B0		4
+	B1		5
+	B2		6
+	B3		7
+	V0		8
+	V1		9
+	V2		10
+	V3		11
+	OFF0		12
+	OFF1		13
+	OFF2		14
+	OFF3		15
+	ALLOFF		16
+	DO_SHOT		17
+
+	KSTART		18
+	KCLK_N		19
+	FCLK_SEL	20
+	START_SEL	21
+	MODE		22
+	F_IN_NS		23
+	WAITING		24
+	_UNUSED25	25
+	AUTO_SHOT	26
+	AUTO_SECS	27
+	_UNUSED28	28
+	_UNUSED29	29
+}

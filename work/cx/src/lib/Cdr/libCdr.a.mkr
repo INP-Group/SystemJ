@@ -1,0 +1,1 @@
+libCdr.a: libCdr.a(Cdr.o descraccess.o simpleaccess.o fqkn.o Cdr_script.o)

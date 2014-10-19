@@ -1,0 +1,99 @@
+# ring1:35 -- reserved for Rogovsky/ADC4
+#
+# file  driver  bus_id  main_i  biginfo auxinfo
+#
+
+# 192.168.8.151   ppc-ringbpm1.V5Booster.private.net      ppc-ringbpm1
+# 192.168.8.152   ppc-ringbpm2.V5Booster.private.net      ppc-ringbpm2
+
+# ADC4: each driver has 100 ordinary channels: 60 writable parameters-aliases and 40 - writable 
+
+
+:bpm01:remdrv  remdrv  12      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm1:cm5307_nadc4m  vepp5  zero0=-17 zero1=-18 zero2=-18 zero3=-15  n_del=8  c_del=0  n_atn=2  c_atn=0
+:bpm02:remdrv  remdrv  13      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm1:cm5307_nadc4m  vepp5  zero0=-7  zero1=-9  zero2=-20 zero3=-33  n_del=8  c_del=1  n_atn=2  c_atn=1
+
+
+:bpm03:remdrv  remdrv  15      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm1:cm5307_nadc4m  vepp5  zero0=-27 zero1=-20 zero2=-5  zero3=+8   n_del=8  c_del=2  n_atn=2  c_atn=2
+:bpm04:remdrv  remdrv  16      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm1:cm5307_nadc4m  vepp5  zero0=-25 zero1=-24 zero2=-6  zero3=-8   n_del=8  c_del=3  n_atn=2  c_atn=3
+
+
+#:bpm05:remdrv  remdrv  12      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm2:cm5307_nadc4  zero0=-19 zero1=-23 zero2=-6  zero3=-6
+:bpm05:remdrv  remdrv  12      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm2:cm5307_nadc4m  vepp5  zero0=-19 zero1=-23 zero2=-6  zero3=-6   n_del=8  c_del=0  n_atn=2  c_atn=0
+:bpm06:remdrv  remdrv  13      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm2:cm5307_nadc4m  vepp5  zero0=-12 zero1=-15 zero2=-28 zero3=+1   n_del=8  c_del=1  n_atn=2  c_atn=1
+
+
+:bpm07:remdrv  remdrv  15      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm2:cm5307_nadc4m  vepp5  zero0=-12 zero1=-5  zero2=-6  zero3=-2   n_del=8  c_del=2  n_atn=2  c_atn=2
+:bpm08:remdrv  remdrv  16      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm2:cm5307_nadc4m  vepp5  zero0=-14 zero1=-17 zero2=-12 zero3=-16  n_del=8  c_del=3  n_atn=2  c_atn=3
+
+
+:bpm09:remdrv  remdrv  18      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm2:cm5307_nadc4m  vepp5  zero0=-15 zero1=-27 zero2=-24 zero3=-12  n_del=9  c_del=0  n_atn=2  c_atn=4
+:bpm10:remdrv  remdrv  19      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm2:cm5307_nadc4m  vepp5  zero0=-19 zero1=-13 zero2=-11 zero3=-7   n_del=9  c_del=1  n_atn=2  c_atn=5
+
+
+:bpm11:remdrv  remdrv  21      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm2:cm5307_nadc4m  vepp5  zero0=-20 zero1=-31 zero2=-8  zero3=-13  n_del=9  c_del=2  n_atn=2  c_atn=6
+:bpm12:remdrv  remdrv  22      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm2:cm5307_nadc4m  vepp5  zero0=-9  zero1=-20 zero2=+8  zero3=-23  n_del=9  c_del=3  n_atn=2  c_atn=7
+
+
+:bpm13:remdrv  remdrv  18      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm1:cm5307_nadc4m  vepp5  zero0=-20 zero1=-14 zero2=-19 zero3=+4   n_del=9  c_del=0  n_atn=2  c_atn=4
+:bpm14:remdrv  remdrv  19      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm1:cm5307_nadc4m  vepp5  zero0=+1  zero1=-26 zero2=-17 zero3=-22  n_del=9  c_del=1  n_atn=2  c_atn=5
+
+
+:bpm15:remdrv  remdrv  21      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm1:cm5307_nadc4m  vepp5  zero0=-12 zero1=-8  zero2=-13 zero3=-16  n_del=9  c_del=2  n_atn=2  c_atn=6
+:bpm16:remdrv  remdrv  22      w60,r40   1*100+0i/100+131072i  ppc/ppc-ringbpm1:cm5307_nadc4m  vepp5  zero0=-19 zero1=-16 zero2=-14 zero3=-17  n_del=9  c_del=3  n_atn=2  c_atn=7
+
+
+# Delay Unit: each driver has 4 ordinary channels, but we pad the number up to 10 for siplictisiti
+remdrv  remdrv  8       r4,r6     -                     ppc/ppc-ringbpm1:cm5307_delayunit  vepp5
+remdrv  remdrv  8       r4,r6     -                     ppc/ppc-ringbpm2:cm5307_delayunit  vepp5
+remdrv  remdrv  9       r4,r6     -                     ppc/ppc-ringbpm2:cm5307_delayunit  vepp5
+remdrv  remdrv  9       r4,r6     -                     ppc/ppc-ringbpm1:cm5307_delayunit  vepp5
+
+
+# PS Control Unit: each driver has 8 ordinary channels, but we pad the number up to 10 for siplictisiti
+remdrv  remdrv  2       r8,r2     -                     ppc/ppc-ringbpm1:cm5307_psctrlunit  vepp5
+remdrv  remdrv  2       r8,r2     -                     ppc/ppc-ringbpm2:cm5307_psctrlunit  vepp5
+
+
+# ADC Subsampler Unit
+remdrv  remdrv   6      w5,r15    -                     ppc/ppc-ringbpm1:cm5307_nadc4decimator_v5  factor=100
+remdrv  remdrv   6      w5,r15    -                     ppc/ppc-ringbpm2:cm5307_nadc4decimator_v5  factor=100
+
+
+# conversion drivers
+:txz01:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm01.0  bpm_id=1   clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz02:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm02.0  bpm_id=2   clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz03:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm03.0  bpm_id=3   clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz04:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm04.0  bpm_id=4   clb_id=2  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz05:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm05.0  bpm_id=5   clb_id=2  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz06:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm06.0  bpm_id=7   clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz07:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm07.0  bpm_id=8   clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz08:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm08.0  bpm_id=9   clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz09:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm09.0  bpm_id=10  clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz10:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm10.0  bpm_id=11  clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz11:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm11.0  bpm_id=12  clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz12:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm12.0  bpm_id=13  clb_id=2  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz13:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm13.0  bpm_id=14  clb_id=2  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz14:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm14.0  bpm_id=15  clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz15:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm15.0  bpm_id=16  clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+:txz16:bpmd_txzi    bpmd_txzi    -    w60,r40    1*100+0i/100+131072i    src=bpm16.0  bpm_id=17  clb_id=1  iscale=1.0  v5r scale=1.0mA@a:7,s:1000
+
+# configuration drivers
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_01/bpm01:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_02/bpm02:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_03/bpm03:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_04/bpm04:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_05/bpm05:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_07/bpm06:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_08/bpm07:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_09/bpm08:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_10/bpm09:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_11/bpm10:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_12/bpm11:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_13/bpm12:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_14/bpm13:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_15/bpm14:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_16/bpm15:trololo
+       bpmd_cfg    bpmd_cfg    -    w30,r10    -     v5r_bpm_17/bpm16:trololo
+
+# put data in another way
+bpmd_txzi_out    bpmd_txzi_out -    -          -     txz01.0|txz02.0|txz03.0|txz04.0|txz05.0|txz06.0|txz07.0|txz08.0|txz09.0|txz10.0|txz11.0|txz12.0|txz13.0|txz14.0|txz15.0|txz16.0    s_port=10001 t_port=10002

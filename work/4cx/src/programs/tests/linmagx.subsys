@@ -1,0 +1,162 @@
+include(`magx_macros.m4')
+
+sysname linmagx
+defserver v2cx::linmagx
+wintitle main "Управление Магнитной Системой Линака"
+
+define(`MAGSYS_LINE',
+       `knob/groupable look:text r:$1_set options:nounits
+        disp           look:text r:$1_mes
+        disp           look:text r:$1_dvn
+        noop - " " hlabel
+        noop - " " hlabel
+        noop - " " hlabel')
+
+define(`V1000_LINE',
+       `knob/groupable look:text r:$1_set options:nounits
+        disp           look:text r:$1_mes
+        disp           look:text r:$1_dvn
+        noop - " " hlabel
+        noop - " " hlabel
+        noop - " " hlabel')
+
+define(`EMPTY_LINE',
+       `noop - " " hlabel
+        noop - " " hlabel
+        noop - " " hlabel
+        noop - " " hlabel
+        noop - " " hlabel
+        noop - " " hlabel')
+
+grouping main LINMAGX_grouping "Управление Магнитной Системой Линака" lrtb \
+        content:3 {
+
+    container magsys "Магнитная система" grid \
+            str1:"Задано, A\tИзм., A\td/dT\t \t " \
+            base:magsys param1:6 param2:24 content:eval(24*6*2) {
+        V1000_LINE(Rings)
+        MAGX_IST_XCDAC20_LINE(Solenoid1, "Solenoid 1", "\nИП2: ИСТ-3",     Solenoid1, 1800, 1, 1, 0)
+        MAGSYS_LINE(Lens1)
+        MAGSYS_LINE(Lens2)
+        MAGSYS_LINE(Lens3)
+        MAGSYS_LINE(Lens4)
+        V1000_LINE(Spectrometer)
+        MAGSYS_LINE(Lens5)
+        MAGSYS_LINE(Lens6n7)
+        MAGSYS_LINE(Lens8n9)
+        MAGSYS_LINE(Lens10)
+        MAGSYS_LINE(Lens11)
+        MAGSYS_LINE(Lens12)
+        MAGSYS_LINE(Lens13)
+        MAGSYS_LINE(Lens14)
+        MAGSYS_LINE(LensB1)
+        MAGSYS_LINE(LensB3n4)
+        MAGSYS_LINE(LensB2n5)
+        MAGX_IST_XCDAC20_LINE(Bend,      "Bend",       "\nИСТР: ИСТ-1",    Bend,      1800, 1, 1, 0)
+        V1000_LINE(TrLens1)
+        V1000_LINE(TrLens2)
+        V1000_LINE(TrLens3)
+        MAGX_IST_XCDAC20_LINE(Coil1,     "Coil1",      "\nВ1000: В1000-1", Coil1,     1500, 1, 1, 0)
+        V1000_LINE(Coil1o)
+        V1000_LINE(Coil2)
+        MAGX_IST_XCDAC20_LINE(Solenoid2, "Solenoid 2", "\nИСТР: ИСТ-2",    Solenoid2, 1800, 1, 1, 0)
+        V1000_LINE(TrPosL1n3)
+
+        MAGX_XCH300_LINE(lens16, "Lens 16", "", lens16, 1000)
+        MAGX_XCH300_LINE(lens17, "Lens 17", "", lens17, 1000)
+        MAGX_XCH300_LINE(lens18, "Lens 18", "", lens18, 1000)
+        MAGX_XCH300_LINE(lens19, "Lens 19", "", lens19, 1000)
+        MAGX_XCH300_LINE(lens20, "Lens 20", "", lens20, 1000)
+        MAGX_XCH300_LINE(lens21, "Lens 21", "", lens21, 1000)
+        MAGX_XCH300_LINE(lens22, "Lens 22", "", lens22, 1000)
+        MAGX_XCH300_LINE(lens23, "Lens 23", "", lens23, 1000)
+        MAGX_XCH300_LINE(lens24, "Lens 24", "", lens24, 1000)
+        MAGX_XCH300_LINE(lens25, "Lens 25", "", lens25, 1000)
+        MAGX_XCH300_LINE(lens26, "Lens 26", "", lens26, 1000)
+        MAGX_XCH300_LINE(lens27, "Lens 27", "", lens27, 1000)
+        MAGX_XCH300_LINE(lens28, "Lens 28", "", lens28, 1000)
+        MAGX_XCH300_LINE(lens29, "Lens 29", "", lens29, 1000)
+        MAGX_XCH300_LINE(lens30, "Lens 30", "", lens30, 1000)
+        MAGX_XCH300_LINE(lens31, "Lens 31", "", lens31, 1000)
+
+        MAGSYS_LINE(Separator)
+        MAGSYS_LINE(TrPosL2)
+
+        EMPTY_LINE()
+        EMPTY_LINE()
+
+        MAGX_IST_XCDAC20_LINE(1M1_1M4,   "1M1-1M4",    "\nИП2: ИСТ-?",     1M1_1M4,   1800, 1, 1, 0)
+    }
+
+    container magcor "Магнитная коррекция" grid \
+            str1:"Задано, mA\tИзм.\tU, V" \
+            base:magcor param1:3 param2:24 content:eval(24*3*2) {
+        MAGX_XOR4016_LINE(LENS1)
+        MAGX_XOR4016_LINE(LENS2)
+        MAGX_XOR4016_LINE(GUN_V)
+        MAGX_XOR4016_LINE(GUN_H)
+        MAGX_XOR4016_LINE(CAV_V)
+        MAGX_XOR4016_LINE(CAV_H)
+        MAGX_XOR4016_LINE(SCR_V)
+        MAGX_XOR4016_LINE(SCR_H)
+        MAGX_XOR4016_LINE(BUN_H)
+        MAGX_XOR4016_LINE(BUN_V)
+        MAGX_XOR4016_LINE(BUN1_H)
+        MAGX_XOR4016_LINE(BUN2_H)
+        MAGX_XOR4016_LINE(S1_V)
+        MAGX_XOR4016_LINE(S1_H)
+        MAGX_XOR4016_LINE(S2_V)
+        MAGX_XOR4016_LINE(S2_H)
+
+        MAGX_XOR4016_LINE(S3_V)
+        MAGX_XOR4016_LINE(S3_H)
+        MAGX_XOR4016_LINE(S4_V)
+        MAGX_XOR4016_LINE(S4_H)
+        MAGX_XOR4016_LINE(S5_V)
+        MAGX_XOR4016_LINE(S5_H)
+        MAGX_XOR4016_LINE(B1)
+        MAGX_XOR4016_LINE(B2)
+        MAGX_XOR4016_LINE(B_V)
+        MAGX_XOR4016_LINE(B3)
+        MAGX_XOR4016_LINE(TR_V)
+        MAGX_XOR4016_LINE(TR_H)
+        MAGX_XOR4016_LINE(CNV_V)
+        MAGX_XOR4016_LINE(CNV_H)
+        MAGX_XOR4016_LINE(S6_V)
+        MAGX_XOR4016_LINE(S6_H)
+
+        MAGX_XOR4016_LINE(S7_V)
+        MAGX_XOR4016_LINE(S7_H)
+        MAGX_XOR4016_LINE(S8_V)
+        MAGX_XOR4016_LINE(S8_H)
+        MAGX_XOR4016_LINE(S9_V)
+        MAGX_XOR4016_LINE(S9_H)
+        MAGX_XOR4016_LINE(S10_V)
+        MAGX_XOR4016_LINE(S10_H)
+        MAGX_XOR4016_LINE(S11_V)
+        MAGX_XOR4016_LINE(S11_H)
+        MAGX_XOR4016_LINE(S12_V)
+        MAGX_XOR4016_LINE(S12_H)
+        MAGX_XOR4016_LINE(S13_V)
+        MAGX_XOR4016_LINE(S13_H)
+        MAGX_XOR4016_LINE(S14_V)
+        MAGX_XOR4016_LINE(S14_H)
+    }
+
+    container mc-c208 "Кор208" grid \
+            str1:"Iset, mA\tImes\tUmes, V" \
+            base:mc-c208 param1:3 param3:2 content:eval(2+6*3) {
+        knob -switch "" choicebs nolabel \
+            items:"#T0\b\blit=red\t1\b\blit=green" \
+            r:-switch@r0 \
+            w:"_all_code; push 1; qryval; sub; putchan -switch@w0; ret"
+        disp look:text options:withlabel r:opora
+
+        MAGX_COR208_LINE(tech_v)
+        MAGX_COR208_LINE(tech_h)
+        MAGX_COR208_LINE(tr2_h)
+        MAGX_COR208_LINE(tr2_v)
+        MAGX_COR208_LINE(n45)
+        MAGX_COR208_LINE(n56)
+    }
+}

@@ -1,0 +1,77 @@
+#ifndef __XCEAD20_DRV_I_H
+#define __XCEAD20_DRV_I_H
+
+
+#include "drv_i/kozdev_common_drv_i.h"
+
+
+// w40,r20,w8,r8,w1,r1,r22,r100,w64,r36
+enum
+{
+    XCEAD20_CONFIG_CHAN_base     = KOZDEV_CONFIG_CHAN_base,
+      XCEAD20_CONFIG_CHAN_count  = KOZDEV_CONFIG_CHAN_count,
+
+    /*  */
+    XCEAD20_MODE_CHAN_base       = KOZDEV_MODE_CHAN_base,
+      XCEAD20_MODE_CHAN_count    = KOZDEV_MODE_CHAN_count,
+
+    XCEAD20_CHAN_DO_RESET        = KOZDEV_CHAN_DO_RESET,
+    XCEAD20_CHAN_ADC_MODE        = KOZDEV_CHAN_ADC_MODE,
+    XCEAD20_CHAN_ADC_BEG         = KOZDEV_CHAN_ADC_BEG,
+    XCEAD20_CHAN_ADC_END         = KOZDEV_CHAN_ADC_END,
+    XCEAD20_CHAN_ADC_TIMECODE    = KOZDEV_CHAN_ADC_TIMECODE,
+    XCEAD20_CHAN_ADC_GAIN        = KOZDEV_CHAN_ADC_GAIN,
+    XCEAD20_CHAN_RESERVED6       = KOZDEV_CHAN_RESERVED6,
+    XCEAD20_CHAN_RESERVED7       = KOZDEV_CHAN_RESERVED7,
+    XCEAD20_CHAN_RESERVED8       = KOZDEV_CHAN_RESERVED8,
+
+    /*  */
+    XCEAD20_CHAN_STD_WR_base     = KOZDEV_CHAN_STD_WR_base,
+      XCEAD20_CHAN_STD_WR_count  = KOZDEV_CHAN_STD_WR_count,
+
+    /*  */
+    XCEAD20_CHAN_STD_RD_base     = KOZDEV_CHAN_STD_RD_base,
+      XCEAD20_CHAN_STD_RD_count  = KOZDEV_CHAN_STD_RD_count,
+    XCEAD20_CHAN_HW_VER          = KOZDEV_CHAN_HW_VER,
+    XCEAD20_CHAN_SW_VER          = KOZDEV_CHAN_SW_VER,
+
+    /*** I/O registers **********************************************/
+    XCEAD20_CHAN_REGS_base       = KOZDEV_CHAN_REGS_base,
+    XCEAD20_CHAN_REGS_WR8_base   = KOZDEV_CHAN_REGS_WR8_base,
+    XCEAD20_CHAN_REGS_RD8_base   = KOZDEV_CHAN_REGS_RD8_base,
+    XCEAD20_CHAN_REGS_WR1        = KOZDEV_CHAN_REGS_WR1,
+    XCEAD20_CHAN_REGS_RD1        = KOZDEV_CHAN_REGS_RD1,
+    XCEAD20_CHAN_REGS_last       = KOZDEV_CHAN_REGS_last,
+
+    XCEAD20_CHAN_REGS_RSVD_B     = KOZDEV_CHAN_REGS_RSVD_B,
+    XCEAD20_CHAN_REGS_RSVD_E     = KOZDEV_CHAN_REGS_RSVD_E,
+
+    /* Regular ADC/DAC channels *************************************/
+    XCEAD20_CHAN_ADC_n_base      = KOZDEV_CHAN_ADC_n_base,
+      XCEAD20_CHAN_ADC_n_count   = 48,
+      XCEAD20_CHAN_ADC_n_maxcnt  = KOZDEV_CHAN_ADC_n_maxcnt,
+
+    XCEAD20_CHAN_OUT_n_base      = KOZDEV_CHAN_OUT_n_base,
+      XCEAD20_CHAN_OUT_n_maxcnt  = KOZDEV_CHAN_OUT_n_maxcnt,
+      XCEAD20_CHAN_OUT_RESERVED_count = KOZDEV_CHAN_OUT_RESERVED_count,
+
+    XCEAD20_NUMCHANS = KOZDEV_NUMCHANS
+};
+
+enum
+{
+    XCEAD20_CHAN_ADC_DAC  = XCEAD20_CHAN_ADC_n_base + XCEAD20_CHAN_ADC_n_count - 3,
+    XCEAD20_CHAN_ADC_0V   = XCEAD20_CHAN_ADC_n_base + XCEAD20_CHAN_ADC_n_count - 2,
+    XCEAD20_CHAN_ADC_P10V = XCEAD20_CHAN_ADC_n_base + XCEAD20_CHAN_ADC_n_count - 1,
+};
+
+enum
+{
+    XCEAD20_ADC_MODE_NORM   = 0,
+    XCEAD20_ADC_MODE_OSCILL = 1,
+    XCEAD20_ADC_MODE_PLOT   = 2,
+    XCEAD20_ADC_MODE_TBACK  = 3,
+};
+
+
+#endif /* __XCEAD20_DRV_I_H */

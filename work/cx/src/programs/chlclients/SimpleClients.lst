@@ -1,0 +1,5 @@
+# system name|[*]app_name[@srvref]|app_class|[icon]|Window title
+widgettest|widgettest|WidgetTest||Всяческие виджеты
+canvastest|canvastest|CanvasTest||Тестовая программа для ELEM_CANVAS
+knobtest|knobtest|KnobTest||Various knobs testing application
+histplottest|histplottest|HistplotTest||Histplot knob testing application

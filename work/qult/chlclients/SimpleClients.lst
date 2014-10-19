@@ -1,0 +1,49 @@
+#sysname|app_name[@srvref[;options=OPTS][;clientprog=CPRG]]|app_class|[icon]|Window title
+subharmonic|subharmonic@linac1:30;options=compact|SubHarmonic||Управление субгармоникой
+linmagx|linmagx@linac1:31;options=loaddefsettings|LinMag|magnet|Управление Магнитной Системой Линака
+turnmag|turnmag@ring1:56;options=notoolbar,nostatusline|TurnMag||Поворотный магнит
+ringpem|ringpem@linac1:50;options=notoolbar,nostatusline|RingPem||ФЭУ - туда-сюда-обратно, тебе и мне приятно
+linthermcan|linthermcan@linac1:34|LinThermCAN||Система термостабилизации - CAN
+linvac|linvac@linac1:33;clientprog=vacclient|LinVac||Контроль вакуума в линаках
+newvac|newvac@linac1:33|NewVac||New Vacuum
+v5k_cvac|v5k_cvac@v5c-kuzn1:33|V5KCVac||V5@Kuzn Vacuum
+camsel|camsel@linac1:1;options=notoolbar,nostatusline|CamSel||Переключатель видеокамер
+wavesel|wavesel@linac1:1;options=notoolbar,nostatusline|WaveSel||Переключатель коммутаторов adc200 ВЧ
+ushd|ushd@;options=notoolbar,nostatusline|UShD||Демо УШД
+kls|kls|KLS||Klystron Control Demo
+ringcamsel|ringcamsel@ring1:56;options=notoolbar,nostatusline|RingCamSel||Селектор камер кольца
+linipp|+linipp@linac1:57;clientprog=ippclient;options=freezable|LinIpp||Linac IPP
+ylinipppanel|ylinipppanel@linac1:57|yLinIppPanel||Linac IPP -- panel with numbers
+#zlinipp|+zlinipp@linac1:57;clientprog=ippclient;options=freezable|LinIpp||Linac IPP
+linbpm|linbpm@linac1:59;clientprog=bpmclient|LinBpm||Linac BPMs
+linslbpms|linslbpms@linac1:36;clientprog=bpmclient|LinSlBpms||Linac BPMs (Styuf-based)
+lin485s|lin485s@linac1:3;options=notoolbar|Lin485s||Linac 485s
+
+ringrf|ringrf|RingRF||ВЧ-система накопителя
+
+#ringcor|ringcor@ring1:32|RingCor|magnet|Управление Магнитной Системой накопителя
+ringcor23|ringcor23@ring1:32|RingCor23||Магнитная коррекция накопителя - RST2/3
+ringcor45|ringcor45@ring1:32|RingCor45||Магнитная коррекция накопителя - RST4/5
+ringmag|ringmag@ring1:32|RingMag||Магнитная система накопителя
+
+ringcurmon|ringcurmon@ring1:56;options=resizable,notoolbar,nostatusline,compact,histring_size:864000|RingCurMon||Датчик тока кольца
+
+blm|blm@ring1:4;options=notoolbar,resizable;clientprog=pzframeclient|BLM||Beam Loss Monitor
+nsukhphase|nsukhphase|NSukhPhase||Sukhanov's phase measurements - v.2
+
+ist_xcdac20|ist_xcdac20|Ist_XCDAC20||IST@XCDAC20 test app
+v1k_xcdac20|v1k_xcdac20|V1K_XCDAC20||V1000@XCDAC20 test app
+v3h_xa40d16|v3h_xa40d16|V3H_XA40D16||VCh300@XCANADC40+XCANDAC16 test app
+
+v5adc200_kls1|v5adc200_kls1@linac1:1;options=notoolbar,resizable;clientprog=pzframeclient|V5ADC200_Kls1||Измерения ВЧ 1-го клистрона
+v5adc200_kls2|v5adc200_kls2@linac1:1;options=notoolbar,resizable;clientprog=pzframeclient|V5ADC200_Kls2||Измерения ВЧ 2-го клистрона
+v5adc200_kls3|v5adc200_kls3@linac1:1;options=notoolbar,resizable;clientprog=pzframeclient|V5ADC200_Kls3||Измерения ВЧ 3-го клистрона
+v5adc200_grp1|v5adc200_grp1@linac1:1;options=notoolbar,resizable;clientprog=pzframeclient|V5ADC200_Grp1||Измерения ВЧ Группирователя (1/2)
+v5adc200_grp2|v5adc200_grp2@linac1:1;options=notoolbar,resizable;clientprog=pzframeclient|V5ADC200_Grp2||Измерения ВЧ Группирователя (2/2)
+
+sukhpanel|sukhpanel@linac1:10;options=resizable;clientprog=pzframeclient|SukhPanel||Фазовые измерения им.Суханова - панель прямого доступа
+sukhphase|sukhphase@linac1:10;options=resizable;clientprog=sukhclient|SukhPhase||Фазовые измерения им.Суханова
+
+z0fed208|z0fed208@princess:4;options=notoolbar|Z0Fed208||UMs test
+
+ic|ic@linac1:5|IC||IC - Fedya's middleware for Injection Complex

@@ -1,0 +1,42 @@
+# A comment
+
+sysname example
+defserver :0
+treeplace /
+
+grouping main mainGrouping "Main screen" grid - 2 0 0 "" "" "" 8 {
+    disp mes1 "Some value" text noparams:1 \
+    	r:abc.def w:%reg1 c:"_all_code
+		noop; sleep 20;
+		sleep 10
+		print_str zzz
+		push 3.1415
+		putchan chan.with.prefix; bbb"
+    knob set1 "A control"  text yelwrange:0.15-1.25 step:0.123 grpcoeff:0.2 \
+	r:abc.def w:"_all_code
+        qryval; add 2; print_dbl '%8.3f'
+print_str 'Kukareku'
+        ret 913913
+        " \
+    	options:groupable units:kV \
+        param:{prm "Param label 1234567890" rw 12.345} \
+        param:{Another    "A second parameter" ro 345.678 }
+    disp  mes2 "Some value" text
+    knob set2 "A control"  led panel
+    disp mes3 "Some value" text param:{qqq Kukareku ro =5e12 3-5}
+    knob /fixedranges,fixedstep,groupable set3 "A control"  text
+    container SubElementA "A sub-element" lrtb - 0 0 0 "" "" "" 1 {
+        disp/alarm alarmA "An alarm"
+    } layinfo:""
+
+   #
+   #
+   #
+
+    selector sel "Selector" selector items:"#TItem1\bTip1\bstyle1\tItem2\bTip2\bstyle2"
+} tip:"This is a main grouping"
+
+wintitle main "An example window (При-мер!)" #z
+winname  main example
+winclass main Example
+winopts  main resizable,nostatusline,compact

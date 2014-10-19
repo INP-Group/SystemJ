@@ -1,0 +1,5 @@
+dev c208_1:zzz cac208@marcankoz w20i,w8i,r8i,w8i,w1i,r1i,w4i,r24i,w8i,w8i,r8i,w8i58 3,52 adc_timecode=5
+dev ca40_1     canadc40@marcankoz w20i,w8i,r8i,w8i,w1i,r1i,w4i,r40i 3,60
+dev cd16_1     candac16@marcanKoz w20i,w8i,r8i,w8i,w1i,r1i,w4i,w16i,w16i,r16i,w16i58 -
+dev zz qqq - -
+layerinfo marcankoz:3 baudrate=125

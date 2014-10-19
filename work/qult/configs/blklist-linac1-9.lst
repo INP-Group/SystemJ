@@ -1,0 +1,17 @@
+# linac1:9 -- Thermostabilisation
+# file	driver	bus_id	main_i	biginfo	auxinfo
+
+# c0642
+cm5307	cm5307	4	w16	-	uclinux/192.168.2.2:cm5307_c0642
+cm5307	cm5307	7	w16	-	uclinux/192.168.2.2:cm5307_c0642
+
+# c0609 + KAS-128G
+cm5307	cm5307	2572	r64	-	uclinux/192.168.2.2:cm5307_c0609
+cm5307	cm5307	3857	r64	-	uclinux/192.168.2.2:cm5307_c0609
+
+# SDS
+cm5307	cm5307	19	r16	-	uclinux/192.168.2.2:cm5307_r0601
+cm5307	cm5307	20	r16	-	uclinux/192.168.2.2:cm5307_r0601
+
+# Artificial channels (post-boxes)
+noop	noop	0	w10	-

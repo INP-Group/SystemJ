@@ -1,0 +1,1 @@
+cxsd: cxsd.o cxsd_config.o cxsd_data.o cxsd_lib.o cxsd_bigc.o cxsd_channels.o cxsd_dbase.o cxsd_loader.o cxsd_drvmgr.o cxsd_driver.o cxsd_fe_cxv2.o 

@@ -1,0 +1,1 @@
+extern knobs_vmt_t KNOBS_USERTEXT_VMT;

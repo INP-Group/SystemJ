@@ -1,0 +1,8 @@
+#ifndef __WELDCLIENT_PROCESS_KNOBPLUGIN_H
+#define __WELDCLIENT_PROCESS_KNOBPLUGIN_H
+
+
+void  RegisterWELD_PROCESS_widgetset(int look_id);
+
+
+#endif /* __WELDCLIENT_PROCESS_KNOBPLUGIN_H */

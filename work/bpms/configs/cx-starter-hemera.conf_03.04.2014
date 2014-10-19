@@ -1,0 +1,73 @@
+#GEOMETRY=+1300-600
+
+BEP_BPM_SRV	chaninfo=hemera:2!-1
+#BEP_BPM_4	foreign \
+#		start="exec /mnt/common/rogovsky/bin/bpm_osciloscope --server=hemera:2 --bpm=1 --ring=1 -name bpm_4 2> /dev/null" \
+#                app_name=bpm_4  comment="BEP Fast Osciloscope with Fourier for BPM #4"
+#BEP_BPM_5	foreign \
+#		start="exec /mnt/common/rogovsky/bin/bpm_osciloscope --server=hemera:2 --bpm=2 --ring=1  -name bpm_5 2> /dev/null" \
+#                app_name=bpm_5  comment="BEP Fast Osciloscope with Fourier for BPM #5"
+#BEP_BPM_8	foreign \
+#		start="exec /mnt/common/rogovsky/bin/bpm_osciloscope --server=hemera:2 --bpm=3 --ring=1  -name bpm_8 2> /dev/null" \
+#                app_name=bpm_8  comment="BEP Fast Osciloscope with Fourier for BPM #8"
+#BEP_BPM_11	foreign \
+#		start="exec /mnt/common/rogovsky/bin/bpm_osciloscope --server=hemera:2 --bpm=4 --ring=1  -name bpm_11 2> /dev/null" \
+#                app_name=bpm_11 comment="BEP Fast Osciloscope with Fourier for BPM #11"
+
+BEP_BPM_4	chaninfo=hemera:2!-1 \
+		start="exec /mnt/common/rogovsky/bin/bep_bpm_1 hemera:2 -name bep_bpm1 1>/dev/null 2>/dev/null" \
+                app_name=bep_bpm_1  comment="BEP Fast Osciloscope with Fourier for BPM #4"
+BEP_BPM_5	chaninfo=hemera:2!-1 \
+		start="exec /mnt/common/rogovsky/bin/bep_bpm_2 hemera:2 -name bep_bpm2 1>/dev/null 2>/dev/null" \
+                app_name=bep_bpm_2  comment="BEP Fast Osciloscope with Fourier for BPM #5"
+BEP_BPM_8	chaninfo=hemera:2!-1 \
+		start="exec /mnt/common/rogovsky/bin/bep_bpm_3 hemera:2 -name bep_bpm3 1>/dev/null 2>/dev/null" \
+                app_name=bep_bpm_3  comment="BEP Fast Osciloscope with Fourier for BPM #8"
+BEP_BPM_11	chaninfo=hemera:2!-1 \
+		start="exec /mnt/common/rogovsky/bin/bep_bpm_4 hemera:2 -name bep_bpm4 1>/dev/null 2>/dev/null" \
+                app_name=bep_bpm_4  comment="BEP Fast Osciloscope with Fourier for BPM #11"
+
+
+
+--
+VEPP_EFIDIS     chaninfo=hemera:3!-1 \
+                start="exec /mnt/common/rogovsky/bin/v2k_edis hemera:3,chan_base:0   -name v2k_edis 1>/dev/null 2>/dev/null" \
+                app_name=v2k_edis comment="V2K electron FI-dissector"
+
+#VEPP_EFIDIS2    chaninfo=hemera:3!-1 \
+#                start="exec /mnt/common/rogovsky/bin/v2k_edis2 hemera:3,chan_base:0   -name v2k_edis2 1>/dev/null 2>/dev/null" \
+#                app_name=v2k_edis2 comment="V2K electron FI-dissector"
+
+
+VEPP_PFIDIS     chaninfo=hemera:3!-1 \
+                start="exec /mnt/common/rogovsky/bin/v2k_pdis hemera:3,chan_base:0   -name v2k_pdis 1>/dev/null 2>/dev/null" \
+                app_name=v2k_pdis comment="V2K positron FI-dissector"
+
+
+
+---
+VEPP_BPM_CONF   chaninfo=hemera:4!-1 \
+		start="exec /mnt/common/rogovsky/bin/v2k_bpm_cfg hemera:4,chan_base:0 -name v2k_bpm_cfg 1>/dev/null 2>/dev/null" \
+                app_name=v2k_bpm_cfg comment="configuration utility for BPMs of VEPP-2000"
+VEPP_BPM_1_TBT	foreign \
+		start="exec /mnt/common/rogovsky/bin/tbt_viewer --ringid=vepp2k --bpmdid=bpm1 --tbtsrvr=hemera:4,chan_base:0,bigc_base:4 -name tbt_bpm1 1>/dev/null 2>/dev/null" \
+                app_name=tbt_bpm1  comment="TBT Data Viewer for BPM#1 of VEPP-2000"
+VEPP_BPM_2_TBT	foreign \
+		start="exec /mnt/common/rogovsky/bin/tbt_viewer --ringid=vepp2k --bpmdid=bpm2 --tbtsrvr=hemera:4,chan_base:0,bigc_base:5 -name tbt_bpm2  1>/dev/null 2>/dev/null" \
+                app_name=tbt_bpm2  comment="TBT Data Viewer for BPM#2 of VEPP-2000"
+VEPP_BPM_3_TBT	foreign \
+		start="exec /mnt/common/rogovsky/bin/tbt_viewer --ringid=vepp2k --bpmdid=bpm3 --tbtsrvr=hemera:4,chan_base:0,bigc_base:6 -name tbt_bpm3  1>/dev/null 2>/dev/null" \
+                app_name=tbt_bpm3  comment="TBT Data Viewer for BPM#3 of VEPP-2000"
+VEPP_BPM_4_TBT	foreign \
+		start="exec /mnt/common/rogovsky/bin/tbt_viewer --ringid=vepp2k --bpmdid=bpm4 --tbtsrvr=hemera:4,chan_base:0,bigc_base:7 -name tbt_bpm4  1>/dev/null 2>/dev/null" \
+                app_name=tbt_bpm4  comment="TBT Data Viewer for BPM#4 of VEPP-2000"
+--
+
+
+xterm_hemera	foreign \
+		start="exec ssh hemera -f xterm -bg BLACK -fg WHITE -fn 9x15 -name myterm 2>&1 >/dev/null" \
+		app_name=myterm comment="terminal on hemera"
+
+kill-servers    foreign \
+		app_name="-NON-EXISTENT-" comment="выключаем ВСЕ CX серверы на машине HEMERA" \
+                start="kill `cat /var/tmp/cxd-*.pid`"

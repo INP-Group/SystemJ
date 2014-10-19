@@ -1,0 +1,3 @@
+Zremdrv	remdrv	1,32	r12,w12	- moxa/192.168.4.127:kshd485 work_current=5 hold_current=1 hold_delay=30 config_byte=45 min_velocity=100 max_velocity=500 acceleration=1000
+Zremdrv	remdrv	6,33	r12,w12	- moxa/192.168.4.127:kshd485 work_current=5 hold_current=1 hold_delay=30 config_byte=61 min_velocity=100 max_velocity=500 acceleration=1000
+remdrv	remdrv	0,1	r20,w80 - moxa/192.168.4.127:moxankshd485

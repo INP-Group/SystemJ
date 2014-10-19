@@ -1,0 +1,7 @@
+# linac1:3 -- Stepper motors
+# KShD485 IDs: 257:101 294:102 258:103 296:104
+# file	driver	bus_id	main_i	big_i	auxinfo
+remdrv	remdrv	0,101	r20,w80	- moxa/moxa-1:moxankshd485
+remdrv	remdrv	0,102	r20,w80	- moxa/moxa-1:moxankshd485
+remdrv	remdrv	0,103	r20,w80	- moxa/moxa-1:moxankshd485
+remdrv	remdrv	0,104	r20,w80	- moxa/moxa-1:moxankshd485

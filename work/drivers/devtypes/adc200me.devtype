@@ -1,0 +1,28 @@
+#
+devtype adc200me r1i2097150,r2i1048575,r7i,w20,r10 {
+	data		0
+	line1		1
+	line2		2
+
+	shot		10
+	stop		11
+	istart		12:data
+	waittime	13:data
+	ptsofs		14:data
+	numpts		15:data
+	
+	timing		20:data
+	range1		21:data
+	range2		22:data
+	calibrate	23:data
+
+	xs_per_step	30
+	line1on		31
+	line2on		32
+	line1rangemin	33
+	line2rangemin	34
+	line1rangemax	35
+	line2rangemax	36
+
+	serial		39
+}
