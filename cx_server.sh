@@ -1,7 +1,7 @@
 #/bin/bash
 
 
-HOME_FOLDER="/home/warmonger/Dropbox/Study/Diploma/Implementation"
+HOME_FOLDER="/home/warmonger/Dropbox/Study/Diploma/Diploma/cx"
 WORK_CX_FOLDER=$HOME_FOLDER/work
 CONFIG_FOLDER=$WORK_CX_FOLDER/cx/exports/configs
 SBIN_FOLDER=$WORK_CX_FOLDER/cx/exports/sbin
