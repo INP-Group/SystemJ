@@ -1,0 +1,36 @@
+[0.6]
+ hack fo Dima's naming problem: converting ic. --> ic.x. in wrapper
+
+[0.5]
+
+ - added multiply registration of the same channel (and bigc)
+   first registration - channel registered with C-lib
+   next registration - python adding callback and returns the same handle
+   callback that passed to SimpleAccess C API - auto created and calls all user callbacks
+   user callbacks are stored and called from python side (it's now must be python callable)
+
+ - ByteSegmentsArray moved to separate file.
+   this class makes possible to work with Bigc out of the box.
+   It's not even tested
+
+ - auto-translator for callbacks to C-functions is not removed yet
+   but it's not needed any more
+
+[0.3]
+
+ - renamed class and methods to make API more readable
+
+ - added auto-translation callbacks to C-functions
+   user can give C or python function
+
+[0.2]
+
+ - added ByteSegmentsArray
+
+ - tested Bigc work with numpy arrays (numpy ctypes interface)
+
+[0.1]
+
+ - the first wrapper for cdr's SimpleAccess (cx control system client library)
+
+ - tested with regular channels
