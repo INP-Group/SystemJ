@@ -31,3 +31,4 @@ lib/
 static/
 deploy
 /project/local_settings.py
+/cx
