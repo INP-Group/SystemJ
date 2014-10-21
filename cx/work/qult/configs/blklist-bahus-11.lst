@@ -1,5 +1,0 @@
-cangw		cangw		0,63	r40,w8,r8,w1,r1	-		cangw-istc:canadc40
-noop		noop		0,62	w16,w8,r8,w1,r1	-		cangw-istc:candac16
-noop		noop		-	w16		-
-noop		noop		1,0	r12,w12		-
-impacis10	impacis10	1,0	r1,w10,r4	1*0+0b/0+1i	speed=19200

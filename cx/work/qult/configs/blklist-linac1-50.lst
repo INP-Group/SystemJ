@@ -1,6 +1,0 @@
-# Linac1:55 -- "FEU" control & measurement
-
-# v0612
-remdrv	remdrv	20	w25	-	ppc/ppc-magcorr:cm5307_v06xx
-
-# adc502 -- @22

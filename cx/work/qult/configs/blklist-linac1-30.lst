@@ -1,4 +1,0 @@
-# linac1:30 -- Subharmonic control
-# file 	driver	bus_id 	main_info
-remdrv	remdrv	0,63	r40,w8,r8,w1,r1	-	cangw/cangw-subh:canadc40 end=5 magn=0
-remdrv	remdrv	0,62	w16,w8,r8,w1,r1	-	cangw/cangw-subh:candac16

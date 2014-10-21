@@ -1,3 +1,0 @@
-extern dataknob_noop_vmt_t motifknobs_hlabel_vmt;
-extern dataknob_noop_vmt_t motifknobs_vlabel_vmt;
-extern dataknob_noop_vmt_t motifknobs_defnoop_vmt;

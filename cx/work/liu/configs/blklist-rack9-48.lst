@@ -1,6 +1,0 @@
-# file		driver		bus_id	main_i		big_i	auxinfo
-
-dl200me		dl200me		0	w64,r16,w10,r10	-	fast
-dl200me		dl200me		0	w64,r16,w10,r10	-	slow
-sktcankoz	panov_ubs	0,4,0	w30,r10,w30,r64,w64,r2	-
-sktcankoz	panov_ubs	1,2,0	w30,r10,w30,r64,w64,r2	-

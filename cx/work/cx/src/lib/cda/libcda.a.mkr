@@ -1,1 +1,0 @@
-libcda.a: libcda.a(cda.o cda_math.o cda_err.o)

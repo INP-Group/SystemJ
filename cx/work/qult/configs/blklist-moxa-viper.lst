@@ -1,6 +1,0 @@
-remdrv	remdrv	0,1	r20,w80 - moxa/192.168.8.123:moxankshd485
-remdrv	remdrv	0,2	r20,w80 - moxa/192.168.8.123:moxankshd485
-zremdrv	remdrv	0,3	r20,w80 - moxa/192.168.2.123:moxankshd485
-
-Zremdrv	remdrv	1,0	r12,w12	- moxa/192.168.2.123:moxakshd485 work_current=5 hold_current=1 hold_delay=30 config_byte=45 min_velocity=100 max_velocity=500 acceleration=1000
-Zremdrv	remdrv	6,33	r12,w12	- moxa/192.168.4.127:moxakshd485 work_current=5 hold_current=1 hold_delay=30 config_byte=61 min_velocity=100 max_velocity=500 acceleration=1000

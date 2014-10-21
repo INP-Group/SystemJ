@@ -1,4 +1,0 @@
-# linac1:32 -- linac magnetic system, incl. magnetic correction
-# file 		driver 		bus_id 	main_info
-
-noop		noop		3,62	w40,w8,r8,w1,r1 -	time=4 magn=0

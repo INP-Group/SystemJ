@@ -1,1 +1,0 @@
-sukhclient: sukhclient.o /home/warmonger/work/cx/src/../exports/lib/libpzframe_gui.a /home/warmonger/work/cx/src/../exports/lib/libpzframe_data.a

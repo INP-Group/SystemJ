@@ -1,4 +1,0 @@
-#sysname|app_name[@srvref[;options=OPTS][;clientprog=CPRG]]|app_class|[icon]|Window title
-
-weldcc|weldcc@bike:46;options=;clientprog=weldclient|WeldCC||Beam welding control center
-verona|verona@romeo:45;options=histring_size:432000;clientprog=weldclient|WeldCC||Verona: beam welding control center at Building-14

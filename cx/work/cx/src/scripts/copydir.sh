@@ -1,3 +1,0 @@
-#!/bin/sh
-
-(cd $1  &&  tar -cf - .) | (cd $2  &&  tar -xvf -)

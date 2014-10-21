@@ -1,5 +1,0 @@
-# Note:
-#     This file is designed to be called from mounthost.sh
-
-echo "Starting rrund"
-$HOMEDIR/rrund -d >/dev/null 2>/dev/null &

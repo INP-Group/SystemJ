@@ -1,1 +1,0 @@
-bpmclient: bpmclient.o bpmclient_graph_knobplugin.o bpmclient_profile_knobplugin.o 

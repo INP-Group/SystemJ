@@ -1,5 +1,0 @@
-remdrv	remdrv	3	w25	-	ppc/zzz:cm5307_v06rr
-remdrv	remdrv	5	r200	-	ppc/zzz:cm5307_c0601
-remdrv	remdrv	14	r64	-	ppc/zzz:cm5307_c0612
-remdrv	remdrv	18	r20,w10	-	ppc/zzz:cm5307_bl700
-remdrv	remdrv	21	w8	-	ppc/zzz:cm5307_g0603

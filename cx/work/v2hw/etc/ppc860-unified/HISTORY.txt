@@ -1,7 +1,0 @@
-20??:	CM5307/PPC: slightly tweaked standard rc.sh
-
-2009:	CANGW@Zelenograd: introduction of mounthost
-
-2010:	introduction of eth0.conf
-
-2011:	unified configs for CM5307/CANGW/BIVME2

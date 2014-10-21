@@ -1,1 +1,0 @@
-libAuxMotifWidgets.a: libAuxMotifWidgets.a(LiteClue.o XmLiteClue.o Gridbox.o Table.o XmSepGridLayout.o IncDecB.o InputOnly.o)

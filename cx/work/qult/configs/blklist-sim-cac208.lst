@@ -1,5 +1,0 @@
-# Simulation file foe chlclients/cac208
-
-sim	sim	0,14	r24,w8,w8,r8,w1,r1	-	cangw-vch300:cac208
-sim	sim	0	w8			-
-sim	sim	0	w5			-

@@ -1,1 +1,0 @@
-extern dataknob_knob_vmt_t motifknobs_choicebs_vmt;

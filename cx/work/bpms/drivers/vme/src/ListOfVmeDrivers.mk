@@ -1,1 +1,0 @@
-VMEDRIVERS=bpmd

@@ -1,2 +1,0 @@
-:adc:pzframe_gw pzframe_gw - w20 1*20+0i/20+400000i src=foxy-eth3:40.2 chan=40 nargs=20 i datacount=400000 sharable
-fadiffer        fadiffer   - r1  -                  src=adc.1 maxpts=10000

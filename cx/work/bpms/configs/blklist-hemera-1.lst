@@ -1,7 +1,0 @@
-# hemera:1 - Disk & Flat Filtr + Lamp subsystem for Rogovsky Yury
-# file  driver  bus_id  main_i  biginfo auxinfo
-#
-
-cm5307  cm5307  4  w20     -  ppc/172.16.1.150:cm5307_zinin_flatfilter_lamp
-cm5307  cm5307  3  w32,r4  -  ppc/172.16.1.150:cm5307_zinin_diskfilter
-#cm5307  cm5307  5  w24,r32  -  ppc/172.16.1.150:cm5307_v0628

@@ -1,6 +1,0 @@
-# ring1:56 -- Ring cameras' control
-
-remdrv	remdrv	0,63	r40,w8,r8,w1,r1	-	cangw/cangw-ringcams:canadc40 beg=31 end=32 time=4 magn=0
-remdrv	remdrv	0,62	w20,w8,r8,w1,r1,r12,r24,w16,r8	-	cangw/cangw-ringcams:xcac208 beg=0 end=0 fast
-#cangw	cangw	0,62	r40,w8,r8,w1,r1	-	cangw-ringcams:canadc40 beg=32 end=32 fast time=7 magn=0
-#noop	noop	0,63	r40,w8,r8,w1,r1	-	cangw-ringcams:canadc40 beg=32 end=32 fast time=2 magn=0

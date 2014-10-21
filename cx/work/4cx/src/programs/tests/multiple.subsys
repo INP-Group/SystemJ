@@ -1,6 +1,0 @@
-sysname multiple
-
-grouping main Multiple "Multiple" lrtb "" content:2 {
-	include(`cac208.subsys')
-	include(`cac208.subsys')
-}

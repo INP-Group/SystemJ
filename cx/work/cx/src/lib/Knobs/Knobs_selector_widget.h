@@ -1,1 +1,0 @@
-extern knobs_vmt_t KNOBS_SELECTOR_VMT;

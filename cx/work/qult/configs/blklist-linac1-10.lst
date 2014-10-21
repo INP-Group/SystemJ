@@ -1,9 +1,0 @@
-# Linac1:10 - Sukhanov's phase measurements
-# file	driver	bus_id	main_info biginfo	auxinfo
-
-remdrv	remdrv	1	r64	-	ppc/ppc-sukhanov:cm5307_c0609	
-remdrv	remdrv	13	w16	-	ppc/ppc-sukhanov:cm5307_c0642
-remdrv	remdrv	5	w2	-	ppc/ppc-sukhanov:cm5307_sukh_comm24
-remdrv	remdrv	20	w2	-	ppc/ppc-sukhanov:cm5307_sukh_comm24
-remdrv	remdrv	3	w19,r81	1*100+0i/100+256000b	ppc/ppc-sukhanov:cm5307_nadc200
-remdrv	remdrv	22	w19,r81	1*100+0i/100+256000b	ppc/ppc-sukhanov:cm5307_nadc200

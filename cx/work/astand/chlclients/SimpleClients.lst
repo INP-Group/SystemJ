@@ -1,9 +1,0 @@
-#sysname|app_name[@srvref[;options=OPTS][;clientprog=CPRG]]|app_class|[icon]|Window title
-rstand|rstand@titan:1;options=logperiod:0.2,freezable|RStand||Испытательный стенд для Ращенко & Co.
-gid25x4|gid25x4@;options=logperiod:0.2,freezable|GID25x4||GID25 x4 test panel
-v4gid25s|v4gid25s@vepp4-pult6:1;options=logperiod:0.2,freezable|V4GID25s||VEPP-4 GID25s
-v4gid25x4n1|v4gid25x4n1@vepp4-pult6:1;options=logperiod:0.2,freezable|V4GID25x4n1||VEPP-4 GID25 x4 #1
-v4gid25x4n2|v4gid25x4n2@vepp4-pult6:1;options=logperiod:0.2,freezable|V4GID25x4n2||VEPP-4 GID25 x4 #2
-v4gid25x4n3|v4gid25x4n3@vepp4-pult6:1;options=logperiod:0.2,freezable|V4GID25x4n3||VEPP-4 GID25 x4 #3
-v4gid25x4n4|v4gid25x4n4@vepp4-pult6:1;options=logperiod:0.2,freezable|V4GID25x4n4||VEPP-4 GID25 x4 #4
-v4k500mag|v4k500mag@vepp4-pult6:1|V4K500Mag||VEPP-4 K500 magnetic system

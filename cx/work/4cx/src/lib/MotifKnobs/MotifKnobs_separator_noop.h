@@ -1,2 +1,0 @@
-extern dataknob_noop_vmt_t motifknobs_hseparator_vmt;
-extern dataknob_noop_vmt_t motifknobs_vseparator_vmt;
