@@ -1,0 +1,53 @@
+SDDS1
+&column name=Iset, type=string,  &end
+&column name=Imeas, type=string,  &end
+&column name=swc, type=string,  &end
+&column name=failname, type=string,  &end
+&column name=Imax, units=A, type=float,  &end
+&data mode=ascii, &end
+! page number 1
+                  44
+linmagx.magsys.lens1_set linmagx.magsys.lens1_mes None ic.linmag.ql1.fail  2.40000000e+02
+linmagx.magsys.lens2_set linmagx.magsys.lens2_mes None ic.linmag.ql2.fail  2.40000000e+02
+linmagx.magsys.lens3_set linmagx.magsys.lens3_mes None ic.linmag.ql3.fail  2.40000000e+02
+linmagx.magsys.lens4_set linmagx.magsys.lens4_mes None ic.linmag.ql4.fail  1.50000000e+01
+linmagx.magsys.lens5_set linmagx.magsys.lens5_mes None ic.linmag.ql5.fail  1.50000000e+01
+linmagx.magsys.lens6n7_set linmagx.magsys.lens6n7_mes None ic.linmag.ql6n7.fail  2.40000000e+02
+linmagx.magsys.lens8n9_set linmagx.magsys.lens8n9_mes None ic.linmag.ql8n9.fail  2.40000000e+02
+linmagx.magsys.lens10_set linmagx.magsys.lens10_mes None ic.linmag.ql10.fail  2.40000000e+02
+linmagx.magsys.lens11_set linmagx.magsys.lens11_mes None ic.linmag.ql11.fail  2.40000000e+02
+linmagx.magsys.lens12_set linmagx.magsys.lens12_mes None ic.linmag.ql12.fail  9.00000000e+01
+linmagx.magsys.lens13_set linmagx.magsys.lens13_mes None ic.linmag.ql13.fail  9.00000000e+01
+linmagx.magsys.lens14_set linmagx.magsys.lens14_mes None ic.linmag.ql14.fail  9.00000000e+01
+linmagx.magsys.lensb1_set linmagx.magsys.lensb1_mes None ic.linmag.qlb1.fail  2.00000000e+02
+linmagx.magsys.lensb2n5_set linmagx.magsys.lensb2n5_mes None ic.linmag.qlb2n5.fail  2.00000000e+02
+linmagx.magsys.lensb3n4_set linmagx.magsys.lensb3n4_mes None ic.linmag.qlb3n4.fail  2.00000000e+02
+linmagx.magsys.trlens1_set linmagx.magsys.trlens1_mes None ic.linmag.qltr1.fail  2.00000000e+02
+linmagx.magsys.trlens2_set linmagx.magsys.trlens2_mes None ic.linmag.qltr2.fail  2.00000000e+02
+linmagx.magsys.trlens3_set linmagx.magsys.trlens3_mes None ic.linmag.qltr3.fail  2.00000000e+02
+linmagx.magsys.trposl1n3_set linmagx.magsys.trposl1n3_mes None ic.linmag.ql15.fail  2.40000000e+02
+linmagx.magcor.s6_h_set linmagx.magcor.s6_h_mes None ic.linmag.qln.fail  8.00000000e+00
+linmagx.magsys.lens16_set linmagx.magsys.lens16_mes linmagx.magsys.-lens16_swc ic.linmag.ql16.fail  2.40000000e+02
+linmagx.magsys.lens17_set linmagx.magsys.lens17_mes linmagx.magsys.-lens17_swc ic.linmag.ql17.fail  2.40000000e+02
+linmagx.magsys.lens18_set linmagx.magsys.lens18_mes linmagx.magsys.-lens18_swc ic.linmag.ql18.fail  2.40000000e+02
+linmagx.magsys.lens19_set linmagx.magsys.lens19_mes linmagx.magsys.-lens19_swc ic.linmag.ql19.fail  2.40000000e+02
+linmagx.magsys.lens20_set linmagx.magsys.lens20_mes linmagx.magsys.-lens20_swc ic.linmag.ql20.fail  2.40000000e+02
+linmagx.magsys.lens21_set linmagx.magsys.lens21_mes linmagx.magsys.-lens21_swc ic.linmag.ql21.fail  2.40000000e+02
+linmagx.magsys.lens22_set linmagx.magsys.lens22_mes linmagx.magsys.-lens22_swc ic.linmag.ql22.fail  2.40000000e+02
+linmagx.magsys.lens23_set linmagx.magsys.lens23_mes linmagx.magsys.-lens23_swc ic.linmag.ql23.fail  2.40000000e+02
+linmagx.magsys.lens24_set linmagx.magsys.lens24_mes linmagx.magsys.-lens24_swc ic.linmag.ql24.fail  2.40000000e+02
+linmagx.magsys.lens25_set linmagx.magsys.lens25_mes linmagx.magsys.-lens25_swc ic.linmag.ql25.fail  2.40000000e+02
+linmagx.magsys.lens26_set linmagx.magsys.lens26_mes linmagx.magsys.-lens26_swc ic.linmag.ql26.fail  2.40000000e+02
+linmagx.magsys.lens27_set linmagx.magsys.lens27_mes linmagx.magsys.-lens27_swc ic.linmag.ql27.fail  2.40000000e+02
+linmagx.magsys.lens28_set linmagx.magsys.lens28_mes linmagx.magsys.-lens28_swc ic.linmag.ql28.fail  2.40000000e+02
+linmagx.magsys.lens29_set linmagx.magsys.lens29_mes linmagx.magsys.-lens29_swc ic.linmag.ql29.fail  2.40000000e+02
+linmagx.magsys.lens30_set linmagx.magsys.lens30_mes linmagx.magsys.-lens30_swc ic.linmag.ql30.fail  2.40000000e+02
+linmagx.magsys.lens31_set linmagx.magsys.lens31_mes linmagx.magsys.-lens31_swc ic.linmag.ql31.fail  2.40000000e+02
+linmagx.magsys.rings_set linmagx.magsys.rings_mes None ic.linmag.rings.fail  6.00000000e+02
+linmagx.magsys.solenoid1_set linmagx.magsys.solenoid1_mes linmagx.magsys.-solenoid1_swc ic.linmag.sole.fail  1.60000000e+03
+linmagx.magsys.spectrometer_set linmagx.magsys.spectrometer_mes None ic.linmag.spectr.fail  2.70000000e+03
+linmagx.magsys.bend_set linmagx.magsys.bend_mes linmagx.magsys.-bend_swc ic.linmag.bend.fail  1.80000000e+03
+linmagx.magsys.coil1_set linmagx.magsys.coil1_mes linmagx.magsys.-coil1_swc ic.linmag.coil1.fail  1.00000000e+03
+linmagx.magsys.coil2_set linmagx.magsys.coil2_mes None ic.linmag.coil2.fail  1.00000000e+03
+linmagx.magsys.solenoid2_set linmagx.magsys.solenoid2_mes linmagx.magsys.-solenoid2_swc ic.linmag.solp.fail  1.90000000e+03
+linmagx.magsys.separator_set linmagx.magsys.separator_mes None ic.linmag.sep1.fail  3.00000000e+02

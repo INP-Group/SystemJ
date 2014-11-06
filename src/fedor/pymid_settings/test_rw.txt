@@ -1,0 +1,2 @@
+linmagx.magsys.lens4_set ic.linmag.ql4.iset poly rw 0.0 10.0 0.0 1.0 0.0 1.0
+linmagx.magsys.lens5_set ic.linmag.ql5.iset poly rw 0.0 10.0 0.0 1.0 0.0 1.0

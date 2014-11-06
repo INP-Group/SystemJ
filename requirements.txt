@@ -1,0 +1,6 @@
+# parsing
+ply
+CppHeaderParser
+
+SIP
+PyQt4

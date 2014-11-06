@@ -1,0 +1,7 @@
+SDDS1
+&column name=srcnames, type=string,  &end
+&column name=midnames, type=string,  &end
+&data mode=ascii, &end
+! page number 1
+                  1
+ringmag.ringmag.m_rm1_set ic.ring.magnets.rm1_rm8_b_set 

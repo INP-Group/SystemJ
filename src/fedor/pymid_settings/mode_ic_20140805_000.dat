@@ -1,0 +1,95 @@
+##########
+# Mode Tue Aug  5 11:04:09 2014
+
+#!SUBSYSTEM: ic
+#!CREATE-TIME: 1407211449 Tue Aug  5 11:04:09 2014
+#!COMMENT: fed_test1
+
+.element x {
+	.element status {
+		.channel ic	0.0000	1.0000
+		.channel ic_task	0.0000	1.0000
+		.channel ic_beam_to	0.0000	1.0000
+		.channel linac	0.0000	1.0000
+		.channel ring	0.0000	1.0000
+		.channel middle_runner	0.0000	1.0000
+		.channel middle_run	0.0000	1.0000
+	}
+	.element act {
+		.channel inject	0.0000	1.0000
+		.channel extract	0.0000	1.0000
+		.channel beam_stop	0.0000	1.0000
+		.channel linac_powersave	0.0000	1.0000
+		.channel ring_powersave	0.0000	1.0000
+	}
+	.element LLRF {
+		.channel f_lin	0.0000	1.0000
+		.channel f_ring	0.0000	1.0000
+		.channel f_sub	0.0000	1.0000
+		.channel f_clockd16	0.0000	1.0000
+	}
+	.element syn {
+		.element linrf_dly {
+		}
+		.element linbeam_dly {
+		}
+		.element ring {
+		}
+	}
+	.element linac {
+	}
+	.element ring {
+		.element dcct {
+			.channel u2i	21.2500	1.0000
+			.channel ADCzero	-0.0155	1.0000
+			.channel meastime	0.1000	1.0000
+			.channel current	-0.0453	1.0000
+			.channel storage_rate_calc	1.0000	1.0000
+			.channel storage_fitlength	20.0000	1.0000
+			.channel storage_rate	0.0001	1.0000
+			.channel life_calc	0.0000	1.0000
+			.channel life_fitlength	20.0000	1.0000
+			.channel lifetime	0.0005	1.0000
+			.channel change	0.0000	1.0000
+			.channel change_rate	0.0000	1.0000
+			.channel n	0.0000	1.0000
+			.channel n_rate	0.0000	1.0000
+			.channel middle_run	1.0000	1.0000
+			.channel middle_lock	0.0000	1.0000
+		}
+		.element magnets {
+		}
+		.element RF {
+		}
+	}
+	.element injext {
+		.element ctrl {
+			.channel middle_run	0.0000	1.0000
+			.channel Middle_lock	0.0000	1.0000
+			.channel gen_c1_dly	1051.0000	1.0000
+			.channel gen_c2_dly	0.0500	1.0000
+			.channel gen_c3_dly	1051.0000	1.0000
+		}
+		.element ekicker {
+			.channel gen_c1_dly	1051.0000	1.0000
+			.channel gen_c2_dly	0.0500	1.0000
+			.channel gen_c3_dly	1051.0000	1.0000
+			.channel gen_c4_dly	1050.0000	1.0000
+			.channel form1p_dly	678.0400	1.0000
+			.channel form1n_dly	748.9700	1.0000
+			.channel form2p_dly	609.1100	1.0000
+			.channel form2n_dly	774.9700	1.0000
+			.channel gen_c1_mask	0.0000	1.0000
+			.channel gen_c2_mask	0.0000	1.0000
+			.channel gen_c3_mask	0.0000	1.0000
+			.channel gen_c4_mask	0.0000	1.0000
+			.channel form1p_mask	0.0000	1.0000
+			.channel form1n_mask	0.0000	1.0000
+			.channel form2p_mask	0.0000	1.0000
+			.channel form2n_mask	0.0000	1.0000
+			.channel u_akk1	1.8000	1.0000
+			.channel u_akk2	3.3000	1.0000
+		}
+	}
+}
+

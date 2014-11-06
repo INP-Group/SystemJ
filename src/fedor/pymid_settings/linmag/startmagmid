@@ -1,0 +1,12 @@
+#!/bin/sh
+
+(midpolyro.py linmag_polyro.sdds)&
+(midpolyro.py linpower.sdds ,,R)&
+(midgwro.py linmag_curmeas.sdds)&
+
+(midpolyrw.py linmag_polyrw.sdds)&
+(midgwrw.py linmag_set.sdds)&
+
+(midsummer.py linpower_p.sdds)&
+(midsummer.py linpower_pmag.sdds)&
+(midsummer.py linpower_pcab.sdds)&

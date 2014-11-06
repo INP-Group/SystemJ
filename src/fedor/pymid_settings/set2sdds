@@ -1,0 +1,40 @@
+V5:S:IE:E:Delay1C ic.injext.ekicker.gen_c1_dly
+V5:S:IE:E:Delay2C ic.injext.ekicker.gen_c2_dly
+V5:S:IE:E:Delay3C ic.injext.ekicker.gen_c3_dly
+V5:S:IE:E:Delay4C ic.injext.ekicker.gen_c4_dly
+V5:S:IE:E:Delay11C ic.injext.ekicker.form1p_dly
+V5:S:IE:E:Delay12C ic.injext.ekicker.form1n_dly
+V5:S:IE:E:Delay13C ic.injext.ekicker.form2p_dly
+V5:S:IE:E:Delay14C ic.injext.ekicker.form2n_dly
+V5:S:IE:E:DelayMaskC.B0 ic.injext.ekicker.gen_c1_mask
+V5:S:IE:E:DelayMaskC.B1 ic.injext.ekicker.gen_c2_mask
+V5:S:IE:E:DelayMaskC.B2 ic.injext.ekicker.gen_c3_mask
+V5:S:IE:E:DelayMaskC.B3 ic.injext.ekicker.gen_c4_mask
+V5:S:IE:E:Delay1MaskC.B0 ic.injext.ekicker.form1p_mask
+V5:S:IE:E:Delay1MaskC.B1 ic.injext.ekicker.form1n_mask
+V5:S:IE:E:Delay1MaskC.B2 ic.injext.ekicker.form2p_mask
+V5:S:IE:E:Delay1MaskC.B3 ic.injext.ekicker.form2n_mask
+V5:S:IE:E:Voltage1C ic.injext.ekicker.u_akk1
+V5:S:IE:E:Voltage2C ic.injext.ekicker.u_akk2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

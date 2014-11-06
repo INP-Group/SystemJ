@@ -1,0 +1,98 @@
+SDDS1
+&column name=srcname, type=string,  &end
+&column name=midname, type=string,  &end
+&column name=ename, type=string,  &end
+&column name=Imax, units=A, type=float,  &end
+&column name=R, units=Ohm, type=float,  &end
+&column name=water, type=long,  &end
+&data mode=ascii, &end
+! page number 1
+                  88
+linmagx.magsys.lens1_mes ic.linmag.ql1.pmag QL1  2.40000000e+02  2.13213218e-03 0
+linmagx.magsys.lens2_mes ic.linmag.ql2.pmag QL2  2.40000000e+02  2.15999992e-03 0
+linmagx.magsys.lens3_mes ic.linmag.ql3.pmag QL3  2.40000000e+02  3.23999999e-03 0
+linmagx.magsys.lens4_mes ic.linmag.ql4.pmag QL4  1.50000000e+01  7.72000015e-01 0
+linmagx.magsys.lens5_mes ic.linmag.ql5.pmag QL5  1.50000000e+01  7.69696951e-01 0
+linmagx.magsys.lens6n7_mes ic.linmag.ql6n7.pmag QL6n7  2.40000000e+02  1.06199002e-02 0
+linmagx.magsys.lens8n9_mes ic.linmag.ql8n9.pmag QL8n9  2.40000000e+02  3.76200005e-02 1
+linmagx.magsys.lens10_mes ic.linmag.ql10.pmag QL10  2.40000000e+02  1.63599998e-02 1
+linmagx.magsys.lens11_mes ic.linmag.ql11.pmag QL11  2.40000000e+02  2.09599994e-02 1
+linmagx.magsys.lens12_mes ic.linmag.ql12.pmag QL12  9.00000000e+01  2.55199999e-01 1
+linmagx.magsys.lens13_mes ic.linmag.ql13.pmag QL13  9.00000000e+01  2.57600009e-01 1
+linmagx.magsys.lens14_mes ic.linmag.ql14.pmag QL14  9.00000000e+01  2.57800013e-01 1
+linmagx.magsys.lensb1_mes ic.linmag.qlb1.pmag QLB1  2.00000000e+02  1.83216780e-02 1
+linmagx.magsys.lensb2n5_mes ic.linmag.qlb2n5.pmag QLB2n5  2.00000000e+02  9.92000028e-02 1
+linmagx.magsys.lensb3n4_mes ic.linmag.qlb3n4.pmag QLB3n4  2.00000000e+02  3.63099985e-02 1
+linmagx.magsys.trlens1_mes ic.linmag.qltr1.pmag QLB6  2.00000000e+02  5.04940711e-02 1
+linmagx.magsys.trlens2_mes ic.linmag.qltr2.pmag QLB7  2.00000000e+02  4.95059304e-02 1
+linmagx.magsys.trlens3_mes ic.linmag.qltr3.pmag QLB8  2.00000000e+02  5.00988141e-02 1
+linmagx.magsys.trposl1n3_mes ic.linmag.ql15.pmag QL15  2.40000000e+02  3.37768672e-03 0
+linmagx.magcor.s6_h_mes ic.linmag.qln.pmag QLN  1.00000000e+01  9.99999978e-03 0
+linmagx.magsys.lens16_mes ic.linmag.ql16.pmag QL16  2.40000000e+02  2.15999992e-03 0
+linmagx.magsys.lens17_mes ic.linmag.ql17.pmag QL17  2.40000000e+02  3.22999991e-03 0
+linmagx.magsys.lens18_mes ic.linmag.ql18.pmag QL18  2.40000000e+02  5.28999977e-03 0
+linmagx.magsys.lens19_mes ic.linmag.ql19.pmag QL19  2.40000000e+02  5.31531544e-03 0
+linmagx.magsys.lens20_mes ic.linmag.ql20.pmag QL20  2.40000000e+02  2.07000002e-02 1
+linmagx.magsys.lens21_mes ic.linmag.ql21.pmag QL21  2.40000000e+02  1.94105897e-02 1
+linmagx.magsys.lens22_mes ic.linmag.ql22.pmag QL22  2.40000000e+02  1.63400006e-02 1
+linmagx.magsys.lens23_mes ic.linmag.ql23.pmag QL23  2.40000000e+02  1.81099996e-02 1
+linmagx.magsys.lens24_mes ic.linmag.ql24.pmag QL24  2.40000000e+02  1.72072072e-02 1
+linmagx.magsys.lens25_mes ic.linmag.ql25.pmag QL25  2.40000000e+02  2.03000009e-02 1
+linmagx.magsys.lens26_mes ic.linmag.ql26.pmag QL26  2.40000000e+02  1.98395178e-02 1
+linmagx.magsys.lens27_mes ic.linmag.ql27.pmag QL27  2.40000000e+02  2.02500001e-02 1
+linmagx.magsys.lens28_mes ic.linmag.ql28.pmag QL28  2.40000000e+02  2.04890221e-02 1
+linmagx.magsys.lens29_mes ic.linmag.ql29.pmag QL29  2.40000000e+02  2.04000007e-02 1
+linmagx.magsys.lens30_mes ic.linmag.ql30.pmag QL30  2.40000000e+02  2.05105096e-02 1
+linmagx.magsys.lens31_mes ic.linmag.ql31.pmag QL31  2.40000000e+02  1.71971973e-02 1
+linmagx.magsys.rings_mes ic.linmag.rings.pmag RINGS  6.00000000e+02  2.80298442e-02 1
+linmagx.magsys.solenoid1_mes ic.linmag.sole.pmag SOL1  1.60000000e+03  5.10255108e-03 1
+linmagx.magsys.spectrometer_mes ic.linmag.spectr.pmag spectr  2.70000000e+03  3.34462151e-03 1
+linmagx.magsys.bend_mes ic.linmag.bend.pmag BEND  1.80000000e+03  2.16000009e+00 1
+linmagx.magsys.coil1_mes ic.linmag.coil1.pmag COIL1  1.00000000e+03  1.24124121e-02 1
+linmagx.magsys.coil2_mes ic.linmag.coil2.pmag COIL2  1.00000000e+03  7.86074623e-03 1
+linmagx.magsys.solenoid2_mes ic.linmag.solp.pmag SOL2  1.90000000e+03  1.33133437e-02 1
+linmagx.magsys.separator_mes ic.linmag.sep1.pmag sep1  3.00000000e+02  4.06593410e-03 1
+linmagx.magsys.lens1_mes ic.linmag.ql1.pcab QL1cable  2.40000000e+02  1.44844847e-02 0
+linmagx.magsys.lens2_mes ic.linmag.ql2.pcab QL2cable  2.40000000e+02  1.52399996e-02 0
+linmagx.magsys.lens3_mes ic.linmag.ql3.pcab QL3cable  2.40000000e+02  1.52500002e-02 0
+linmagx.magsys.lens4_mes ic.linmag.ql4.pcab QL4cable  1.50000000e+01  2.99999993e-02 0
+linmagx.magsys.lens5_mes ic.linmag.ql5.pcab QL5cable  1.50000000e+01  3.13131325e-02 0
+linmagx.magsys.lens6n7_mes ic.linmag.ql6n7.pcab QL6n7cable  2.40000000e+02  1.00900000e-02 0
+linmagx.magsys.lens8n9_mes ic.linmag.ql8n9.pcab QL8n9cable  2.40000000e+02  1.07422266e-02 0
+linmagx.magsys.lens10_mes ic.linmag.ql10.pcab QL10cable  2.40000000e+02  2.45399997e-02 0
+linmagx.magsys.lens11_mes ic.linmag.ql11.pcab QL11cable  2.40000000e+02  2.36399993e-02 0
+linmagx.magsys.lens12_mes ic.linmag.ql12.pcab QL12cable  9.00000000e+01  2.36000009e-02 0
+linmagx.magsys.lens13_mes ic.linmag.ql13.pcab QL13cable  9.00000000e+01  2.50000004e-02 0
+linmagx.magsys.lens14_mes ic.linmag.ql14.pcab QL14cable  9.00000000e+01  2.58000009e-02 0
+linmagx.magsys.lensb1_mes ic.linmag.qlb1.pcab QLB1cable  2.00000000e+02  1.27472524e-02 0
+linmagx.magsys.lensb2n5_mes ic.linmag.qlb2n5.pcab QLB2n5cable  2.00000000e+02  1.32999998e-02 0
+linmagx.magsys.lensb3n4_mes ic.linmag.qlb3n4.pcab QLB3n4cable  2.00000000e+02  1.34365633e-02 0
+linmagx.magsys.trlens1_mes ic.linmag.qltr1.pcab QLB6cable  2.00000000e+02  1.54150194e-02 0
+linmagx.magsys.trlens2_mes ic.linmag.qltr2.pcab QLB7cable  2.00000000e+02  1.51185775e-02 0
+linmagx.magsys.trlens3_mes ic.linmag.qltr3.pcab QLB8cable  2.00000000e+02  1.55138336e-02 0
+linmagx.magsys.trposl1n3_mes ic.linmag.ql15.pcab QL15cable  2.40000000e+02  1.41044008e-02 0
+linmagx.magcor.s6_h_mes ic.linmag.qln.pcab QLNcable  1.00000000e+01  9.99999978e-03 0
+linmagx.magsys.lens16_mes ic.linmag.ql16.pcab QL16cable  2.40000000e+02  2.07899995e-02 0
+linmagx.magsys.lens17_mes ic.linmag.ql17.pcab QL17cable  2.40000000e+02  2.03099996e-02 0
+linmagx.magsys.lens18_mes ic.linmag.ql18.pcab QL18cable  2.40000000e+02  1.85499992e-02 0
+linmagx.magsys.lens19_mes ic.linmag.ql19.pcab QL19cable  2.40000000e+02  1.79679673e-02 0
+linmagx.magsys.lens20_mes ic.linmag.ql20.pcab QL20cable  2.40000000e+02  1.70699991e-02 0
+linmagx.magsys.lens21_mes ic.linmag.ql21.pcab QL21cable  2.40000000e+02  1.62237771e-02 0
+linmagx.magsys.lens22_mes ic.linmag.ql22.pcab QL22cable  2.40000000e+02  1.52799999e-02 0
+linmagx.magsys.lens23_mes ic.linmag.ql23.pcab QL23cable  2.40000000e+02  1.50400000e-02 0
+linmagx.magsys.lens24_mes ic.linmag.ql24.pcab QL24cable  2.40000000e+02  1.47847850e-02 0
+linmagx.magsys.lens25_mes ic.linmag.ql25.pcab QL25cable  2.40000000e+02  1.42000001e-02 0
+linmagx.magsys.lens26_mes ic.linmag.ql26.pcab QL26cable  2.40000000e+02  1.32698091e-02 0
+linmagx.magsys.lens27_mes ic.linmag.ql27.pcab QL27cable  2.40000000e+02  1.26400003e-02 0
+linmagx.magsys.lens28_mes ic.linmag.ql28.pcab QL28cable  2.40000000e+02  1.16167665e-02 0
+linmagx.magsys.lens29_mes ic.linmag.ql29.pcab QL29cable  2.40000000e+02  1.08300000e-02 0
+linmagx.magsys.lens30_mes ic.linmag.ql30.pcab QL30cable  2.40000000e+02  1.57257263e-02 0
+linmagx.magsys.lens31_mes ic.linmag.ql31.pcab QL31cable  2.40000000e+02  9.32932924e-03 0
+linmagx.magsys.rings_mes ic.linmag.rings.pcab RINGScable  6.00000000e+02  3.97257507e-03 0
+linmagx.magsys.solenoid1_mes ic.linmag.sole.pcab SOL1cable  1.60000000e+03  9.00450221e-04 0
+linmagx.magsys.spectrometer_mes ic.linmag.spectr.pcab spectrcable  2.70000000e+03  0.00000000e+00 0
+linmagx.magsys.bend_mes ic.linmag.bend.pcab BENDcable  1.80000000e+03  1.27025414e-03 0
+linmagx.magsys.coil1_mes ic.linmag.coil1.pcab COIL1cable  1.00000000e+03  2.97297304e-03 0
+linmagx.magsys.coil2_mes ic.linmag.coil2.pcab COIL2cable  1.00000000e+03  3.01715429e-03 0
+linmagx.magsys.solenoid2_mes ic.linmag.solp.pcab SOL2cable  1.90000000e+03  7.59620219e-04 0
+linmagx.magsys.separator_mes ic.linmag.sep1.pmag sep1cable  3.00000000e+02  1.00199804e-02 0

@@ -3,6 +3,7 @@
 
 from src.channels.scalarchannel import ScalarChannel
 from src.channels.vectorchannel import VectorChannel
+from src.research.daemonchannel import DaemonChannel
 
 import sys
 
@@ -12,7 +13,7 @@ import DLFCN
 old_dlopen_flags = sys.getdlopenflags( )
 sys.setdlopenflags( old_dlopen_flags | DLFCN.RTLD_GLOBAL )
 from PyQt4 import QtCore, QtGui
-sys.setdlopenflags( old_dlopen_flags )
+sys.setdlopenflags( old_dlopen_flags )  # set default value
 
 
 class MainWindow(QtGui.QMainWindow):
@@ -36,6 +37,10 @@ def start():
 
     sys.exit(application.exec_())
 
+def start2():
+    a = DaemonChannel()
+
 
 if __name__ == "__main__":
-    start()
+    # start()
+    start2()

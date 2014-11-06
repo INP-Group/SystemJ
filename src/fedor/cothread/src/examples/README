@@ -1,0 +1,23 @@
+Some very simple examples of using cothread and catools.
+
+caget.py
+caput.py
+camonitor.py
+    Python implementations of corresponding EPICS command line tools for
+    reading, writing and monitoring PVs.
+
+simple.py
+    The simplest possible use of caget().
+
+qt_monitor.py
+    Integrating Qt and channel access.
+
+scope_epics.py
+scope.ui
+    A simple oscilloscope demonstrating Qt and camonitor.
+
+cahelper.py
+    Helper functions for channel access.
+
+require.py
+    How to configure for cothread import.
