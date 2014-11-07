@@ -48,7 +48,7 @@ class WorkerWidget(QtGui.QWidget):
         self.gridLayout.setObjectName("gridLayout")
         self.PBAddChannel = QtGui.QPushButton(self)
         self.PBAddChannel.setObjectName("pushButton")
-        self.PBAddChannel.setText("Add new channel")
+        self.PBAddChannel.setText("Add new random channel")
         self.gridLayout.addWidget(self.PBAddChannel, 0, 0, 1, 1)
         self.tVChannells = QtGui.QListView(self)
         self.tVChannells.setObjectName("tVChannells")
@@ -59,7 +59,7 @@ class WorkerWidget(QtGui.QWidget):
         self.connect(self.PBAddChannel, QtCore.SIGNAL('clicked()'), self.addChannell)
 
     def addChannell(self):
-        self.worker.addchanel()
+        self.worker.addchanel(random.choice(['ScalarChannel', 'NTimeChannel', 'DeltaChannel']))
 
         channels = self.worker.getChannels()
         model = QStandardItemModel(self.tVChannells)
@@ -87,20 +87,20 @@ class DaemonWorker(QtCore.QThread):
     def getName(self):
         return self.name
 
-    def addchanel(self):
-        # for x in xrange(0, 1000):
-        # typ = "ScalarChannel"
+    def addchanel(self, type="ScalarChannel", chanName="linthermcan.ThermosM.in0"):
 
-        # typ = "NTimeChannel"
-        # channel = ChannelFactory.factory(typ, "linthermcan.ThermosM.in0", "%s - %s" % (self.name, len(self.channels)))
-        # channel.set_property("timedelta", 5.0)
+        channel = ""
 
+        if type == "ScalarChannel":
+            channel = ChannelFactory.factory(type, chanName, "%s - %s" % (self.name, len(self.channels)))
 
-        typ = "DeltaChannel"
-        channel = ChannelFactory.factory(typ, "linthermcan.ThermosM.in0", "%s - %s" % (self.name, len(self.channels)))
-        channel.set_property("delta", .0005)
+        if type == "NTimeChannel":
+            channel = ChannelFactory.factory(type, chanName, "%s - %s" % (self.name, len(self.channels)))
+            channel.set_property("timedelta", 5.0)
 
-
+        if type == "DeltaChannel":
+            channel = ChannelFactory.factory(type, chanName, "%s - %s" % (self.name, len(self.channels)))
+            channel.set_property("delta", .0005)
 
         self.channels.append(channel)
 
