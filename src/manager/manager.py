@@ -2,107 +2,105 @@
 
 from src.channels.scalarchannel import ScalarChannel
 
+from PyQt4.QtGui import QStandardItemModel, QStandardItem
 from PyQt4 import QtCore, QtGui
-import time
+import string
+import random
+from src.manager.channellfactory import ChannelFactory
+from src.manager.managerui import Ui_MainWindow as ManagerUI
 
 
-'''
-Создать worker'а, который будет внутри содержать объект класса скалярного канала
-По клику добавлять объекты в воркера
-'''
-class Testobject2 (QtGui.QWidget):
-    def __init__(self, parent=None):
+class WorkerManager(ManagerUI):
+
+    def __init__ (self):
+        super(WorkerManager, self).__init__()
+        self.setupUi()
+
+        self.workers = []
+        #todo
+        # сделать чтобы по нормальному было по центру
+        width = 800
+        height = 400
+        pos_x = 400
+        pos_y = 300
+        self.setGeometry(pos_x, pos_y, pos_x + width, pos_y + height)
+
+        self.connect(self.PBAddWorker, QtCore.SIGNAL('clicked()'), self.addNewWorker)
+
+    def getName(self, size=6, chars=string.ascii_uppercase + string.digits):
+        return ''.join(random.choice(chars) for _ in range(size))
+
+    def addNewWorker(self):
+        worker = DaemonWorker(name=self.getName())
+        widget = WorkerWidget(worker=worker)
+        self.workers.append(worker)
+        self.tWWorkers.addTab(widget, worker.getName())
+
+
+class WorkerWidget(QtGui.QWidget):
+
+    def __init__(self, parent=None, worker=None):
+
         QtGui.QWidget.__init__(self, parent)
+        self.worker = worker
 
-        self.buttonDaemon = QtGui.QPushButton(self)
-        self.buttonDaemon2 = QtGui.QPushButton(self)
-        self.layout = QtGui.QVBoxLayout(self)
-        self.layout.addWidget(self.buttonDaemon)
-        self.layout.addWidget(self.buttonDaemon2)
-        self.setLayout(self.layout)
+        self.gridLayout = QtGui.QGridLayout(self)
+        self.gridLayout.setObjectName("gridLayout")
+        self.PBAddChannel = QtGui.QPushButton(self)
+        self.PBAddChannel.setObjectName("pushButton")
+        self.PBAddChannel.setText("Add new channel")
+        self.gridLayout.addWidget(self.PBAddChannel, 0, 0, 1, 1)
+        self.tVChannells = QtGui.QListView(self)
+        self.tVChannells.setObjectName("tVChannells")
+        self.gridLayout.addWidget(self.tVChannells, 0, 1, 2, 1)
+        spacerItem = QtGui.QSpacerItem(20, 242, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
 
-        self.thread = DaemonWorker(name="Daemon1")
-
-        self.connect(self.buttonDaemon, QtCore.SIGNAL('clicked()'), self.pressDaemon)
-        self.connect(self.buttonDaemon2, QtCore.SIGNAL('clicked()'), self.addChannell)
-
+        self.connect(self.PBAddChannel, QtCore.SIGNAL('clicked()'), self.addChannell)
 
     def addChannell(self):
-        self.thread.addchanel()
+        self.worker.addchanel()
 
-    # the problem begins below: I'm not using signals, or queue, or whatever, while I believe I should for StopSignal and DaemonRunning
-    def pressDaemon (self):
+        channels = self.worker.getChannels()
+        model = QStandardItemModel(self.tVChannells)
 
-        # self.buttonDaemon.setEnabled(False)
-        if self.thread.isDaemonRunning():
-            self.thread.setDaemonStopSignal(True)
-            self.buttonDaemon.setText('Daemon - run code every %s sec'% 1)
-        else:
-            self.thread.startDaemon()
-            self.buttonDaemon.setText('Stop Daemon')
-            self.buttonDaemon.setEnabled(True)
+        for x in channels:
+            item = QStandardItem(x.getPName())
+            model.appendRow(item)
 
-    # part of proposed solution
-    def stopped (self, val):
-        print 'stopped1 ' + str(val)
+        self.tVChannells.setModel(model)
 
 class DaemonWorker(QtCore.QThread):
-    daemonIsRunning = False
-    daemonStopSignal = False
-    daemonCurrentDelay = 0
 
-    def isDaemonRunning (self): return self.daemonIsRunning
-    def setDaemonStopSignal (self, bool): self.daemonStopSignal = bool
+    def __init__(self, parent=None, name='Daemon1'):
 
-    def __init__ (self, parent = None, name='Daemon1'):
         QtCore.QThread.__init__(self, parent)
-        self.exiting = False
         self.name = name
-        self.thread_to_run = None
         self.channels = []
 
-    def __del__ (self):
-        self.exiting = True
-        self.thread_to_run = None
+    def __del__(self):
         self.wait()
 
-    def run (self):
-        if self.thread_to_run != None:
-            self.thread_to_run(mode='continue')
+    def getChannels(self):
+        return self.channels
 
+    def getName(self):
+        return self.name
 
     def addchanel(self):
-        self.channels.append(ScalarChannel("linthermcan.ThermosM.in0"))
+        # for x in xrange(0, 1000):
+        # typ = "ScalarChannel"
 
-    #stop = QtCore.pyqtSignal(int) # part of proposed solution
+        # typ = "NTimeChannel"
+        # channel = ChannelFactory.factory(typ, "linthermcan.ThermosM.in0", "%s - %s" % (self.name, len(self.channels)))
+        # channel.set_property("timedelta", 5.0)
 
-    def startDaemon (self, mode = 'run'):
-        if mode == 'run':
-            self.thread_to_run = self.startDaemon # I'd love to be able to just pass this as an argument on start() below
-            return self.start() # this will begin the thread
 
-        # this is where the thread actually begins
-        self.daemonIsRunning = True
-        print '%s started' % self.name
-        self.daemonStopSignal = False
-        sleepStep = 0.1 # don't know how to interrupt while sleeping - so the less sleepStep, the faster StopSignal will work
+        typ = "DeltaChannel"
+        channel = ChannelFactory.factory(typ, "linthermcan.ThermosM.in0", "%s - %s" % (self.name, len(self.channels)))
+        channel.set_property("delta", .0005)
 
-        # begins the daemon in an "infinite" loop
-        while self.daemonStopSignal == False and not self.exiting:
-            print '%s running' % self.name
-            # here, do any kind of daemon service
 
-            delay = 0
-            while self.daemonStopSignal == False and not self.exiting and delay < 1:
-                #print 'Daemon sleeping'
-                time.sleep(sleepStep) # delay is actually set by while, but this holds for 'sleepStep' seconds
-                delay += sleepStep
 
-        # daemon stopped, reseting everything
-        self.daemonIsRunning = False
-        print '%s stopped' % self.name
-        #self.stop.emit(self.daemonIsRunning) # part of proposed solution
-        self.emit(QtCore.SIGNAL('stopped(int)'), self.daemonIsRunning) # adapted from proposed solution
-        self.emit(QtCore.SIGNAL('terminated'))
-
+        self.channels.append(channel)
 

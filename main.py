@@ -3,7 +3,8 @@
 
 from src.channels.scalarchannel import ScalarChannel
 from src.channels.vectorchannel import VectorChannel
-from src.research.daemonchannel import DaemonChannel
+from src.manager.manager import WorkerManager
+
 
 import sys
 
@@ -31,12 +32,15 @@ def start():
 
     sys.exit(application.exec_())
 
-def start2():
-    a = DaemonChannel()
 
-
+def start3():
+    application = QtGui.QApplication(sys.argv)
+    win = WorkerManager()
+    win.show()
+    sys.exit(application.exec_())
 if __name__ == "__main__":
-    start()
+    # start()
     # start2()
+    start3()
 
 

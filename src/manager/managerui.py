@@ -23,11 +23,12 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(800, 600)
-        self.centralwidget = QtGui.QWidget(MainWindow)
+class Ui_MainWindow(QtGui.QMainWindow):
+
+    def setupUi(self):
+        self.setObjectName(_fromUtf8("MainWindow"))
+        self.resize(800, 600)
+        self.centralwidget = QtGui.QWidget(self)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
@@ -39,28 +40,28 @@ class Ui_MainWindow(object):
         self.tWWorkers = QtGui.QTabWidget(self.centralwidget)
         self.tWWorkers.setObjectName(_fromUtf8("tWWorkers"))
         self.gridLayout.addWidget(self.tWWorkers, 0, 1, 2, 1)
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtGui.QMenuBar(MainWindow)
+        self.setCentralWidget(self.centralwidget)
+        self.menubar = QtGui.QMenuBar(self)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 27))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuQuit = QtGui.QMenu(self.menubar)
         self.menuQuit.setObjectName(_fromUtf8("menuQuit"))
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtGui.QStatusBar(MainWindow)
+        self.setMenuBar(self.menubar)
+        self.statusbar = QtGui.QStatusBar(self)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
-        MainWindow.setStatusBar(self.statusbar)
-        self.actionQuit = QtGui.QAction(MainWindow)
+        self.setStatusBar(self.statusbar)
+        self.actionQuit = QtGui.QAction(self)
         self.actionQuit.setObjectName(_fromUtf8("actionQuit"))
         self.menuQuit.addAction(self.actionQuit)
         self.menubar.addAction(self.menuQuit.menuAction())
 
-        self.retranslateUi(MainWindow)
+        self.retranslateUi()
         self.tWWorkers.setCurrentIndex(-1)
-        QtCore.QObject.connect(self.actionQuit, QtCore.SIGNAL(_fromUtf8("triggered()")), MainWindow.close)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        QtCore.QObject.connect(self.actionQuit, QtCore.SIGNAL(_fromUtf8("triggered()")), self.close)
+        QtCore.QMetaObject.connectSlotsByName(self)
 
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
+    def retranslateUi(self):
+        self.setWindowTitle(_translate("MainWindow", "MainWindow", None))
         self.PBAddWorker.setText(_translate("MainWindow", "Add new worker", None))
         self.menuQuit.setTitle(_translate("MainWindow", "File", None))
         self.actionQuit.setText(_translate("MainWindow", "Quit", None))

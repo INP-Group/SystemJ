@@ -13,8 +13,12 @@ class BaseDataChannel(BaseChannel):
     valueChanged = pyqtSignal(QObject, float)
     valueMeasured = pyqtSignal(QObject, float)
 
-    def __init__(self, name):
+    def __init__(self, name, personal_name=None):
         QObject.__init__(self)
+        if personal_name is None:
+            self.personal_name = name
+        else:
+            self.personal_name = personal_name
         #todo сделать конфиг, чтобы хотя бы указывать путь до .so файда
         #todo hardcode
         self.name = name
@@ -27,7 +31,8 @@ class BaseDataChannel(BaseChannel):
         self.tolerance = 0.0
         self.first_cycle = True
 
-
+    def getPName(self):
+        return self.personal_name
 
     def processing(self, *args):
         raise NotImplemented("Callback")

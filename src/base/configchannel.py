@@ -8,8 +8,6 @@ class ConfigChannel(object):
     def __init__(self):
         self.config = ConfigParser.ConfigParser()
 
-
-
     def getConfigSection(self, section):
         dict1 = {}
         options = self.config.options(section)
