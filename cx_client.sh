@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 HOME_FOLDER="/home/warmonger/Dropbox/Study/Diploma/Diploma_cx"
 WORK_CX_FOLDER=$HOME_FOLDER/work

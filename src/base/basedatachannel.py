@@ -18,8 +18,8 @@ class BaseDataChannel(BaseChannel):
         #todo сделать конфиг, чтобы хотя бы указывать путь до .so файда
         #todo hardcode
         self.name = name
-        # self.cdr = Cdr('/home/warmonger/Dropbox/Study/Diploma/Diploma/resources/libs/libCdr4PyQt.so')
-        self.cdr = Cdr()
+        self.cdr = Cdr('/home/warmonger/Dropbox/Study/Diploma/Diploma/resources/libs/libCdr4PyQt.so')
+        # self.cdr = Cdr()
         self.cx_chan = self.cdr.RegisterSimpleChan(name, self.callback)
 
         self.prev_val = 0.0  # value to compare with just received

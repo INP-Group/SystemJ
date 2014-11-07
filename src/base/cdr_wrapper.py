@@ -3,7 +3,11 @@
 
 import sys
 import ctypes
-
+import os
+# Special QT import, needs to make qt libs visible for Cdrlib
+import DLFCN
+old_dlopen_flags = sys.getdlopenflags( )
+sys.setdlopenflags( old_dlopen_flags | DLFCN.RTLD_GLOBAL )
 
 class CdrWrapper(object):
     """

@@ -3,11 +3,11 @@
 import os
 import sys
 
-from daemon import Daemon
+from src.channels.daemon import Daemon
 
 import argparse
+from src.channels.scalarchannel import ScalarChannel
 
-from daemonchannel import DaemonChannel
 
 class DaemonManager(Daemon):
 
@@ -29,6 +29,16 @@ class DaemonManager(Daemon):
             pass
 
     def startD(self, name):
+
+        # Special QT import, needs to make qt libs visible for Cdrlib
+        import DLFCN
+        old_dlopen_flags = sys.getdlopenflags( )
+        sys.setdlopenflags( old_dlopen_flags | DLFCN.RTLD_GLOBAL )
+        from PyQt4 import QtCore, QtGui
+        sys.setdlopenflags( old_dlopen_flags )  # set default value
+        scal = ScalarChannel("linthermcan.ThermosM.in0")
+
+
         print "Create new daemon: ", name
 
     def stopD(self, name):
@@ -39,6 +49,37 @@ class DaemonManager(Daemon):
 
     def remChD(self, daemon_name, chan_name):
         print "Remove  channel ", chan_name, " in to", daemon_name
+
+
+'''
+Надо складывать:
+
+Для демона: 
+
+  - Название
+  - Путь до pid'а
+  - Когда был запущен
+  - Когда последний раз модифицировался
+  - Количество каналов
+
+Для канала:
+
+  - Название
+  - <короткое название>
+  - Когда был запущен
+  - Тип канала (какой класс калана заводить)
+  - <параметры>
+
+
+ПРОБЛЕМА:
+при каждом обращании к демону надо его пересоздать, а значит и каналы надо будет перезапускать
+
+
+export CHLCLIENTS_PATH=/home/warmonger/Dropbox/Study/Diploma/Diploma_cx/work/qult/chlclients; export CX_TRANSLATE_LINAC1_34=:34;
+
+
+'''
+
 
 def gDO(pin_name='pid'):
     return DaemonManager()
@@ -57,6 +98,7 @@ def process_input_data(**kwargs):
         ob = gDO()
         ob.startD(kwargs.get("stopdaemon"))
     if kwargs.get("addchannel", []):
+        value = kwargs.get("removechannel")
         ob = gDO()
         ob.addChD(value[0], value[1])
     if kwargs.get("removechannel", []):

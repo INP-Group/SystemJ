@@ -1,6 +1,7 @@
-from PyDbLite import Base
 
-db = Base()
+from pydblite import Base
+
+db = Base('test.pdl')
 db.create("name", "age", "favourite_color")
 
 # You can insert records as either named parameters

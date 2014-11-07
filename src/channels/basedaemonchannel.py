@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 
-from daemon import Daemon
+from src.channels.daemon import Daemon
 import uuid
 import os
 

@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-from basedaemonchannel import BaseDaemonChannel
+from src.channels.basedaemonchannel import BaseDaemonChannel
 
 
 class DaemonChannel(BaseDaemonChannel):
