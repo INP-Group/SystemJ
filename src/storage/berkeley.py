@@ -18,6 +18,7 @@ class GeneratorId(Singleton):
         self.curid = id
 
 class BerkeleyStorage(Singleton):
+
     def __init__(self, filename='berkdb.db', read=False):
         self.filename = filename
         self.database = db.DB()
@@ -26,6 +27,7 @@ class BerkeleyStorage(Singleton):
 
         self.sync_number = 50
         self.move_number = 1000
+        self.stored_id = 0
 
         self.db_type = db.DB_BTREE
         self.db_type = db.DB_HASH
@@ -47,6 +49,7 @@ class BerkeleyStorage(Singleton):
 
         if not self.id % self.sync_number:
             self.database.sync()
+            self.check()
 
     def check(self):
         '''
@@ -54,14 +57,10 @@ class BerkeleyStorage(Singleton):
         и запускает перекладывание в postgresql
         :return:
         '''
-        # todo
 
-        if not self.id % self.move_number:
-            print len(self.database)
-            # cursor = self.database.cursor()
-            # rec = cursor.first()
-            # while rec:
-            #     print rec
-            #     rec = cursor.next()
+        if self.id / self.move_number > self.stored_id / self.move_number:
+            for x in xrange(self.stored_id, self.stored_id + self.move_number):
+                #print x, self.database.get("%s" % x)
+                pass
 
-        self.database.close()
+            self.stored_id += self.move_number

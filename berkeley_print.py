@@ -2,4 +2,12 @@
 from src.storage.berkeley import BerkeleyStorage
 
 
-BerkeleyStorage(read=True).check()
+a = BerkeleyStorage(read=True)
+
+
+for x in xrange(0, 15):
+    print
+    print x
+    a.check()
+
+# a.check()
