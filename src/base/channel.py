@@ -2,14 +2,14 @@
 
 
 from basedatachannel import BaseDataChannel
-from dbasechannel import DBaseChannel
+from src.base.zeromqchannel import ZeroMQChannel
 import datetime
 
-class Channel(BaseDataChannel, DBaseChannel):
+class Channel(BaseDataChannel, ZeroMQChannel):
 
     def __init__(self, name, personal_name=None):
         BaseDataChannel.__init__(self, name, personal_name)
-        DBaseChannel.__init__(self)
+        ZeroMQChannel.__init__(self)
 
         self.valueChanged.connect(self.processing)
 
@@ -20,3 +20,4 @@ class Channel(BaseDataChannel, DBaseChannel):
 
     def get_message(self, text):
         return "[%s] [%s]: %s" % (datetime.datetime.now(), self.__class__.__name__, text)
+

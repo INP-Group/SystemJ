@@ -6,6 +6,13 @@
 # 2014
 
 
+'''
+reqs:
+ply
+CppHeaderParser
+'''
+
+
 from CppHeaderParser import CppHeader
 import re
 

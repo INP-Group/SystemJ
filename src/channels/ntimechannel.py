@@ -17,6 +17,8 @@ class NTimeChannel(Channel):
             with open('/home/warmonger/test.out', 'a') as f:
                 f.write("%s\n" % self.get_message(text))
                 print self.get_message(text)
+
+            self.send_message(self.get_message(text))
         return 0
 
     def _post_init(self):
