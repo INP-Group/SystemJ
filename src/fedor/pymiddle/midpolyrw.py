@@ -4,17 +4,19 @@
 import sys
 
 import DLFCN
+
 old_dlopen_flags = sys.getdlopenflags()
 sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
-from PyQt4 import QtGui
 from PyQt4.QtCore import *
+
 sys.setdlopenflags(old_dlopen_flags)
 
-#from cdr_wrapper import *
+# from cdr_wrapper import *
 from actl import *
 from sdds import *
 
 import numpy as np
+
 
 class middle_gw_rw():
     def __init__(self, settings_file, s2mname=None, m2sname=None):
@@ -37,8 +39,8 @@ class middle_gw_rw():
         srcmax = colData[colName.index("smax")][0]
 
         self.mchans = []
-        self.s2m = np.zeros((len(srcnames), self.order+1))
-        self.m2s = np.zeros((len(srcnames), self.order+1))
+        self.s2m = np.zeros((len(srcnames), self.order + 1))
+        self.m2s = np.zeros((len(srcnames), self.order + 1))
         self.srclims = np.zeros((len(srcnames), 2))
         for ind in range(len(srcnames)):
             if s2mname is None:
@@ -57,7 +59,8 @@ class middle_gw_rw():
                         self.m2s[ind][y] = colData[colName.index(m2sname[y])][0][ind]
             self.srclims[ind][0] = srcmin[ind]
             self.srclims[ind][1] = srcmax[ind]
-            self.mchans.append(middleChanPoly(srcnames[ind], midnames[ind], self.srclims[ind], self.s2m[ind], self.m2s[ind]))
+            self.mchans.append(
+                middleChanPoly(srcnames[ind], midnames[ind], self.srclims[ind], self.s2m[ind], self.m2s[ind]))
 
 #main
 
@@ -89,7 +92,6 @@ if len(sys.argv) == 1:
     """
     print note
     sys.exit(0)
-
 
 app = QCoreApplication(sys.argv)
 

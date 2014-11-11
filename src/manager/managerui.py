@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'manager.ui'
 #
 # Created: Fri Nov  7 13:40:43 2014
-#      by: PyQt4 UI code generator 4.10.4
+# by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -17,14 +17,15 @@ except AttributeError:
 
 try:
     _encoding = QtGui.QApplication.UnicodeUTF8
+
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_MainWindow(QtGui.QMainWindow):
 
+class Ui_MainWindow(QtGui.QMainWindow):
     def setupUi(self):
         self.setObjectName(_fromUtf8("MainWindow"))
         self.resize(800, 600)

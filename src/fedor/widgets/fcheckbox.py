@@ -1,8 +1,8 @@
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
-class FCheckBox(QCheckBox):
 
+class FCheckBox(QCheckBox):
     done = pyqtSignal(bool)
 
     def __init__(self, parent=None):

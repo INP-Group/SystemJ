@@ -3,8 +3,8 @@
 
 import ConfigParser
 
-class ConfigChannel(object):
 
+class ConfigChannel(object):
     def __init__(self):
         self.config = ConfigParser.ConfigParser()
 

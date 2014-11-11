@@ -1,22 +1,22 @@
-
 import math
 from actl.cxchan import *
 
 #
 srcnames_ex = {
-'Iset'  : '',
-'Imeas' : '',
-'Umeas' : '',
-'block' : '',
-'swc'   : ''
+    'Iset': '',
+    'Imeas': '',
+    'Umeas': '',
+    'block': '',
+    'swc': ''
 }
 
 settings_ex = {
-'Imax': 0.0,
-'Imin': 0.0,
-'Umax': 0.0,
-'Itol': 0.0,
+    'Imax': 0.0,
+    'Imin': 0.0,
+    'Umax': 0.0,
+    'Itol': 0.0,
 }
+
 
 class FailTrackerMag(object):
     def __init__(self, srcnames, failname, settings):

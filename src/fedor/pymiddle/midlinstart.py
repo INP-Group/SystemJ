@@ -1,16 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import sys
-import cothread
 from cothread.catools import *
 
-import DLFCN
 old_dlopen_flags = sys.getdlopenflags()
 sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
-from PyQt4 import QtGui
-from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-from PyQt4 import uic
+
 sys.setdlopenflags(old_dlopen_flags)
 
 from cdr_wrapper import *
@@ -18,7 +13,6 @@ from actl import *
 
 
 class linstarter(QObject):
-
     def __init__(self):
         super(QObject, self).__init__()
 
@@ -36,7 +30,7 @@ class linstarter(QObject):
         self.startmode_c.setValue(self.startgen.status["startMode"])
 
         self.startgen.startCountChanged.connect(self.startcount_c.setValue)
-        self.startnum_c.valueChanged.connect( self.setStartNum)
+        self.startnum_c.valueChanged.connect(self.setStartNum)
 
         self.startcycle_c.valueChanged.connect(self.startCycle)
         self.stopcycle_c.valueChanged.connect(self.stopCycle)
@@ -95,6 +89,5 @@ class linstarter(QObject):
 app = QCoreApplication(sys.argv)
 
 starter = linstarter()
-
 
 sys.exit(app.exec_())

@@ -7,10 +7,12 @@ from actl import *
 
 # Special QT import, needs to make qt libs visible for Cdrlib
 import DLFCN
-old_dlopen_flags = sys.getdlopenflags( )
-sys.setdlopenflags( old_dlopen_flags | DLFCN.RTLD_GLOBAL )
-from PyQt4 import QtCore, QtGui
-sys.setdlopenflags( old_dlopen_flags )
+
+old_dlopen_flags = sys.getdlopenflags()
+sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
+from PyQt4 import QtGui
+
+sys.setdlopenflags(old_dlopen_flags)
 
 # QT init
 application = QtGui.QApplication(sys.argv)

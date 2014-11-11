@@ -1,4 +1,3 @@
-
 # the basics
 import cxchan
 import middlechan
@@ -13,7 +12,7 @@ import phasemetr
 
 import syn
 
-#classes translations from modules
+# classes translations from modules
 # main system-level class
 cxchan = cxchan.cxchan
 

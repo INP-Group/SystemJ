@@ -1,7 +1,8 @@
+import numpy as np
 
 from actl.cxchan import *
 from cothread.catools import *
-import numpy as np
+
 
 # sum of channel values calculator
 # it's read-only
@@ -25,7 +26,7 @@ class middleSummer(object):
 
 
 class maskAgregatorEpics:
-    def __init__(self, pv_namelist, change_cb = None):
+    def __init__(self, pv_namelist, change_cb=None):
         self.pvs = pv_namelist
         self.agregatedVal = 0
         self.change_cb = change_cb

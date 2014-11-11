@@ -4,17 +4,19 @@
 import sys
 
 import DLFCN
+
 old_dlopen_flags = sys.getdlopenflags()
 sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
-from PyQt4 import QtGui
 from PyQt4.QtCore import *
+
 sys.setdlopenflags(old_dlopen_flags)
 
-#from cdr_wrapper import *
+# from cdr_wrapper import *
 from actl import *
 from sdds import *
 
 import numpy as np
+
 
 class middle_gw_ro():
     def __init__(self, settings_file, s2mname=None):
@@ -34,9 +36,8 @@ class middle_gw_ro():
         srcnames = colData[colName.index("srcname")][0]
         midnames = colData[colName.index("midname")][0]
 
-
         self.mchans = []
-        self.s2m = np.zeros((len(srcnames), self.order+1))
+        self.s2m = np.zeros((len(srcnames), self.order + 1))
         for ind in range(len(srcnames)):
             if s2mname is None:
                 for y in range(self.order + 1):
@@ -76,7 +77,6 @@ if len(sys.argv) == 1:
     """
     print note
     sys.exit(0)
-
 
 app = QCoreApplication(sys.argv)
 

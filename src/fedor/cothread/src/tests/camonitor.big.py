@@ -3,17 +3,16 @@
 
 from __future__ import print_function
 
-import sys
-
-import require
 from numpy import *
+
 from cothread.cothread import *
 from cothread.catools import *
 
 
-BPMS = ['SR%02dC-DI-EBPM-%02d' % (c+1, n+1)
-    for c in range(24) for n in range(7)]
+BPMS = ['SR%02dC-DI-EBPM-%02d' % (c + 1, n + 1)
+        for c in range(24) for n in range(7)]
 BPM_count = len(BPMS)
+
 
 def BPMpvs(name):
     return ['%s:%s' % (bpm, name) for bpm in BPMS]
@@ -24,14 +23,15 @@ class MonitorWaveform:
     array of PVs, one per BPM.  The PV value read from each BPM is written into
     self.array.
     '''
-    def __init__(self, name, tick=0.2, datatype = float):
+
+    def __init__(self, name, tick=0.2, datatype=float):
         self.name = name
-        self.value = zeros(BPM_count, dtype = datatype)
+        self.value = zeros(BPM_count, dtype=datatype)
         self.changed = 0
         self.updates = 0
 
         camonitor(BPMpvs(name), self.MonitorCallback,
-            datatype = datatype, all_updates = True)
+                  datatype=datatype, all_updates=True)
         Timer(tick, self.Update, retrigger=True)
 
     def MonitorCallback(self, value, index):

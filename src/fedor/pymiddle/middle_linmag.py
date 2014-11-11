@@ -2,16 +2,18 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import DLFCN
+
 import cothread
 from cothread.catools import *
 
-import DLFCN
+
 old_dlopen_flags = sys.getdlopenflags()
 sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
-from PyQt4 import QtGui
+
 sys.setdlopenflags(old_dlopen_flags)
 
-#from cdr_wrapper import *
+# from cdr_wrapper import *
 from actl import *
 from sdds import *
 
@@ -44,7 +46,6 @@ class middle_gw():
         self.m2s4 = self.settings.columnData[self.settings.columnName.index("kgi4")][0]
         self.m2s5 = self.settings.columnData[self.settings.columnName.index("kgi5")][0]
 
-
         self.mchans = []
         for x in self.srcnames:
             ind = self.srcnames.index(x)
@@ -70,14 +71,13 @@ class middle_gw_ro():
         self.mchans = []
         for x in self.srcnames:
             ind = self.srcnames.index(x)
-            self.s2ma.append(np.array([self.s2m0[ind], self.s2m1[ind], self.s2m2[ind], self.s2m3[ind], self.s2m4[ind], self.s2m5[ind]]))
+            self.s2ma.append(np.array(
+                [self.s2m0[ind], self.s2m1[ind], self.s2m2[ind], self.s2m3[ind], self.s2m4[ind], self.s2m5[ind]]))
             self.mchans.append(middleChanPolyRO(x, self.midnames[ind], self.s2ma[ind]))
 
 
 app = cothread.iqt()
 
-
 mid = middle_gw_ro(sys.argv[1])
-
 
 cothread.WaitForQuit()

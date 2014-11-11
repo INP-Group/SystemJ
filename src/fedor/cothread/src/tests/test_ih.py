@@ -1,20 +1,20 @@
 from __future__ import print_function
 
-import input_hook
-
 from cothread import *
+
 
 def Reader(queue):
     while True:
         x = queue.Wait()
         print('got', x)
 
+
 e1 = Event()
 e2 = Event()
 q = EventQueue()
 
 Spawn(Reader, e1)
-s = Spawn(Reader, e2, raise_on_wait = True)
+s = Spawn(Reader, e2, raise_on_wait=True)
 Spawn(Reader, q)
 
 e1.Signal()
@@ -32,9 +32,11 @@ e2.SignalException(Exception)
 
 import time
 
-def run_ticker(delay = 1):
+
+def run_ticker(delay=1):
     def Ticker():
         while True:
             time.sleep(delay)
             Sleep(delay)
+
     Spawn(Ticker)

@@ -2,13 +2,17 @@
 
 from __future__ import print_function
 
-import sys, os
+import sys
+import os
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 
 from cothread import *
 
+
 def Task():
     pass
+
 
 def run(N):
     print('start', sys.gettotalrefcount())
@@ -16,6 +20,7 @@ def run(N):
     for t in tasks:
         t.Wait()
     print('done', sys.gettotalrefcount())
+
 
 for i in range(5):
     run(10)

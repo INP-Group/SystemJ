@@ -3,11 +3,13 @@
 
 import sys
 import ctypes
-import os
 # Special QT import, needs to make qt libs visible for Cdrlib
 import DLFCN
-old_dlopen_flags = sys.getdlopenflags( )
-sys.setdlopenflags( old_dlopen_flags | DLFCN.RTLD_GLOBAL )
+
+
+old_dlopen_flags = sys.getdlopenflags()
+sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
+
 
 class CdrWrapper(object):
     """
@@ -66,6 +68,7 @@ class CdrWrapper(object):
                 for x in self.callbacks[name]:
                     x(h, v, p)
             return 0
+
         return cb
 
     def RegisterSimpleChan(self, name, callback, private_params=None):
@@ -89,12 +92,13 @@ class CdrWrapper(object):
         cb = self.CreateChanCallback(name)
         c_cb = self.MakeChanCallback(cb)
 
-        self.library.CdrRegisterSimpleChan.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_void_p, ctypes.c_void_p]
+        self.library.CdrRegisterSimpleChan.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_void_p,
+                                                       ctypes.c_void_p]
         ret = self.library.CdrRegisterSimpleChan(name, self.argv0, c_cb, private_params)
         if ret < 0:
             raise Exception("Error while Registering Simple Channel Callback, errcode: %s" % ret)
 
-        #We need to keep reference to c_callbacks or Garbage Collector will destroy it.
+        # We need to keep reference to c_callbacks or Garbage Collector will destroy it.
         self.c_callbacks[name] = c_cb
         if callable(callback):
             self.callbacks[name] = [callback]
@@ -129,7 +133,7 @@ class CdrWrapper(object):
         return val.value
 
 
-#############################################
+    # ############################################
     def MakeBigcCallback(self, python_callable):
         """
         Returns cdr callback from python callable function.
@@ -150,9 +154,9 @@ class CdrWrapper(object):
 
     def MakeBigcCallbackIfNeeded(self, callback):
         ret = callback
-        fpy = lambda x,y: x
+        fpy = lambda x, y: x
         if type(callback) == type(fpy):
-             ret = self.MakeBigcCallback(callback)
+            ret = self.MakeBigcCallback(callback)
         return ret
 
     def CreateBigcCallback(self, name):
@@ -161,6 +165,7 @@ class CdrWrapper(object):
                 for x in self.bigc_callbacks[name]:
                     x(h, p)
             return 0
+
         return cb
 
     def RegisterSimpleBigc(self, name, max_datasize, callback, private_params=None):
@@ -176,7 +181,8 @@ class CdrWrapper(object):
         cb = self.CreateBigcCallback(name)
         c_cb = self.MakeBigcCallbackIfNeeded(cb)
 
-        self.library.CdrRegisterSimpleBigc.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p]
+        self.library.CdrRegisterSimpleBigc.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p,
+                                                       ctypes.c_void_p]
         ret = self.library.CdrRegisterSimpleBigc(name, self.argv0, max_datasize, c_cb, private_params)
         if ret < 0:
             raise Exception("Error while Registering Simple BigChan Callback, errcode: %s" % ret)
@@ -242,7 +248,7 @@ class Singleton(type):
         return cls._instances[cls]
 
 
-#this work with python2
+# this work with python2
 class Cdr(CdrWrapper):
     __metaclass__ = Singleton
 

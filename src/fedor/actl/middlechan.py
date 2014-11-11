@@ -1,9 +1,9 @@
-#from cdr_wrapper import *
+# from cdr_wrapper import *
+from numpy.polynomial.polynomial import *
+
 from actl.cxchan import *
 from cothread.catools import *
 
-import numpy as np
-from numpy.polynomial.polynomial import *
 
 # middleware channel2channel abstract class
 # middleChan - cx <--> cx

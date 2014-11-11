@@ -1,8 +1,8 @@
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
-class FComboBox(QComboBox):
 
+class FComboBox(QComboBox):
     done = pyqtSignal(int)
 
     def __init__(self, parent=None):

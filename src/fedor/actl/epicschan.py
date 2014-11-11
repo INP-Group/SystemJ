@@ -1,12 +1,13 @@
 # workaround to avoid epics problems
 
-from PyQt4.QtCore import *
-from cothread.catools import *
 import math
+
+from PyQt4.QtCore import *
+
+from cothread.catools import *
 
 
 class epicschan(QObject):
-
     valueChanged = pyqtSignal(QObject, float)
     valueMeasured = pyqtSignal(QObject, float)
     processNeeded = pyqtSignal()
@@ -31,7 +32,6 @@ class epicschan(QObject):
             self.prev_val = self.val
             self.valueChanged.emit(self, self.val)
         self.valueMeasured.emit(self, self.val)
-
 
 
     def setValue(self, value):

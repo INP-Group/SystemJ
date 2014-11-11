@@ -2,17 +2,18 @@
 # by Fedor Emanov
 
 
+from PyQt4.QtCore import *
+
 from actl.cxchan import *
 from cothread.catools import *
-from PyQt4.QtCore import *
 
 
 statusIE4 = {
-    "clockSrc"  : 0, # bit 1-2
-    "startSrc"  : 0, # bit 3-4
-    "startMode" : 0, # bit 5
-    "LAMmask"   : 0, # bit 6
-    "cycleStop" : 0, # bit 7
+    "clockSrc": 0,  # bit 1-2
+    "startSrc": 0,  # bit 3-4
+    "startMode": 0,  # bit 5
+    "LAMmask": 0,  # bit 6
+    "cycleStop": 0,  # bit 7
 }
 
 
@@ -27,7 +28,6 @@ statusIE4 = {
 # V5:SYN:EventM - int32 cycle counter
 
 class IE4(QObject):
-
     # sygnals for user
     cycleStarted = pyqtSignal()
     cycleStoped = pyqtSignal()
@@ -35,7 +35,7 @@ class IE4(QObject):
 
     eventCountChanged = pyqtSignal(int)
 
-    #signals for inside use
+    # signals for inside use
     statusChanged = pyqtSignal()
     startCountChanged = pyqtSignal(int)
     startModeChanged = pyqtSignal(int)
@@ -110,7 +110,6 @@ class IE4(QObject):
         if self.status["startMode"] != 1:
             caput("V5:SYN:Status00C.B4", 1)
             self.statusChanged.connect(self.validateStart)
-
 
 
     @staticmethod

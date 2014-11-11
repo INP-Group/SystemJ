@@ -1,6 +1,8 @@
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
+
 from actl import *
+
 
 class FLCDNumber(QLCDNumber):
     def __init__(self, parent=None):
@@ -8,10 +10,9 @@ class FLCDNumber(QLCDNumber):
 
 
 class FLCDNumberCX(QLCDNumber):
-
     cxname = pyqtProperty(str)
 
-#        'sukhpanel.s-m.ch0'
+    # 'sukhpanel.s-m.ch0'
     def __init__(self, parent=None):
         QLCDNumber.__init__(self, parent)
         #self.cxchan = cxchan(self.cxname)

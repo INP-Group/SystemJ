@@ -2,9 +2,10 @@
 
 from __future__ import print_function
 
-import require
-from cothread.cothread import *
 from time import time as time_time
+
+from cothread.cothread import *
+
 
 def time():
     return time_time() - start
@@ -17,16 +18,20 @@ def thread_one():
     Sleep(0.5)
     print('thread one woken and ending', time())
 
+
 def thread_two():
     print('thread two starting', time())
     Sleep(2)
     print('bye bye', time())
-#    Quit()
+
+
+# Quit()
 
 def thread_three():
     Sleep(1.5)
     print('thread three ending')
     end_event.Signal()
+
 
 def ticker(name):
     while True:
@@ -43,6 +48,8 @@ def wait_for(event, timeout):
             print('Timed out')
         else:
             print('Got event', e)
+
+
 #        Yield()
 
 def signaller(event):
@@ -54,16 +61,16 @@ def signaller(event):
 
 
 if __name__ == '__main__':
-#    threads.SpawnScheduler()
+    #    threads.SpawnScheduler()
 
     start = time_time()
 
-#     Spawn(thread_one)
+    #     Spawn(thread_one)
     thread_two = Spawn(thread_two)
     Spawn(thread_three)
 
-#     Spawn(ticker, 'ticker one')
-#     Spawn(ticker, 'ticker two')
+    #     Spawn(ticker, 'ticker one')
+    #     Spawn(ticker, 'ticker two')
 
     event = Event()
     Spawn(wait_for, event, 0.5)
@@ -72,11 +79,11 @@ if __name__ == '__main__':
     end_event = Event()
     ok = end_event.Wait()
     print('saw end_event', ok)
-#     Sleep(2)
-#     print('sleep ended')
-#    Sleep(1)
+    #     Sleep(2)
+    #     print('sleep ended')
+    #    Sleep(1)
 
-#     ScheduleLoop()
-#    WaitForQuit()
+    #     ScheduleLoop()
+    #    WaitForQuit()
     thread_two.Wait()
     print('Normal exit')

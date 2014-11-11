@@ -2,10 +2,13 @@
 
 from __future__ import print_function
 
-import greenlet
 import time
+import sys
+import os
 
-import sys, os
+import greenlet
+
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'cothread'))
 import _coroutine
 
@@ -17,15 +20,21 @@ def nothing(i):
 def make_greenlet(i):
     return greenlet.greenlet(nothing)
 
+
 def call_greenlet(g):
     return g.switch(0)
 
+
 current = _coroutine.get_current()
+
+
 def make_coroutine(i):
     return _coroutine.create(current, nothing, 0)
 
+
 def call_coroutine(c):
     return _coroutine.switch(c, 0)
+
 
 def timing_test(name, action, count):
     if isinstance(count, int):
@@ -35,6 +44,7 @@ def timing_test(name, action, count):
     duration = time.time() - now
     print('%s took %g ns' % (name, 1e9 * duration / len(count)))
     return result
+
 
 N = 1000000
 timing_test('nothing', nothing, N)

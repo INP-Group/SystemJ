@@ -4,5 +4,4 @@ from basechannel import BaseChannel
 
 
 class DBaseChannel(BaseChannel):
-
     pass

@@ -1,10 +1,9 @@
 from __future__ import print_function
 
-import require
-import cothread
 import socket
 
-import examples.qt_monitor
+import cothread
+
 
 cothread.socket_hook()
 

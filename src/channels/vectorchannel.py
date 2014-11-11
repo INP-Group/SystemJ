@@ -2,5 +2,6 @@
 
 from src.base.channel import Channel
 
+
 class VectorChannel(Channel):
     pass

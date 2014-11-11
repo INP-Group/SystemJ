@@ -2,11 +2,9 @@ from __future__ import print_function
 
 import socket
 
-import require
 import cothread
 
 # Bring up background activity to show that we're not blocking
-import examples.qt_monitor
 
 PORT = 8888
 

@@ -18,7 +18,7 @@
 # Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 #
 # Contact:
-#      Dr. Michael Abbott,
+# Dr. Michael Abbott,
 #      Diamond Light Source Ltd,
 #      Diamond House,
 #      Chilton,
@@ -39,7 +39,7 @@ from . import coselect
 
 
 __all__ = [
-    'iqt',              # Enable interactive Qt loop
+    'iqt',  # Enable interactive Qt loop
 ]
 
 
@@ -52,7 +52,7 @@ def _readline_hook():
     coselect.poll_list([(0, coselect.POLLIN)])
 
 
-def _install_readline_hook(enable_hook = True):
+def _install_readline_hook(enable_hook=True):
     '''Install readline hook.  This allows the scheduler to run in parallel
     with interactive python: while readline is waiting for input, the
     scheduler still operates.
@@ -61,15 +61,16 @@ def _install_readline_hook(enable_hook = True):
     background activity is causing a nuisance.'''
 
     from ._coroutine import install_readline_hook
+
     if enable_hook:
         install_readline_hook(_readline_hook)
     else:
         install_readline_hook(None)
 
 
-
 # This is used by the _run_iqt timeout() function to avoid nested returns.
 _global_timeout_depth = 0
+
 
 def _timer_iqt(poll_interval):
     def timeout():
@@ -91,6 +92,7 @@ def _timer_iqt(poll_interval):
     # Set up a timer so that Qt polls cothread.  All the timer needs to do
     # is to yield control to the coroutine system.
     from PyQt4 import QtCore
+
     timer = QtCore.QTimer()
     timer.timeout.connect(timeout)
     timer.start(poll_interval * 1e3)
@@ -110,11 +112,12 @@ def _timer_iqt(poll_interval):
 # This is used to ensure that if widgets are imported directly into designer
 # then cothread works.  Note that things are not too complicated in this
 # particular case as the Qt application is required to exist already.
-def iqt(poll_interval = 0.05, run_exec = True, argv = None):
+def iqt(poll_interval=0.05, run_exec=True, argv=None):
     '''Installs Qt event handling hook.  The polling interval is in
     seconds.'''
 
     from PyQt4 import QtCore, QtGui
+
     global _qapp, _timer
 
     # Importing PyQt4 has an unexpected side effect: it removes the input hook!
@@ -142,10 +145,11 @@ def iqt(poll_interval = 0.05, run_exec = True, argv = None):
 
     # Finally, unless we've been told not to, spawn our own exec loop.
     if run_exec:
-        cothread.Spawn(_qapp.exec_, stack_size = QT_STACK_SIZE)
+        cothread.Spawn(_qapp.exec_, stack_size=QT_STACK_SIZE)
         cothread.Yield()
 
     return _qapp
+
 
 _qapp = None
 

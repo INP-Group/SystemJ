@@ -10,13 +10,17 @@
 from __future__ import print_function
 
 import sys
+
 from PyQt4.QtCore import QTimer
 from PyQt4.QtGui import QApplication, QMessageBox
+
 
 qapp = QApplication(sys.argv)
 timer = QTimer()
 
 counts = 0
+
+
 def timeout():
     global counts
     counts += 1
@@ -24,6 +28,7 @@ def timeout():
 
     if counts == 10:
         QMessageBox.information(None, 'My caption', 'This is a test')
+
 
 timer.timeout.connect(timeout)
 timer.start(100)

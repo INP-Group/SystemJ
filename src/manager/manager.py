@@ -1,23 +1,22 @@
 # -*- encoding: utf-8 -*-
 
-from src.channels.scalarchannel import ScalarChannel
-
-from PyQt4.QtGui import QStandardItemModel, QStandardItem
 from PyQt4 import QtCore, QtGui
 import string
 import random
+
+from PyQt4.QtGui import QStandardItemModel, QStandardItem
+
 from src.manager.channellfactory import ChannelFactory
 from src.manager.managerui import Ui_MainWindow as ManagerUI
 
 
 class WorkerManager(ManagerUI):
-
-    def __init__ (self):
+    def __init__(self):
         super(WorkerManager, self).__init__()
         self.setupUi()
 
         self.workers = []
-        #todo
+        # todo
         # сделать чтобы по нормальному было по центру
         width = 800
         height = 400
@@ -38,7 +37,6 @@ class WorkerManager(ManagerUI):
 
 
 class WorkerWidget(QtGui.QWidget):
-
     def __init__(self, parent=None, worker=None):
 
         QtGui.QWidget.__init__(self, parent)
@@ -59,7 +57,8 @@ class WorkerWidget(QtGui.QWidget):
         self.connect(self.PBAddChannel, QtCore.SIGNAL('clicked()'), self.addChannell)
 
     def addChannell(self):
-        self.worker.addchanel(random.choice(['ScalarChannel', 'NTimeChannel', 'DeltaChannel']))
+        for x in xrange(0, 100):
+            self.worker.addchanel(random.choice(['ScalarChannel', 'NTimeChannel', 'DeltaChannel']))
 
         channels = self.worker.getChannels()
         model = QStandardItemModel(self.tVChannells)
@@ -70,7 +69,14 @@ class WorkerWidget(QtGui.QWidget):
 
         self.tVChannells.setModel(model)
 
+
 class DaemonWorker(QtCore.QThread):
+    '''
+
+    10к сокетов не получается создать
+    Надо сигналы одной группы собирать с помощью этого воркера
+    Затем слать одно сообщение в zeromq (ну или хотя бы по M сообщений собирать в одно)
+    '''
 
     def __init__(self, parent=None, name='Daemon1'):
 

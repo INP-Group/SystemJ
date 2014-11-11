@@ -1,14 +1,11 @@
-
-
 # cdr channel class by Fedor Emanov
 
-from PyQt4.QtCore import *
-from cdr_wrapper import *
 import math
+
+from PyQt4.QtCore import *
 
 
 class cxchan(QObject):
-
     valueChanged = pyqtSignal(QObject, float)
     valueMeasured = pyqtSignal(QObject, float)
 

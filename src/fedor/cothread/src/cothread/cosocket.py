@@ -17,7 +17,7 @@
 # Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 #
 # Contact:
-#      Dr. Michael Abbott,
+# Dr. Michael Abbott,
 #      Diamond Light Source Ltd,
 #      Diamond House,
 #      Chilton,
@@ -31,9 +31,9 @@ standard socket module.'''
 
 import os
 import errno
+import socket as _socket
 
 from . import coselect
-import socket as _socket
 
 
 __all__ = ['socket', 'socket_hook']
@@ -55,8 +55,8 @@ class socket:
     __doc__ = _socket_socket.__doc__
 
     def __init__(self,
-            family=_socket.AF_INET, type=_socket.SOCK_STREAM, proto=0,
-            _sock=None):
+                 family=_socket.AF_INET, type=_socket.SOCK_STREAM, proto=0,
+                 _sock=None):
 
         if _sock is None:
             _sock = _socket_socket(family, type, proto)
@@ -119,7 +119,7 @@ class socket:
 
     def accept(self):
         sock, addr = self.__retry(coselect.POLLIN, self.__socket.accept, ())
-        return (socket(_sock = sock), addr)
+        return (socket(_sock=sock), addr)
 
     def recv(self, *args):
         return self.__retry(coselect.POLLIN, self.__socket.recv, args)

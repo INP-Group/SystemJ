@@ -4,7 +4,6 @@ from __future__ import print_function
 
 import os
 
-import require
 from cothread import *
 from cothread.coselect import *
 
@@ -13,7 +12,7 @@ def reader(r):
     while True:
         ll = poll_list(((r, POLLIN),))
         if ll:
-#            if ll[r] & POLLIN:
+            # if ll[r] & POLLIN:
             if ll[0][1] & POLLIN:
                 l = os.read(r, 1024)
                 print('reader read', repr(l))

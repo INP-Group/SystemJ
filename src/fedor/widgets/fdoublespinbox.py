@@ -3,7 +3,6 @@ from PyQt4.QtCore import *
 
 
 class FDoubleSpinBox(QDoubleSpinBox):
-
     done = pyqtSignal(float)
 
     def __init__(self, parent=None):

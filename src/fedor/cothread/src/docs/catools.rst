@@ -172,7 +172,7 @@ Functions
 ~~~~~~~~~
 
 ..  function:: caput(pvs, values, repeat_value=False, \
-        datatype=None, wait=False, timeout=5, callback=None, throw=True)
+datatype=None, wait=False, timeout=5, callback=None, throw=True)
 
     Writes values to one or more PVs.  If `pvs` is a single string then
     `values` is treated as a single value to be written to the named process
@@ -231,7 +231,7 @@ Functions
 
 
 ..  function:: caget(pvs, timeout=5, datatype=None, format=FORMAT_RAW, \
-        count=0, throw=True)
+count=0, throw=True)
 
     Retrieves a value from one or more PVs.  If `pvs` is a single string then
     a single value is returned, otherwise a list of values is returned.  Each
@@ -257,7 +257,7 @@ Functions
 
 
 ..  function:: camonitor(pvs, callback, events=None, datatype=None, \
-        format=FORMAT_RAW, count=0, all_updates=False, \
+format=FORMAT_RAW, count=0, all_updates=False, \
         notify_disconnect=False, connect_timeout=None)
 
     Creates a subscription to one or more PVs, returning a subscription
@@ -560,7 +560,7 @@ used to control the type of the data returned:
             can be used if the IOC is able to deliver strings as arrays of char.
 
         ..  data:: DBR_CHAR
-                   DBR_SHORT
+DBR_SHORT
                    DBR_LONG
 
             These are all signed integer types, with 8, 16 and 32 bit values
@@ -568,7 +568,7 @@ used to control the type of the data returned:
             arrays of :const:`DBR_CHAR` to strings.
 
         ..  data:: DBR_FLOAT
-                   DBR_DOUBLE
+DBR_DOUBLE
 
             Floating point values with 32 and 64 bit values, respectively.
 
@@ -618,7 +618,7 @@ used to control the type of the data returned:
         For :func:`caput` also two further values are supported:
 
         ..  data:: DBR_PUT_ACKT
-                   DBR_PUT_ACKS
+DBR_PUT_ACKS
 
             These are used for global alarm acknowledgement, where
             :const:`_ACKT` configures whether alarms need to be acknowleged
@@ -778,13 +778,13 @@ numeric.
     Units for display.
 
 ..  attribute::
-        .upper_disp_limit
+.upper_disp_limit
         .lower_disp_limit
 
     Suggested display limits for numerical values.
 
 ..  attribute::
-        .upper_alarm_limit
+.upper_alarm_limit
         .lower_alarm_limit
         .upper_warning_limit
         .lower_warning_limit

@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
 
 
-from basechannel import BaseChannel
+import math
 
 from PyQt4.QtCore import *
-import math
+
+from basechannel import BaseChannel
 from cdr_wrapper import Cdr
 
 
 class BaseDataChannel(BaseChannel):
-
     valueChanged = pyqtSignal(QObject, float)
     valueMeasured = pyqtSignal(QObject, float)
 
@@ -19,7 +19,7 @@ class BaseDataChannel(BaseChannel):
             self.personal_name = name
         else:
             self.personal_name = personal_name
-        #todo сделать конфиг, чтобы хотя бы указывать путь до .so файда
+        # todo сделать конфиг, чтобы хотя бы указывать путь до .so файда
         #todo hardcode
         self.name = name
         self.cdr = Cdr('/home/warmonger/Dropbox/Study/Diploma/Diploma/resources/libs/libCdr4PyQt.so')

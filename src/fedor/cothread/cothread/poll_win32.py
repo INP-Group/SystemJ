@@ -17,7 +17,7 @@
 # Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 #
 # Contact:
-#      Dr. Michael Abbott,
+# Dr. Michael Abbott,
 #      Diamond Light Source Ltd,
 #      Diamond House,
 #      Chilton,
@@ -33,14 +33,14 @@
 #   http://sourceforge.net/projects/pywin32/
 # import win32file
 # import win32pipe
-from . import _winlib
-import msvcrt
 import time
 
+from . import _winlib
+import msvcrt
 from . import coselect
 
 
-def poll_block_win32(poll_list, timeout = None):
+def poll_block_win32(poll_list, timeout=None):
     if poll_list:
         # Convert timeout into Windows wait compatible form.
         if timeout is None:
@@ -62,14 +62,14 @@ def poll_block_win32(poll_list, timeout = None):
             # can at least report the first ready item.  Unfortunately we don't
             # know *why* it's ready, but for the moment this is the best I know
             # how to do.
-            return poll_list[ready:ready+1]
-        elif ready == 0x102:        # WAIT_TIMEOUT
+            return poll_list[ready:ready + 1]
+        elif ready == 0x102:  # WAIT_TIMEOUT
             # Timeout is easy.
             return []
         else:
             # Hm.  Wait abandoned.  Convert into error code.  Not really right,
             # but the best I can do.
-            ready -= 0x80           # WAIT_ABANDONED_0
+            ready -= 0x80  # WAIT_ABANDONED_0
             assert 0 <= ready < len(poll_list)
             return [(poll_list[ready][0], coselect.POLLERR)]
     else:

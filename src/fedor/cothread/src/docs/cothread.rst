@@ -248,7 +248,7 @@ module.
 
 
 ..  class:: Spawn(function, arguments, raise_on_wait=False, \
-        stack_size=0, ...)
+stack_size=0, ...)
 
     A new cooperative thread, or *cothread*, is created as a call to
     ``function(arguments)`` where `arguments` can be any list of values and
@@ -286,7 +286,7 @@ module.
 
 
 ..  function::
-        Sleep(timeout)
+Sleep(timeout)
         SleepUntil(time)
 
     The calling task is suspended until the given time.  :func:`Sleep` suspends
@@ -481,7 +481,7 @@ and :class:`EventQueue` objects.  A :class:`Pulse` holds no values, an
     still be consumed.
 
 ..  function::
-        Quit()
+Quit()
         WaitForQuit(catch_interrupt=True)
 
     The routine :func:`WaitForQuit` blocks until one of the following occurrs:

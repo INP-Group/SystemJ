@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from cdr_wrapper import *
-
-from actl import *
 import os
+
+from cdr_wrapper import *
+from actl import *
 
 # Special QT import, needs to make qt libs visible for Cdrlib
 import DLFCN
+
 old_dlopen_flags = sys.getdlopenflags()
 sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
-from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+
 sys.setdlopenflags(old_dlopen_flags)
 
 
@@ -31,7 +31,6 @@ class MiddleRunner(QObject):
             c.valueChanged.connect(self.run_middle)
 
 
-
     def run_middle(self, chan, val):
         ind = self.chans.index(chan)
         if val > 0:
@@ -39,8 +38,6 @@ class MiddleRunner(QObject):
 
     def laod_set(self):
         pass
-
-
 
 
 # QT init

@@ -19,13 +19,16 @@ else:
 
 callbacks = 0
 
+
 def callback(value):
     global callbacks
     callbacks += 1
     if value.update_count != 1:
         print('update_count', value.update_count)
 
+
 camonitor("ARAVISCAM1:ARR:ArrayData", callback, count=count, all_updates=True)
+
 
 @cothread.Spawn
 def timer():
@@ -37,5 +40,6 @@ def timer():
         print("%d callbacks" % callbacks, callbacks - last_callbacks)
         last = now
         last_callbacks = callbacks
+
 
 cothread.WaitForQuit()

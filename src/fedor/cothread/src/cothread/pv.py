@@ -2,11 +2,10 @@
 
 import numpy
 import weakref
-import time
 
 from . import cothread
 from . import catools
-from . import cadef
+
 
 __all__ = ['PV', 'PV_array']
 
@@ -31,7 +30,7 @@ class PV(object):
     WARNING!  This API is a work in progress and will change in future releases
     in incompatible ways.'''
 
-    def __init__(self, pv, on_update = None, timeout = 5, **kargs):
+    def __init__(self, pv, on_update=None, timeout=5, **kargs):
         assert isinstance(pv, str), 'PV class only works for one PV at a time'
 
         self.name = pv
@@ -63,7 +62,7 @@ class PV(object):
         else:
             return self.__value
 
-    def get_next(self, timeout = None, reset = False):
+    def get_next(self, timeout=None, reset=False):
         '''Returns current value or blocks until next update.  Call .reset()
         first if more recent value required.'''
         if reset:
@@ -92,7 +91,7 @@ class PV_array(object):
     in incompatible ways.'''
 
     def __init__(self, pvs,
-            dtype = float, count = 1, on_update = None, **kargs):
+                 dtype=float, count=1, on_update=None, **kargs):
 
         assert not isinstance(pvs, str), \
             'PV_array class only works for an array of PVs'
@@ -104,16 +103,16 @@ class PV_array(object):
             self.shape = len(pvs)
         else:
             self.shape = (len(pvs), count)
-        self.__value = numpy.zeros(self.shape, dtype = dtype)
-        self.ok = numpy.zeros(len(pvs), dtype = bool)
-        self.timestamp = numpy.zeros(len(pvs), dtype = float)
-        self.severity = numpy.zeros(len(pvs), dtype = numpy.int16)
-        self.status   = numpy.zeros(len(pvs), dtype = numpy.int16)
+        self.__value = numpy.zeros(self.shape, dtype=dtype)
+        self.ok = numpy.zeros(len(pvs), dtype=bool)
+        self.timestamp = numpy.zeros(len(pvs), dtype=float)
+        self.severity = numpy.zeros(len(pvs), dtype=numpy.int16)
+        self.status = numpy.zeros(len(pvs), dtype=numpy.int16)
 
         self.__monitors = catools.camonitor(
             pvs, _WeakMethod(self, '_on_update'),
-            count = count, datatype = dtype,
-            format = catools.FORMAT_TIME, notify_disconnect = True, **kargs)
+            count=count, datatype=dtype,
+            format=catools.FORMAT_TIME, notify_disconnect=True, **kargs)
 
     def __del__(self):
         self.close()

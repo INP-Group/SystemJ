@@ -4,13 +4,12 @@
 
 from __future__ import print_function
 
-import os, sys
-
-import require
-from cothread.catools import *
-from cothread import *
 from numpy import *
 from PyQt4 import Qwt5, QtGui, QtCore, uic
+
+from cothread.catools import *
+from cothread import *
+
 
 iqt()
 
@@ -22,6 +21,7 @@ Ui_Scope, widget = uic.loadUiType(scope_ui_file)
 # subclass form to implement buttons
 class MyScope(widget, Ui_Scope):
     '''application class'''
+
     def __init__(self):
         widget.__init__(self)
         self.setupUi(self)
@@ -63,16 +63,16 @@ class MyScope(widget, Ui_Scope):
         # stop flickering border
         p.canvas().setFocusIndicator(Qwt5.QwtPlotCanvas.NoFocusIndicator)
         # set zoom colour
-#         for z in p.zoomers:
-#             z.setRubberBandPen(QtGui.QPen(QtCore.Qt.white))
+        # for z in p.zoomers:
+        #             z.setRubberBandPen(QtGui.QPen(QtCore.Qt.white))
         # set fixed scale
         p.setAxisScale(Qwt5.QwtPlot.yLeft, -1e7, 1e7)
         p.setAxisScale(Qwt5.QwtPlot.xBottom, 0, 2500)
         # automatically redraw when data changes
         p.setAutoReplot(True)
         # reset plot zoom (the default is 1000 x 1000)
-#         for z in p.zoomers:
-#             z.setZoomBase()
+        #         for z in p.zoomers:
+        #             z.setZoomBase()
 
         self.p = p
         self.c = c

@@ -18,7 +18,7 @@
 # Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 #
 # Contact:
-#      Dr. Michael Abbott,
+# Dr. Michael Abbott,
 #      Diamond Light Source Ltd,
 #      Diamond House,
 #      Chilton,
@@ -71,6 +71,7 @@ def _libca_path(load_libca_path):
         try:
             # If libca_path has been defined go with that
             from .libca_path import libca_path
+
             return libca_path
         except ImportError:
             pass
@@ -88,12 +89,12 @@ def _libca_path(load_libca_path):
     # with a little careful guesswork.  As EPICS architecture names are a little
     # arbitrary this isn't guaranteed to work.
     system_map = {
-        ('Linux',   '32bit'):   'linux-x86',
-        ('Linux',   '64bit'):   'linux-x86_64',
-        ('Darwin',  '32bit'):   'darwin-x86',
-        ('Darwin',  '64bit'):   'darwin-x86',
-        ('Windows', '32bit'):   'win32-x86',
-        ('Windows', '64bit'):   'windows-x64',  # Not quite yet!
+        ('Linux', '32bit'): 'linux-x86',
+        ('Linux', '64bit'): 'linux-x86_64',
+        ('Darwin', '32bit'): 'darwin-x86',
+        ('Darwin', '64bit'): 'darwin-x86',
+        ('Windows', '32bit'): 'win32-x86',
+        ('Windows', '64bit'): 'windows-x64',  # Not quite yet!
     }
     bits = platform.architecture()[0]
     epics_host_arch = system_map[(system, bits)]

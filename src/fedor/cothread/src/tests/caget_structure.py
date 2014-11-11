@@ -4,8 +4,8 @@
 
 from __future__ import print_function
 
-import require
 from cothread.catools import *
+
 
 def show_result(result):
     '''show structure of channel access get results'''
@@ -22,5 +22,5 @@ def show_result(result):
 PV = 'SR21C-DI-DCCT-01:SIGNAL'
 
 for format in [FORMAT_RAW, FORMAT_TIME, FORMAT_CTRL]:
-    show_result(caget(PV, format = format))
+    show_result(caget(PV, format=format))
 

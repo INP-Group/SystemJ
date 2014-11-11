@@ -18,7 +18,7 @@
 # Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 #
 # Contact:
-#      Dr. Michael Abbott,
+# Dr. Michael Abbott,
 #      Diamond Light Source Ltd,
 #      Diamond House,
 #      Chilton,
@@ -58,17 +58,17 @@ import threading
 from . import cothread
 from . import cadef
 from . import dbr
-
 from .dbr import *
 from .cadef import *
 
+
 __all__ = [
-    # The core functions.
-    'caput',            # Write PVs to channel access
-    'caget',            # Read PVs from channel access
-    'camonitor',        # Monitor PVs over channel access
-    'connect',          # Establish PV connection
-] + dbr.__all__ + cadef.__all__
+              # The core functions.
+              'caput',  # Write PVs to channel access
+              'caget',  # Read PVs from channel access
+              'camonitor',  # Monitor PVs over channel access
+              'connect',  # Establish PV connection
+          ] + dbr.__all__ + cadef.__all__
 
 
 def _check_env(name, default):
@@ -81,8 +81,7 @@ K = 1024
 
 # Miscellaneous channel access operations are created using this stack size.  By
 # default we use the shared stack to avoid accidents.
-CA_ACTION_STACK         = _check_env('CATOOLS_ACTION_STACK', 0)
-
+CA_ACTION_STACK = _check_env('CATOOLS_ACTION_STACK', 0)
 
 
 class ca_nothing(Exception):
@@ -90,7 +89,7 @@ class ca_nothing(Exception):
     as a failure indicator from caget, and may be raised as an exception to
     report a data error on caget or caput with wait.'''
 
-    def __init__(self, name, errorcode = cadef.ECA_NORMAL):
+    def __init__(self, name, errorcode=cadef.ECA_NORMAL):
         '''Initialise with PV name and associated errorcode.'''
         self.ok = errorcode == cadef.ECA_NORMAL
         self.name = name
@@ -158,9 +157,9 @@ class Channel(object):
     __slots__ = [
         'name',
         '__subscriptions',  # Set of listening subscriptions
-        '__connected',      # Status of channel connection
+        '__connected',  # Status of channel connection
         '__connect_event',  # Connection event used to notify changes
-        '_as_parameter_'    # Associated channel access channel handle
+        '_as_parameter_'  # Associated channel access channel handle
     ]
 
     @cadef.connection_handler
@@ -227,7 +226,7 @@ class Channel(object):
         '''Removes the given subscription from the list of receivers.'''
         self.__subscriptions.remove(subscription)
 
-    def Wait(self, timeout = None):
+    def Wait(self, timeout=None):
         '''Waits for the channel to become connected if not already connected.
         Raises a Timeout exception if the timeout expires first.'''
         timeout = cothread.AbsTimeout(timeout)
@@ -271,7 +270,6 @@ class ChannelCache(object):
         self.__channels = {}
 
 
-
 # ----------------------------------------------------------------------------
 #   camonitor
 
@@ -280,30 +278,30 @@ class _Subscription(object):
     '''A _Subscription object wraps a single channel access subscription, and
     notifies all updates through an event queue.'''
     __slots__ = [
-        'name',             # Name of the PV subscribed to
-        'callback',         # The user callback function
-        'dbr_to_value',     # Conversion from dbr
-        'channel',          # The associated channel object
-        '__state',          # Whether the subscription is active
-        '_as_parameter_',   # Associated channel access subscription handle
-        'all_updates',      # True iff all updates delivered without merging
-        'notify_disconnect', # Whether to report disconnect events
-        '__value',          # Most recent update if merging updates
-        '__update_count',   # Number of updates seen since last notification
+        'name',  # Name of the PV subscribed to
+        'callback',  # The user callback function
+        'dbr_to_value',  # Conversion from dbr
+        'channel',  # The associated channel object
+        '__state',  # Whether the subscription is active
+        '_as_parameter_',  # Associated channel access subscription handle
+        'all_updates',  # True iff all updates delivered without merging
+        'notify_disconnect',  # Whether to report disconnect events
+        '__value',  # Most recent update if merging updates
+        '__update_count',  # Number of updates seen since last notification
     ]
 
     # _Subscription state values:
-    __OPENING = 0       # Subscription not complete yet
-    __OPEN    = 1       # Normally active
-    __CLOSED  = 2       # Closed but not yet deleted
+    __OPENING = 0  # Subscription not complete yet
+    __OPEN = 1  # Normally active
+    __CLOSED = 2  # Closed but not yet deleted
 
     # Mapping from format to event mask for default events
     __default_events = {
-        FORMAT_RAW:  DBE_VALUE,
+        FORMAT_RAW: DBE_VALUE,
         FORMAT_TIME: DBE_VALUE | DBE_ALARM,
-        FORMAT_CTRL: DBE_VALUE | DBE_ALARM | DBE_PROPERTY }
+        FORMAT_CTRL: DBE_VALUE | DBE_ALARM | DBE_PROPERTY}
 
-    __lock = threading.Lock()   # Used for update merging.
+    __lock = threading.Lock()  # Used for update merging.
 
     # Create our own callback queue so that camonitor() callbacks can be handled
     # concurrently with other asynchronous callbacks.
@@ -359,9 +357,9 @@ class _Subscription(object):
                 # prevent a perpetual storm of exceptions, we close the
                 # subscription after reporting the problem.
                 print('Subscription %s callback raised exception' % self.name,
-                    file = sys.stderr)
+                      file=sys.stderr)
                 traceback.print_exc()
-                print('Subscription %s closed' % self.name, file = sys.stderr)
+                print('Subscription %s closed' % self.name, file=sys.stderr)
                 self.close()
 
     def _on_connect(self, connected):
@@ -376,7 +374,7 @@ class _Subscription(object):
         Note that no further callbacks will occur on a closed subscription,
         not even callbacks currently queued for execution.'''
         if self.__state == self.__OPENING:
-            self.channel.Wakeup()   # Wakes up __wait_for_channel() below
+            self.channel.Wakeup()  # Wakes up __wait_for_channel() below
         elif self.__state == self.__OPEN:
             self.channel._remove_subscription(self)
             cadef.ca_clear_subscription(self)
@@ -397,10 +395,10 @@ class _Subscription(object):
 
 
     def __init__(self, name, callback,
-            events = None,
-            datatype = None, format = FORMAT_RAW, count = 0,
-            all_updates = False, notify_disconnect = False,
-            connect_timeout = None):
+                 events=None,
+                 datatype=None, format=FORMAT_RAW, count=0,
+                 all_updates=False, notify_disconnect=False,
+                 connect_timeout=None):
         '''Subscription initialisation.'''
 
         self.name = name
@@ -422,8 +420,8 @@ class _Subscription(object):
         # connected.
         self.__state = self.__OPENING
         cothread.Spawn(self.__create_subscription,
-            events, datatype, format, count, connect_timeout,
-            stack_size = CA_ACTION_STACK)
+                       events, datatype, format, count, connect_timeout,
+                       stack_size=CA_ACTION_STACK)
 
     # Waiting for the channel is a bit more tangled than it might otherwise be
     # so that we can handle the subscription being closed before the connection
@@ -444,7 +442,7 @@ class _Subscription(object):
         return False
 
     def __create_subscription(self,
-            events, datatype, format, count, connect_timeout):
+                              events, datatype, format, count, connect_timeout):
         '''Creates the channel subscription with the specified parameters:
         event mask, datatype and format, array count.  Waits for the channel
         to become connected.'''
@@ -620,8 +618,8 @@ def caget_array(pvs, **kargs):
     # the spawned caget_one() calls will appear as exceptions to WaitForAll().
     return cothread.WaitForAll([
         cothread.Spawn(
-            caget_one, pv, raise_on_wait = True,
-            stack_size = CA_ACTION_STACK, **kargs)
+            caget_one, pv, raise_on_wait=True,
+            stack_size=CA_ACTION_STACK, **kargs)
         for pv in pvs])
 
 
@@ -726,7 +724,6 @@ def caget(pvs, **kargs):
         return caget_array(pvs, **kargs)
 
 
-
 # ----------------------------------------------------------------------------
 #   caput
 
@@ -808,8 +805,8 @@ def caput_array(pvs, values, repeat_value=False, **kargs):
 
     return cothread.WaitForAll([
         cothread.Spawn(
-            caput_one, pv, value, raise_on_wait = True,
-            stack_size = CA_ACTION_STACK, **kargs)
+            caput_one, pv, value, raise_on_wait=True,
+            stack_size=CA_ACTION_STACK, **kargs)
         for pv, value in zip(pvs, values)])
 
 
@@ -870,7 +867,6 @@ def caput(pvs, values, **kargs):
         return caput_array(pvs, values, **kargs)
 
 
-
 # ----------------------------------------------------------------------------
 #   connect
 
@@ -885,15 +881,15 @@ class ca_info(object):
         self.ok = True
         self.name = pv
         self.state = cadef.ca_state(channel)
-        self.host  = cadef.ca_host_name(channel)
-        self.read  = cadef.ca_read_access(channel)
+        self.host = cadef.ca_host_name(channel)
+        self.read = cadef.ca_read_access(channel)
         self.write = cadef.ca_write_access(channel)
         if self.state == cadef.cs_conn:
-            self.count    = cadef.ca_element_count(channel)
+            self.count = cadef.ca_element_count(channel)
             self.datatype = cadef.ca_field_type(channel)
         else:
             self.count = 0
-            self.datatype = 7       # DBF_NO_ACCESS
+            self.datatype = 7  # DBF_NO_ACCESS
 
     def __str__(self):
         return '''%s:
@@ -902,13 +898,13 @@ class ca_info(object):
     Access: %s, %s
     Data type: %s
     Count: %d''' % (
-        self.name, self.state_strings[self.state], self.host,
-        self.read, self.write, self.datatype_strings[self.datatype],
-        self.count)
+            self.name, self.state_strings[self.state], self.host,
+            self.read, self.write, self.datatype_strings[self.datatype],
+            self.count)
 
 
 @maybe_throw
-def connect_one(pv, cainfo = False, wait = True, timeout = 5):
+def connect_one(pv, cainfo=False, wait=True, timeout=5):
     channel = _channel_cache[pv]
     if wait:
         channel.Wait(timeout)
@@ -921,8 +917,8 @@ def connect_one(pv, cainfo = False, wait = True, timeout = 5):
 def connect_array(pvs, **kargs):
     return cothread.WaitForAll([
         cothread.Spawn(
-            connect_one, pv, raise_on_wait = True,
-            stack_size = CA_ACTION_STACK, **kargs)
+            connect_one, pv, raise_on_wait=True,
+            stack_size=CA_ACTION_STACK, **kargs)
         for pv in pvs])
 
 
@@ -975,12 +971,12 @@ def connect(pvs, **kargs):
         return connect_array(pvs, **kargs)
 
 
-
 # ----------------------------------------------------------------------------
 #   Final module initialisation
 
 
 _channel_cache = ChannelCache()
+
 
 @atexit.register
 def _catools_atexit():
@@ -1011,7 +1007,7 @@ cadef.ca_context_create(1)
 class _FlushIo:
     def __init__(self):
         self._flush_io_event = cothread.Event()
-        cothread.Spawn(self._dispatch_flush_io, stack_size = CA_ACTION_STACK)
+        cothread.Spawn(self._dispatch_flush_io, stack_size=CA_ACTION_STACK)
 
     def _dispatch_flush_io(self):
         while True:
@@ -1024,6 +1020,7 @@ class _FlushIo:
         scheduler cycle.'''
         self._flush_io_event.Signal()
 
+
 _flush_io = _FlushIo()
 
 
@@ -1033,5 +1030,6 @@ if False:
     def catools_exception(args):
         '''print ca exception message'''
         print('catools_exception:', args.ctx, cadef.ca_message(args.stat),
-            file = sys.stderr)
+              file=sys.stderr)
+
     cadef.ca_add_exception_event(catools_exception, 0)

@@ -1,7 +1,7 @@
-
 import numpy as np
-from cdr_wrapper import *
+
 from PyQt4.QtCore import *
+
 
 # adc200 parameters names and numders (as if Bolkhov's driver)
 # some mo parameters are not needed by program
@@ -21,8 +21,7 @@ ADC200_MAX_NUMPTS = 128000
 
 
 class adc200(QObject):
-
-    #signals
+    # signals
     parChanged = pyqtSignal(str, int)
     newData = pyqtSignal()
     newRef = pyqtSignal()
@@ -65,7 +64,7 @@ class adc200(QObject):
 
     def cb(self, handle, params):
         self.get_scope_params()
-        self.cdr.GetSimpleBigcData(self.handle, 0, 2*self.parvals['NUMPTS'], self.data.ctypes.data)
+        self.cdr.GetSimpleBigcData(self.handle, 0, 2 * self.parvals['NUMPTS'], self.data.ctypes.data)
         self.data_convert()
         if self.ground_sub:
             self.udata -= self.ground
@@ -130,7 +129,7 @@ class adc200(QObject):
         self.ground_acount = anum
         self.ground_calibrating = True
         if self.ground_is_vector:
-            np.zeros(shape=(2, self.parvals['NUMPTS']), dtype = np.float32)
+            np.zeros(shape=(2, self.parvals['NUMPTS']), dtype=np.float32)
 
     def ground_endcalibrate(self):
         print "ground calibration done"

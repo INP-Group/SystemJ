@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from cdr_wrapper import *
-
 # class for simultaneous control if identical channels
 #
 

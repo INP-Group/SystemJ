@@ -1,8 +1,9 @@
 '''Helper functions for channel access.'''
 
+import numpy
+
 import cothread
 from cothread import catools
-import numpy
 
 
 def maybe_throw(function):
@@ -27,7 +28,7 @@ def fill_buffer_one(pv, length, datatype=float, timeout=None):
     '''Performs a camonitor on pv to fill a buffer.'''
 
     count = [0]
-    result = numpy.empty(length, dtype = datatype)
+    result = numpy.empty(length, dtype=datatype)
     done = cothread.Event()
 
     def on_update(value):
@@ -37,7 +38,7 @@ def fill_buffer_one(pv, length, datatype=float, timeout=None):
             done.Signal()
             subscription.close()
 
-    subscription = catools.camonitor(pv, on_update, datatype = datatype)
+    subscription = catools.camonitor(pv, on_update, datatype=datatype)
     try:
         done.Wait(timeout)
     finally:
@@ -48,7 +49,7 @@ def fill_buffer_one(pv, length, datatype=float, timeout=None):
 def fill_buffer_array(pvs, length, **kargs):
     return cothread.WaitForAll([
         cothread.Spawn(fill_buffer_one, pv, length,
-            raise_on_wait = True, **kargs)
+                       raise_on_wait=True, **kargs)
         for pv in pvs])
 
 

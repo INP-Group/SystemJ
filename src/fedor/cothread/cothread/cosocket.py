@@ -17,7 +17,7 @@
 # Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 #
 # Contact:
-#      Dr. Michael Abbott,
+# Dr. Michael Abbott,
 #      Diamond Light Source Ltd,
 #      Diamond House,
 #      Chilton,
@@ -31,9 +31,10 @@ standard socket module.'''
 
 import os
 import errno
+import socket as _socket
 
 from . import coselect
-import socket as _socket
+
 
 __all__ = ['socket', 'socket_hook', 'socketpair', 'create_connection']
 
@@ -51,16 +52,23 @@ def socket_hook():
     _socket.socket = socket
     _socket.socketpair = socketpair
 
+
 def socketpair(*args):
     # For unfathomable reasons socketpair() returns un-wrapped '_socket.socket'
     # So they are only wrapped once.
-    return tuple(map(lambda S: socket(_sock = S), _socket_pair(*args)))
+    return tuple(map(lambda S: socket(_sock=S), _socket_pair(*args)))
+
+
 socketpair.__doc__ = _socket.socketpair.__doc__
+
 
 def create_connection(*args, **kargs):
     sock = _socket.create_connection(*args, **kargs)
-    return socket(_sock = sock)
+    return socket(_sock=sock)
+
+
 create_connection.__doc__ = _socket.create_connection.__doc__
+
 
 class socket(object):
     __doc__ = _socket_socket.__doc__
@@ -70,8 +78,8 @@ class socket(object):
         return fun
 
     def __init__(self,
-            family=_socket.AF_INET, type=_socket.SOCK_STREAM, proto=0,
-            _sock=None):
+                 family=_socket.AF_INET, type=_socket.SOCK_STREAM, proto=0,
+                 _sock=None):
 
         if _sock is None:
             _sock = _socket_socket(family, type, proto)
@@ -139,7 +147,7 @@ class socket(object):
     @wrap
     def accept(self):
         sock, addr = self.__retry(coselect.POLLIN, self.__socket.accept, ())
-        return (socket(_sock = sock), addr)
+        return (socket(_sock=sock), addr)
 
     @wrap
     def recv(self, *args):
@@ -183,10 +191,10 @@ class socket(object):
         # class.  In order to handle close() properly we must copy all wrappers,
         # but not the underlying actual socket.
         sock = getattr(self.__socket, '_sock', None)
-        if sock: # double wrapped
+        if sock:  # double wrapped
             copy0 = _socket_socket(None, None, None, sock)
             copy1 = socket(None, None, None, copy0)
-        else: # single wrapped
+        else:  # single wrapped
             copy1 = socket(None, None, None, self.__socket)
         return _socket._fileobject(copy1, *args, **kws)
 

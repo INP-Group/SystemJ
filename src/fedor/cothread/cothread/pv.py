@@ -8,6 +8,7 @@ from . import cothread
 from . import catools
 from . import cadef
 
+
 __all__ = ['PV', 'PV_array']
 
 
@@ -31,7 +32,7 @@ class PV(object):
     WARNING!  This API is a work in progress and will change in future releases
     in incompatible ways.'''
 
-    def __init__(self, pv, on_update = None, timeout = 5, **kargs):
+    def __init__(self, pv, on_update=None, timeout=5, **kargs):
         assert isinstance(pv, str), 'PV class only works for one PV at a time'
 
         self.name = pv
@@ -63,7 +64,7 @@ class PV(object):
         else:
             return self.__value
 
-    def get_next(self, timeout = None, reset = False):
+    def get_next(self, timeout=None, reset=False):
         '''Returns current value or blocks until next update.  Call .reset()
         first if more recent value required.'''
         if reset:
@@ -92,7 +93,7 @@ class PV_array(object):
     in incompatible ways.'''
 
     def __init__(self, pvs,
-            dtype = float, count = 1, on_update = None, **kargs):
+                 dtype=float, count=1, on_update=None, **kargs):
 
         assert not isinstance(pvs, str), \
             'PV_array class only works for an array of PVs'
@@ -106,17 +107,17 @@ class PV_array(object):
             self.shape = len(pvs)
         else:
             self.shape = (len(pvs), count)
-        self.__value = numpy.zeros(self.shape, dtype = dtype)
-        self.seen = numpy.zeros(len(pvs), dtype = bool)
-        self.__ok = numpy.zeros(len(pvs), dtype = bool)
-        self.__timestamp = numpy.zeros(len(pvs), dtype = float)
-        self.__severity = numpy.zeros(len(pvs), dtype = numpy.int16)
-        self.__status   = numpy.zeros(len(pvs), dtype = numpy.int16)
+        self.__value = numpy.zeros(self.shape, dtype=dtype)
+        self.seen = numpy.zeros(len(pvs), dtype=bool)
+        self.__ok = numpy.zeros(len(pvs), dtype=bool)
+        self.__timestamp = numpy.zeros(len(pvs), dtype=float)
+        self.__severity = numpy.zeros(len(pvs), dtype=numpy.int16)
+        self.__status = numpy.zeros(len(pvs), dtype=numpy.int16)
 
         self.__monitors = catools.camonitor(
             pvs, _WeakMethod(self, '_on_update'),
-            count = count, datatype = dtype,
-            format = catools.FORMAT_TIME, notify_disconnect = True, **kargs)
+            count=count, datatype=dtype,
+            format=catools.FORMAT_TIME, notify_disconnect=True, **kargs)
 
     def __del__(self):
         self.close()
@@ -146,11 +147,11 @@ class PV_array(object):
         dtype = kargs.pop('dtype', self.dtype)
         count = kargs.pop('count', self.count)
         return catools.caget(
-            self.names, count = count, datatype = dtype,
+            self.names, count=count, datatype=dtype,
             format=catools.FORMAT_TIME, **kargs)
 
-    def sync(self, timeout = 5, throw = True):
-        values = self.caget(timeout = timeout, throw = throw)
+    def sync(self, timeout=5, throw=True):
+        values = self.caget(timeout=timeout, throw=throw)
         for index, value in enumerate(values):
             if not self.seen[index]:
                 self._update_one(value, index)
@@ -159,10 +160,10 @@ class PV_array(object):
         return catools.caput(self.names, value, **kargs)
 
     value = property(get, caput)
-    ok        = property(lambda self: +self.__ok)
+    ok = property(lambda self: +self.__ok)
     timestamp = property(lambda self: +self.__timestamp)
-    severity  = property(lambda self: +self.__severity)
-    status    = property(lambda self: +self.__status)
+    severity = property(lambda self: +self.__severity)
+    status = property(lambda self: +self.__status)
 
     @property
     def all_ok(self):

@@ -18,7 +18,7 @@
 # Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 #
 # Contact:
-#      Dr. Michael Abbott,
+# Dr. Michael Abbott,
 #      Diamond Light Source Ltd,
 #      Diamond House,
 #      Chilton,
@@ -38,15 +38,16 @@ This module is a thin wrapper over the cadef.h file to be found in
 
 __all__ = [
     # Event type notification codes for camonitor
-    'DBE_VALUE',        # Notify normal value changes
-    'DBE_LOG',          # Notify archival value changes
-    'DBE_ALARM',        # Notify alarm state changes
-    'DBE_PROPERTY',     # Notify property change events (3.14.11 and later)
+    'DBE_VALUE',  # Notify normal value changes
+    'DBE_LOG',  # Notify archival value changes
+    'DBE_ALARM',  # Notify alarm state changes
+    'DBE_PROPERTY',  # Notify property change events (3.14.11 and later)
 ]
 
-
 import ctypes
+
 from .load_ca import libca
+
 
 
 
@@ -55,13 +56,13 @@ from .load_ca import libca
 
 
 # Flags used to identify notification events to request for subscription.
-DBE_VALUE   = 1
-DBE_LOG     = 2
-DBE_ALARM   = 4
+DBE_VALUE = 1
+DBE_LOG = 2
+DBE_ALARM = 4
 DBE_PROPERTY = 8
 
 # Connection state as passed to connection handler
-CA_OP_CONN_UP   = 6
+CA_OP_CONN_UP = 6
 CA_OP_CONN_DOWN = 7
 
 # Status codes as returned by virtually all ca_ routines.  We only specially
@@ -81,12 +82,14 @@ ECA_DISCONN = 192
 # completes or the data is available.
 class event_handler_args(ctypes.Structure):
     _fields_ = [
-        ('usr',     ctypes.py_object),  # Associated private data
-        ('chid',    ctypes.c_void_p),   # Channel ID for this request
-        ('type',    ctypes.c_long),     # DBR type of data returned
-        ('count',   ctypes.c_long),     # Number of data points returned
-        ('raw_dbr', ctypes.c_void_p),   # Pointer to raw dbr array
-        ('status',  ctypes.c_int)]      # ECA_ status code of operation
+        ('usr', ctypes.py_object),  # Associated private data
+        ('chid', ctypes.c_void_p),  # Channel ID for this request
+        ('type', ctypes.c_long),  # DBR type of data returned
+        ('count', ctypes.c_long),  # Number of data points returned
+        ('raw_dbr', ctypes.c_void_p),  # Pointer to raw dbr array
+        ('status', ctypes.c_int)]  # ECA_ status code of operation
+
+
 event_handler = ctypes.CFUNCTYPE(None, event_handler_args)
 
 
@@ -94,24 +97,28 @@ event_handler = ctypes.CFUNCTYPE(None, event_handler_args)
 # report path.
 class exception_handler_args(ctypes.Structure):
     _fields_ = [
-        ('usr',     ctypes.c_void_p),   # Associated private data
-        ('chid',    ctypes.c_void_p),   # Channel ID or NULL
-        ('type',    ctypes.c_long),     # Data type requested
-        ('count',   ctypes.c_long),     # Number of data points requested
-        ('addr',    ctypes.c_void_p),   # User address for GET operation
-        ('stat',    ctypes.c_long),     # Channel access status code
-        ('op',      ctypes.c_long),     # CA_OP_ operation code
-        ('ctx',     ctypes.c_char_p),   # Context information string
-        ('pFile',   ctypes.c_char_p),   # Location in source: file name
-        ('lineNo',  ctypes.c_uint)]     #             ... and line number
+        ('usr', ctypes.c_void_p),  # Associated private data
+        ('chid', ctypes.c_void_p),  # Channel ID or NULL
+        ('type', ctypes.c_long),  # Data type requested
+        ('count', ctypes.c_long),  # Number of data points requested
+        ('addr', ctypes.c_void_p),  # User address for GET operation
+        ('stat', ctypes.c_long),  # Channel access status code
+        ('op', ctypes.c_long),  # CA_OP_ operation code
+        ('ctx', ctypes.c_char_p),  # Context information string
+        ('pFile', ctypes.c_char_p),  # Location in source: file name
+        ('lineNo', ctypes.c_uint)]  #             ... and line number
+
+
 exception_handler = ctypes.CFUNCTYPE(None, exception_handler_args)
 
 
 # Connection handler, used to report channel connection status.
 class ca_connection_handler_args(ctypes.Structure):
     _fields_ = [
-        ('chid',    ctypes.c_void_p),
-        ('op',      ctypes.c_long)]
+        ('chid', ctypes.c_void_p),
+        ('op', ctypes.c_long)]
+
+
 connection_handler = ctypes.CFUNCTYPE(None, ca_connection_handler_args)
 
 
@@ -125,21 +132,24 @@ connection_handler = ctypes.CFUNCTYPE(None, ca_connection_handler_args)
 
 class Disconnected(Exception):
     '''The channel is disconnected.'''
+
     def __init__(self, chid):
         self.name = ca_name(chid)
+
     def __str__(self):
         return 'Channel %s disconnected' % self.name
 
 
 class CAException(Exception):
     '''Exception in response to calling ca_ method.'''
+
     def __init__(self, status, function):
         self.status = status
         self.function = function
+
     def __str__(self):
         return '%s calling %s' % (
             ca_message(self.status), self.function.__name__)
-
 
 
 # For routines which are simply expected to succeed this routine should be
@@ -151,14 +161,16 @@ def expect_ECA_NORMAL(status, function, args):
 
 # Routine for testing functions which interrogate the status of a channel and
 # return a special sentinel value when the channel is disconnected.
-def expect_connected(sentinel, chid = 0):
+def expect_connected(sentinel, chid=0):
     '''sentinel is the disconnected notification value to check for, and chid
     is the position in the argument list of the channel being inspected.'''
+
     def expects(result, function, args):
         if result == sentinel:
             raise Disconnected(args[chid])
         else:
             return result
+
     return expects
 
 

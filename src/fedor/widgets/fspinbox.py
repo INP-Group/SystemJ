@@ -3,7 +3,6 @@ from PyQt4.QtCore import *
 
 
 class FSpinBox(QSpinBox):
-
     done = pyqtSignal(int)
 
     def __init__(self, parent=None):

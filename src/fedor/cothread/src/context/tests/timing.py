@@ -1,18 +1,24 @@
 from __future__ import print_function
 
 import time
-import sys, os
+import sys
+import os
+
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 
 from cothread import *
 
+
 def task(done, n):
     done.Wait()
 
-done = Event(auto_reset = False)
+
+done = Event(auto_reset=False)
 
 N = int(sys.argv[1])
 stack_size = int(sys.argv[2])
+
 
 def test():
     now = time.time()
@@ -21,7 +27,8 @@ def test():
     WaitForAll(tasks)
     end = time.time()
 
-    print('Spawning', N, 'tasks in', end-now, 'seconds')
+    print('Spawning', N, 'tasks in', end - now, 'seconds')
+
 
 test()
 test()

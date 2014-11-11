@@ -4,13 +4,14 @@
 import sys
 
 import DLFCN
+
 old_dlopen_flags = sys.getdlopenflags()
 sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
-from PyQt4 import QtGui
 from PyQt4.QtCore import *
+
 sys.setdlopenflags(old_dlopen_flags)
 
-#from cdr_wrapper import *
+# from cdr_wrapper import *
 from actl import *
 from sdds import *
 import numpy as np
@@ -28,7 +29,6 @@ class middle_gw():
         midnames = colData[colName.index("midname")][0]
         srcmin = colData[colName.index("smin")][0]
         srcmax = colData[colName.index("smax")][0]
-
 
         self.mchans = []
         self.srclims = np.zeros((len(srcnames), 2))
@@ -58,7 +58,6 @@ if len(sys.argv) == 1:
     print note
     sys.exit(0)
 
-
 app = QCoreApplication(sys.argv)
 
 mid = middle_gw(sys.argv[1])
@@ -67,6 +66,5 @@ runctl = middleRunCtl(app, "ic.linmag.middlerun")
 
 print "middleware polinomial translator runing"
 print "serving channels: %d" % len(mid.mchans)
-
 
 sys.exit(app.exec_())

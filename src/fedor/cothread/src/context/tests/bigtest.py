@@ -1,7 +1,10 @@
 from __future__ import print_function
 
 import time
-import sys, os
+import sys
+import os
+
+
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '../..'))
 
@@ -47,16 +50,16 @@ version_pvs = [
     'DRIVER2',
 ]
 
-
 bpms = [
-    'SR%02dC-DI-EBPM-%02d' % (c+1,n+1) for c in range(24) for n in range(7)]
+    'SR%02dC-DI-EBPM-%02d' % (c + 1, n + 1) for c in range(24) for n in range(7)]
 pvs = [
     'VE:%s' % v for v in version_pvs]
 
-#     '%s:WF%s' % (z, a) for z in ['FR', 'TT'] for a in 'ABCDSQXY']
+# '%s:WF%s' % (z, a) for z in ['FR', 'TT'] for a in 'ABCDSQXY']
 
 def getall(pvs, **kargs):
     return caget(['%s:%s' % (bpm, pv) for bpm in bpms for pv in pvs], **kargs)
+
 
 def fetch():
     print('fetching', len(bpms) * len(pvs), 'pvs')
@@ -70,6 +73,7 @@ def fetch():
         print('failed to fetch')
         for v in failed:
             print(v.name, v)
+
 
 fetch()
 fetch()

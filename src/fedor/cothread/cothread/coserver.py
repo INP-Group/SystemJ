@@ -22,7 +22,9 @@ cothread friendly versions of the socket servers
 from the SocketServer and BaseHTTPServer modules
 """
 
-import SocketServer, BaseHTTPServer, SimpleHTTPServer
+import SocketServer
+import BaseHTTPServer
+import SimpleHTTPServer
 
 import cothread
 import cosocket
@@ -51,7 +53,7 @@ def _patch(cls):
 
         @wrap
         def __init__(self, *args, **kws):
-            if hasattr(cls, 'address_family'): # All except BaseServer
+            if hasattr(cls, 'address_family'):  # All except BaseServer
                 baact = kws.get('bind_and_activate', True)
                 kws['bind_and_activate'] = False
 
@@ -102,8 +104,8 @@ def _patch(cls):
 
 
 BaseServer = _patch(SocketServer.BaseServer)
-TCPServer  = _patch(SocketServer.TCPServer)
-UDPServer  = _patch(SocketServer.UDPServer)
+TCPServer = _patch(SocketServer.TCPServer)
+UDPServer = _patch(SocketServer.UDPServer)
 HTTPServer = _patch(BaseHTTPServer.HTTPServer)
 
 
@@ -111,12 +113,18 @@ class CoThreadingMixIn(SocketServer.ThreadingMixIn):
     def process_request(self, request, client_address):
         cothread.Spawn(self.process_request_thread, request, client_address)
 
+
 class CoThreadingUDPServer(CoThreadingMixIn, UDPServer): pass
+
+
 class CoThreadingTCPServer(CoThreadingMixIn, TCPServer): pass
+
+
 class CoThreadingHTTPServer(CoThreadingMixIn, HTTPServer): pass
 
-def test(HandlerClass = SimpleHTTPServer.SimpleHTTPRequestHandler,
-         ServerClass = CoThreadingHTTPServer):
+
+def test(HandlerClass=SimpleHTTPServer.SimpleHTTPRequestHandler,
+         ServerClass=CoThreadingHTTPServer):
     BaseHTTPServer.test(HandlerClass, ServerClass)
 
 
