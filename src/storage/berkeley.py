@@ -5,6 +5,7 @@ from bsddb3 import db  # the Berkeley db data base
 from src.base.singleton import Singleton
 
 
+
 class GeneratorId(Singleton):
     curid = 0
 
@@ -30,7 +31,8 @@ class BerkeleyStorage(Singleton):
         self.stored_id = 0
 
         self.db_type = db.DB_BTREE
-        self.db_type = db.DB_HASH
+        # self.db_type = db.DB_HASH
+        # self.db_type = db.DB_QUEUE
 
         if read:
             self.database.open(self.filename, None, self.db_type, db.DB_DIRTY_READ)
@@ -70,7 +72,3 @@ class BerkeleyStorage(Singleton):
 
             return True
         return False
-
-
-
-            # print self.stored_id

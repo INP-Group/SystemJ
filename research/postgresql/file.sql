@@ -2,7 +2,7 @@
 CREATE DATABASE test_database;
 CREATE USER test_user WITH password 'qwerty';
 GRANT ALL privileges ON DATABASE test_database TO test_user;
-GRANT
+
 
 
 DROP TABLE channelsdata CASCADE;
@@ -79,5 +79,8 @@ INSERT INTO channelsdata VALUES (1, '2001-02-16 20:38:40.01', 2.5),
                               (2, '2001-02-16 20:38:41.08', 1.5),
                               (3, '2001-02-16 20:38:41.08', 4.5);
 
+
+
+INSERT INTO channelsdata VALUES (10, '1992-05-16 20:38:40.01', 2.5);
 
 SELECT * FROM channelsdata;

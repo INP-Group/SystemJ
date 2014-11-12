@@ -150,3 +150,5 @@ CREATE TRIGGER insert_trigger
 
 INSERT INTO tabletext VALUES (1, '08-Jan-1992', 1, 1),
                               (1, '08-Jan-2000', 1, 1);
+INSERT INTO tabletext VALUES (1, '08-Jan-2001', 1, 1),
+                              (1, '08-Jan-2002', 1, 1);

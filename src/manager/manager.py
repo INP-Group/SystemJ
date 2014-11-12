@@ -40,6 +40,8 @@ class WorkerWidget(QtGui.QWidget):
     def __init__(self, parent=None, worker=None):
 
         QtGui.QWidget.__init__(self, parent)
+        #todo
+        # список воркеров
         self.worker = worker
 
         self.gridLayout = QtGui.QGridLayout(self)
