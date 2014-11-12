@@ -51,6 +51,9 @@ class BerkeleyStorage(Singleton):
             self.database.sync()
             self.check()
 
+    def length(self):
+        return len(self.database)
+
     def check(self):
         '''
         проверяет сколько уже в базе значений.
@@ -64,3 +67,10 @@ class BerkeleyStorage(Singleton):
                 pass
 
             self.stored_id += self.move_number
+
+            return True
+        return False
+
+
+
+            # print self.stored_id
