@@ -27,8 +27,6 @@ class DeltaChannel(Channel):
 
                 self.send_message(self.default_form([self.name, self.personal_name, handle, nowtime]))
 
-                # self.send_message(self.get_message(text))
-
         return 0
 
     def _post_init(self):

@@ -64,8 +64,7 @@ class WorkerWidget(QtGui.QWidget):
         self.connect(self.PBAddChannel, QtCore.SIGNAL('clicked()'), self.addChannell)
 
     def addChannell(self):
-        for x in xrange(0, 100):
-            self.worker.addchanel(random.choice(['ScalarChannel', 'NTimeChannel', 'DeltaChannel']))
+        self.worker.addchanel(random.choice(['ScalarChannel', 'NTimeChannel', 'DeltaChannel']))
 
         channels = self.worker.getChannels()
         model = QStandardItemModel(self.tVChannells)
@@ -102,6 +101,7 @@ class DaemonWorker(QtCore.QThread):
 
     def addchanel(self, type="ScalarChannel", chanName="linthermcan.ThermosM.in0"):
 
+        type = "ScalarChannel"
         channel = ""
 
         if type == "ScalarChannel":

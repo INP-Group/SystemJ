@@ -26,3 +26,7 @@ export CHLCLIENTS_PATH=/home/warmonger/Dropbox/Study/Diploma/Diploma_cx/work/qul
 
 
 '''
+
+supervisor
+
+ln -s /home/warmonger/Dropbox/Study/Diploma/Diploma/research/supervisor/test_config.conf /etc/supervisor/conf.d/

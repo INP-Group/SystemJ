@@ -27,7 +27,7 @@ class BerkeleyStorage(Singleton):
         self.generator = GeneratorId()
 
         self.sync_number = 50
-        self.move_number = 1000
+        self.move_number = 100
         self.stored_id = 0
 
         self.db_type = db.DB_BTREE
@@ -35,7 +35,7 @@ class BerkeleyStorage(Singleton):
         # self.db_type = db.DB_QUEUE
 
         if read:
-            self.database.open(self.filename, None, self.db_type, db.DB_DIRTY_READ)
+            self.database.open(self.filename, None, self.db_type, db.DB_READ_COMMITTED)
         else:
             self.database.open(self.filename, None, self.db_type, db.DB_CREATE)
 
@@ -68,9 +68,14 @@ class BerkeleyStorage(Singleton):
         if self.id / self.move_number > self.stored_id / self.move_number:
             values = []
             for x in xrange(self.stored_id, self.stored_id + self.move_number):
-                values.append(self.database.get("%s" % x).split("\t"))
+                try:
+                    info = self.database.get("%s" % x).split("\t")
+                    values.append([info[0], info[3], info[2]])
+                    self.database.delete("%s" % x)
+                except AttributeError as e:
+                    print e, x, self.database.get("%s" % x)
 
-
+            self.storage.add(*values)
 
             self.stored_id += self.move_number
 

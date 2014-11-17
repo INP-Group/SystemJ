@@ -1,10 +1,10 @@
 
 CREATE DATABASE test_database;
 
-DROP TABLE channelsdata CASCADE;
+DROP TABLE datachannel CASCADE;
 
-CREATE TABLE channelsdata (
-   channel_id    INT NOT NULL,
+CREATE TABLE datachannel (
+   channel_name    TEXT NOT NULL,
    time          TIMESTAMP NOT NULL,
    value         REAL
 );
@@ -14,7 +14,7 @@ CREATE OR REPLACE FUNCTION insert_data_trigger()
     RETURNS TRIGGER AS
 $BODY$
 DECLARE
-    table_master    varchar(255)        := 'channelsdata';
+    table_master    varchar(255)        := 'datachannel';
     table_part      varchar(255)        := '';
 BEGIN
     -- Даём имя партиции --------------------------------------------------
@@ -63,7 +63,7 @@ COST 100;
 
 CREATE TRIGGER insert_data_trigger
   BEFORE INSERT
-  ON channelsdata
+  ON datachannel
   FOR EACH ROW
   EXECUTE PROCEDURE insert_data_trigger();
 

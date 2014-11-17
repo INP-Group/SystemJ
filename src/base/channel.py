@@ -30,5 +30,5 @@ class Channel(BaseDataChannel, ZeroMQChannel):
         # f.write("%s\n" % self.get_message(text))
         #     print self.get_message(text)
 
-    def default_form(self, *args):
-        return "\t".join(args)
+    def default_form(self, args):
+        return "\t".join(str(v).replace("'", '') for v in args)

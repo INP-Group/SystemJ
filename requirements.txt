@@ -8,3 +8,6 @@ PyQt4
 # bottle
 configparser
 pyyaml
+
+
+# http://blog-tree.com/post/2013/11/daemons-under-supervisor

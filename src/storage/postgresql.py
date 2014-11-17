@@ -9,7 +9,7 @@ import random
 
 class PostgresqlStorage(Singleton):
 
-    def __init__(self, dbname='test_database', user='test_user', password='qwerty', tablename='channelsdata'):
+    def __init__(self, dbname='test_database', user='postgres', password='147896321R', tablename='datachannel'):
         self.connection = psycopg2.connect(database=dbname, user=user, password=password)
 
         self.database = dbname
@@ -48,7 +48,7 @@ class PostgresqlStorage(Singleton):
 
         values = []
         for x in xrange(1, random.randint(0, 100)):
-            values.append([x * random.randint(1, 12), getDate(), x * random.random() * 100])
+            values.append([str(x * random.randint(1, 12)), getDate(), x * random.random() * 100])
 
         self.add(*values)
 
@@ -56,6 +56,8 @@ class PostgresqlStorage(Singleton):
     def add(self, *values):
 
         def copy(*values):
+
+            print "Copy"
 
             temp_folder = '/tmp/temp_copy_files'
             unique_filename = str(uuid.uuid4())
@@ -83,6 +85,7 @@ class PostgresqlStorage(Singleton):
 
         # insert(*values)
         copy(*values)
+        # print values
         self.connection.commit()
 
 

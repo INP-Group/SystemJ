@@ -17,9 +17,7 @@ class NTimeChannel(Channel):
             text = "(%s), %s %s %s" % (self.personal_name, handle, val, params)
 
             self.default_log(text)
-
             self.send_message(self.default_form([self.name, self.personal_name, handle, nowtime]))
-
 
         return 0
 
