@@ -101,7 +101,9 @@ class DaemonWorker(QtCore.QThread):
 
     def addchanel(self, type="ScalarChannel", chanName="linthermcan.ThermosM.in0"):
 
+        #todo
         type = "ScalarChannel"
+
         channel = ""
 
         if type == "ScalarChannel":

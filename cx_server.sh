@@ -20,7 +20,7 @@ chmod +x ./cxsd
 ./cxsd -s -dc $EXAMPLE_CONFIG -f $EXAMPLE_CONFIG_1 :34
 
 # real
-# ./cxsd -s -dc $EXAMPLE_CONFIG -f $$EXAMPLE_CONFIG_1 :34
+#./cxsd -dc $EXAMPLE_CONFIG -f $EXAMPLE_CONFIG_1 :34
 
 #/home/warmonger/work/cx/exports/sbin/cxsd -dc /home/warmonger/work/cx/exports/configs/cxd-onelog.conf -f /home/warmonger/work/qult/configs/blklist-linac1-10.lst :10
 
