@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 
-from bsddb3 import db  # the Berkeley db data base
+from bsddb3 import db
+from src.storage.postgresql import PostgresqlStorage
 
 from src.base.singleton import Singleton
-
 
 
 class GeneratorId(Singleton):
@@ -42,6 +42,8 @@ class BerkeleyStorage(Singleton):
         self.id = len(self.database)
         self.generator.setId(self.id)
 
+        self.storage = PostgresqlStorage(user='postgres', password='147896321R')
+
     def __del__(self):
         self.database.close()
 
@@ -64,9 +66,11 @@ class BerkeleyStorage(Singleton):
         '''
 
         if self.id / self.move_number > self.stored_id / self.move_number:
+            values = []
             for x in xrange(self.stored_id, self.stored_id + self.move_number):
-                #print x, self.database.get("%s" % x)
-                pass
+                values.append(self.database.get("%s" % x).split("\t"))
+
+
 
             self.stored_id += self.move_number
 

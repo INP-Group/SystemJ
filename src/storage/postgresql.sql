@@ -1,19 +1,13 @@
 
 CREATE DATABASE test_database;
-CREATE USER test_user WITH password 'qwerty';
-GRANT ALL privileges ON DATABASE test_database TO test_user;
-
-
 
 DROP TABLE channelsdata CASCADE;
-
 
 CREATE TABLE channelsdata (
    channel_id    INT NOT NULL,
    time          TIMESTAMP NOT NULL,
    value         REAL
 );
-
 
 
 CREATE OR REPLACE FUNCTION insert_data_trigger()
@@ -73,19 +67,4 @@ CREATE TRIGGER insert_data_trigger
   FOR EACH ROW
   EXECUTE PROCEDURE insert_data_trigger();
 
-
-
-INSERT INTO channelsdata VALUES (1, '2001-02-16 20:38:40.01', 2.5),
-                              (2, '2001-02-16 20:38:41.08', 1.5),
-                              (3, '2001-02-16 20:38:41.08', 4.5);
-
-
-
-INSERT INTO channelsdata VALUES (10, '1992-05-16 20:38:40.01', 2.5);
-
-SELECT * FROM channelsdata;
-
-
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO test_user;
-GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO test_user;
 

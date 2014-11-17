@@ -16,15 +16,21 @@ class WorkerManager(ManagerUI):
         self.setupUi()
 
         self.workers = []
-        # todo
-        # сделать чтобы по нормальному было по центру
         width = 800
-        height = 400
-        pos_x = 400
-        pos_y = 300
-        self.setGeometry(pos_x, pos_y, pos_x + width, pos_y + height)
+        height = 600
+        self.setGeometry(0, 0, width, height)
+        self.centerOnScreen()
+
 
         self.connect(self.PBAddWorker, QtCore.SIGNAL('clicked()'), self.addNewWorker)
+
+    def centerOnScreen (self):
+        '''centerOnScreen()
+        Centers the window on the screen.
+        '''
+        resolution = QtGui.QDesktopWidget().screenGeometry()
+        self.move((resolution.width() / 2) - (self.frameSize().width() / 2),
+                  (resolution.height() / 2) - (self.frameSize().height() / 2))
 
     def getName(self, size=6, chars=string.ascii_uppercase + string.digits):
         return ''.join(random.choice(chars) for _ in range(size))
@@ -40,8 +46,7 @@ class WorkerWidget(QtGui.QWidget):
     def __init__(self, parent=None, worker=None):
 
         QtGui.QWidget.__init__(self, parent)
-        #todo
-        # список воркеров
+
         self.worker = worker
 
         self.gridLayout = QtGui.QGridLayout(self)

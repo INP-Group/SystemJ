@@ -29,3 +29,6 @@ class Channel(BaseDataChannel, ZeroMQChannel):
         # with open('/home/warmonger/test.out', 'a') as f:
         # f.write("%s\n" % self.get_message(text))
         #     print self.get_message(text)
+
+    def default_form(self, *args):
+        return "\t".join(args)

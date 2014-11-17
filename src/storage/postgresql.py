@@ -1,0 +1,95 @@
+# -*- encoding: utf-8 -*-
+
+from src.base.singleton import Singleton
+
+import uuid
+import os
+import psycopg2
+import random
+
+class PostgresqlStorage(Singleton):
+
+    def __init__(self, dbname='test_database', user='test_user', password='qwerty', tablename='channelsdata'):
+        self.connection = psycopg2.connect(database=dbname, user=user, password=password)
+
+        self.database = dbname
+        self.user = user
+        self.password = password
+
+
+        self.tablename = tablename
+        self.cursor = self.connection.cursor()
+
+    def __del__(self):
+        self.cursor.close()
+        self.connection.close()
+
+    def fillrandom(self):
+        def getDate():
+
+            iso_format = "'{Year}-{Month}-{Day} {Hour}:{Minute}:{Minute}.{Offset}'"
+
+            year_range = [str(i) for i in range(1990, 2014)]
+            month_range = [str(x) for x in xrange(1, 12)]
+            day_range = [str(i).zfill(2) for i in range(1, 28)]
+            hour_range = [str(i).zfill(2) for i in range(1, 24)]
+            min_range = [str(i).zfill(2) for i in range(1, 60)]
+            offset = ["0"]
+
+            argz = {"Year": random.choice(year_range),
+                    "Month": random.choice(month_range),
+                    "Day" : random.choice(day_range),
+                    "Hour": random.choice(hour_range),
+                    "Minute": random.choice(min_range),
+                    "Offset": random.choice(offset),
+                    }
+
+            return iso_format.format(**argz)
+
+        values = []
+        for x in xrange(1, random.randint(0, 100)):
+            values.append([x * random.randint(1, 12), getDate(), x * random.random() * 100])
+
+        self.add(*values)
+
+
+    def add(self, *values):
+
+        def copy(*values):
+
+            temp_folder = '/tmp/temp_copy_files'
+            unique_filename = str(uuid.uuid4())
+            temp_filepath = os.path.join(temp_folder, unique_filename)
+
+            if not os.path.exists(os.path.dirname(temp_filepath)):
+                os.makedirs(os.path.dirname(temp_filepath))
+
+            with open(temp_filepath, 'w') as csvfile:
+                for lineValues in values:
+                    csvfile.write("%s\n" % '\t'.join(str(v).replace("'", '') for v in lineValues))
+
+            fd = open(temp_filepath, 'r')
+            self.cursor.copy_from(fd, self.tablename)
+            #
+            fd.close()
+
+            os.remove(temp_filepath)
+
+        def insert(*values):
+            for lineValues in values:
+                sql = "INSERT INTO %s VALUES (%s)" % (self.tablename, ", ".join(str(v) for v in lineValues))
+
+                self.cursor.execute(sql)
+
+        # insert(*values)
+        copy(*values)
+        self.connection.commit()
+
+
+def start():
+    a = PostgresqlStorage(user='postgres', password='147896321R')
+    a.fillrandom()
+
+
+if __name__ == "__main__":
+    start()
