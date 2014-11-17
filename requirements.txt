@@ -7,3 +7,4 @@ PyQt4
 
 # bottle
 configparser
+pyyaml

@@ -1,0 +1,28 @@
+action:
+  start:
+    -
+      name: value1
+      type: type1
+      group: group1
+    -
+      name: value1
+      type: type1
+      group: group1
+  stop:
+    -
+      name: value1
+    -
+      name: valu2
+  restart:
+    -
+      name: lala
+  setprop:
+    -
+      name:
+      props:
+        -
+          name: name1
+          value: val
+        -
+          name: value2
+          value: vs
