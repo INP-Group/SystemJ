@@ -13,7 +13,7 @@
 #
 
 
-from src.server.server import ServerManager
+from src.server.first.server import ServerManager
 
 def start():
     PORT = 9090

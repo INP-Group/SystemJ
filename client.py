@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-from src.server.client import ClientManager
+from src.server.first.client import ClientManager
 
 def start():
     PORT = 9090

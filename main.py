@@ -40,7 +40,7 @@ def start3():
     sys.exit(application.exec_())
 
 if __name__ == "__main__":
-    start()
-    # start3()
+    # start()
+    start3()
 
 

@@ -16,6 +16,8 @@ cd $SBIN_FOLDER
 # ls -l
 chmod +x ./cxsd
 
+#export CHLCLIENTS_PATH=$WORK_CX_FOLDER/qult/chlclients; export CX_TRANSLATE_LINAC1_34=:34; 
+
 # simulation
 ./cxsd -s -dc $EXAMPLE_CONFIG -f $EXAMPLE_CONFIG_1 :34
 

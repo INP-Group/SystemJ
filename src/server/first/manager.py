@@ -6,7 +6,7 @@
 
 import socket
 
-from src.server.base import commands
+from src.server.first.base import commands
 
 class ManageObj(object):
     def __init__(self, port, host='localhost'):

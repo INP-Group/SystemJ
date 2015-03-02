@@ -26,6 +26,8 @@ class BerkeleyStorage(Singleton):
 
         self.generator = GeneratorId()
 
+        #todo
+        # move_number == 1000
         self.sync_number = 50
         self.move_number = 100
         self.stored_id = 0

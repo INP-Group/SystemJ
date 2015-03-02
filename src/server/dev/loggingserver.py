@@ -44,25 +44,6 @@ class LoggingServer(threading.Thread):
             # conn.sendall(reply)
 
 
-        print input_data
-        args = input_data.split("-" * 10)
-
-
-
-        command = args[0].strip()
-        data = eval(args[1])
-
-
-
-        isManager = command == "IM_MANAGER"
-
-
-        if isManager:
-            self.users[addr] = conn
-        else:
-            for user, con in self.users.items():
-                con.send(command)
-
 
     def run(self):
         print('Waiting for connections on port %s' % (self.port))
