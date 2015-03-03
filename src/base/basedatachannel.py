@@ -7,7 +7,7 @@ from PyQt4.QtCore import *
 
 from basechannel import BaseChannel
 from cdr_wrapper import Cdr
-from settings import CDRLIB_PATH
+from settings import CDR_LIB_PATH
 
 class BaseDataChannel(BaseChannel):
     valueChanged = pyqtSignal(QObject, float)
@@ -19,10 +19,9 @@ class BaseDataChannel(BaseChannel):
             self.personal_name = name
         else:
             self.personal_name = personal_name
-        # todo сделать конфиг, чтобы хотя бы указывать путь до .so файда
         #todo hardcode
         self.name = name
-        self.cdr = Cdr(CDRLIB_PATH)
+        self.cdr = Cdr(CDR_LIB_PATH)
         # self.cdr = Cdr()
         self.cx_chan = self.cdr.RegisterSimpleChan(name, self.callback)
 
