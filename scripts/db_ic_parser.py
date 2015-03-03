@@ -13,8 +13,9 @@ CppHeaderParser
 '''
 
 
-from CppHeaderParser import CppHeader
 import re
+
+from CppHeaderParser import CppHeader
 
 
 def getValues(l, n=4):

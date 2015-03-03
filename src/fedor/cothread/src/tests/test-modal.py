@@ -2,9 +2,9 @@
 
 from __future__ import print_function
 
-import time
 import os
 import sys
+import time
 
 import cothread
 from cothread import *

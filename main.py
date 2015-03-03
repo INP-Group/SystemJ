@@ -1,14 +1,13 @@
 # -*- encoding: utf-8 -*-
 
 
-from src.channels.scalarchannel import ScalarChannel
-from src.channels.vectorchannel import VectorChannel
-from src.manager.manager import WorkerManager
-
-
 import sys
 
 from PyQt4 import QtCore, QtGui
+
+from src.channels.scalarchannel import ScalarChannel
+from src.channels.vectorchannel import VectorChannel
+from src.manager.manager import WorkerManager
 
 
 class MainWindow(QtGui.QMainWindow):
@@ -42,5 +41,3 @@ def start3():
 if __name__ == "__main__":
     # start()
     start3()
-
-

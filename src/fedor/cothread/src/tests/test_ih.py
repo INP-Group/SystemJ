@@ -1,5 +1,7 @@
 from __future__ import print_function
 
+import time
+
 from cothread import *
 
 
@@ -30,7 +32,6 @@ e2.SignalException(Exception)
 # print('Waiting for stuff')
 # s.Wait()
 
-import time
 
 
 def run_ticker(delay=1):

@@ -1,11 +1,9 @@
 # -*- encoding: utf-8 -*-
 
 
-import sys
 import ctypes
-# Special QT import, needs to make qt libs visible for Cdrlib
 import DLFCN
-
+import sys
 
 old_dlopen_flags = sys.getdlopenflags()
 sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
@@ -251,14 +249,3 @@ class Singleton(type):
 # this work with python2
 class Cdr(CdrWrapper):
     __metaclass__ = Singleton
-
-
-
-
-
-
-
-
-
-
-

@@ -7,7 +7,6 @@ from PyQt4.QtCore import *
 from actl.cxchan import *
 from cothread.catools import *
 
-
 statusIE4 = {
     "clockSrc": 0,  # bit 1-2
     "startSrc": 0,  # bit 3-4
@@ -132,4 +131,3 @@ class IE4(QObject):
             except:
                 pass
             self.runCycle()
-

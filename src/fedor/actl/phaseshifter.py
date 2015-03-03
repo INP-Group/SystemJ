@@ -2,7 +2,6 @@ import math
 
 import actl
 
-
 # control voltage coeffs
 uc_c = [6.04, 5.999, 5.987, 5.88]
 # valid phase intervals
@@ -106,4 +105,3 @@ class PhaseShifterB():
                 x = (T * zp - zp2 + c) / (2.0 * zp + a * T)
         uc = math.pow((x + zl) / b, 1.0 / g)
         return uc
-

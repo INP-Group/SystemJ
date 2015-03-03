@@ -2,6 +2,7 @@
 
 from src.server.first.manager import ManageObj
 
+
 def start():
     PORT = 9090
     a = ManageObj(PORT)

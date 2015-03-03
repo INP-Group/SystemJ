@@ -35,9 +35,9 @@
 # import win32pipe
 import time
 
-from . import _winlib
 import msvcrt
-from . import coselect
+
+from . import _winlib, coselect
 
 
 def poll_block_win32(poll_list, timeout=None):

@@ -7,10 +7,11 @@ from __future__ import print_function
 
 import os
 
-os.environ['COTHREAD_CHECK_STACK'] = 'yes'
-
 import cothread
 from cothread import _coroutine
+
+os.environ['COTHREAD_CHECK_STACK'] = 'yes'
+
 
 
 def recurse(n):

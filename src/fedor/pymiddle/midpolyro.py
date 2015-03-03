@@ -1,21 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import DLFCN
 import sys
 
-import DLFCN
-
-old_dlopen_flags = sys.getdlopenflags()
-sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
+import numpy as np
 from PyQt4.QtCore import *
 
-sys.setdlopenflags(old_dlopen_flags)
-
-# from cdr_wrapper import *
 from actl import *
 from sdds import *
 
-import numpy as np
+old_dlopen_flags = sys.getdlopenflags()
+sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
+
+sys.setdlopenflags(old_dlopen_flags)
+
+
 
 
 class middle_gw_ro():

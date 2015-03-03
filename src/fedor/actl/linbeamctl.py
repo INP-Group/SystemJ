@@ -8,9 +8,7 @@
 
 import math
 
-#this class works with CDRWrapper
 from cdr_wrapper import *
-
 
 #names of corrector to close beam
 beam_ctl_set = "linmagx.magcor.cav_h_set"
@@ -123,15 +121,3 @@ class linbeamctl:
             return
         self.wrapper.CdrSetSimpleChanVal(self.set_chan, self.oper_corr_val)
         self.switch_time = 0
-
-
-
-
-
-
-
-
-
-
-
-     

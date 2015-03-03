@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 
-import sys, os, time, atexit
-from signal import SIGTERM 
+import atexit
+import os
+import sys
+import time
+from signal import SIGTERM
+
 
 class Daemon(object):
     """

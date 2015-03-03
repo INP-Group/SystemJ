@@ -7,7 +7,6 @@ from __future__ import print_function
 from cothread.catools import *
 from cothread.catools import ca_nothing
 
-
 # get failed - raise exception
 try:
     result = caget('this_is_not_a_channel_name', timeout=1)

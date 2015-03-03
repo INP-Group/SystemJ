@@ -48,19 +48,16 @@ them.'''
 
 from __future__ import print_function
 
+import atexit
+import ctypes
 import os
 import sys
-import atexit
-import traceback
-import ctypes
 import threading
+import traceback
 
-from . import cothread
-from . import cadef
-from . import dbr
-from .dbr import *
+from . import cadef, cothread, dbr
 from .cadef import *
-
+from .dbr import *
 
 __all__ = [
               # The core functions.

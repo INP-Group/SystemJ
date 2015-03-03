@@ -4,6 +4,7 @@ import socket
 import sys
 import threading
 
+
 class LoggingServer(threading.Thread):
     def __init__(self, port, host='localhost'):
         threading.Thread.__init__(self)
@@ -46,7 +47,7 @@ class LoggingServer(threading.Thread):
 
 
     def run(self):
-        print('Waiting for connections on port %s' % (self.port))
+        print('Waiting for connections on port %s' % self.port)
         # We need to run a loop and create a new thread for each connection
         while True:
             conn, addr = self.server.accept()

@@ -4,8 +4,8 @@
 
 from __future__ import print_function
 
-from cothread.catools import *
 from cothread import WaitForQuit
+from cothread.catools import *
 
 
 def callback(value):

@@ -2,6 +2,7 @@
 
 from src.server.first.client import ClientManager
 
+
 def start():
     PORT = 9090
     client = ClientManager(PORT)

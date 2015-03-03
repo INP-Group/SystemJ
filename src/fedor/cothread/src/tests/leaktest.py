@@ -4,14 +4,15 @@
 
 from __future__ import print_function
 
-import sys
-
-sys.path.append('/scratch/local/python-debug')
-
 import os
+import sys
 
 from cothread import *
 from cothread import select
+
+sys.path.append('/scratch/local/python-debug')
+
+
 
 
 # e = Event()

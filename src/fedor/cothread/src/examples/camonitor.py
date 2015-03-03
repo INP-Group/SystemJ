@@ -3,14 +3,14 @@
 
 from __future__ import print_function
 
-import sys
 import optparse
+import sys
+
 import numpy
 
 import require
 from cothread import *
 from cothread.catools import *
-
 
 parser = optparse.OptionParser(
     usage='Usage: %prog pv-list\nMonitor PVs using channel access')

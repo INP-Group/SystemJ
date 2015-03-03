@@ -1,13 +1,14 @@
 from __future__ import print_function
 
-import sys
 import os
+import sys
+
+import cothread
+from cothread.catools import *
 
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '../..'))
 
-import cothread
-from cothread.catools import *
 
 cothread.cothread._coroutine.enable_check_stack(True)
 

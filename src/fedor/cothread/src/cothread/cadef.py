@@ -48,9 +48,6 @@ import ctypes
 
 from .load_ca import libca
 
-
-
-
 # -----------------------------------------------------------------------------
 #   Enumeration and error code definitions.
 

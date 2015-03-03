@@ -22,13 +22,13 @@ cothread friendly versions of the socket servers
 from the SocketServer and BaseHTTPServer modules
 """
 
-import SocketServer
 import BaseHTTPServer
 import SimpleHTTPServer
+import SocketServer
 
-import cothread
-import cosocket
 import coselect
+import cosocket
+import cothread
 
 __all__ = [
     'BaseServer',

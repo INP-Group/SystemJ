@@ -66,4 +66,3 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.PBAddWorker.setText(_translate("MainWindow", "Add new worker", None))
         self.menuQuit.setTitle(_translate("MainWindow", "File", None))
         self.actionQuit.setText(_translate("MainWindow", "Quit", None))
-

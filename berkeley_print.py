@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 from src.storage.berkeley import BerkeleyStorage
 
-
 a = BerkeleyStorage(read=True)
 
 print a.length()

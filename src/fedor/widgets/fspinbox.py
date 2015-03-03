@@ -1,5 +1,5 @@
-from PyQt4.QtGui import *
 from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
 
 class FSpinBox(QSpinBox):
@@ -8,4 +8,3 @@ class FSpinBox(QSpinBox):
     def __init__(self, parent=None):
         QSpinBox.__init__(self, parent)
         self.valueChanged.connect(self.done)
-

@@ -68,21 +68,19 @@ Similarly the EventQueue can be used for communication.
 
 from __future__ import print_function
 
-import sys
-import os
-import time
 import bisect
-import traceback
 import collections
+import os
+import sys
 import thread
+import time
+import traceback
 
-from . import _coroutine
-
+from . import _coroutine, coselect
 
 if os.environ.get('COTHREAD_CHECK_STACK'):
     _coroutine.enable_check_stack(True)
 
-from . import coselect
 
 
 __all__ = [

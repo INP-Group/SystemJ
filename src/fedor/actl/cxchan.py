@@ -36,4 +36,3 @@ class cxchan(QObject):
 
     def setTolerance(self, tolerance):
         self.tolerance = tolerance
-

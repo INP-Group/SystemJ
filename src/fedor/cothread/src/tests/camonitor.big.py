@@ -5,9 +5,8 @@ from __future__ import print_function
 
 from numpy import *
 
-from cothread.cothread import *
 from cothread.catools import *
-
+from cothread.cothread import *
 
 BPMS = ['SR%02dC-DI-EBPM-%02d' % (c + 1, n + 1)
         for c in range(24) for n in range(7)]

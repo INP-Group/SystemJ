@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 
 
+import datetime
 import math
 
 from src.base.channel import Channel
-import datetime
 
 
 class DeltaChannel(Channel):

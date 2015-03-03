@@ -142,15 +142,3 @@ class middleChanEpics:
 
     def mid2src(self, mid_val):
         return mid_val
-
-
-
-
-
-
-
-
-
-
-
-

@@ -4,7 +4,6 @@ import socket
 
 import cothread
 
-
 cothread.socket_hook()
 
 SERVER = 'localhost'

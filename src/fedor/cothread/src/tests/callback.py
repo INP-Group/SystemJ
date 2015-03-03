@@ -4,12 +4,12 @@
 
 from __future__ import print_function
 
-import time
 import thread
+import time
+
 import numpy
 
 import cothread
-
 
 THREADS = 5
 

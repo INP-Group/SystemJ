@@ -1,23 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
 import DLFCN
+import sys
+
+import numpy as np
 
 import cothread
+from actl import *
 from cothread.catools import *
-
+from sdds import *
 
 old_dlopen_flags = sys.getdlopenflags()
 sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
 
 sys.setdlopenflags(old_dlopen_flags)
 
-# from cdr_wrapper import *
-from actl import *
-from sdds import *
 
-import numpy as np
 
 
 class middle_gw():

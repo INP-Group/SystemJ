@@ -5,6 +5,7 @@ import socket
 
 from src.server.base import commands
 
+
 class ClientManager(object):
     def __init__(self, port, host='localhost'):
         self.host = host
@@ -21,5 +22,3 @@ class ClientManager(object):
         text = self.form_message(command, str(args).strip('[]'))
 
         self.socket.send(text)
-
-

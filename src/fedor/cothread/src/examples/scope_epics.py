@@ -5,11 +5,10 @@
 from __future__ import print_function
 
 from numpy import *
-from PyQt4 import Qwt5, QtGui, QtCore, uic
+from PyQt4 import QtCore, QtGui, Qwt5, uic
 
-from cothread.catools import *
 from cothread import *
-
+from cothread.catools import *
 
 iqt()
 

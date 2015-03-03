@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 
 from bsddb3 import db
-from src.storage.postgresql import PostgresqlStorage
 
 from src.base.singleton import Singleton
+from src.storage.postgresql import PostgresqlStorage
 
 
 class GeneratorId(Singleton):

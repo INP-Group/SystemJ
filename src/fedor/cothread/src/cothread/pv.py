@@ -1,11 +1,10 @@
 # A simple PV wrapper class.
 
-import numpy
 import weakref
 
-from . import cothread
-from . import catools
+import numpy
 
+from . import catools, cothread
 
 __all__ = ['PV', 'PV_array']
 

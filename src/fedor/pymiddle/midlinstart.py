@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from PyQt4.QtCore import *
+
+from actl import *
+from cdr_wrapper import *
 from cothread.catools import *
 
 old_dlopen_flags = sys.getdlopenflags()
 sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
-from PyQt4.QtCore import *
 
 sys.setdlopenflags(old_dlopen_flags)
 
-from cdr_wrapper import *
-from actl import *
 
 
 class linstarter(QObject):

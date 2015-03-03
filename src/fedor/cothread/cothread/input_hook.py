@@ -31,12 +31,10 @@
 for input from the interpreter command line.  Also includes optional support
 for the Qt event loop.'''
 
-import sys
 import os
+import sys
 
-from . import cothread
-from . import coselect
-
+from . import coselect, cothread
 
 __all__ = [
     'iqt',  # Enable interactive Qt loop

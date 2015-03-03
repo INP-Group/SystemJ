@@ -2,15 +2,16 @@
 
 from __future__ import print_function
 
-import time
-import sys
 import os
+import sys
+import time
+
+import cothread
+from cothread.catools import *
 
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
-import cothread
-from cothread.catools import *
 
 if sys.argv[1:]:
     count = int(sys.argv[1])

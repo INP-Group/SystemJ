@@ -2,16 +2,16 @@
 
 from __future__ import print_function
 
+from pylab import *
+
 import pkg_resources
+from numpy import *
 
 from cothread import *
 from cothread.catools import *
 
-
 pkg_resources.require('matplotlib')
 
-from pylab import *
-from numpy import *
 
 iqt()
 

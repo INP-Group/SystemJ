@@ -1,13 +1,11 @@
 # A simple PV wrapper class.
 
-import numpy
-import weakref
 import time
+import weakref
 
-from . import cothread
-from . import catools
-from . import cadef
+import numpy
 
+from . import cadef, catools, cothread
 
 __all__ = ['PV', 'PV_array']
 

@@ -61,4 +61,3 @@ class maskAgregatorEpics2cx:
         if self.agregatedVal != new_agregatedVal:
             self.agregatedVal = new_agregatedVal
             self.chan.setValue(self.agregatedVal)
-

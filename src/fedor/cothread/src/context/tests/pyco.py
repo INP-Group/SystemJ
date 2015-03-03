@@ -1,11 +1,12 @@
 from __future__ import print_function
 
-import sys
 import os
+import sys
+
+from _coroutine import *
 
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '../../cothread'))
-from _coroutine import *
 
 
 def c_1(arg):

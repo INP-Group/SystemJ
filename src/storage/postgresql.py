@@ -1,11 +1,13 @@
 # -*- encoding: utf-8 -*-
 
+import os
+import random
+import uuid
+
+import psycopg2
+
 from src.base.singleton import Singleton
 
-import uuid
-import os
-import psycopg2
-import random
 
 class PostgresqlStorage(Singleton):
 

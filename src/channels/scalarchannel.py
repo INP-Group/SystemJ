@@ -1,8 +1,10 @@
 # -*- encoding: utf-8 -*-
 
 
-from src.base.channel import Channel
 import datetime
+
+from src.base.channel import Channel
+
 
 class ScalarChannel(Channel):
     def processing(self, *args):

@@ -8,6 +8,7 @@ import socket
 
 from src.server.first.base import commands
 
+
 class ManageObj(object):
     def __init__(self, port, host='localhost'):
         self.host = host

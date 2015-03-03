@@ -32,11 +32,11 @@ header file db_access.h
 '''
 
 import ctypes
-import numpy
 import datetime
 
-from . import cadef
+import numpy
 
+from . import cadef
 
 __all__ = [
     # Basic DBR request codes: any one of these can be used as part of a

@@ -4,8 +4,11 @@
 
 from __future__ import print_function
 
-import sys
 import re
+import sys
+
+from cothread import Timedout
+from cothread.catools import *
 
 if __name__ == '__main__':
     import os
@@ -19,8 +22,6 @@ if __name__ == '__main__':
 
         require('numpy')
 
-from cothread import Timedout
-from cothread.catools import *
 
 
 def values(*fields):

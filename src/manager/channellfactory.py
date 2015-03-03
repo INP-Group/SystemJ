@@ -6,6 +6,7 @@ from src.channels.ntimechannel import NTimeChannel
 from src.channels.scalarchannel import ScalarChannel
 from src.channels.simplechannel import SimpleChannel
 
+
 class ChannelFactory(object):
 
     def factory(type, name, personale_name=None):

@@ -1,7 +1,9 @@
 # -*- encoding: utf-8 -*-
 
 import configparser
+
 from src.base.singleton import Singleton
+
 
 class ConfigManager(Singleton):
 
@@ -18,4 +20,3 @@ class ConfigManager(Singleton):
             filepath = self.default_path
         with open(filepath, 'w') as configfile:
             self.config.write(configfile)
-

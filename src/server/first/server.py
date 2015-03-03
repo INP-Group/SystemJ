@@ -4,6 +4,7 @@ import socket
 import sys
 import threading
 
+
 class ServerManager(threading.Thread):
     def __init__(self, port, host='localhost'):
         threading.Thread.__init__(self)

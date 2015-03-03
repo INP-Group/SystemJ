@@ -1,13 +1,13 @@
 from __future__ import print_function
 
-import time
-import sys
 import os
+import sys
+import time
 
+from cothread import *
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 
-from cothread import *
 
 
 def task(done, n):

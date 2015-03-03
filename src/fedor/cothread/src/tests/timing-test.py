@@ -2,15 +2,14 @@
 
 from __future__ import print_function
 
-import time
-import sys
 import os
+import sys
+import time
 
+import _coroutine
 import greenlet
 
-
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'cothread'))
-import _coroutine
 
 
 def nothing(i):

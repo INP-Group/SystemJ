@@ -29,12 +29,11 @@
 '''Support for cooperative sockets.  Replaces the functionality of the
 standard socket module.'''
 
-import os
 import errno
+import os
 import socket as _socket
 
 from . import coselect
-
 
 __all__ = ['socket', 'socket_hook']
 

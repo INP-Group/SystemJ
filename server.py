@@ -15,6 +15,7 @@
 
 from src.server.first.server import ServerManager
 
+
 def start():
     PORT = 9090
     server = ServerManager(PORT)

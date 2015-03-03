@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 
-from PyQt4 import QtCore, QtGui
-import string
 import random
+import string
 
-from PyQt4.QtGui import QStandardItemModel, QStandardItem
+from PyQt4 import QtCore, QtGui
+from PyQt4.QtGui import QStandardItem, QStandardItemModel
 
 from src.manager.channellfactory import ChannelFactory
 from src.manager.managerui import Ui_MainWindow as ManagerUI
@@ -118,4 +118,3 @@ class DaemonWorker(QtCore.QThread):
             channel.set_property("delta", .0005)
 
         self.channels.append(channel)
-

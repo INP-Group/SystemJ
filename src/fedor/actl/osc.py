@@ -1,7 +1,5 @@
 import numpy as np
-
 from PyQt4.QtCore import *
-
 
 # adc200 parameters names and numders (as if Bolkhov's driver)
 # some mo parameters are not needed by program
@@ -160,4 +158,3 @@ class adc200(QObject):
         else:
             self.averaging = False
             self.adata = None
-

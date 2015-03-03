@@ -35,9 +35,8 @@
 from __future__ import print_function
 
 import ctypes
-import platform
 import os
-
+import platform
 
 # Figure out the libraries that need to be loaded and the loading method.
 load_library = ctypes.cdll.LoadLibrary

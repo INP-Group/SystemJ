@@ -1,16 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from cdr_wrapper import *
+import DLFCN
+
+from PyQt4 import QtGui
 
 from actl import *
-
-# Special QT import, needs to make qt libs visible for Cdrlib
-import DLFCN
+from cdr_wrapper import *
 
 old_dlopen_flags = sys.getdlopenflags()
 sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
-from PyQt4 import QtGui
 
 sys.setdlopenflags(old_dlopen_flags)
 

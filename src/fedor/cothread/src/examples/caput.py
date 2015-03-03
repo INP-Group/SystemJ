@@ -3,13 +3,13 @@
 
 from __future__ import print_function
 
-import sys
-from numpy import *
 import optparse
+import sys
+
+from numpy import *
 
 import require
 from cothread.catools import *
-
 
 parser = optparse.OptionParser(
     usage='Usage: %prog [options] pv value\nWrite value to PV')

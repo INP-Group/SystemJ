@@ -14,7 +14,6 @@ import sys
 from PyQt4.QtCore import QTimer
 from PyQt4.QtGui import QApplication, QMessageBox
 
-
 qapp = QApplication(sys.argv)
 timer = QTimer()
 

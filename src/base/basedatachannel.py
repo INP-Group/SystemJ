@@ -9,6 +9,7 @@ from basechannel import BaseChannel
 from cdr_wrapper import Cdr
 from settings import CDR_LIB_PATH
 
+
 class BaseDataChannel(BaseChannel):
     valueChanged = pyqtSignal(QObject, float)
     valueMeasured = pyqtSignal(QObject, float)
@@ -52,4 +53,3 @@ class BaseDataChannel(BaseChannel):
 
     def setTolerance(self, tolerance):
         self.tolerance = tolerance
-

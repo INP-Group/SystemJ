@@ -56,4 +56,3 @@ class sim_ctl:
         for x in self.cx_chans:
             self.cdr.SetSimpleChanVal(x, val)
         self.val = val
-

@@ -1,14 +1,14 @@
 from __future__ import print_function
 
-import time
-import sys
 import os
+import sys
+import time
 
+from cothread.catools import *
 
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '../..'))
 
-from cothread.catools import *
 
 version_pvs = [
     'VERSION',

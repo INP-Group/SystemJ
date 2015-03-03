@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import numpy as np
 import math
 
-from cdr_wrapper import *
+import numpy as np
 import scipy as sp
+
 import actl
 from actl.cxchan import *
+from cdr_wrapper import *
 
 # reference voltage measurement calibrations
 uref_c = {
@@ -271,22 +272,3 @@ class phasemetr():
                         f = np.arcsin(ar)
                 phi[i] = f * 180.0 / math.pi
         return (phi)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

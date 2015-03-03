@@ -4,7 +4,6 @@
 
 from __future__ import print_function
 
-# load correct version of catools
 from cothread.catools import *
 
 print(caget('SR21C-DI-DCCT-01:SIGNAL'))

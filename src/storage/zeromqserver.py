@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-import zmq
 import threading
+
+import zmq
 
 from src.storage.berkeley import BerkeleyStorage
 
