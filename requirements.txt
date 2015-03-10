@@ -9,5 +9,5 @@ PyQt4
 configparser
 pyyaml
 
-
+pyzmq
 # http://blog-tree.com/post/2013/11/daemons-under-supervisor

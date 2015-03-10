@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 # VEPP-5 injection complex syn classes
 # by Fedor Emanov
 

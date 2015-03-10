@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 # CX middleware run control class by Fedor Emanov
 # CX middleware is modular set of programs used for
 # accelerator-level control

@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 # This file is part of the Diamond cothread library.
 #
 # Copyright (C) 2007-2012 Michael Abbott, Diamond Light Source Ltd.

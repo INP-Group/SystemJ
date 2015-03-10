@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 # the basics
 import cxchan
 import middlechan

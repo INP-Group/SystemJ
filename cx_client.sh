@@ -14,3 +14,4 @@ export CHLCLIENTS_PATH=$WORK_CX_FOLDER/qult/chlclients; export CX_TRANSLATE_LINA
 
 # export CHLCLIENTS_PATH=/home/warmonger/Dropbox/Study/Diploma/Diploma_cx/work/qult/chlclients; export CX_TRANSLATE_LINAC1_34=:34; ./linmagx
 
+# oper:oper

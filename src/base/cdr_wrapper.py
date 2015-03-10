@@ -1,39 +1,7 @@
 # -*- encoding: utf-8 -*-
 
-
 import ctypes
 import sys
-
-try:
-    orig = sys.getdlopenflags()
-except AttributeError:
-    from OpenSSL import crypto
-else:
-    try:
-        import DLFCN
-    except ImportError:
-        try:
-            import dl
-        except ImportError:
-            try:
-                import ctypes
-            except ImportError:
-                flags = 2 | 256
-            else:
-                flags = 2 | ctypes.RTLD_GLOBAL
-                del ctypes
-        else:
-            flags = dl.RTLD_NOW | dl.RTLD_GLOBAL
-            del dl
-    else:
-        flags = DLFCN.RTLD_NOW | DLFCN.RTLD_GLOBAL
-        del DLFCN
-
-    sys.setdlopenflags(flags)
-    from OpenSSL import crypto
-
-    sys.setdlopenflags(orig)
-    del orig, flags
 
 
 class CdrWrapper(object):
@@ -78,7 +46,7 @@ class CdrWrapper(object):
         """
         CB_FUNC = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_int, ctypes.c_double, ctypes.c_void_p)
         ret = CB_FUNC(python_callable)
-        return ret
+        return ret 
 
     def MakeChanCallbackIfNeeded(self, callback):
         ret = callback
@@ -93,7 +61,6 @@ class CdrWrapper(object):
                 for x in self.callbacks[name]:
                     x(h, v, p)
             return 0
-
         return cb
 
     def RegisterSimpleChan(self, name, callback, private_params=None):
@@ -102,12 +69,6 @@ class CdrWrapper(object):
 
         2DO: depricated dict.has_key() used python 2.6.6 do not support .in()
         """
-        # WARNING !!! BYPASS for NAMING
-        uname = name.split(".")
-        if uname[0] == "ic":
-            uname[0] = "ic.x"
-            name = '.'.join(uname)
-
         if self.registered_chans.has_key(name):
             chan = self.registered_chans[name]
             if callable(callback):
@@ -117,13 +78,12 @@ class CdrWrapper(object):
         cb = self.CreateChanCallback(name)
         c_cb = self.MakeChanCallback(cb)
 
-        self.library.CdrRegisterSimpleChan.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_void_p,
-                                                       ctypes.c_void_p]
+        self.library.CdrRegisterSimpleChan.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_void_p, ctypes.c_void_p]
         ret = self.library.CdrRegisterSimpleChan(name, self.argv0, c_cb, private_params)
         if ret < 0:
             raise Exception("Error while Registering Simple Channel Callback, errcode: %s" % ret)
 
-        # We need to keep reference to c_callbacks or Garbage Collector will destroy it.
+        #We need to keep reference to c_callbacks or Garbage Collector will destroy it.
         self.c_callbacks[name] = c_cb
         if callable(callback):
             self.callbacks[name] = [callback]
@@ -158,7 +118,7 @@ class CdrWrapper(object):
         return val.value
 
 
-    # ############################################
+    #############################################
     def MakeBigcCallback(self, python_callable):
         """
         Returns cdr callback from python callable function.
@@ -175,13 +135,13 @@ class CdrWrapper(object):
         # TODO: may be better to define callback prototype ones in class but not with callback
         bigCB_FUNC = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_int, ctypes.c_void_p)
         ret = bigCB_FUNC(python_callable)
-        return ret
+        return ret 
 
     def MakeBigcCallbackIfNeeded(self, callback):
         ret = callback
-        fpy = lambda x, y: x
+        fpy = lambda x,y: x
         if type(callback) == type(fpy):
-            ret = self.MakeBigcCallback(callback)
+             ret = self.MakeBigcCallback(callback)
         return ret
 
     def CreateBigcCallback(self, name):
@@ -190,7 +150,6 @@ class CdrWrapper(object):
                 for x in self.bigc_callbacks[name]:
                     x(h, p)
             return 0
-
         return cb
 
     def RegisterSimpleBigc(self, name, max_datasize, callback, private_params=None):
@@ -206,8 +165,7 @@ class CdrWrapper(object):
         cb = self.CreateBigcCallback(name)
         c_cb = self.MakeBigcCallbackIfNeeded(cb)
 
-        self.library.CdrRegisterSimpleBigc.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p,
-                                                       ctypes.c_void_p]
+        self.library.CdrRegisterSimpleBigc.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p]
         ret = self.library.CdrRegisterSimpleBigc(name, self.argv0, max_datasize, c_cb, private_params)
         if ret < 0:
             raise Exception("Error while Registering Simple BigChan Callback, errcode: %s" % ret)
@@ -273,6 +231,6 @@ class Singleton(type):
         return cls._instances[cls]
 
 
-# this work with python2
+#this work with python2
 class Cdr(CdrWrapper):
     __metaclass__ = Singleton

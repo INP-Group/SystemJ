@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 # cdr channel class by Fedor Emanov
 
 import math

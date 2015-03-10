@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 # from cdr_wrapper import *
 from numpy.polynomial.polynomial import *
 
