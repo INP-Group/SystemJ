@@ -22,12 +22,13 @@ class MainWindow(QtGui.QMainWindow):
 
           self.setCentralWidget(button)
 
+
 def start():
     application = QtGui.QApplication(sys.argv)
     mainwidow = MainWindow()
     mainwidow.show()
 
-    scal = ScalarChannel("linthermcan.ThermosM.in0")
+    scal = ScalarChannel("linvac.vacmatrix.Imes0")
 
     sys.exit(application.exec_())
 
@@ -39,5 +40,5 @@ def start3():
     sys.exit(application.exec_())
 
 if __name__ == "__main__":
-    # start()
-    start3()
+    start()
+    # start3()

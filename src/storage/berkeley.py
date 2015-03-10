@@ -18,6 +18,7 @@ class GeneratorId(Singleton):
     def setId(self, id):
         self.curid = id
 
+
 class BerkeleyStorage(Singleton):
 
     def __init__(self, filename='berkdb.db', read=False):
@@ -61,11 +62,11 @@ class BerkeleyStorage(Singleton):
         return len(self.database)
 
     def check(self):
-        '''
+        """
         проверяет сколько уже в базе значений.
         и запускает перекладывание в postgresql
         :return:
-        '''
+        """
 
         if self.id / self.move_number > self.stored_id / self.move_number:
             values = []
