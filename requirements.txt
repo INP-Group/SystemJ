@@ -14,3 +14,5 @@ pyzmq
 pyzmq
 bsddb3
 psycopg2
+
+pyOpenSSL
