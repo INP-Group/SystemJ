@@ -13,3 +13,4 @@ pyzmq
 # http://blog-tree.com/post/2013/11/daemons-under-supervisor
 pyzmq
 bsddb3
+psycopg2
