@@ -1,5 +1,5 @@
 
-CREATE DATABASE test_database;
+CREATE DATABASE journal_database;
 
 DROP TABLE datachannel CASCADE;
 
