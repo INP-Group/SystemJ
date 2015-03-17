@@ -11,7 +11,7 @@ from src.base.singleton import Singleton
 
 class PostgresqlStorage(Singleton):
 
-    def __init__(self, dbname='test_database', user='postgres', password='147896321R', tablename='datachannel'):
+    def __init__(self, dbname='journal_database', user='postgres', password='147896321R', tablename='datachannel'):
         self.connection = psycopg2.connect(database=dbname, user=user, password=password)
 
         self.database = dbname
