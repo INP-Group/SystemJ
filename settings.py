@@ -8,6 +8,9 @@ def check_and_create(folder):
         os.makedirs(folder)
 
 
+DEPLOY = True
+
+
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 RES_FOLDER_NAME = 'resources'
 RES_FOLDER = os.path.join(PROJECT_DIR, RES_FOLDER_NAME)
@@ -21,6 +24,17 @@ POSTGRESQL_HOST = 'localhost'
 POSTGRESQL_DB = 'journal_database'
 POSTGRESQL_TABLE = 'datachannel'
 POSTGRESQL_USER = 'postgres'
-POSTGRESQL_PASSWORD = '147896321R'
+POSTGRESQL_PASSWORD = '1nakopitel!'
 
-DEPLOY = True
+
+
+
+
+
+
+
+
+
+
+if not DEPLOY:
+    POSTGRESQL_PASSWORD = '147896321R'
