@@ -22,3 +22,5 @@ POSTGRESQL_DB = 'journal_database'
 POSTGRESQL_TABLE = 'datachannel'
 POSTGRESQL_USER = 'postgres'
 POSTGRESQL_PASSWORD = '147896321R'
+
+DEPLOY = True

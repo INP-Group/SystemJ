@@ -3,14 +3,18 @@
 import sys
 
 # Special QT import, needs to make qt libs visible for Cdrlib
-import DLFCN
+import settings
+
+if settings.DEPLOY:
+    import DLFCN
+    old_dlopen_flags = sys.getdlopenflags( )
+    sys.setdlopenflags( old_dlopen_flags | DLFCN.RTLD_GLOBAL )
+    from PyQt4 import QtCore, QtGui
+    sys.setdlopenflags( old_dlopen_flags )
+else:
+    from PyQt4 import QtCore, QtGui
+
 from src.channels.scalarchannel import ScalarChannel
-
-old_dlopen_flags = sys.getdlopenflags( )
-sys.setdlopenflags( old_dlopen_flags | DLFCN.RTLD_GLOBAL )
-from PyQt4 import QtCore, QtGui
-sys.setdlopenflags( old_dlopen_flags )
-
 from src.channels.simplechannel import SimpleChannel
 from src.manager.manager import WorkerManager
 

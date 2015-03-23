@@ -2,12 +2,17 @@
 
 
 import ctypes
-import DLFCN
-import sys
+import settings
 
-old_dlopen_flags = sys.getdlopenflags()
-sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
-
+if settings.DEPLOY:
+    import DLFCN
+    import sys
+    old_dlopen_flags = sys.getdlopenflags( )
+    sys.setdlopenflags( old_dlopen_flags | DLFCN.RTLD_GLOBAL )
+    from PyQt4 import QtCore, QtGui
+    sys.setdlopenflags( old_dlopen_flags )
+else:
+    from PyQt4 import QtCore, QtGui
 
 
 class CdrWrapper(object):
