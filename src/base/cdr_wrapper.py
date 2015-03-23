@@ -3,10 +3,11 @@
 
 import ctypes
 import settings
+import sys
 
 if not settings.DEPLOY:
     import DLFCN
-    import sys
+
     old_dlopen_flags = sys.getdlopenflags( )
     sys.setdlopenflags( old_dlopen_flags | DLFCN.RTLD_GLOBAL )
     from PyQt4 import QtCore, QtGui
