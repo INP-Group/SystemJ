@@ -3,10 +3,11 @@
 import zmq
 
 from basechannel import BaseChannel
+from settings import ZEROMQ_HOST, ZEROMQ_PORT
 
 
 class ZeroMQChannel(BaseChannel):
-    def __init__(self, host='127.0.0.1', port='5678'):
+    def __init__(self, host=ZEROMQ_HOST, port=ZEROMQ_PORT):
         super(ZeroMQChannel, self).__init__()
         self.host = host
         self.port = port

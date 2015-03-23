@@ -1,14 +1,12 @@
 # -*- encoding: utf-8 -*-
 from src.storage.zeromqserver import ZeroMQServer
-
+from settings import ZEROMQ_PORT, ZEROMQ_HOST
 
 def start():
-
-    port = '5678'
-    host = '127.0.0.1'
-
-    server = ZeroMQServer(host=host, port=port)
+    server = ZeroMQServer(host=ZEROMQ_HOST, port=ZEROMQ_PORT)
     server.start()
+
+    print("Server is stopped...")
 
 
 if __name__ == '__main__':

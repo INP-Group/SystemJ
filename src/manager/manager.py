@@ -3,9 +3,10 @@
 import random
 import string
 
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtGui import QStandardItem, QStandardItemModel
-
+from PyQt4 import QtCore
+from PyQt4 import QtGui
+from PyQt4.QtGui import QStandardItem
+from PyQt4.QtGui import QStandardItemModel
 from src.manager.channellfactory import ChannelFactory
 from src.manager.managerui import Ui_MainWindow as ManagerUI
 
@@ -25,9 +26,9 @@ class WorkerManager(ManagerUI):
         self.connect(self.PBAddWorker, QtCore.SIGNAL('clicked()'), self.addNewWorker)
 
     def centerOnScreen (self):
-        '''centerOnScreen()
+        """centerOnScreen()
         Centers the window on the screen.
-        '''
+        """
         resolution = QtGui.QDesktopWidget().screenGeometry()
         self.move((resolution.width() / 2) - (self.frameSize().width() / 2),
                   (resolution.height() / 2) - (self.frameSize().height() / 2))
@@ -77,12 +78,12 @@ class WorkerWidget(QtGui.QWidget):
 
 
 class DaemonWorker(QtCore.QThread):
-    '''
+    """
 
     10к сокетов не получается создать
     Надо сигналы одной группы собирать с помощью этого воркера
     Затем слать одно сообщение в zeromq (ну или хотя бы по M сообщений собирать в одно)
-    '''
+    """
 
     def __init__(self, parent=None, name='Daemon1'):
 

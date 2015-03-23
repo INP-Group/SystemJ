@@ -1,14 +1,18 @@
 # -*- encoding: utf-8 -*-
 
-
 import sys
 
-from PyQt4 import QtCore, QtGui
-
+# Special QT import, needs to make qt libs visible for Cdrlib
+import DLFCN
 from src.channels.scalarchannel import ScalarChannel
-from src.channels.vectorchannel import VectorChannel
-from src.manager.manager import WorkerManager
 
+old_dlopen_flags = sys.getdlopenflags( )
+sys.setdlopenflags( old_dlopen_flags | DLFCN.RTLD_GLOBAL )
+from PyQt4 import QtCore, QtGui
+sys.setdlopenflags( old_dlopen_flags )
+
+from src.channels.simplechannel import SimpleChannel
+from src.manager.manager import WorkerManager
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -29,6 +33,7 @@ def start():
     mainwidow.show()
 
     scal = ScalarChannel("linvac.vacmatrix.Imes0")
+    # scal = SimpleChannel("linthermcan.ThermosM.in0")
 
     sys.exit(application.exec_())
 
@@ -40,5 +45,5 @@ def start3():
     sys.exit(application.exec_())
 
 if __name__ == "__main__":
-    start()
-    # start3()
+    # start()
+    start3()

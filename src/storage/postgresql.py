@@ -5,19 +5,17 @@ import random
 import uuid
 
 import psycopg2
-
 from src.base.singleton import Singleton
 
 
 class PostgresqlStorage(Singleton):
 
-    def __init__(self, dbname='journal_database', user='postgres', password='147896321R', tablename='datachannel'):
-        self.connection = psycopg2.connect(database=dbname, user=user, password=password)
+    def __init__(self, dbname='journal_database', user='postgres', password='147896321R', tablename='datachannel', host='localhost'):
+        self.connection = psycopg2.connect(database=dbname, user=user, password=password, host=host)
 
         self.database = dbname
         self.user = user
         self.password = password
-
 
         self.tablename = tablename
         self.cursor = self.connection.cursor()

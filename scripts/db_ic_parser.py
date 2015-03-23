@@ -6,11 +6,11 @@
 # 2014
 
 
-'''
+"""
 reqs:
 ply
 CppHeaderParser
-'''
+"""
 
 
 import re

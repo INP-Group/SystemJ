@@ -1,18 +1,25 @@
 # -*- encoding: utf-8 -*-
 
+
+import time
+import sys
+
 import zmq
 
-# ZeroMQ Context
+
+port = "5556"
+if len(sys.argv) > 1:
+    port = sys.argv[1]
+    int(port)
+
 context = zmq.Context()
-
-# Define the socket using the "Context"
-sock = context.socket(zmq.REP)
-sock.bind("tcp://127.0.0.1:5678")
+socket = context.socket(zmq.REP)
+socket.bind("tcp://*:%s" % port)
 
 
-
-# Run a simple "Echo" server
 while True:
-    message = sock.recv()
-    # sock.send("Echo: " + message)
-    print "Echo: " + message
+    # Wait for next request from client
+    message = socket.recv()
+    print "Received request: ", message
+    time.sleep(1)
+    socket.send("World from %s" % port)

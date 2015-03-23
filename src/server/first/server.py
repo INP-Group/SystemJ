@@ -16,7 +16,7 @@ class ServerManager(threading.Thread):
         try:
             self.server.bind((self.host, self.port))
         except socket.error:
-            print('Bind failed %s' % (socket.error))
+            print('Bind failed %s' % socket.error)
             sys.exit()
 
         self.server.listen(10)
@@ -42,21 +42,15 @@ class ServerManager(threading.Thread):
                 print(reply)
             else:
                 break
-            # conn.sendall(reply)
-
+                # conn.sendall(reply)
 
         print input_data
         args = input_data.split("-" * 10)
 
-
-
         command = args[0].strip()
         data = eval(args[1])
 
-
-
         isManager = command == "IM_MANAGER"
-
 
         if isManager:
             self.users[addr] = conn
@@ -66,7 +60,7 @@ class ServerManager(threading.Thread):
 
 
     def run(self):
-        print('Waiting for connections on port %s' % (self.port))
+        print('Waiting for connections on port %s' % self.port)
         # We need to run a loop and create a new thread for each connection
         while True:
             conn, addr = self.server.accept()

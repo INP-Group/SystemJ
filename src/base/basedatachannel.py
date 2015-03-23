@@ -3,10 +3,9 @@
 
 import math
 
-from PyQt4.QtCore import *
-
 from basechannel import BaseChannel
 from cdr_wrapper import Cdr
+from PyQt4.QtCore import *
 from settings import CDR_LIB_PATH
 
 
@@ -20,7 +19,7 @@ class BaseDataChannel(BaseChannel):
             self.personal_name = name
         else:
             self.personal_name = personal_name
-        #todo hardcode
+        # todo hardcode
         self.name = name
         self.cdr = Cdr(CDR_LIB_PATH)
         # self.cdr = Cdr()

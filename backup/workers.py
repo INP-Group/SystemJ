@@ -143,10 +143,10 @@ class Testobject (QtCore.QObject):
 
 
 
-'''
+"""
 Создать worker'а, который будет внутри содержать объект класса скалярного канала
 По клику добавлять объекты в воркера
-'''
+"""
 class Testobject2 (QtGui.QWidget):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)

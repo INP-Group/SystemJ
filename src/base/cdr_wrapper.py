@@ -1,7 +1,13 @@
 # -*- encoding: utf-8 -*-
 
+
 import ctypes
+import DLFCN
 import sys
+
+old_dlopen_flags = sys.getdlopenflags()
+sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
+
 
 
 class CdrWrapper(object):
@@ -69,6 +75,12 @@ class CdrWrapper(object):
 
         2DO: depricated dict.has_key() used python 2.6.6 do not support .in()
         """
+        # WARNING !!! BYPASS for NAMING
+        uname = name.split(".")
+        if uname[0] == "ic":
+            uname[0] = "ic.x"
+            name = '.'.join(uname)
+
         if self.registered_chans.has_key(name):
             chan = self.registered_chans[name]
             if callable(callback):
@@ -231,6 +243,6 @@ class Singleton(type):
         return cls._instances[cls]
 
 
-#this work with python2
+# this work with python2
 class Cdr(CdrWrapper):
     __metaclass__ = Singleton

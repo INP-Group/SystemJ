@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 
 import configparser
-
 from src.base.singleton import Singleton
 
 

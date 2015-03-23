@@ -17,13 +17,13 @@ class BaseChannel(QObject):
         return self.properties.get(name, None)
 
     def _gfa(self, l, idx, default=None):
-        '''
+        """
         _get_from_args
         :param l:
         :param idx:
         :param default:
         :return:
-        '''
+        """
         try:
             return l[idx]
         except IndexError:

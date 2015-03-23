@@ -4,6 +4,8 @@ from bsddb3 import db
 
 from src.base.singleton import Singleton
 from src.storage.postgresql import PostgresqlStorage
+from settings import POSTGRESQL_DB, POSTGRESQL_HOST, POSTGRESQL_PASSWORD, \
+    POSTGRESQL_TABLE, POSTGRESQL_USER
 
 
 class GeneratorId(Singleton):
@@ -45,7 +47,11 @@ class BerkeleyStorage(Singleton):
         self.id = len(self.database)
         self.generator.setId(self.id)
 
-        self.storage = PostgresqlStorage(user='postgres', password='147896321R')
+        self.storage = PostgresqlStorage(user=POSTGRESQL_USER,
+                                         tablename=POSTGRESQL_TABLE,
+                                         password=POSTGRESQL_PASSWORD,
+                                         host=POSTGRESQL_HOST,
+                                         dbname=POSTGRESQL_DB)
 
     def __del__(self):
         self.database.close()
