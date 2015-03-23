@@ -8,7 +8,7 @@ def check_and_create(folder):
         os.makedirs(folder)
 
 
-DEPLOY = False
+DEPLOY = True
 
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
