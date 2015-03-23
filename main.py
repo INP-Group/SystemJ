@@ -5,7 +5,7 @@ import sys
 # Special QT import, needs to make qt libs visible for Cdrlib
 import settings
 
-if settings.DEPLOY:
+if not settings.DEPLOY:
     import DLFCN
     old_dlopen_flags = sys.getdlopenflags( )
     sys.setdlopenflags( old_dlopen_flags | DLFCN.RTLD_GLOBAL )

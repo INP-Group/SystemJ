@@ -4,7 +4,7 @@
 import ctypes
 import settings
 
-if settings.DEPLOY:
+if not settings.DEPLOY:
     import DLFCN
     import sys
     old_dlopen_flags = sys.getdlopenflags( )
