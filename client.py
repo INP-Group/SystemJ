@@ -21,17 +21,20 @@ def start():
     #
     # client.send("ADD_CH", *channels)
 
-
+    #
     client = ClientManager(host=SERVER_HOST, port=SERVER_PORT)
 
     client.send_online()
-    client.send_offline()
+
 
     yet_client = YetClient(host=SERVER_HOST, port=SERVER_PORT)
 
     yet_client.send_hi()
     yet_client.get_manager_cnt()
     yet_client.get_manager_list()
+    yet_client.set_channels([])
+
+    client.send_offline()
 
     # data = "gfdokgosdfg sdfg jdsfngoj sdnfgio ndfg dfgsdf"
     # for x in xrange(0, 5):

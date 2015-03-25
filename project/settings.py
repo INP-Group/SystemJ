@@ -32,8 +32,12 @@ CDR_LIB_PATH = os.path.join(RES_FOLDER, 'libs', 'libCdr4PyQt.so')
 ZEROMQ_HOST = '127.0.0.1'
 ZEROMQ_PORT = '5556'
 
-SERVER_PORT = 9090
+SERVER_PORT = 10000
 SERVER_HOST = 'localhost'
+
+MANAGER_TEST_PORT = 10001
+MANAGER_TEST_HOST = 'localhost'
+
 
 POSTGRESQL_HOST = 'localhost'
 POSTGRESQL_DB = 'journal_database'
@@ -46,14 +50,20 @@ POSTGRESQL_PASSWORD = '1nakopitel!'
 
 #todo
 # нужны ли такие команды?
+# хреновый же API
+
+COMMAND_SPLITER = "|||"
 
 MANAGER_COMMAND = {
+    "TEST": "test",
+}
+
+SERVER_MANAGER_COMMAND = {
     "ONLINE": "Manager online",
     "OFFLINE": "Manager offline"
 }
-COMMAND_SPLITER = "|||"
 
-YET_COMMAND = {
+SERVER_YET_COMMAND = {
     "HI": "Hello world",
     "MANAGER_CNT": "How many managers?",
     "MANAGER_LIST": "I want to get all the information about the managers",
@@ -62,5 +72,13 @@ YET_COMMAND = {
     "CHANNEL_ADD": "Please, add new channel(s)",
 }
 
+
+def get_text_command(command):
+    if command in MANAGER_COMMAND:
+        return MANAGER_COMMAND.get(command)
+    if command in SERVER_MANAGER_COMMAND:
+        return SERVER_MANAGER_COMMAND.get(command)
+    if command in SERVER_YET_COMMAND:
+        return SERVER_YET_COMMAND.get(command)
 
 from project.local_settings import *

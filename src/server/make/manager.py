@@ -1,67 +1,45 @@
 # -*- encoding: utf-8 -*-
 
-
-import socket
-import sys
-import threading
+import SocketServer
+from project.settings import MANAGER_COMMAND, COMMAND_SPLITER
 
 
-class ChannelManager(threading.Thread):
-    def __init__(self, port, host='localhost'):
-        threading.Thread.__init__(self)
-        self.port = port
-        self.host = host
-        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+class ThreadedBlockManager(SocketServer.ThreadingMixIn,
+                           SocketServer.TCPServer):
+    pass
 
-        try:
-            self.server.bind((self.host, self.port))
-        except socket.error:
-            print('Bind failed %s' % socket.error)
-            sys.exit()
 
-        self.server.listen(10)
+class BlockManager(SocketServer.BaseRequestHandler):
+    def handle(self):
+        # self.request is the TCP socket connected to the client
+        data = self.request.recv(1024).strip()
+        request_command, request_value = [x.strip() for x in
+                                          data.split(COMMAND_SPLITER)]
 
-    # Not currently used. Ensure sockets are closed on disconnect
-    def exit(self):
-        self.server.close()
+        print(request_command, request_value)
+        command = []
+        if request_command in MANAGER_COMMAND.values():
+            command = [key for key, value in MANAGER_COMMAND.items() if
+                       request_command == value]
 
-    def __del__(self):
-        for user, con in self.users.items():
-            con.close()
-        self.server.close()
+        assert len(command) == 1
+        result = self.process_command(command[0], request_value)
 
-    def run_thread(self, conn, addr):
-        print('Client connected with ' + addr[0] + ':' + str(addr[1]))
+        self.request.sendall(result)
 
-        input_data = ""
-        while True:
-            data = conn.recv(1024)
-            if data:
-                input_data += data
-                reply = b'OK...' + data
-                print(reply)
-            else:
-                break
-                # conn.sendall(reply)
+    def process_command(self, command, value):
+        # todo
+        # hindi processing
+        result = "Unknown command (in processing)"
+        if command == "TEST":
+            result = {'ok': True, 'result': "TEST message"}
 
-        print input_data
-        args = input_data.split("-" * 10)
+        return self._to_string(result)
 
-        command = args[0].strip()
-        data = eval(args[1])
+    @staticmethod
+    def _to_string(value):
+        return str(value)
 
-        isManager = command == "IM_MANAGER"
+    def add_channel(self):
+        pass
 
-        if isManager:
-            self.users[addr] = conn
-        else:
-            for user, con in self.users.items():
-                con.send(command)
-
-    def run(self):
-        print('Waiting for connections on port %s' % self.port)
-        # We need to run a loop and create a new thread for each connection
-        while True:
-            conn, addr = self.server.accept()
-
-            threading.Thread(target=self.run_thread, args=(conn, addr)).start()

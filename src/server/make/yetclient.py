@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 
-from project.settings import YET_COMMAND as command
+from project.settings import SERVER_YET_COMMAND as command
 from src.server.make.baseclient import BaseSocketClient
 
 

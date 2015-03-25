@@ -12,10 +12,12 @@ def start():
     print("Start server")
     server_thread.start()
 
-    while True:
-        pass
-    print("Stop server")
-    server.shutdown()
+    try:
+        while True:
+            pass
+    except KeyboardInterrupt:
+        print("Stop server")
+        server.shutdown()
 
     #
     # server = SocketServer.TCPServer((SERVER_HOST, SERVER_PORT), ServerManger)
