@@ -23,12 +23,12 @@ class LoggingServer(threading.Thread):
 
     # Not currently used. Ensure sockets are closed on disconnect
     def exit(self):
-        self.server.close()
+        self.server._close()
 
     def __del__(self):
         for user, con in self.users.items():
-            con.close()
-        self.server.close()
+            con._close()
+        self.server._close()
 
     def run_thread(self, conn, address):
         print('Client connected with ' + address[0] + ':' + str(address[1]))

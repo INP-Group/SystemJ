@@ -67,4 +67,4 @@ print len(fruitDB)
 
 
 #print fruitDB.key_range(100)
-fruitDB.close()
+fruitDB._close()

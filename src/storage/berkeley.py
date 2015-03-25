@@ -59,7 +59,7 @@ class BerkeleyStorage(Singleton):
         self.generator.setId(self.id)
 
     def __del__(self):
-        self.database.close()
+        self.database._close()
 
     def add(self, value):
         self.id = GeneratorId().getid()

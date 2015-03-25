@@ -26,6 +26,7 @@ ZEROMQ_HOST = '127.0.0.1'
 ZEROMQ_PORT = '5556'
 
 SERVER_PORT = 9090
+SERVER_HOST = 'localhost'
 
 POSTGRESQL_HOST = 'localhost'
 POSTGRESQL_DB = 'journal_database'
