@@ -3,9 +3,9 @@
 import sys
 
 # Special QT import, needs to make qt libs visible for Cdrlib
-import project
+import project.settings
 
-if not project.DEPLOY:
+if not project.settings.DEPLOY:
     import DLFCN
     old_dlopen_flags = sys.getdlopenflags( )
     sys.setdlopenflags( old_dlopen_flags | DLFCN.RTLD_GLOBAL )
@@ -49,5 +49,5 @@ def start3():
     sys.exit(application.exec_())
 
 if __name__ == "__main__":
-    start()
-    # start3()
+    # start()
+    start3()

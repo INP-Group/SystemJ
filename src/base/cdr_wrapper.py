@@ -2,7 +2,7 @@
 
 
 import ctypes
-import settings
+from project import settings
 import sys
 
 if not settings.DEPLOY:
