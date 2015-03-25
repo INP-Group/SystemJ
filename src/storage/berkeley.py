@@ -1,11 +1,12 @@
 # -*- encoding: utf-8 -*-
 
 from bsddb3 import db
+import os
 
 from src.base.singleton import Singleton
 from src.storage.postgresql import PostgresqlStorage
 from project.settings import POSTGRESQL_DB, POSTGRESQL_HOST, POSTGRESQL_PASSWORD, \
-    POSTGRESQL_TABLE, POSTGRESQL_USER
+    POSTGRESQL_TABLE, POSTGRESQL_USER, DB_FOLDER
 
 
 class GeneratorId(Singleton):
@@ -22,7 +23,8 @@ class GeneratorId(Singleton):
 
 
 class BerkeleyStorage(Singleton):
-    def __init__(self, filename='berkdb.db', read=False, sql_storage=None):
+    def __init__(self, filename=os.path.join(DB_FOLDER, 'berkeley.db'),
+                 read=False, sql_storage=None):
         self.filename = filename
         self.database = db.DB()
 

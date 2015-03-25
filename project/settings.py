@@ -14,9 +14,10 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 RES_FOLDER_NAME = 'resources'
 RES_FOLDER = os.path.join(PROJECT_DIR, RES_FOLDER_NAME)
 
-
 MEDIA_FOLDER = os.path.join(PROJECT_DIR, 'media')
 LOG_FOLDER = os.path.join(MEDIA_FOLDER, 'logs')
+DB_FOLDER = os.path.join(RES_FOLDER, 'dbs')
+
 
 CDR_LIB_PATH = os.path.join(RES_FOLDER, 'libs', 'libCdr4PyQt.so')
 
@@ -35,5 +36,6 @@ POSTGRESQL_PASSWORD = '1nakopitel!'
 check_and_create(MEDIA_FOLDER)
 check_and_create(RES_FOLDER)
 check_and_create(LOG_FOLDER)
+check_and_create(DB_FOLDER)
 
 from project.local_settings import *
