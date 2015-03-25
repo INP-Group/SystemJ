@@ -4,7 +4,6 @@
 import ctypes
 from project import settings
 import sys
-
 if not settings.DEPLOY:
     import DLFCN
 

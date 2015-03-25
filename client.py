@@ -31,7 +31,7 @@ def start():
     yet_client.send_hi()
     yet_client.get_manager_cnt()
     yet_client.get_manager_list()
-    # yet_client.set_channels([])
+    yet_client.set_channels([])
 
     # client.send_offline()
 

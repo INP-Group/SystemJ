@@ -1,7 +1,13 @@
 # -*- encoding: utf-8 -*-
 
 import SocketServer
+
+
+
+
 from project.settings import MANAGER_COMMAND, COMMAND_SPLITER
+from src.channels.scalarchannel import ScalarChannel
+from src.channels.simplechannel import SimpleChannel
 
 
 class ThreadedBlockManager(SocketServer.ThreadingMixIn,
@@ -10,6 +16,8 @@ class ThreadedBlockManager(SocketServer.ThreadingMixIn,
 
 
 class BlockManager(SocketServer.BaseRequestHandler):
+    channels = []
+
     def handle(self):
         # self.request is the TCP socket connected to the client
         data = self.request.recv(1024).strip()
@@ -31,6 +39,7 @@ class BlockManager(SocketServer.BaseRequestHandler):
         # hindi processing
         result = "Unknown command (in processing)"
         if command == "TEST":
+            self.add_channel()
             result = {'ok': True, 'result': "TEST message"}
 
         return self._to_string(result)
@@ -40,5 +49,5 @@ class BlockManager(SocketServer.BaseRequestHandler):
         return str(value)
 
     def add_channel(self):
-        pass
+        self.channels.append(SimpleChannel("linthermcan.ThermosM.in0"))
 

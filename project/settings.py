@@ -10,8 +10,9 @@ def check_and_create(folder):
 
 DEPLOY = True
 
-PROJECT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                           os.pardir)
+PROJECT_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                 os.pardir))
 RES_FOLDER_NAME = 'resources'
 RES_FOLDER = os.path.join(PROJECT_DIR, RES_FOLDER_NAME)
 

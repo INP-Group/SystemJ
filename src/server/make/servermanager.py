@@ -49,7 +49,7 @@ class ServerManager(SocketServer.BaseRequestHandler):
         # todo
         # hindi processing
 
-        #print(command, value)
+        # print(command, value)
         result = "Unknown command (in processing)"
         if command == "ONLINE":
             info = eval(value)
@@ -115,8 +115,9 @@ class ServerManager(SocketServer.BaseRequestHandler):
             # todo
             # может не быть менеджеров в онлайне
             host, port = info[0][0].split(':')
-            result = send_message(host=host, port=int(port), command=get_text_command('TEST'),
-                               client_type='manager', value=None)
+            result = send_message(host=host, port=int(port),
+                                  command=get_text_command('TEST'),
+                                  client_type='manager', value=None)
         return self._to_string(result)
 
     @staticmethod
