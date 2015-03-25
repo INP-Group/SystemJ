@@ -92,12 +92,3 @@ class PostgresqlStorage(Singleton):
         # print values
         self.connection.commit()
 
-
-def start():
-    a = PostgresqlStorage(user='postgres', user='postgres',
-                          password='147896321R')
-    a.fillrandom()
-
-
-if __name__ == "__main__":
-    start()

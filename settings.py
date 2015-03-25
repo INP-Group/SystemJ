@@ -27,5 +27,5 @@ POSTGRESQL_TABLE = 'datachannel'
 POSTGRESQL_USER = 'postgres'
 POSTGRESQL_PASSWORD = '1nakopitel!'
 
-if not DEPLOY:
-    POSTGRESQL_PASSWORD = '147896321R'
+
+from local_settings import *

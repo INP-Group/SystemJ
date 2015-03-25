@@ -22,7 +22,7 @@ class GeneratorId(Singleton):
 
 
 class BerkeleyStorage(Singleton):
-    def __init__(self, filename='berkdb.db', read=False):
+    def __init__(self, filename='berkdb.db', read=False, sql_storage=None):
         self.filename = filename
         self.database = db.DB()
 
@@ -44,14 +44,19 @@ class BerkeleyStorage(Singleton):
         else:
             self.database.open(self.filename, None, self.db_type, db.DB_CREATE)
 
+        if sql_storage is None:
+            self.sql_storage = PostgresqlStorage(database=POSTGRESQL_DB,
+                                                 user=POSTGRESQL_USER,
+                                                 password=POSTGRESQL_PASSWORD,
+                                                 tablename=POSTGRESQL_TABLE,
+                                                 host=POSTGRESQL_HOST)
+        else:
+            self.sql_storage = sql_storage
+
+
         self.id = len(self.database)
         self.generator.setId(self.id)
 
-        self.storage = PostgresqlStorage(database=POSTGRESQL_DB,
-                                         user=POSTGRESQL_USER,
-                                         password=POSTGRESQL_PASSWORD,
-                                         tablename=POSTGRESQL_TABLE,
-                                         host=POSTGRESQL_HOST)
 
     def __del__(self):
         self.database.close()
@@ -84,7 +89,7 @@ class BerkeleyStorage(Singleton):
                 except AttributeError as e:
                     print e, x, self.database.get("%s" % x)
 
-            self.storage.add(*values)
+            self.sql_storage.add(*values)
 
             self.stored_id += self.move_number
 
