@@ -33,7 +33,7 @@ class ZeroMQChannel(BaseChannel):
         self.sock.send_string(text)
         answer = self.sock.recv()
         if answer.strip() == "Saved":
-            self.sock._close()
+            self.sock.close()
             self.attempt = 0
             return
         else:

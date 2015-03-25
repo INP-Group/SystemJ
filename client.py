@@ -6,6 +6,7 @@ import socket
 import sys
 from project.settings import SERVER_PORT, SERVER_HOST
 from src.server.make.clientmanager import ClientManager
+from src.server.make.yetclient import YetClient
 
 
 def start():
@@ -21,13 +22,16 @@ def start():
     # client.send("ADD_CH", *channels)
 
 
-
-
-    client = ClientManager(SERVER_HOST, SERVER_PORT)
+    client = ClientManager(host=SERVER_HOST, port=SERVER_PORT)
 
     client.send_online()
-
     client.send_offline()
+
+    yet_client = YetClient(host=SERVER_HOST, port=SERVER_PORT)
+
+    yet_client.send_hi()
+    yet_client.get_manager_cnt()
+    yet_client.get_manager_list()
 
     # data = "gfdokgosdfg sdfg jdsfngoj sdnfgio ndfg dfgsdf"
     # for x in xrange(0, 5):

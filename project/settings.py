@@ -20,6 +20,13 @@ LOG_FOLDER = os.path.join(MEDIA_FOLDER, 'logs')
 DB_FOLDER = os.path.join(RES_FOLDER, 'dbs')
 
 
+check_and_create(MEDIA_FOLDER)
+check_and_create(RES_FOLDER)
+check_and_create(LOG_FOLDER)
+check_and_create(DB_FOLDER)
+
+
+
 CDR_LIB_PATH = os.path.join(RES_FOLDER, 'libs', 'libCdr4PyQt.so')
 
 ZEROMQ_HOST = '127.0.0.1'
@@ -34,15 +41,26 @@ POSTGRESQL_TABLE = 'datachannel'
 POSTGRESQL_USER = 'postgres'
 POSTGRESQL_PASSWORD = '1nakopitel!'
 
+
+
+
+#todo
+# нужны ли такие команды?
+
 MANAGER_COMMAND = {
     "ONLINE": "Manager online",
     "OFFLINE": "Manager offline"
 }
 COMMAND_SPLITER = "|||"
 
-check_and_create(MEDIA_FOLDER)
-check_and_create(RES_FOLDER)
-check_and_create(LOG_FOLDER)
-check_and_create(DB_FOLDER)
+YET_COMMAND = {
+    "HI": "Hello world",
+    "MANAGER_CNT": "How many managers?",
+    "MANAGER_LIST": "I want to get all the information about the managers",
+    "CHANNEL_CNT": "How many channels?",
+    "CHANNEL_LIST": "I want to get all the information about the channels",
+    "CHANNEL_ADD": "Please, add new channel(s)",
+}
+
 
 from project.local_settings import *

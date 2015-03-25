@@ -10,7 +10,7 @@ class BaseSocketClient(object):
         self.port = port
         self.socket = None
 
-    def send(self, command, value=None):
+    def _send(self, command, value=None):
         if self.socket is None:
             self._connection()
 

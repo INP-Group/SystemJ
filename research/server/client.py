@@ -84,13 +84,13 @@ class Form(QDialog):
             self.nextBlockSize = 0
 
     def serverHasStopped(self):
-        self.socket._close()
+        self.socket.close()
         self.connectButton.setEnabled(True)
 
     def serverHasError(self):
         self.updateUi("Error: {}".format(
                 self.socket.errorString()))
-        self.socket._close()
+        self.socket.close()
         self.connectButton.setEnabled(True)
 
 

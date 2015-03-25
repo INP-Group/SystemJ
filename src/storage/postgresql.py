@@ -24,8 +24,8 @@ class PostgresqlStorage(Singleton):
         self.cursor = self.connection.cursor()
 
     def __del__(self):
-        self.cursor._close()
-        self.connection._close()
+        self.cursor.close()
+        self.connection.close()
 
     def fillrandom(self):
         def getDate():

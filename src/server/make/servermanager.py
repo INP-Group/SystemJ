@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 import SocketServer
-from project.settings import MANAGER_COMMAND, COMMAND_SPLITER
+from project.settings import MANAGER_COMMAND, COMMAND_SPLITER, YET_COMMAND
 
 
 class ServerManger(SocketServer.BaseRequestHandler):
@@ -17,25 +17,79 @@ class ServerManger(SocketServer.BaseRequestHandler):
 
         client = "%s:%s" % (client_ip, client_port)
         if self.info_dict.get(client, None) is None:
-            self.info_dict[client] = {"status": "unknown"}
+            self.info_dict[client] = {"status": "unknown", "type": "unknown"}
 
         if command in MANAGER_COMMAND.values():
             command = [key for key, value in MANAGER_COMMAND.items() if
                        command == value]
-            assert len(command) == 1
-            result = self.process_command(command[0], value, client)
-        else:
-            result = "Unknown command"
+
+        if command in YET_COMMAND.values():
+            command = [key for key, value in YET_COMMAND.items() if
+                       command == value]
+
+        assert len(command) == 1
+        result = self.process_command(command[0], value, client)
 
         self.request.sendall(result)
 
     def process_command(self, command, value, client):
+        # todo
+        # hindi processing
         result = "Unknown command (in processing)"
         if command == "ONLINE":
             self.info_dict[client]["status"] = "online"
-            result = "Manager is online"
+            self.info_dict[client]["type"] = "manager"
+            result = {'ok': True, 'result': "Manager is online"}
+
         elif command == "OFFLINE":
             self.info_dict[client]["status"] = "offline"
-            result = "Manage is offline"
+            result = {'ok': True, 'result': "Manage is offline"}
 
-        return result
+        elif command == "HI":
+            result = {'ok': True, 'result': "Hi yetclient, what's up?"}
+
+        elif command == "MANAGER_CNT":
+            try:
+                cnt = sum([1 for x in self.info_dict.values() if
+                           x.get('status') == 'online' and x.get(
+                               'type') == 'manager'])
+                result = {'ok': True, 'result': cnt}
+            except Exception as e:
+                result = {'ok': False, 'error': str(e)}
+
+        elif command == "MANAGER_LIST":
+            try:
+                info = [(x, value) for x, value in self.info_dict.items() if
+                        value.get(
+                            'type') == 'manager']
+                result = {'ok': True, 'result': info}
+            except Exception as e:
+                result = {'ok': False, 'error': str(e)}
+
+        elif command == "CHANNEL_CNT":
+            try:
+                cnt = sum([1 for x in self.info_dict.values() if x.get(
+                    'type') == 'channel'])
+                result = {'ok': True, 'result': cnt}
+            except Exception as e:
+                result = {'ok': False, 'error': str(e)}
+
+        elif command == "CHANNEL_LIST":
+            try:
+                info = [(x, value) for x, value in self.info_dict.items() if
+                        value.get(
+                            'type') == 'channel']
+                result = {'ok': True, 'result': info}
+            except Exception as e:
+                result = {'ok': False, 'error': str(e)}
+
+        elif command == "CHANNEL_ADD":
+
+            result = {'ok': False, 'error': "Ok (todo)"}
+        return self._to_string(result)
+
+    @staticmethod
+    def _to_string(value):
+        return str(value)
+
+

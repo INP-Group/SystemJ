@@ -34,4 +34,4 @@ class ZeroMQServer(threading.Thread):
 
     def stop(self):
         self.berkeley_db.__del__()
-        self.sock._close()
+        self.sock.close()

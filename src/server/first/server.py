@@ -56,7 +56,7 @@ class ServerManager(threading.Thread):
             self.users[addr] = conn
         else:
             for user, con in self.users.items():
-                con.send(command)
+                con._send(command)
 
     def run(self):
         print('Waiting for connections on port %s' % self.port)

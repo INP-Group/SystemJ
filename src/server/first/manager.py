@@ -16,7 +16,7 @@ class ManageObj(object):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.connect((self.host, port))
 
-        self.socket.send(self.form_message("IM_MANAGER", "None"))
+        self.socket._send(self.form_message("IM_MANAGER", "None"))
 
         while True:
             data = self.socket.recv(16)

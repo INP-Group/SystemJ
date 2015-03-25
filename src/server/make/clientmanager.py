@@ -7,9 +7,9 @@ from project.settings import MANAGER_COMMAND as command
 class ClientManager(BaseSocketClient):
 
     def send_online(self):
-        result = self.send(command.get("ONLINE"))
+        result = self._send(command.get("ONLINE"))
         print(result)
 
     def send_offline(self):
-        result = self.send(command.get("OFFLINE"))
+        result = self._send(command.get("OFFLINE"))
         print(result)

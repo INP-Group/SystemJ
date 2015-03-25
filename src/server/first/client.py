@@ -21,4 +21,4 @@ class ClientManager(object):
     def send(self, command, *args):
         text = self.form_message(command, str(args).strip('[]'))
 
-        self.socket.send(text)
+        self.socket._send(text)
