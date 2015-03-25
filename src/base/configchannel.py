@@ -16,7 +16,7 @@ class ConfigChannel(object):
                 dict1[option] = self.config.get(section, option)
                 if dict1[option] == -1:
                     print ("skip: %s" % option)
-            except:
-                print("exception on %s!" % option)
+            except Exception as e:
+                print("exception on %s!. Exception: %s" % (option, str(e)))
                 dict1[option] = None
         return dict1

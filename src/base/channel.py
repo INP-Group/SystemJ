@@ -22,7 +22,9 @@ class Channel(BaseDataChannel, ZeroMQChannel):
         None
 
     def get_message(self, text):
-        return "[%s] [%s]: %s" % (datetime.datetime.now(), self.__class__.__name__, text)
+        return "[%s] [%s]: %s" % (datetime.datetime.now(),
+                                  self.__class__.__name__,
+                                  text)
 
     def default_log(self, text):
         with open(os.path.join(PROJECT_DIR, 'default_log.log'), 'a') as f:
