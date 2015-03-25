@@ -4,7 +4,12 @@ import SocketServer
 from project.settings import MANAGER_COMMAND, COMMAND_SPLITER, YET_COMMAND
 
 
-class ServerManger(SocketServer.BaseRequestHandler):
+class ThreadedServerManager(SocketServer.ThreadingMixIn,
+                            SocketServer.TCPServer):
+    pass
+
+
+class ServerManager(SocketServer.BaseRequestHandler):
     # todo
     # сохранять надо в БД
     info_dict = {}
