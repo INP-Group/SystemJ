@@ -5,15 +5,18 @@ import random
 import uuid
 
 import psycopg2
+
 from src.base.singleton import Singleton
 
 
 class PostgresqlStorage(Singleton):
+    def __init__(self, database='journal_database', user='postgres',
+                 password='147896321R', tablename='datachannel',
+                 host='localhost'):
+        self.connection = psycopg2.connect(database=database, user=user,
+                                           password=password, host=host)
 
-    def __init__(self, dbname='journal_database', user='postgres', password='147896321R', tablename='datachannel', host='localhost'):
-        self.connection = psycopg2.connect(database=dbname, user=user, password=password, host=host)
-
-        self.database = dbname
+        self.database = database
         self.user = user
         self.password = password
 
@@ -26,7 +29,6 @@ class PostgresqlStorage(Singleton):
 
     def fillrandom(self):
         def getDate():
-
             iso_format = "'{Year}-{Month}-{Day} {Hour}:{Minute}:{Minute}.{Offset}'"
 
             year_range = [str(i) for i in range(1990, 2014)]
@@ -38,7 +40,7 @@ class PostgresqlStorage(Singleton):
 
             argz = {"Year": random.choice(year_range),
                     "Month": random.choice(month_range),
-                    "Day" : random.choice(day_range),
+                    "Day": random.choice(day_range),
                     "Hour": random.choice(hour_range),
                     "Minute": random.choice(min_range),
                     "Offset": random.choice(offset),
@@ -48,10 +50,10 @@ class PostgresqlStorage(Singleton):
 
         values = []
         for x in xrange(1, random.randint(0, 100)):
-            values.append([str(x * random.randint(1, 12)), getDate(), x * random.random() * 100])
+            values.append([str(x * random.randint(1, 12)), getDate(),
+                           x * random.random() * 100])
 
         self.add(*values)
-
 
     def add(self, *values):
 
@@ -66,9 +68,10 @@ class PostgresqlStorage(Singleton):
             if not os.path.exists(os.path.dirname(temp_filepath)):
                 os.makedirs(os.path.dirname(temp_filepath))
 
-            with open(temp_filepath, 'w') as csvfile:
+            with open(temp_filepath, 'w') as csv_fio:
                 for lineValues in values:
-                    csvfile.write("%s\n" % '\t'.join(str(v).replace("'", '') for v in lineValues))
+                    csv_fio.write("%s\n" % '\t'.join(
+                        str(v).replace("'", '') for v in lineValues))
 
             fd = open(temp_filepath, 'r')
             self.cursor.copy_from(fd, self.tablename)
@@ -79,7 +82,8 @@ class PostgresqlStorage(Singleton):
 
         def insert(*values):
             for lineValues in values:
-                sql = "INSERT INTO %s VALUES (%s)" % (self.tablename, ", ".join(str(v) for v in lineValues))
+                sql = "INSERT INTO %s VALUES (%s)" % (
+                    self.tablename, ", ".join(str(v) for v in lineValues))
 
                 self.cursor.execute(sql)
 
@@ -90,7 +94,8 @@ class PostgresqlStorage(Singleton):
 
 
 def start():
-    a = PostgresqlStorage(user='postgres', password='147896321R')
+    a = PostgresqlStorage(user='postgres', user='postgres',
+                          password='147896321R')
     a.fillrandom()
 
 

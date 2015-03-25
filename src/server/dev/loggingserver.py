@@ -16,7 +16,7 @@ class LoggingServer(threading.Thread):
         try:
             self.server.bind((self.host, self.port))
         except socket.error:
-            print('Bind failed %s' % (socket.error))
+            print('Bind failed %s' % socket.error)
             sys.exit()
 
         self.server.listen(10)
@@ -30,8 +30,8 @@ class LoggingServer(threading.Thread):
             con.close()
         self.server.close()
 
-    def run_thread(self, conn, addr):
-        print('Client connected with ' + addr[0] + ':' + str(addr[1]))
+    def run_thread(self, conn, address):
+        print('Client connected with ' + address[0] + ':' + str(address[1]))
 
         input_data = ""
         while True:
@@ -45,11 +45,11 @@ class LoggingServer(threading.Thread):
             # conn.sendall(reply)
 
 
-
     def run(self):
         print('Waiting for connections on port %s' % self.port)
         # We need to run a loop and create a new thread for each connection
         while True:
-            conn, addr = self.server.accept()
+            conn, address = self.server.accept()
 
-            threading.Thread(target=self.run_thread, args=(conn, addr)).start()
+            threading.Thread(target=self.run_thread,
+                             args=(conn, address)).start()

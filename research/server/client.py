@@ -8,6 +8,7 @@ PORTS = (9998, 9999)
 PORT = 9999
 SIZEOF_UINT32 = 4
 
+
 class Form(QDialog):
 
     def __init__(self, parent=None):

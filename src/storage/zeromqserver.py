@@ -6,6 +6,7 @@ import zmq
 from src.storage.berkeley import BerkeleyStorage
 from settings import ZEROMQ_HOST, ZEROMQ_PORT
 
+
 class ZeroMQServer(threading.Thread):
     def __init__(self, host=ZEROMQ_HOST, port=ZEROMQ_PORT):
         threading.Thread.__init__(self)
@@ -13,7 +14,7 @@ class ZeroMQServer(threading.Thread):
         self.sock = self.context.socket(zmq.REP)
         self.sock.bind("tcp://%s:%s" % (host, port))
 
-        self.berkldb = BerkeleyStorage()
+        self.berkeley_db = BerkeleyStorage()
 
     def start(self):
         try:
@@ -22,8 +23,8 @@ class ZeroMQServer(threading.Thread):
                 message = self.sock.recv()
                 if message:
                     # print("Receive message: %s " % message)
-                    self.berkldb.add(message)
+                    self.berkeley_db.add(message)
                     self.sock.send("Saved")
         except KeyboardInterrupt:
-            self.berkldb.__del__()
+            self.berkeley_db.__del__()
             self.sock.close()

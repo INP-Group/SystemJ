@@ -9,6 +9,7 @@ from PyQt4.QtNetwork import *
 PORT = 9999
 SIZEOF_UINT32 = 4
 
+
 class ServerDlg(QPushButton):
 
     def __init__(self, parent=None):

@@ -22,14 +22,13 @@ class GeneratorId(Singleton):
 
 
 class BerkeleyStorage(Singleton):
-
     def __init__(self, filename='berkdb.db', read=False):
         self.filename = filename
         self.database = db.DB()
 
         self.generator = GeneratorId()
 
-        #todo
+        # todo
         # move_number == 1000
         self.sync_number = 50
         self.move_number = 100
@@ -40,18 +39,19 @@ class BerkeleyStorage(Singleton):
         # self.db_type = db.DB_QUEUE
 
         if read:
-            self.database.open(self.filename, None, self.db_type, db.DB_READ_COMMITTED)
+            self.database.open(self.filename, None, self.db_type,
+                               db.DB_READ_COMMITTED)
         else:
             self.database.open(self.filename, None, self.db_type, db.DB_CREATE)
 
         self.id = len(self.database)
         self.generator.setId(self.id)
 
-        self.storage = PostgresqlStorage(user=POSTGRESQL_USER,
-                                         tablename=POSTGRESQL_TABLE,
+        self.storage = PostgresqlStorage(database=POSTGRESQL_DB,
+                                         user=POSTGRESQL_USER,
                                          password=POSTGRESQL_PASSWORD,
-                                         host=POSTGRESQL_HOST,
-                                         dbname=POSTGRESQL_DB)
+                                         tablename=POSTGRESQL_TABLE,
+                                         host=POSTGRESQL_HOST)
 
     def __del__(self):
         self.database.close()
