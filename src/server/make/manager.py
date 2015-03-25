@@ -16,7 +16,6 @@ class BlockManager(SocketServer.BaseRequestHandler):
         request_command, request_value = [x.strip() for x in
                                           data.split(COMMAND_SPLITER)]
 
-        print(request_command, request_value)
         command = []
         if request_command in MANAGER_COMMAND.values():
             command = [key for key, value in MANAGER_COMMAND.items() if

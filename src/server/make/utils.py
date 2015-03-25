@@ -5,7 +5,7 @@ from src.server.make.yetclient import YetClient
 
 def send_message(host, port, command, client_type='manager', value=None):
     if client_type == 'manager':
-        client = ClientManager(host=host, port=port)
+        client = ClientManager(host, port, host, port)
     elif client_type == 'yet':
         client = YetClient(host=host, port=port)
     else:

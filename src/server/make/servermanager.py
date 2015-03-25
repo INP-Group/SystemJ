@@ -23,7 +23,6 @@ class ServerManager(SocketServer.BaseRequestHandler):
 
         return client
 
-
     def handle(self):
         # self.request is the TCP socket connected to the client
         data = self.request.recv(1024).strip()
@@ -49,6 +48,8 @@ class ServerManager(SocketServer.BaseRequestHandler):
     def process_command(self, command, value, client):
         # todo
         # hindi processing
+
+        #print(command, value)
         result = "Unknown command (in processing)"
         if command == "ONLINE":
             info = eval(value)
