@@ -1,10 +1,11 @@
 # -*- encoding: utf-8 -*-
 
+
+from project.settings import YET_COMMAND as command
 from src.server.make.baseclient import BaseSocketClient
-from project.settings import MANAGER_COMMAND as command
 
 
-class ClientManager(BaseSocketClient):
+class YetClient(BaseSocketClient):
 
     def send_online(self):
         result = self.send(command.get("ONLINE"))
