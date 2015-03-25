@@ -5,7 +5,7 @@ import datetime
 import os
 
 from basedatachannel import BaseDataChannel
-from project.settings import PROJECT_DIR
+from project.settings import LOG_FOLDER
 from src.base.zeromqchannel import ZeroMQChannel
 
 
@@ -27,7 +27,7 @@ class Channel(BaseDataChannel, ZeroMQChannel):
                                   text)
 
     def default_log(self, text):
-        with open(os.path.join(PROJECT_DIR, 'default_log.log'), 'a') as f:
+        with open(os.path.join(LOG_FOLDER, 'default_log.log'), 'a') as f:
             f.write("%s\n" % self.get_message(text))
             print self.get_message(text)
 
