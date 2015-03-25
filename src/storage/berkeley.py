@@ -53,10 +53,8 @@ class BerkeleyStorage(Singleton):
         else:
             self.sql_storage = sql_storage
 
-
         self.id = len(self.database)
         self.generator.setId(self.id)
-
 
     def __del__(self):
         self.database.close()
