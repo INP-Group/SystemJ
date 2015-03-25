@@ -1,17 +1,17 @@
 # -*- encoding: utf-8 -*-
 
+
 import socket
 import sys
 import threading
 
 
-class ServerManager(threading.Thread):
+class ChannelManager(threading.Thread):
     def __init__(self, port, host='localhost'):
         threading.Thread.__init__(self)
         self.port = port
         self.host = host
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.users = {}  # current connections
 
         try:
             self.server.bind((self.host, self.port))
