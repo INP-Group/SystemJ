@@ -34,6 +34,11 @@ POSTGRESQL_TABLE = 'datachannel'
 POSTGRESQL_USER = 'postgres'
 POSTGRESQL_PASSWORD = '1nakopitel!'
 
+MANAGER_COMMAND = {
+    "ONLINE": "Manager online",
+    "OFFLINE": "Manager offline"
+}
+COMMAND_SPLITER = "|||"
 
 check_and_create(MEDIA_FOLDER)
 check_and_create(RES_FOLDER)

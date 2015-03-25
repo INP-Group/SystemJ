@@ -5,7 +5,7 @@
 import socket
 import sys
 from project.settings import SERVER_PORT, SERVER_HOST
-from src.server.make.client import Client
+from src.server.make.clientmanager import ClientManager
 
 
 def start():
@@ -23,11 +23,15 @@ def start():
 
 
 
-    client = Client(SERVER_HOST, SERVER_PORT)
+    client = ClientManager(SERVER_HOST, SERVER_PORT)
 
-    data = "gfdokgosdfg sdfg jdsfngoj sdnfgio ndfg dfgsdf"
-    for x in xrange(0, 5):
-        client.send(data)
+    client.send_online()
+
+    client.send_offline()
+
+    # data = "gfdokgosdfg sdfg jdsfngoj sdnfgio ndfg dfgsdf"
+    # for x in xrange(0, 5):
+    #     client.send(data)
 
 
 

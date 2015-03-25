@@ -1,17 +1,23 @@
 # -*- encoding: utf-8 -*-
 import SocketServer
 
-from src.server.make.server import Server
+from src.server.make.servermanager import ServerManger
 from project.settings import SERVER_PORT, SERVER_HOST
 
 
 def start():
-    # server = ServerManager(SERVER_PORT)
-    # server.run()
+    server = SocketServer.TCPServer((SERVER_HOST, SERVER_PORT), ServerManger)
 
-    # Create the server, binding to localhost on port 9999
-    server = SocketServer.TCPServer((SERVER_HOST, SERVER_PORT), Server)
-    server.serve_forever()
+    try:
+        print("Start server")
+        server.serve_forever()
+    except KeyboardInterrupt as e:
+        print("Stop server")
+    except Exception as e:
+        print("Stop server")
+    finally:
+        server.server_close()
+        server.shutdown()
 
 
 if __name__ == "__main__":
