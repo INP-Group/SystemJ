@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from src.server.first.client import ClientManager
-from settings import SERVER_PORT
+from project.settings import SERVER_PORT
 
 
 def start():

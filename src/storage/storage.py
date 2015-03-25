@@ -2,7 +2,7 @@
 from src.storage.berkeley import BerkeleyStorage
 from src.storage.postgresql import PostgresqlStorage
 from src.storage.zeromqserver import ZeroMQServer
-from settings import ZEROMQ_PORT, ZEROMQ_HOST, POSTGRESQL_DB, POSTGRESQL_HOST, \
+from project.settings import ZEROMQ_PORT, ZEROMQ_HOST, POSTGRESQL_DB, POSTGRESQL_HOST, \
     POSTGRESQL_PASSWORD, \
     POSTGRESQL_TABLE, POSTGRESQL_USER
 

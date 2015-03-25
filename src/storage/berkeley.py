@@ -4,7 +4,7 @@ from bsddb3 import db
 
 from src.base.singleton import Singleton
 from src.storage.postgresql import PostgresqlStorage
-from settings import POSTGRESQL_DB, POSTGRESQL_HOST, POSTGRESQL_PASSWORD, \
+from project.settings import POSTGRESQL_DB, POSTGRESQL_HOST, POSTGRESQL_PASSWORD, \
     POSTGRESQL_TABLE, POSTGRESQL_USER
 
 

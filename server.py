@@ -2,7 +2,7 @@
 
 
 from src.server.first.server import ServerManager
-from settings import SERVER_PORT
+from project.settings import SERVER_PORT
 
 
 def start():

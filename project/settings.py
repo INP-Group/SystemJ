@@ -28,4 +28,4 @@ POSTGRESQL_USER = 'postgres'
 POSTGRESQL_PASSWORD = '1nakopitel!'
 
 
-from local_settings import *
+from project.local_settings import *

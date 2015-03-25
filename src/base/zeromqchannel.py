@@ -3,7 +3,7 @@
 import zmq
 
 from basechannel import BaseChannel
-from settings import ZEROMQ_HOST, ZEROMQ_PORT
+from project.settings import ZEROMQ_HOST, ZEROMQ_PORT
 
 
 class ZeroMQChannel(BaseChannel):

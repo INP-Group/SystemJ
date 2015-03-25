@@ -6,7 +6,7 @@ import math
 from basechannel import BaseChannel
 from cdr_wrapper import Cdr
 from PyQt4.QtCore import *
-from settings import CDR_LIB_PATH
+from project.settings import CDR_LIB_PATH
 
 
 class BaseDataChannel(BaseChannel):

@@ -5,7 +5,7 @@ import datetime
 import os
 
 from basedatachannel import BaseDataChannel
-from settings import PROJECT_DIR
+from project.settings import PROJECT_DIR
 from src.base.zeromqchannel import ZeroMQChannel
 
 

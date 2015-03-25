@@ -5,7 +5,7 @@ import threading
 import zmq
 
 from src.storage.berkeley import BerkeleyStorage
-from settings import ZEROMQ_HOST, ZEROMQ_PORT
+from project.settings import ZEROMQ_HOST, ZEROMQ_PORT
 
 
 class ZeroMQServer(threading.Thread):
