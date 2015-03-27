@@ -1,66 +1,91 @@
 # -*- encoding: utf-8 -*-
 
 import sys
-import datetime
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from PyQt4.QtNetwork import *
+
+
+import project.settings
+
+print(project.settings.DEPLOY)
+if not project.settings.DEPLOY:
+    import DLFCN
+    old_dlopen_flags = sys.getdlopenflags( )
+    sys.setdlopenflags( old_dlopen_flags | DLFCN.RTLD_GLOBAL )
+    from PyQt4.QtCore import *
+    from PyQt4.QtGui import *
+    from PyQt4.QtNetwork import *
+    sys.setdlopenflags( old_dlopen_flags )
+else:
+    from PyQt4.QtCore import *
+    from PyQt4.QtGui import *
+    from PyQt4.QtNetwork import *
+
+from src.channels.scalarchannel import ScalarChannel
+from src.channels.simplechannel import SimpleChannel
+
 from project.settings import SERVER_HOST, SERVER_PORT
 
-PORT = 9999
+
 SIZEOF_UINT32 = 4
 
 
-class ServerDlg(QObject):
-    def __init__(self, parent=None):
-        super(ServerDlg, self).__init__()
+class ControlServer(QApplication):
+    def __init__(self, argc, host, port):
+        super(ControlServer, self).__init__(argc)
 
-        ## server
+        self.commands = {
+            QString("ONLINE"): self._command_online,
+            QString("MANAGER_LIST"): self._command_users,
+            QString("SET_TYPE"): self._command_set_type,
+            QString("ECHO"): self._command_echo,
+            QString("CHANNEL"): self._command_channel,
 
-        self.tcpServer = QTcpServer(self)
+        }
 
-        if not self.tcpServer.listen(QHostAddress(SERVER_HOST), SERVER_PORT):
+        self.tcp_server = QTcpServer(self)
+
+        if not self.tcp_server.listen(QHostAddress(host), port):
             print("Unable to start the server: {0}.".format(
-                self.tcpServer.errorString()))
+                self.tcp_server.errorString()))
             return
 
         print(
             "The server is running on port {0}.".format(
-                self.tcpServer.serverPort())
+                self.tcp_server.serverPort())
             + "\nRun the Fortune Client example now.")
 
-        self.connect(self.tcpServer, SIGNAL("newConnection()"),
-                     self.addConnection)
+        self.connect(self.tcp_server, SIGNAL("newConnection()"),
+                     self.new_connection)
         self.connections = []
         self.users = {}
 
-
-
-
-    def auth(self, s):
+    def send_message(self, client, command, message=''):
         reply = QByteArray()
         stream = QDataStream(reply, QIODevice.WriteOnly)
         stream.setVersion(QDataStream.Qt_4_2)
         stream.writeUInt32(0)
-        stream << QString("AUTH") << QString("<p>What's you name?</p>")
+        stream << QString(command) << QString(message)
         stream.device().seek(0)
         stream.writeUInt32(reply.size() - SIZEOF_UINT32)
-        s.write(reply)
+        client.write(reply)
 
-    def addConnection(self):
-        clientConnection = self.tcpServer.nextPendingConnection()
-        clientConnection.nextBlockSize = 0
-        self.connections.append(clientConnection)
-        self.connect(clientConnection, SIGNAL("readyRead()"),
-                     self.receiveMessage)
-        self.connect(clientConnection, SIGNAL("disconnected()"),
-                     self.removeConnection)
-        self.connect(clientConnection, SIGNAL("error()"),
-                     self.socketError)
-        self.sendAuth(clientConnection)
+    def remove_connection(self):
+        pass
 
+    def socket_error(self):
+        pass
 
-    def receiveMessage(self):
+    def new_connection(self):
+        client_connection = self.tcp_server.nextPendingConnection()
+        client_connection.nextBlockSize = 0
+        self.connections.append(client_connection)
+        self.connect(client_connection, SIGNAL("readyRead()"),
+                     self.receive_message)
+        self.connect(client_connection, SIGNAL("disconnected()"),
+                     self.remove_connection)
+        self.connect(client_connection, SIGNAL("error()"),
+                     self.socket_error)
+
+    def receive_message(self):
         for s in self.connections:
             if s.bytesAvailable() > 0:
                 stream = QDataStream(s)
@@ -74,102 +99,53 @@ class ServerDlg(QObject):
                     return
 
                 action = QString()
-                textFromClient = QString()
-                stream >> action >> textFromClient
-                print(action, textFromClient)
-                if action == "SEND":
-                    s.nextBlockSize = 0
+                message = QString()
+                stream >> action >> message
 
-                    self.sendMessage(textFromClient,
-                                     s.socketDescriptor())
-                    s.nextBlockSize = 0
-                elif action == "AUTH":
-                    s.nextBlockSize = 0
-                    self.authMsg(s, textFromClient)
-                    s.nextBlockSize = 0
-                else:
-                    s.nextBlockSize = 0
-                    self.sendMessage2(action, textFromClient,
-                                     s.socketDescriptor())
-                    s.nextBlockSize = 0
+                self.process_message(s, action, message)
 
-    def sendAuth(self, s):
-        reply = QByteArray()
-        stream = QDataStream(reply, QIODevice.WriteOnly)
-        stream.setVersion(QDataStream.Qt_4_2)
-        stream.writeUInt32(0)
-        message = QString("<p>Connected,please input your username</p>")
-        stream << QString("AUTH") << QString(message)
-        stream.device().seek(0)
-        stream.writeUInt32(reply.size() - SIZEOF_UINT32)
-        s.write(reply)
+    def process_message(self, client, command, message):
+        client.nextBlockSize = 0
 
-    def authMsg(self, s, text):
+        print("RECEIVE: command: %s, message: %s" % (command, message))
+        if command in self.commands:
+            self.commands[command](client, message, command)
 
-        reply = QByteArray()
-        stream = QDataStream(reply, QIODevice.WriteOnly)
-        stream.setVersion(QDataStream.Qt_4_2)
-        stream.writeUInt32(0)
-        if self.users.has_key(text):
-            stream << QString("AUTH") << QString(
-                text + " is taken,please change one.")
+        client.nextBlockSize = 0
+
+    def _command_users(self, client, message, command=None):
+        assert self.users
+        self.send_message(client, "RAW", str(self.users))
+
+    def _command_set_type(self, client, message, command=None):
+        assert self.users
+        self.users[client]['type'] = message
+        self.send_message(client, "SET")
+
+    def _command_online(self, client, message, command=None):
+        if message not in self.users:
+            self.users[client] = {
+                'name': message,
+                'status': 'online',
+                'type': 'unknown',
+                'socket': client,
+            }
+            self.send_message(client, "OK", "Hi %s" % message)
         else:
-            self.users[text] = s
-            stream << QString("CHAT") << QString(
-                text + ",Great,now you can chat!")
-        stream.device().seek(0)
-        stream.writeUInt32(reply.size() - SIZEOF_UINT32)
-        s.write(reply)
+            self.send_message(client, "BAD", "Name already exist")
 
-    def sendMessage(self, text, socketId):
-        now = datetime.datetime.now()
-        for user in self.users:
-            if self.users[user].socketDescriptor() == socketId:
-                sender = user
-                break
-        for user in self.users:
-            if self.users[user].socketDescriptor() == socketId:
-                message = "<p>" + str(now.strftime(
-                    "%Y-%m-%d %H:%M:%S")) + "</p>" + "<font color=red>You</font> > {}".format(
-                    text)
-            else:
-                message = "<p>" + str(now.strftime(
-                    "%Y-%m-%d %H:%M:%S")) + "</p>" + "<font color=blue>" + sender + "</font>" + " > {}".format(
-                    text)
-            reply = QByteArray()
-            stream = QDataStream(reply, QIODevice.WriteOnly)
-            stream.setVersion(QDataStream.Qt_4_2)
-            stream.writeUInt32(0)
-            stream << QString("CHAT") << QString(message)
-            stream.device().seek(0)
-            stream.writeUInt32(reply.size() - SIZEOF_UINT32)
-            self.users[user].write(reply)
+    def _command_echo(self, client, message, command=None):
+        print(
+            "Client: {}, command: {}, message: {}".format(
+                client.socketDescriptor(),
+                command, message)
+        )
 
-    def sendMessage2(self, action, message, socketId):
-        now = datetime.datetime.now()
-        for user in self.users:
-            if self.users[user].socketDescriptor() == socketId:
-                sender = user
-                break
-        for user in self.users:
-            reply = QByteArray()
-            stream = QDataStream(reply, QIODevice.WriteOnly)
-            stream.setVersion(QDataStream.Qt_4_2)
-            stream.writeUInt32(0)
-            stream << QString(action) << QString(message)
-            stream.device().seek(0)
-            stream.writeUInt32(reply.size() - SIZEOF_UINT32)
-            self.users[user].write(reply)
-
-
-    def removeConnection(self):
-        pass
-
-    def socketError(self):
-        pass
+    def _command_channel(self, client, message, command=None):
+        scal = SimpleChannel("linthermcan.ThermosM.in0")
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    form = ServerDlg()
-    app.exec_()
+    # app = QApplication(sys.argv)
+    form = ControlServer(sys.argv, SERVER_HOST, SERVER_PORT)
+    form.exec_()
