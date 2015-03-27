@@ -20,7 +20,6 @@ class GuiClient(QDialog):
             QString('OFFLINE'): self._command_off,
         }
 
-        # Initialize data IO variables
         self.nextBlockSize = 0
         self.request = None
         self.firstTime = True
@@ -33,6 +32,7 @@ class GuiClient(QDialog):
         self._add_command('ECHO', self._command_echo)
         self._add_command('RAW', self._command_echo)
         self._add_command('OFFLINE', self._command_off)
+        self._add_command('HI', self._command_set_type)
 
         self._init_socket()
         self._init_gui()
@@ -41,7 +41,6 @@ class GuiClient(QDialog):
         self.commands[QString(name)] = func
 
     def _init_socket(self):
-        # Ititialize socket
         self.socket = QTcpSocket()
 
         # Signals and slots for networking
@@ -166,3 +165,6 @@ class GuiClient(QDialog):
 
     def _command_off(self, command, message):
         self.socket.close()
+
+    def _command_set_type(self, command, message):
+        self.send_message("SET_TYPE", 'guiclient')

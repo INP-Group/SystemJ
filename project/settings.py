@@ -54,31 +54,5 @@ SIZEOF_UINT32 = 4
 
 COMMAND_SPLITER = '|||'
 
-MANAGER_COMMAND = {
-    'TEST': 'test',
-}
-
-SERVER_MANAGER_COMMAND = {
-    'ONLINE': 'Manager online',
-    'OFFLINE': 'Manager offline'
-}
-
-SERVER_YET_COMMAND = {
-    'HI': 'Hello world',
-    'MANAGER_CNT': 'How many managers?',
-    'MANAGER_LIST': 'I want to get all the information about the managers',
-    'CHANNEL_CNT': 'How many channels?',
-    'CHANNEL_LIST': 'I want to get all the information about the channels',
-    'CHANNEL_ADD': 'Please, add new channel(s)',
-}
-
-
-def get_text_command(command):
-    if command in MANAGER_COMMAND:
-        return MANAGER_COMMAND.get(command)
-    if command in SERVER_MANAGER_COMMAND:
-        return SERVER_MANAGER_COMMAND.get(command)
-    if command in SERVER_YET_COMMAND:
-        return SERVER_YET_COMMAND.get(command)
 
 from project.local_settings import *

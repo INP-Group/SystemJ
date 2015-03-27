@@ -3,8 +3,6 @@
 import sys
 
 import project.settings
-from project.settings import SERVER_HOST
-from project.settings import SERVER_PORT
 from project.settings import SIZEOF_UINT32
 from src.channels.simplechannel import SimpleChannel
 from src.server.control.consoleclient import ConsoleClient
@@ -33,16 +31,16 @@ class Manager(ConsoleClient):
 
         self.channels = {}
 
-        self._add_command('CHANNEL_ADD', self._command_channel_add)
-        self._add_command('CHANNEL_LIST', self._command_channel_add)
-        self._add_command('CHANNEL_REMOVE', self._command_channel_add)
+        self._add_command('CHL_ADD', self._command_channel_add)
+        self._add_command('CHL_LIST', self._command_channel_list)
+        self._add_command('CHL_DEL', self._command_channel_add)
         self._add_command('HI', self._command_set_type)
 
     def _command_set_type(self, command, message):
         self.send_message('SET_TYPE', 'manager')
 
     def _command_channel_list(self, command, message):
-        self.send_message('CHANNEL_LIST', str(self.channels.keys()))
+        self.send_message('CHL_LIST', str(self.channels.keys()))
 
     def _command_channel_add(self, command, message):
         self._log('Add channel')
@@ -50,7 +48,7 @@ class Manager(ConsoleClient):
         # параметры канала хранить где?
         name = 'linthermcan.ThermosM.in0'
         if name not in self.channels:
-            self.channels[name] = SimpleChannel(name)
+            self.channels[str(name)] = SimpleChannel(str(name))
             self._log('Added channel')
         else:
             self._log('Channel already exist')

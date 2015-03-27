@@ -114,7 +114,7 @@ class BaseServer(BaseControl):
     def _command_online(self, client, command, message):
         if message not in self.users:
             self.users[client] = {
-                'name': message,
+                'name': str(message),
                 'status': 'online',
                 'type': 'unknown',
                 'socket': client,
