@@ -1,7 +1,9 @@
 # -*- encoding: utf-8 -*-
 
 import sys
-from project.settings import SERVER_HOST, SERVER_PORT
+
+from project.settings import SERVER_HOST
+from project.settings import SERVER_PORT
 from src.server.control.manager import Manager
 
 if __name__ == '__main__':

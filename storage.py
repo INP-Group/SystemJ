@@ -6,7 +6,7 @@ from src.storage.storage import Storage
 def start():
     storage = Storage()
     storage.start()
-    print("Server is stopped...")
+    print('Server is stopped...')
 
 
 if __name__ == '__main__':

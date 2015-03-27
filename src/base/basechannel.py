@@ -4,7 +4,7 @@ from PyQt4.QtCore import QObject
 
 
 class BaseChannel(QObject):
-    name = "basechannel"
+    name = 'basechannel'
 
     def __init__(self):
         QObject.__init__(self)
@@ -17,12 +17,13 @@ class BaseChannel(QObject):
         return self.properties.get(name, None)
 
     def _gfa(self, l, idx, default=None):
-        """
-        _get_from_args
+        """_get_from_args.
+
         :param l:
         :param idx:
         :param default:
         :return:
+
         """
         try:
             return l[idx]

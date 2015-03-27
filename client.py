@@ -2,9 +2,11 @@
 
 
 import sys
-from project.settings import SERVER_PORT, SERVER_HOST
+
+from project.settings import SERVER_HOST
+from project.settings import SERVER_PORT
+from PyQt4.QtGui import QApplication
 from src.server.control.guiclient import GuiClient
-from PyQt4.QtCore import *
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

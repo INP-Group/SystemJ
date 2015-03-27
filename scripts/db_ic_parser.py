@@ -20,10 +20,13 @@ from CppHeaderParser import CppHeader
 
 def getValues(l, n=4):
     r = r'\(%s\)' % (','.join(['(.*)' for x in xrange(0, n)]))
-    items = [x.strip().translate(None, ' "?.!/;' ) for x in re.search(r, l).groups()]
+    items = [x.strip().translate(None, ' "?.!/;')
+             for x in re.search(r, l).groups()]
     return items
 
+
 class Stack(object):
+
     def __init__(self):
         self.__storage = []
 
@@ -36,11 +39,13 @@ class Stack(object):
     def pop(self):
         return self.__storage.pop()
 
+
 class Channel(object):
 
     def __init__(self, name, number):
         self.name = name
         self.number = number
+
 
 class Device(object):
 
@@ -63,49 +68,54 @@ class Device(object):
         self.channels.append(Channel(args[0], args[1]))
         self.chV += 1
 
+
 class DeviceInfo(object):
 
     def __init__(self):
         # read enums
-        filepath = "db_ic.h"
+        filepath = 'db_ic.h'
 
         allData = self.readFile(filepath)
 
-        cppheader = CppHeader(allData, argType="string")
-        self.devices = cppheader.enums[0].get("values")
+        cppheader = CppHeader(allData, argType='string')
+        self.devices = cppheader.enums[0].get('values')
 
-        data = allData.split("};")[2].split("\n")
+        data = allData.split('};')[2].split('\n')
 
         r = r"{(.*),(.*),(.*)}"
 
         for line in data:
             try:
                 items = [x.strip() for x in re.search(r, line).groups()]
-                self.addPropToDevice(items[0].strip(), "phys_max", items[1].strip())
-                self.addPropToDevice(items[0].strip(), "phys_min", items[2].strip())
+                self.addPropToDevice(
+                    items[0].strip(),
+                    'phys_max',
+                    items[1].strip())
+                self.addPropToDevice(
+                    items[0].strip(),
+                    'phys_min',
+                    items[2].strip())
             except AttributeError:
                 pass
 
-
-        treeData = allData.split("};")[1]
+        treeData = allData.split('};')[1]
         self.parseTree(treeData)
-
 
     def getDeviceInfo(self, name):
         for device in self.devices:
-            if device.get("name", "") == name:
+            if device.get('name', '') == name:
                 return device
         return {}
 
     def valueOfDevice(self, name):
-        return self.getDeviceInfo(name).get("value", "-nan")
+        return self.getDeviceInfo(name).get('value', '-nan')
 
     def addPropToDevice(self, name, propname, propvalue):
         self.getDeviceInfo(name)[propname] = propvalue
 
     def readFile(self, filepath, lines=False):
-        data = ""
-        with open(filepath, "r") as myfile:
+        data = ''
+        with open(filepath, 'r') as myfile:
             if lines:
                 data = myfile.readlines()
             else:
@@ -114,14 +124,13 @@ class DeviceInfo(object):
 
     def parseTree(self, treeData):
 
-        TAG_START_GLOBAL = "GLOBTABBER_START"
-        TAG_STOP_GLOBAL = "GLOBELEM_END"
-        TAG_START_SUBELEM = "SUBELEM_START"
-        TAG_CHANNEL_MAIBOX = "MAILBOX"
-        TAG_STOP_SUBELEM = "SUBELEM_END"
-        TAG_START_TAB = "TABBER_START"
-        TAG_STOP_TAB = "SUBELEM_END"
-
+        TAG_START_GLOBAL = 'GLOBTABBER_START'
+        TAG_STOP_GLOBAL = 'GLOBELEM_END'
+        TAG_START_SUBELEM = 'SUBELEM_START'
+        TAG_CHANNEL_MAIBOX = 'MAILBOX'
+        TAG_STOP_SUBELEM = 'SUBELEM_END'
+        TAG_START_TAB = 'TABBER_START'
+        TAG_STOP_TAB = 'SUBELEM_END'
 
         cntProp = {
             TAG_START_GLOBAL: 2,
@@ -137,7 +146,7 @@ class DeviceInfo(object):
 
         cur_level = ''
         cur_device = ''
-        lines = treeData.split("\n")
+        lines = treeData.split('\n')
         stack = Stack()
 
         for line in lines:
@@ -150,9 +159,12 @@ class DeviceInfo(object):
                     if key == TAG_START_SUBELEM or key == TAG_START_TAB:
                         name_channel = items[1]
                         shortname = items[0]
-                        cur_level += ".%s" % shortname
+                        cur_level += '.%s' % shortname
                         # print cur_level
-                        dev = cur_device = Device(level=cur_level, name=name_channel, shortname=shortname)
+                        dev = cur_device = Device(
+                            level=cur_level,
+                            name=name_channel,
+                            shortname=shortname)
                         dev.start()
                         devices[name_channel] = dev
                         stack.push(dev)
@@ -170,6 +182,7 @@ class DeviceInfo(object):
 
         for device in devices.values():
             print device.level
+
 
 def start():
     a = DeviceInfo()

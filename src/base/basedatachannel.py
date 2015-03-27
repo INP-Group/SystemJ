@@ -5,8 +5,8 @@ import math
 
 from basechannel import BaseChannel
 from cdr_wrapper import Cdr
-from PyQt4.QtCore import *
 from project.settings import CDR_LIB_PATH
+from PyQt4.QtCore import *
 
 
 class BaseDataChannel(BaseChannel):
@@ -34,12 +34,13 @@ class BaseDataChannel(BaseChannel):
         return self.personal_name
 
     def processing(self, *args):
-        raise NotImplemented("Callback")
+        raise NotImplemented('Callback')
 
     # the callback for cdr
     def callback(self, handle, val, params):
         self.val = val
-        if math.fabs(self.val - self.prev_val) > self.tolerance or self.first_cycle:
+        if math.fabs(
+                self.val - self.prev_val) > self.tolerance or self.first_cycle:
             self.first_cycle = False
             self.prev_val = self.val
             self.valueChanged.emit(self, self.val)

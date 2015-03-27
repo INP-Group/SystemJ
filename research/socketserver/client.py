@@ -5,6 +5,7 @@ from project.settings import SERVER_PORT, SERVER_HOST
 
 
 class Client(object):
+
     def __init__(self, host=SERVER_HOST, port=SERVER_PORT):
         self.host = host
         self.port = port
@@ -15,13 +16,13 @@ class Client(object):
             self._connection()
 
         try:
-            self.socket.sendall(value + "\n")
+            self.socket.sendall(value + '\n')
             received = self.socket.recv(1024)
         finally:
             self._close()
 
-        print "Sent:     {}".format(value)
-        print "Received: {}".format(received)
+        print 'Sent:     {}'.format(value)
+        print 'Received: {}'.format(received)
 
     def _connection(self):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

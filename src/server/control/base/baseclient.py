@@ -1,13 +1,14 @@
 # -*- encoding: utf-8 -*-
 
+from project.settings import SIZEOF_UINT32
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *
 from src.server.control.base.basecontol import BaseControl
-from project.settings import SIZEOF_UINT32
 
 
 class BaseClient(BaseControl):
+
     def __init__(self, argv, host, port, client_name=None):
         super(BaseClient, self).__init__(argv)
 
@@ -33,21 +34,21 @@ class BaseClient(BaseControl):
         self.socket.readyRead.connect(self.read_server)
         self.socket.disconnected.connect(self.server_has_stopped)
         self.connect(self.socket,
-                     SIGNAL("error(QAbstractSocket::SocketError)"),
+                     SIGNAL('error(QAbstractSocket::SocketError)'),
                      self.server_has_error)
 
     # Create connection to server
     def connect_server(self):
         self.socket.connectToHost(self.server_host, self.server_port)
         if self.firstTime:
-            self.send_message("ONLINE", self.client_name)
+            self.send_message('ONLINE', self.client_name)
             self.firstTime = False
 
     def server_has_stopped(self):
         self.socket.close()
 
     def server_has_error(self):
-        self._log("Error: {}".format(
+        self._log('Error: {}'.format(
             self.socket.errorString()))
         self.socket.close()
         self.quit()
@@ -81,7 +82,7 @@ class BaseClient(BaseControl):
             message = QString()
             stream >> command >> message
             self._log(
-                "RECEIVE: command - %s, message - %s" % (command, message))
+                'RECEIVE: command - %s, message - %s' % (command, message))
             self.process_message(command, message)
 
             self.nextBlockSize = 0
@@ -91,7 +92,7 @@ class BaseClient(BaseControl):
             self.commands[command](message, command)
 
     def _command_echo(self, command, message):
-        self._log("ECHO (command): %s" % message)
+        self._log('ECHO (command): %s' % message)
 
     def _command_off(self, command, message):
         self.socket.close()

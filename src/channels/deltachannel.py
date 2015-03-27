@@ -20,12 +20,12 @@ class DeltaChannel(Channel):
             self.ch_now_value = handle
 
             if self.ch_prev_value is not None and \
-                            math.fabs(self.ch_prev_value - self.ch_now_value) > \
-                            self.get_property("delta"):
+                    math.fabs(self.ch_prev_value - self.ch_now_value) > \
+                    self.get_property('delta'):
 
                 self.ch_prev_value = self.ch_now_value
 
-                text = "(%s), %s %s %s" % (
+                text = '(%s), %s %s %s' % (
                     self.personal_name, handle, val, params)
                 self.default_log(text)
 

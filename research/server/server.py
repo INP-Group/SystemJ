@@ -14,32 +14,32 @@ class ServerDlg(QPushButton):
 
     def __init__(self, parent=None):
         super(ServerDlg, self).__init__(
-                "&Close Server", parent)
+            '&Close Server', parent)
         self.setWindowFlags(Qt.WindowStaysOnTopHint)
 
         self.tcpServer = QTcpServer(self)
-        self.tcpServer.listen(QHostAddress("0.0.0.0"), PORT)
-        self.connect(self.tcpServer, SIGNAL("newConnection()"),
-                    self.addConnection)
+        self.tcpServer.listen(QHostAddress('0.0.0.0'), PORT)
+        self.connect(self.tcpServer, SIGNAL('newConnection()'),
+                     self.addConnection)
         self.connections = []
 
-        self.connect(self, SIGNAL("clicked()"), self.close)
+        self.connect(self, SIGNAL('clicked()'), self.close)
         font = self.font()
         font.setPointSize(24)
         self.setFont(font)
-        self.setWindowTitle("Server")
+        self.setWindowTitle('Server')
 
     def addConnection(self):
         clientConnection = self.tcpServer.nextPendingConnection()
         clientConnection.nextBlockSize = 0
         self.connections.append(clientConnection)
 
-        self.connect(clientConnection, SIGNAL("readyRead()"),
-                self.receiveMessage)
-        self.connect(clientConnection, SIGNAL("disconnected()"),
-                self.removeConnection)
-        self.connect(clientConnection, SIGNAL("error()"),
-                self.socketError)
+        self.connect(clientConnection, SIGNAL('readyRead()'),
+                     self.receiveMessage)
+        self.connect(clientConnection, SIGNAL('disconnected()'),
+                     self.removeConnection)
+        self.connect(clientConnection, SIGNAL('error()'),
+                     self.socketError)
 
     def receiveMessage(self):
         for s in self.connections:
@@ -63,9 +63,9 @@ class ServerDlg(QPushButton):
     def sendMessage(self, text, socketId):
         for s in self.connections:
             if s.socketDescriptor() == socketId:
-                message = "You> {}".format(text)
+                message = 'You> {}'.format(text)
             else:
-                message = "{}> {}".format(socketId, text)
+                message = '{}> {}'.format(socketId, text)
             reply = QByteArray()
             stream = QDataStream(reply, QIODevice.WriteOnly)
             stream.setVersion(QDataStream.Qt_4_2)

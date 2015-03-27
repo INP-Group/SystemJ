@@ -1,12 +1,16 @@
 # -*- encoding: utf-8 -*-
 
-from bsddb3 import db
 import os
 
+from bsddb3 import db
+from project.settings import DB_FOLDER
+from project.settings import POSTGRESQL_DB
+from project.settings import POSTGRESQL_HOST
+from project.settings import POSTGRESQL_PASSWORD
+from project.settings import POSTGRESQL_TABLE
+from project.settings import POSTGRESQL_USER
 from src.base.singleton import Singleton
 from src.storage.postgresql import PostgresqlStorage
-from project.settings import POSTGRESQL_DB, POSTGRESQL_HOST, POSTGRESQL_PASSWORD, \
-    POSTGRESQL_TABLE, POSTGRESQL_USER, DB_FOLDER
 
 
 class GeneratorId(Singleton):
@@ -23,6 +27,7 @@ class GeneratorId(Singleton):
 
 
 class BerkeleyStorage(Singleton):
+
     def __init__(self, filename=os.path.join(DB_FOLDER, 'berkeley.db'),
                  read=False, sql_storage=None):
         self.filename = filename
@@ -73,21 +78,22 @@ class BerkeleyStorage(Singleton):
         return len(self.database)
 
     def check(self):
-        """
-        проверяет сколько уже в базе значений.
+        """проверяет сколько уже в базе значений.
+
         и запускает перекладывание в postgresql
         :return:
+
         """
 
         if self.id / self.move_number > self.stored_id / self.move_number:
             values = []
             for x in xrange(self.stored_id, self.stored_id + self.move_number):
                 try:
-                    info = self.database.get("%s" % x).split("\t")
+                    info = self.database.get('%s' % x).split('\t')
                     values.append([info[0], info[3], info[2]])
-                    self.database.delete("%s" % x)
+                    self.database.delete('%s' % x)
                 except AttributeError as e:
-                    print e, x, self.database.get("%s" % x)
+                    print e, x, self.database.get('%s' % x)
 
             self.sql_storage.add(*values)
 

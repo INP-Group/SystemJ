@@ -8,7 +8,7 @@ class ConfigManager(Singleton):
 
     def __init__(self):
         self.config = configparser.ConfigParser()
-        #todo
+        # todo
         self.default_path = '/home/warmonger/Dropbox/Study/Diploma/Diploma/resources/config/config.ini'
 
     def get_config(self):

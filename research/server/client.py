@@ -23,9 +23,9 @@ class Form(QDialog):
 
         # Create widgets/layout
         self.browser = QTextBrowser()
-        self.lineedit = QLineEdit("Enter text here, dummy")
+        self.lineedit = QLineEdit('Enter text here, dummy')
         self.lineedit.selectAll()
-        self.connectButton = QPushButton("Connect")
+        self.connectButton = QPushButton('Connect')
         self.connectButton.setEnabled(True)
         layout = QVBoxLayout()
         layout.addWidget(self.browser)
@@ -38,12 +38,12 @@ class Form(QDialog):
         self.lineedit.returnPressed.connect(self.issueRequest)
         self.connectButton.clicked.connect(self.connectToServer)
 
-        self.setWindowTitle("Client")
+        self.setWindowTitle('Client')
         # Signals and slots for networking
         self.socket.readyRead.connect(self.readFromServer)
         self.socket.disconnected.connect(self.serverHasStopped)
         self.connect(self.socket,
-                     SIGNAL("error(QAbstractSocket::SocketError)"),
+                     SIGNAL('error(QAbstractSocket::SocketError)'),
                      self.serverHasError)
 
     # Update GUI
@@ -53,7 +53,7 @@ class Form(QDialog):
     # Create connection to server
     def connectToServer(self):
         self.connectButton.setEnabled(False)
-        self.socket.connectToHost("localhost", PORT)
+        self.socket.connectToHost('localhost', PORT)
 
     def issueRequest(self):
         self.request = QByteArray()
@@ -66,7 +66,7 @@ class Form(QDialog):
         self.socket.write(self.request)
         self.nextBlockSize = 0
         self.request = None
-        self.lineedit.setText("")
+        self.lineedit.setText('')
 
     def readFromServer(self):
         stream = QDataStream(self.socket)
@@ -88,8 +88,8 @@ class Form(QDialog):
         self.connectButton.setEnabled(True)
 
     def serverHasError(self):
-        self.updateUi("Error: {}".format(
-                self.socket.errorString()))
+        self.updateUi('Error: {}'.format(
+            self.socket.errorString()))
         self.socket.close()
         self.connectButton.setEnabled(True)
 

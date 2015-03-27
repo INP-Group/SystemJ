@@ -22,8 +22,6 @@
 # print db.sync()
 
 
-
-
 from bsddb3 import db  # the Berkeley db data base
 
 # Part 1: Create database and insert 4 elements
@@ -66,5 +64,5 @@ print len(fruitDB)
 #     rec = cursor.next()
 
 
-#print fruitDB.key_range(100)
+# print fruitDB.key_range(100)
 fruitDB.close()

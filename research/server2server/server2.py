@@ -10,11 +10,13 @@ class Server2(SocketServer.BaseRequestHandler):
     def handle(self):
         data = self.request.recv(1024)
         cur_thread = threading.current_thread()
-        response = "(server2) {}: {}".format(cur_thread.name, data)
+        response = '(server2) {}: {}'.format(cur_thread.name, data)
         self.request.sendall(response)
+
 
 class ThreadedTCPServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
     pass
+
 
 def client(ip, port, message):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -22,13 +24,13 @@ def client(ip, port, message):
     try:
         sock.sendall(message)
         response = sock.recv(1024)
-        print "Received: {}".format(response)
+        print 'Received: {}'.format(response)
     finally:
         sock.close()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     # Port 0 means to select an arbitrary unused port
-    HOST, PORT = "localhost", 10001
+    HOST, PORT = 'localhost', 10001
     port2 = 10000
 
     server = ThreadedTCPServer((HOST, PORT), Server2)
@@ -40,11 +42,11 @@ if __name__ == "__main__":
     # Exit the server thread when the main thread terminates
     server_thread.daemon = True
     server_thread.start()
-    print "Server loop running in thread:", server_thread.name
+    print 'Server loop running in thread:', server_thread.name
 
-    client(ip, port, "Hello World 1")
-    client(ip, port, "Hello World 2")
-    client(ip, port, "Hello World 3")
+    client(ip, port, 'Hello World 1')
+    client(ip, port, 'Hello World 2')
+    client(ip, port, 'Hello World 3')
 
     i = 0
     time.sleep(5)
@@ -53,7 +55,7 @@ if __name__ == "__main__":
             i += 1
             if i % 1000000 == 0:
                 i = 0
-                client(ip, port2, "Hi from server2")
+                client(ip, port2, 'Hi from server2')
         except KeyboardInterrupt:
             break
     server.shutdown()

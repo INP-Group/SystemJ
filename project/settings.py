@@ -27,7 +27,6 @@ check_and_create(LOG_FOLDER)
 check_and_create(DB_FOLDER)
 
 
-
 CDR_LIB_PATH = os.path.join(RES_FOLDER, 'libs', 'libCdr4PyQt.so')
 
 ZEROMQ_HOST = '127.0.0.1'
@@ -49,28 +48,28 @@ POSTGRESQL_PASSWORD = '1nakopitel!'
 SIZEOF_UINT32 = 4
 
 
-#todo
+# todo
 # нужны ли такие команды?
 # хреновый же API
 
-COMMAND_SPLITER = "|||"
+COMMAND_SPLITER = '|||'
 
 MANAGER_COMMAND = {
-    "TEST": "test",
+    'TEST': 'test',
 }
 
 SERVER_MANAGER_COMMAND = {
-    "ONLINE": "Manager online",
-    "OFFLINE": "Manager offline"
+    'ONLINE': 'Manager online',
+    'OFFLINE': 'Manager offline'
 }
 
 SERVER_YET_COMMAND = {
-    "HI": "Hello world",
-    "MANAGER_CNT": "How many managers?",
-    "MANAGER_LIST": "I want to get all the information about the managers",
-    "CHANNEL_CNT": "How many channels?",
-    "CHANNEL_LIST": "I want to get all the information about the channels",
-    "CHANNEL_ADD": "Please, add new channel(s)",
+    'HI': 'Hello world',
+    'MANAGER_CNT': 'How many managers?',
+    'MANAGER_LIST': 'I want to get all the information about the managers',
+    'CHANNEL_CNT': 'How many channels?',
+    'CHANNEL_LIST': 'I want to get all the information about the channels',
+    'CHANNEL_ADD': 'Please, add new channel(s)',
 }
 
 

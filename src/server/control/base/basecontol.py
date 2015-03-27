@@ -6,6 +6,7 @@ from PyQt4.QtNetwork import *
 
 
 class BaseControl(QApplication):
+
     def __init__(self, argv):
         super(BaseControl, self).__init__(argv)
 

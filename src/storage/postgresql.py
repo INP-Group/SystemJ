@@ -5,11 +5,11 @@ import random
 import uuid
 
 import psycopg2
-
 from src.base.singleton import Singleton
 
 
 class PostgresqlStorage(Singleton):
+
     def __init__(self, database='journal_database', user='postgres',
                  password='147896321R', tablename='datachannel',
                  host='localhost'):
@@ -36,14 +36,14 @@ class PostgresqlStorage(Singleton):
             day_range = [str(i).zfill(2) for i in range(1, 28)]
             hour_range = [str(i).zfill(2) for i in range(1, 24)]
             min_range = [str(i).zfill(2) for i in range(1, 60)]
-            offset = ["0"]
+            offset = ['0']
 
-            argz = {"Year": random.choice(year_range),
-                    "Month": random.choice(month_range),
-                    "Day": random.choice(day_range),
-                    "Hour": random.choice(hour_range),
-                    "Minute": random.choice(min_range),
-                    "Offset": random.choice(offset),
+            argz = {'Year': random.choice(year_range),
+                    'Month': random.choice(month_range),
+                    'Day': random.choice(day_range),
+                    'Hour': random.choice(hour_range),
+                    'Minute': random.choice(min_range),
+                    'Offset': random.choice(offset),
                     }
 
             return iso_format.format(**argz)
@@ -59,7 +59,7 @@ class PostgresqlStorage(Singleton):
 
         def copy(*values):
 
-            print "Copy"
+            print 'Copy'
 
             temp_folder = '/tmp/temp_copy_files'
             unique_filename = str(uuid.uuid4())
@@ -70,7 +70,7 @@ class PostgresqlStorage(Singleton):
 
             with open(temp_filepath, 'w') as csv_fio:
                 for lineValues in values:
-                    csv_fio.write("%s\n" % '\t'.join(
+                    csv_fio.write('%s\n' % '\t'.join(
                         str(v).replace("'", '') for v in lineValues))
 
             fd = open(temp_filepath, 'r')
@@ -82,8 +82,8 @@ class PostgresqlStorage(Singleton):
 
         def insert(*values):
             for lineValues in values:
-                sql = "INSERT INTO %s VALUES (%s)" % (
-                    self.tablename, ", ".join(str(v) for v in lineValues))
+                sql = 'INSERT INTO %s VALUES (%s)' % (
+                    self.tablename, ', '.join(str(v) for v in lineValues))
 
                 self.cursor.execute(sql)
 
@@ -91,4 +91,3 @@ class PostgresqlStorage(Singleton):
         copy(*values)
         # print values
         self.connection.commit()
-

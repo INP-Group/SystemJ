@@ -10,6 +10,7 @@ from src.base.zeromqchannel import ZeroMQChannel
 
 
 class Channel(BaseDataChannel, ZeroMQChannel):
+
     def __init__(self, name, personal_name=None):
         BaseDataChannel.__init__(self, name, personal_name)
         ZeroMQChannel.__init__(self)
@@ -22,14 +23,14 @@ class Channel(BaseDataChannel, ZeroMQChannel):
         None
 
     def get_message(self, text):
-        return "[%s] [%s]: %s" % (datetime.datetime.now(),
+        return '[%s] [%s]: %s' % (datetime.datetime.now(),
                                   self.__class__.__name__,
                                   text)
 
     def default_log(self, text):
         with open(os.path.join(LOG_FOLDER, 'default_log.log'), 'a') as f:
-            f.write("%s\n" % self.get_message(text))
+            f.write('%s\n' % self.get_message(text))
             print self.get_message(text)
 
     def default_form(self, args):
-        return "\t".join(str(v).replace("'", '') for v in args)
+        return '\t'.join(str(v).replace("'", '') for v in args)

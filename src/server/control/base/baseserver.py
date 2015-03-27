@@ -3,6 +3,7 @@
 import sys
 
 import project.settings
+from project.settings import SIZEOF_UINT32
 from src.server.control.base.basecontol import BaseControl
 
 if not project.settings.DEPLOY:
@@ -20,37 +21,38 @@ else:
     from PyQt4.QtGui import *
     from PyQt4.QtNetwork import *
 
-from project.settings import SIZEOF_UINT32
-
 
 class BaseServer(BaseControl):
+
     def __init__(self, argv, host, port):
         super(BaseServer, self).__init__(argv)
 
         self.tcp_server = QTcpServer(self)
 
         if not self.tcp_server.listen(QHostAddress(host), port):
-            self._log("Unable to start the server: {0}.".format(
+            self._log('Unable to start the server: {0}.'.format(
                 self.tcp_server.errorString()))
             return
 
         self._log(
-            "The server is running on port {0}.".format(
+            'The server is running on port {0}.'.format(
                 self.tcp_server.serverPort())
-            + "\nRun the Fortune Client example now.")
+            + '\nRun the Fortune Client example now.')
 
-        self.connect(self.tcp_server, SIGNAL("newConnection()"),
+        self.connect(self.tcp_server, SIGNAL('newConnection()'),
                      self.new_connection)
         self.connections = []
         self.users = {}
 
         self.commands = {}
-        self._add_command("ONLINE", self._command_online)
-        self._add_command("ECHO", self._command_echo)
-        self._add_command("USERS", self._command_users)
+        self._add_command('ONLINE', self._command_online)
+        self._add_command('ECHO', self._command_echo)
+        self._add_command('USERS', self._command_users)
 
     def send_message(self, client, command, message=''):
-        self._log("SEND COMMAND (server): command %s, message %s" % (command, message))
+        self._log(
+            'SEND COMMAND (server): command %s, message %s' %
+            (command, message))
         reply = QByteArray()
         stream = QDataStream(reply, QIODevice.WriteOnly)
         stream.setVersion(QDataStream.Qt_4_2)
@@ -70,11 +72,11 @@ class BaseServer(BaseControl):
         client_connection = self.tcp_server.nextPendingConnection()
         client_connection.nextBlockSize = 0
         self.connections.append(client_connection)
-        self.connect(client_connection, SIGNAL("readyRead()"),
+        self.connect(client_connection, SIGNAL('readyRead()'),
                      self.receive_message)
-        self.connect(client_connection, SIGNAL("disconnected()"),
+        self.connect(client_connection, SIGNAL('disconnected()'),
                      self.remove_connection)
-        self.connect(client_connection, SIGNAL("error()"),
+        self.connect(client_connection, SIGNAL('error()'),
                      self.socket_error)
 
     def receive_message(self):
@@ -99,7 +101,7 @@ class BaseServer(BaseControl):
     def process_message(self, client, command, message):
         client.nextBlockSize = 0
 
-        self._log("RECEIVE: command: %s, message: %s" % (command, message))
+        self._log('RECEIVE: command: %s, message: %s' % (command, message))
         if command in self.commands:
             self.commands[command](client, command, message)
 
@@ -107,7 +109,7 @@ class BaseServer(BaseControl):
 
     def _command_users(self, client, command, message):
         assert self.users
-        self.send_message(client, "RAW", str(self.users))
+        self.send_message(client, 'RAW', str(self.users))
 
     def _command_online(self, client, command, message):
         if message not in self.users:
@@ -117,14 +119,13 @@ class BaseServer(BaseControl):
                 'type': 'unknown',
                 'socket': client,
             }
-            self.send_message(client, "HI", "Hi %s" % message)
+            self.send_message(client, 'HI', 'Hi %s' % message)
         else:
-            self.send_message(client, "BAD", "Name already exist")
+            self.send_message(client, 'BAD', 'Name already exist')
 
     def _command_echo(self, client, command, message):
         self._log(
-            "ECHO (command): Client: {}, command: {}, message: {}".format(
+            'ECHO (command): Client: {}, command: {}, message: {}'.format(
                 client.socketDescriptor(),
                 command, message)
         )
-

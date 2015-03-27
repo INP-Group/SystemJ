@@ -11,7 +11,7 @@ class YAMLReader(object):
 
     def read(self, filepath=None):
         if filepath is None and self.filepath is None:
-            raise Exception("Input please filepath")
+            raise Exception('Input please filepath')
         elif filepath is None:
             filepath = self.filepath
 

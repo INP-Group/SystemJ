@@ -2,15 +2,16 @@
 
 import sys
 
+from project.settings import SERVER_HOST
+from project.settings import SERVER_PORT
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *
-from project.settings import SERVER_PORT, SERVER_HOST
 from src.server.control.base.baseclient import BaseClient
 
 
-
 class ConsoleClient(BaseClient):
+
     def __init__(self, argv, host, port, client_name=None):
         super(ConsoleClient, self).__init__(argv, host, port, client_name=None)
 
@@ -27,8 +28,8 @@ class ConsoleClient(BaseClient):
         self._init_socket()
 
         self.commands = {}
-        self._add_command("ECHO", self._command_echo)
-        self._add_command("OFFLINE", self._command_off)
+        self._add_command('ECHO', self._command_echo)
+        self._add_command('OFFLINE', self._command_off)
 
         self.connect_server()
 
@@ -36,17 +37,17 @@ class ConsoleClient(BaseClient):
     def connect_server(self):
         self.socket.connectToHost(self.server_host, self.server_port)
         if self.firstTime:
-            self.send_message("ONLINE", self.client_name)
+            self.send_message('ONLINE', self.client_name)
             self.firstTime = False
 
     def server_has_error(self):
-        print("Error: {}".format(
+        print('Error: {}'.format(
             self.socket.errorString()))
         self.socket.close()
         self.quit()
 
     def _command_echo(self, command, message):
-        self._log("ECHO (command): %s" % message)
+        self._log('ECHO (command): %s' % message)
 
 
 if __name__ == '__main__':
