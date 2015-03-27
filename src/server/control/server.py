@@ -5,7 +5,6 @@ import sys
 
 import project.settings
 
-print(project.settings.DEPLOY)
 if not project.settings.DEPLOY:
     import DLFCN
     old_dlopen_flags = sys.getdlopenflags( )
@@ -57,6 +56,7 @@ class ControlServer(QApplication):
                      self.new_connection)
         self.connections = []
         self.users = {}
+        self.channels = []
 
     def send_message(self, client, command, message=''):
         reply = QByteArray()
@@ -142,7 +142,9 @@ class ControlServer(QApplication):
         )
 
     def _command_channel(self, client, message, command=None):
-        scal = SimpleChannel("linthermcan.ThermosM.in0")
+        print("Add channel")
+        self.channels.append(SimpleChannel("linthermcan.ThermosM.in0"))
+        print("Added channel")
 
 
 if __name__ == '__main__':

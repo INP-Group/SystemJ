@@ -26,7 +26,7 @@ class ZeroMQServer(threading.Thread):
             while True:
                 message = self.sock.recv()
                 if message:
-                    # print("Receive message: %s " % message)
+                    print("Receive message: %s " % message)
                     self.berkeley_db.add(message)
                     self.sock.send("Saved")
         except KeyboardInterrupt:
