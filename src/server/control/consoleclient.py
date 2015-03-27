@@ -6,13 +6,16 @@ from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *
 from project.settings import SERVER_PORT, SERVER_HOST
 
-PORT = SERVER_PORT
+
 SIZEOF_UINT32 = 4
 
 
 class ConsoleClient(QObject):
-    def __init__(self):
+    def __init__(self, host, port):
         super(ConsoleClient, self).__init__()
+
+        self.server_host = host
+        self.server_port = port
 
         self.commands = {
             QString("ECHO"): self._command_echo,
@@ -41,7 +44,7 @@ class ConsoleClient(QObject):
 
     # Create connection to server
     def connect_server(self):
-        self.socket.connectToHost("localhost", PORT)
+        self.socket.connectToHost(self.server_host, self.server_port)
         if self.firstTime:
             self.send_message("ONLINE", self.client_name)
             self.firstTime = False
@@ -111,5 +114,5 @@ class ConsoleClient(QObject):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    form = ConsoleClient()
+    form = ConsoleClient(host=SERVER_HOST, port=SERVER_PORT)
     app.exec_()
