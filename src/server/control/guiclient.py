@@ -141,10 +141,10 @@ class GuiClient(QDialog):
         if command in self.commands:
             self.commands[command](message, command)
 
-    def _command_echo(self, message, command=None):
+    def _command_echo(self, command, message):
         self.update_gui(message)
 
-    def _command_off(self, message, command=None):
+    def _command_off(self, command, message):
         self.socket.close()
 
 

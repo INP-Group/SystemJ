@@ -10,9 +10,9 @@ from src.server.control.basecontol import BaseControl
 SIZEOF_UINT32 = 4
 
 
-class ConsoleClient(BaseControl):
+class BaseClient(BaseControl):
     def __init__(self, argv, host, port, client_name=None):
-        super(ConsoleClient, self).__init__(argv)
+        super(BaseClient, self).__init__(argv)
 
         self.server_host = host
         self.server_port = port
@@ -102,8 +102,3 @@ class ConsoleClient(BaseControl):
 
     def _command_off(self, command, message):
         self.socket.close()
-
-
-if __name__ == '__main__':
-    form = ConsoleClient(sys.argv, host=SERVER_HOST, port=SERVER_PORT)
-    form.exec_()

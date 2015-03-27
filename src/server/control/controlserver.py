@@ -2,17 +2,19 @@
 
 import sys
 
-
 import project.settings
+from src.server.control.baseserver import BaseServer
 
 if not project.settings.DEPLOY:
     import DLFCN
-    old_dlopen_flags = sys.getdlopenflags( )
-    sys.setdlopenflags( old_dlopen_flags | DLFCN.RTLD_GLOBAL )
+
+    old_dlopen_flags = sys.getdlopenflags()
+    sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
     from PyQt4.QtNetwork import *
-    sys.setdlopenflags( old_dlopen_flags )
+
+    sys.setdlopenflags(old_dlopen_flags)
 else:
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
@@ -27,9 +29,9 @@ from project.settings import SERVER_HOST, SERVER_PORT
 SIZEOF_UINT32 = 4
 
 
-class ControlServer(QApplication):
-    def __init__(self, argc, host, port):
-        super(ControlServer, self).__init__(argc)
+class ControlServer(BaseServer):
+    def __init__(self, argv, host, port):
+        super(ControlServer, self).__init__(argv, host, port)
 
         self.commands = {
             QString("ONLINE"): self._command_online,
@@ -109,20 +111,20 @@ class ControlServer(QApplication):
 
         print("RECEIVE: command: %s, message: %s" % (command, message))
         if command in self.commands:
-            self.commands[command](client, message, command)
+            self.commands[command](client, command, message)
 
         client.nextBlockSize = 0
 
-    def _command_users(self, client, message, command=None):
+    def _command_users(self, client, command, message):
         assert self.users
         self.send_message(client, "RAW", str(self.users))
 
-    def _command_set_type(self, client, message, command=None):
+    def _command_set_type(self, client, command, message):
         assert self.users
         self.users[client]['type'] = message
         self.send_message(client, "SET")
 
-    def _command_online(self, client, message, command=None):
+    def _command_online(self, client, command, message):
         if message not in self.users:
             self.users[client] = {
                 'name': message,
@@ -134,14 +136,14 @@ class ControlServer(QApplication):
         else:
             self.send_message(client, "BAD", "Name already exist")
 
-    def _command_echo(self, client, message, command=None):
+    def _command_echo(self, client, command, message):
         print(
             "Client: {}, command: {}, message: {}".format(
                 client.socketDescriptor(),
                 command, message)
         )
 
-    def _command_channel(self, client, message, command=None):
+    def _command_channel(self, client, command, message):
         print("Add channel")
         self.channels.append(SimpleChannel("linthermcan.ThermosM.in0"))
         print("Added channel")
