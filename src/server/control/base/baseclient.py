@@ -1,11 +1,9 @@
 # -*- encoding: utf-8 -*-
 
-import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *
-from project.settings import SERVER_PORT, SERVER_HOST
-from src.server.control.basecontol import BaseControl
+from src.server.control.base.basecontol import BaseControl
 
 SIZEOF_UINT32 = 4
 

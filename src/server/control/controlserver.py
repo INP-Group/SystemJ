@@ -3,7 +3,7 @@
 import sys
 
 import project.settings
-from src.server.control.baseserver import BaseServer
+from src.server.control.base.baseserver import BaseServer
 
 if not project.settings.DEPLOY:
     import DLFCN
@@ -20,7 +20,6 @@ else:
     from PyQt4.QtGui import *
     from PyQt4.QtNetwork import *
 
-from src.channels.scalarchannel import ScalarChannel
 from src.channels.simplechannel import SimpleChannel
 
 from project.settings import SERVER_HOST, SERVER_PORT

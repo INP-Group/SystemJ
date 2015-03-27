@@ -3,7 +3,7 @@
 import sys
 
 import project.settings
-from src.server.control.basecontol import BaseControl
+from src.server.control.base.basecontol import BaseControl
 
 if not project.settings.DEPLOY:
     import DLFCN
