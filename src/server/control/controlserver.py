@@ -42,9 +42,12 @@ class ControlServer(BaseServer):
         self.send_message(client, "SET")
 
     def _command_channel(self, client, command, message):
-        print("Add channel")
-        self.channels.append(SimpleChannel("linthermcan.ThermosM.in0"))
-        print("Added channel")
+        self._log("Add channel")
+        for client, info in self.users.items():
+            if info.get('type') == 'manager':
+                self.send_message(client, "CHANNEL_ADD", "")
+        # self.channels.append(SimpleChannel("linthermcan.ThermosM.in0"))
+        self._log("Added channel")
 
 
 if __name__ == '__main__':

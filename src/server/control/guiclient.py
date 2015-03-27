@@ -69,7 +69,6 @@ class GuiClient(QDialog):
         self.PB_Connect.clicked.connect(self.connect_server)
         self.setWindowTitle("Client")
 
-
         # for debug
         self.connect_server()
 
@@ -95,7 +94,7 @@ class GuiClient(QDialog):
         stream.setVersion(QDataStream.Qt_4_2)
         stream.writeUInt32(0)
 
-        print("SEND: command %s, message %s" % (command, message))
+        self._log("SEND: command %s, message %s" % (command, message))
         stream << QString(command) << QString(message)
 
         stream.device().seek(0)
@@ -103,6 +102,16 @@ class GuiClient(QDialog):
         self.socket.write(self.request)
         self.nextBlockSize = 0
         self.request = None
+
+    def _debug_on(self):
+        self.is_debug = True
+
+    def _debug_off(self):
+        self.is_debug = False
+
+    def _log(self, *args, **kwargs):
+        if self.is_debug:
+            print(args, kwargs)
 
     def server_has_stopped(self):
         self.socket.close()
@@ -142,7 +151,7 @@ class GuiClient(QDialog):
             command = QString()
             message = QString()
             stream >> command >> message
-            print(command, message)
+            self._log(command, message)
 
             self.process_message(command, message)
             self.nextBlockSize = 0
@@ -154,7 +163,7 @@ class GuiClient(QDialog):
     def _command_echo(self, command, message):
         self.update_gui(message)
 
-    def _command_off(self, command,message):
+    def _command_off(self, command, message):
         self.socket.close()
 
 

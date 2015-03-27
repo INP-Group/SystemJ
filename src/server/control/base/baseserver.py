@@ -50,6 +50,7 @@ class BaseServer(BaseControl):
         self._add_command("USERS", self._command_users)
 
     def send_message(self, client, command, message=''):
+        self._log("SEND COMMAND (server): command %s, message %s" % (command, message))
         reply = QByteArray()
         stream = QDataStream(reply, QIODevice.WriteOnly)
         stream.setVersion(QDataStream.Qt_4_2)
@@ -116,13 +117,13 @@ class BaseServer(BaseControl):
                 'type': 'unknown',
                 'socket': client,
             }
-            self.send_message(client, "OK", "Hi %s" % message)
+            self.send_message(client, "HI", "Hi %s" % message)
         else:
             self.send_message(client, "BAD", "Name already exist")
 
     def _command_echo(self, client, command, message):
-        print(
-            "Client: {}, command: {}, message: {}".format(
+        self._log(
+            "ECHO (command): Client: {}, command: {}, message: {}".format(
                 client.socketDescriptor(),
                 command, message)
         )

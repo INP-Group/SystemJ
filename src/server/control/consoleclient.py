@@ -48,7 +48,7 @@ class ConsoleClient(BaseClient):
         self.quit()
 
     def _command_echo(self, command, message):
-        print(message)
+        self._log("ECHO (command): %s" % message)
 
 
 if __name__ == '__main__':

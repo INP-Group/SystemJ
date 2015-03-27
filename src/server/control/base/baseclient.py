@@ -26,7 +26,6 @@ class BaseClient(BaseControl):
 
         self.commands = {}
 
-
     def _init_socket(self):
         # Ititialize socket
         self.socket = QTcpSocket()
@@ -49,7 +48,7 @@ class BaseClient(BaseControl):
         self.socket.close()
 
     def server_has_error(self):
-        print("Error: {}".format(
+        self._log("Error: {}".format(
             self.socket.errorString()))
         self.socket.close()
         self.quit()
@@ -82,9 +81,9 @@ class BaseClient(BaseControl):
             command = QString()
             message = QString()
             stream >> command >> message
-            if self.is_debug:
-                print(command, message)
-            self.process_message(message, command)
+            self._log(
+                "RECEIVE: command - %s, message - %s" % (command, message))
+            self.process_message(command, message)
 
             self.nextBlockSize = 0
 
@@ -93,7 +92,7 @@ class BaseClient(BaseControl):
             self.commands[command](message, command)
 
     def _command_echo(self, command, message):
-        print(message)
+        self._log("ECHO (command): %s" % message)
 
     def _command_off(self, command, message):
         self.socket.close()

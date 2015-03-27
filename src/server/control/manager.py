@@ -25,15 +25,20 @@ SIZEOF_UINT32 = 4
 
 
 class Manager(ConsoleClient):
-    def __init__(self, host, port):
+    def __init__(self, argv, host, port):
         client_name = "Test_manager"
-        super(Manager, self).__init__(host, port, client_name)
+        super(Manager, self).__init__(argv, host, port, client_name)
 
         self.channels = {}
 
         self._add_command("CHANNEL_ADD", self._command_channel_add)
         self._add_command("CHANNEL_LIST", self._command_channel_add)
         self._add_command("CHANNEL_REMOVE", self._command_channel_add)
+        self._add_command("HI", self._command_set_type)
+
+    def _command_set_type(self, command, message):
+        print("gfkmdngjdsnfgosdnfhojsdnfhodsf")
+        self.send_message("SET_TYPE", 'manager')
 
     def _command_channel_list(self, command, message):
         self.send_message("CHANNEL_LIST", str(self.channels.keys()))
@@ -51,6 +56,5 @@ class Manager(ConsoleClient):
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    form = ConsoleClient(host=SERVER_HOST, port=SERVER_PORT)
-    app.exec_()
+    form = Manager(sys.argv, host=SERVER_HOST, port=SERVER_PORT)
+    form.exec_()
