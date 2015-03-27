@@ -26,8 +26,18 @@ class GuiClient(QDialog):
         self.server_host = host
         self.server_port = port
 
+        self.commands = {}
+        self.is_debug = True
+
+        self._add_command("ECHO", self._command_echo)
+        self._add_command("RAW", self._command_echo)
+        self._add_command("OFFLINE", self._command_off)
+
         self._init_socket()
         self._init_gui()
+
+    def _add_command(self, name, func):
+        self.commands[QString(name)] = func
 
     def _init_socket(self):
         # Ititialize socket
@@ -139,12 +149,12 @@ class GuiClient(QDialog):
 
     def process_message(self, command, message):
         if command in self.commands:
-            self.commands[command](message, command)
+            self.commands[command](command, message)
 
     def _command_echo(self, command, message):
         self.update_gui(message)
 
-    def _command_off(self, command, message):
+    def _command_off(self, command,message):
         self.socket.close()
 
 

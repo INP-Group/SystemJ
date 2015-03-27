@@ -27,10 +27,7 @@ class BaseClient(BaseControl):
         self._init_socket()
 
         self.commands = {}
-        self._add_command("ECHO", self._command_echo)
-        self._add_command("OFFLINE", self._command_off)
 
-        self.connect_server()
 
     def _init_socket(self):
         # Ititialize socket
@@ -38,7 +35,7 @@ class BaseClient(BaseControl):
 
         # Signals and slots for networking
         self.socket.readyRead.connect(self.read_server)
-        self.socket.disconnected.connect(self.server_has_stopper)
+        self.socket.disconnected.connect(self.server_has_stopped)
         self.connect(self.socket,
                      SIGNAL("error(QAbstractSocket::SocketError)"),
                      self.server_has_error)
@@ -50,7 +47,7 @@ class BaseClient(BaseControl):
             self.send_message("ONLINE", self.client_name)
             self.firstTime = False
 
-    def server_has_stopper(self):
+    def server_has_stopped(self):
         self.socket.close()
 
     def server_has_error(self):
