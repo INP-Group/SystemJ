@@ -46,7 +46,7 @@ POSTGRESQL_TABLE = 'datachannel'
 POSTGRESQL_USER = 'postgres'
 POSTGRESQL_PASSWORD = '1nakopitel!'
 
-
+SIZEOF_UINT32 = 4
 
 
 #todo

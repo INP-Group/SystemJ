@@ -17,11 +17,9 @@ else:
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
     from PyQt4.QtNetwork import *
-from project.settings import SERVER_PORT, SERVER_HOST
+from project.settings import SERVER_PORT, SERVER_HOST, SIZEOF_UINT32
 from src.channels.simplechannel import SimpleChannel
 from src.server.control.consoleclient import ConsoleClient
-
-SIZEOF_UINT32 = 4
 
 
 class Manager(ConsoleClient):
@@ -54,7 +52,3 @@ class Manager(ConsoleClient):
         else:
             self._log("Channel already exist")
 
-
-if __name__ == '__main__':
-    form = Manager(sys.argv, host=SERVER_HOST, port=SERVER_PORT)
-    form.exec_()

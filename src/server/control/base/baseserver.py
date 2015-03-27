@@ -20,7 +20,7 @@ else:
     from PyQt4.QtGui import *
     from PyQt4.QtNetwork import *
 
-SIZEOF_UINT32 = 4
+from project.settings import SIZEOF_UINT32
 
 
 class BaseServer(BaseControl):

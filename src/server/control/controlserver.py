@@ -20,12 +20,7 @@ else:
     from PyQt4.QtGui import *
     from PyQt4.QtNetwork import *
 
-from src.channels.simplechannel import SimpleChannel
-
-from project.settings import SERVER_HOST, SERVER_PORT
-
-
-SIZEOF_UINT32 = 4
+from project.settings import SIZEOF_UINT32
 
 
 class ControlServer(BaseServer):
@@ -43,14 +38,11 @@ class ControlServer(BaseServer):
 
     def _command_channel(self, client, command, message):
         self._log("Add channel")
+        # todo
+        # Добавить возможность добавлять в определенный менеджер
+
         for client, info in self.users.items():
             if info.get('type') == 'manager':
                 self.send_message(client, "CHANNEL_ADD", "")
-        # self.channels.append(SimpleChannel("linthermcan.ThermosM.in0"))
         self._log("Added channel")
 
-
-if __name__ == '__main__':
-    # app = QApplication(sys.argv)
-    form = ControlServer(sys.argv, SERVER_HOST, SERVER_PORT)
-    form.exec_()

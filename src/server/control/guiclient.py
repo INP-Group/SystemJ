@@ -1,12 +1,11 @@
 # -*- encoding: utf-8 -*-
 
-import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *
-from project.settings import SERVER_PORT, SERVER_HOST, COMMAND_SPLITER
+from project.settings import COMMAND_SPLITER, SIZEOF_UINT32
 import datetime
-SIZEOF_UINT32 = 4
+
 
 
 class GuiClient(QDialog):
@@ -166,9 +165,3 @@ class GuiClient(QDialog):
     def _command_off(self, command, message):
         self.socket.close()
 
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    form = GuiClient(parent=None, host=SERVER_HOST, port=SERVER_PORT)
-    form.show()
-    app.exec_()

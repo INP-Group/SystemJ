@@ -4,8 +4,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *
 from src.server.control.base.basecontol import BaseControl
-
-SIZEOF_UINT32 = 4
+from project.settings import SIZEOF_UINT32
 
 
 class BaseClient(BaseControl):

@@ -9,8 +9,6 @@ from project.settings import SERVER_PORT, SERVER_HOST
 from src.server.control.base.baseclient import BaseClient
 
 
-SIZEOF_UINT32 = 4
-
 
 class ConsoleClient(BaseClient):
     def __init__(self, argv, host, port, client_name=None):
