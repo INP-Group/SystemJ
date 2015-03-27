@@ -18,7 +18,6 @@ pip-log.txt
 /build
 /cover
 /dist
-/example_project/local_settings.py
 /docs/html
 /docs/doctrees
 /sentry_index/
@@ -30,7 +29,6 @@ lib/
 .idea
 static/
 deploy
-/project/local_settings.py
+project/local_settings.py
 /cx
 src/fedor
-project/local_settings.py
