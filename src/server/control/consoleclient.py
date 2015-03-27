@@ -1,12 +1,5 @@
 # -*- encoding: utf-8 -*-
 
-import sys
-
-from project.settings import SERVER_HOST
-from project.settings import SERVER_PORT
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from PyQt4.QtNetwork import *
 from src.server.control.base.baseclient import BaseClient
 
 
@@ -48,8 +41,3 @@ class ConsoleClient(BaseClient):
 
     def _command_echo(self, command, message):
         self._log('ECHO (command): %s' % message)
-
-
-if __name__ == '__main__':
-    form = ConsoleClient(sys.argv, host=SERVER_HOST, port=SERVER_PORT)
-    form.exec_()

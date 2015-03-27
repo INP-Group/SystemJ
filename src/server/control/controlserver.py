@@ -1,25 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-import sys
-
-import project.settings
-from project.settings import SIZEOF_UINT32
 from src.server.control.base.baseserver import BaseServer
-
-if not project.settings.DEPLOY:
-    import DLFCN
-
-    old_dlopen_flags = sys.getdlopenflags()
-    sys.setdlopenflags(old_dlopen_flags | DLFCN.RTLD_GLOBAL)
-    from PyQt4.QtCore import *
-    from PyQt4.QtGui import *
-    from PyQt4.QtNetwork import *
-
-    sys.setdlopenflags(old_dlopen_flags)
-else:
-    from PyQt4.QtCore import *
-    from PyQt4.QtGui import *
-    from PyQt4.QtNetwork import *
 
 
 class ControlServer(BaseServer):
