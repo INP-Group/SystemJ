@@ -33,3 +33,4 @@ deploy
 /project/local_settings.py
 /cx
 src/fedor
+project/local_settings.py
