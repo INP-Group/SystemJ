@@ -46,6 +46,7 @@ class BaseServer(BaseControl):
 
         self.commands = {}
         self._add_command('ONLINE', self._command_online)
+        self._add_command('OFFLINE', self._command_offline)
         self._add_command('ECHO', self._command_echo)
         self._add_command('USERS', self._command_users)
 
@@ -129,3 +130,8 @@ class BaseServer(BaseControl):
                 client.socketDescriptor(),
                 command, message)
         )
+
+    def _command_offline(self, client, command, message):
+        self._log("REMOVE USER: %s" % client)
+        assert client in self.users
+        del self.users[client]

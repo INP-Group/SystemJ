@@ -45,9 +45,11 @@ class BaseClient(BaseControl):
             self.firstTime = False
 
     def server_has_stopped(self):
+        self.send_message("OFFLINE")
         self.socket.close()
 
     def server_has_error(self):
+        self.send_message("OFFLINE")
         self._log('Error: {}'.format(
             self.socket.errorString()))
         self.socket.close()
@@ -89,7 +91,7 @@ class BaseClient(BaseControl):
 
     def process_message(self, command, message):
         if command in self.commands:
-            self.commands[command](message, command)
+            self.commands[command](command, message)
 
     def _command_echo(self, command, message):
         self._log('ECHO (command): %s' % message)

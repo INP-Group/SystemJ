@@ -46,9 +46,10 @@ class Manager(ConsoleClient):
         self._log('Add channel')
         # todo
         # параметры канала хранить где?
+
         name = 'linthermcan.ThermosM.in0'
         if name not in self.channels:
-            self.channels[str(name)] = SimpleChannel(str(name))
+            self.channels[str(message)] = SimpleChannel(str(message))
             self._log('Added channel')
         else:
             self._log('Channel already exist')

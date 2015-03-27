@@ -17,3 +17,26 @@ linthermcan.ThermosM.SEC_11, delta
 linthermcan.ThermosM.SEC_12, delta
 linthermcan.ThermosM.SEC_13, delta
 linthermcan.ThermosM.SEC_14, delta
+
+
+
+
+CHL_ADD ||| nthermcan.ThermosM.in0
+CHL_ADD ||| nthermcan.ThermosM.SLED_1
+CHL_ADD ||| nthermcan.ThermosM.SLED_2
+CHL_ADD ||| nthermcan.ThermosM.SLED_3
+CHL_ADD ||| nthermcan.ThermosM.SLED_4
+CHL_ADD ||| nthermcan.ThermosM.SEC_01
+CHL_ADD ||| nthermcan.ThermosM.SEC_02
+CHL_ADD ||| nthermcan.ThermosM.SEC_03
+CHL_ADD ||| nthermcan.ThermosM.SEC_04
+CHL_ADD ||| nthermcan.ThermosM.SEC_05
+CHL_ADD ||| nthermcan.ThermosM.SEC_06
+CHL_ADD ||| nthermcan.ThermosM.SEC_07
+CHL_ADD ||| nthermcan.ThermosM.SEC_08
+CHL_ADD ||| nthermcan.ThermosM.SEC_09
+CHL_ADD ||| nthermcan.ThermosM.SEC_10
+CHL_ADD ||| nthermcan.ThermosM.SEC_11
+CHL_ADD ||| nthermcan.ThermosM.SEC_12
+CHL_ADD ||| nthermcan.ThermosM.SEC_13
+CHL_ADD ||| nthermcan.ThermosM.SEC_14

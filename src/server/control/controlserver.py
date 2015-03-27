@@ -3,7 +3,6 @@
 from src.server.control.base.baseserver import BaseServer
 
 
-
 class ControlServer(BaseServer):
     def __init__(self, argv, host, port):
         super(ControlServer, self).__init__(argv, host, port)
@@ -11,7 +10,7 @@ class ControlServer(BaseServer):
         self._add_command('USER_LIST', self._command_users)
         self._add_command('MANAGER_LIST', self._command_managers)
         self._add_command('SET_TYPE', self._command_set_type)
-        self._add_command('CHL_ADD', self._command_channel)
+        self._add_command('CHL_ADD', self._command_channel_add)
         self._add_command('CHL_LIST', self._command_users)
 
     def _command_managers(self, client, command, message):
@@ -24,12 +23,11 @@ class ControlServer(BaseServer):
         self.users[client]['type'] = str(message)
         self.send_message(client, 'SET')
 
-    def _command_channel(self, client, command, message):
-        self._log('Add channel')
+    def _command_channel_add(self, client, command, message):
         # todo
         # Добавить возможность добавлять в определенный менеджер
 
         for client, info in self.users.items():
             if info.get('type') == 'manager':
-                self.send_message(client, 'CHL_ADD', '')
-        self._log('Added channel')
+                self.send_message(client, 'CHL_ADD', message)
+                break
