@@ -45,11 +45,11 @@ class BaseClient(BaseControl):
             self.firstTime = False
 
     def server_has_stopped(self):
-        self.send_message("OFFLINE")
+        self.send_message('OFFLINE')
         self.socket.close()
 
     def server_has_error(self):
-        self.send_message("OFFLINE")
+        self.send_message('OFFLINE')
         self._log('Error: {}'.format(
             self.socket.errorString()))
         self.socket.close()
@@ -61,7 +61,7 @@ class BaseClient(BaseControl):
         stream.setVersion(QDataStream.Qt_4_2)
         stream.writeUInt32(0)
 
-        self._log("SEND: command - %s, message - %s" % (command, message))
+        self._log('SEND: command - %s, message - %s' % (command, message))
         stream << QString(command) << QString(message)
 
         stream.device().seek(0)

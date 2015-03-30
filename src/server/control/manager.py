@@ -4,8 +4,8 @@ import sys
 
 import project.settings
 from project.settings import SIZEOF_UINT32
-from src.server.control.consoleclient import ConsoleClient
 from src.base.channellfactory import ChannelFactory
+from src.server.control.consoleclient import ConsoleClient
 
 if not project.settings.DEPLOY:
     import DLFCN
@@ -35,10 +35,10 @@ class Manager(ConsoleClient):
 
         self._add_command('CHL_ADD', self._command_channel_add)
         self._add_command('CHL_LIST', self._command_channel_list)
-        self._add_command('CHL_DEL', self._command_channel_add) #todo
+        self._add_command('CHL_DEL', self._command_channel_add)  # todo
         self._add_command('WORKER_ADD', self._command_worker_add)
         self._add_command('WORKER_LIST', self._command_worker_list)
-        self._add_command('WORKER_DEL', self._command_worker_add) #todo
+        self._add_command('WORKER_DEL', self._command_worker_add)  # todo
         self._add_command('HI', self._command_set_type)
 
     def _command_set_type(self, command, message):
@@ -63,7 +63,7 @@ class Manager(ConsoleClient):
         if str(message) not in self.all_channels or True:
             self.all_channels.append(str(message))
 
-            #todo надо вставлять в конкретный
+            # todo надо вставлять в конкретный
             worker = self.workers.values()[0]
             assert isinstance(worker, DaemonWorker)
             worker.add_channel(chanName=str(message))
@@ -75,7 +75,7 @@ class Manager(ConsoleClient):
     def _command_worker_add(self, command, message):
         assert command
         assert message
-        self._log("Add new worker")
+        self._log('Add new worker')
         if str(message) not in self.workers:
             self.workers[str(message)] = DaemonWorker(name=str(message))
             self._log('Added worker')
@@ -115,7 +115,7 @@ class DaemonWorker(QThread):
         return self.name
 
     def add_channel(self, type='ScalarChannel',
-                  chanName='linthermcan.ThermosM.in0'):
+                    chanName='linthermcan.ThermosM.in0'):
 
         # todo
         type = 'ScalarChannel'
@@ -143,4 +143,3 @@ class DaemonWorker(QThread):
             channel.set_property('delta', .0005)
 
         self.channels.append(channel)
-

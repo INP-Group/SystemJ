@@ -75,11 +75,13 @@ class BaseServer(BaseControl):
         client_connection.nextBlockSize = 0
         self.connections.append(client_connection)
         client_connection.connect(client_connection, SIGNAL('readyRead()'),
-                     self.receive_message)
+                                  self.receive_message)
         client_connection.connect(client_connection, SIGNAL('disconnected()'),
-                                  lambda: self.remove_connection(client_connection))
+                                  lambda: self.remove_connection(
+                                      client_connection))
         client_connection.connect(client_connection, SIGNAL('error()'),
                                   lambda: self.socket_error())
+
     def receive_message(self):
         for s in self.connections:
             if s.bytesAvailable() > 0:
@@ -132,7 +134,7 @@ class BaseServer(BaseControl):
         )
 
     def _command_offline(self, client, command, message):
-        self._log("REMOVE USER: %s" % client)
+        self._log('REMOVE USER: %s' % client)
         assert client in self.users
         del self.users[client]
         client.close()

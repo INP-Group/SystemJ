@@ -34,7 +34,7 @@ class ConsoleClient(BaseClient):
             self.firstTime = False
 
     def server_has_error(self):
-        self.send_message("OFFLINE", "")
+        self.send_message('OFFLINE', '')
         print('Error: {}'.format(
             self.socket.errorString()))
         self.socket.close()

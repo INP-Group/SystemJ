@@ -4,6 +4,7 @@ from src.server.control.base.baseserver import BaseServer
 
 
 class ControlServer(BaseServer):
+
     def __init__(self, argv, host, port):
         super(ControlServer, self).__init__(argv, host, port)
 
@@ -14,18 +15,21 @@ class ControlServer(BaseServer):
         self._add_command('CHL_LIST', self._command_users)
 
         self.manager_commands = [
-            "CHL_ADD",
-            "WORKER_ADD",
-            "WORKER_DEL",
-            "WORKER_LIST",
+            'CHL_ADD',
+            'WORKER_ADD',
+            'WORKER_DEL',
+            'WORKER_LIST',
         ]
 
-        [self._add_command(x, self._command_send_to_manager) for x in self.manager_commands]
+        [self._add_command(x, self._command_send_to_manager)
+         for x in self.manager_commands]
 
     def _command_managers(self, client, command, message):
         assert self.users
-        data = str([info for key, info in self.users.items() if info.get('type') == 'manager'])
-        [self.send_message(x, "RAW", data) for x, info in self.users.items() if info.get('type') == 'guiclient']
+        data = str(
+            [info for key, info in self.users.items() if info.get('type') == 'manager'])
+        [self.send_message(x, 'RAW', data) for x, info in self.users.items() if info.get(
+            'type') == 'guiclient']
 
     def _command_set_type(self, client, command, message):
         assert self.users

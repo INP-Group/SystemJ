@@ -3,8 +3,8 @@
 import sys
 
 import project.settings
-from src.channels.simplechannel import SimpleChannel
 from research.manager.manager import WorkerManager
+from src.channels.simplechannel import SimpleChannel
 
 if not project.settings.DEPLOY:
     import DLFCN
@@ -48,7 +48,6 @@ def start3():
     application = QtGui.QApplication(sys.argv)
     win = WorkerManager()
     win.show()
-
 
     sys.exit(application.exec_())
 
