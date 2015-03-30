@@ -3,9 +3,8 @@
 import sys
 
 import project.settings
-from src.channels.scalarchannel import ScalarChannel
 from src.channels.simplechannel import SimpleChannel
-from src.manager.manager import WorkerManager
+from research.manager.manager import WorkerManager
 
 if not project.settings.DEPLOY:
     import DLFCN

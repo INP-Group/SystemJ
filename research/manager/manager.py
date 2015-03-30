@@ -2,13 +2,13 @@
 
 import random
 import string
-
 from PyQt4 import QtCore
 from PyQt4 import QtGui
+
 from PyQt4.QtGui import QStandardItem
 from PyQt4.QtGui import QStandardItemModel
-from src.manager.channellfactory import ChannelFactory
-from src.manager.managerui import Ui_MainWindow as ManagerUI
+from src.base.channellfactory import ChannelFactory
+from research.manager.managerui import Ui_MainWindow as ManagerUI
 
 
 class WorkerManager(ManagerUI):

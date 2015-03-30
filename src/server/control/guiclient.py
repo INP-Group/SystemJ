@@ -37,6 +37,20 @@ class GuiClient(QDialog):
         self._init_socket()
         self._init_gui()
 
+        width = 630
+        height = 500
+
+        self.setMinimumSize(width, height)
+        self.resize(width, height)
+
+        self.center_on_screen()
+
+    def center_on_screen(self):
+        """centerOnScreen() Centers the window on the screen."""
+        resolution = QDesktopWidget().screenGeometry()
+        self.move((resolution.width() / 2) - (self.frameSize().width() / 2),
+                  (resolution.height() / 2) - (self.frameSize().height() / 2))
+
     def _add_command(self, name, func):
         self.commands[QString(name)] = func
 

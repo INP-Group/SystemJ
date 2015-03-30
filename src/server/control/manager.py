@@ -4,10 +4,8 @@ import sys
 
 import project.settings
 from project.settings import SIZEOF_UINT32
-from src.channels.simplechannel import SimpleChannel
 from src.server.control.consoleclient import ConsoleClient
-
-from src.manager.channellfactory import ChannelFactory
+from src.base.channellfactory import ChannelFactory
 
 if not project.settings.DEPLOY:
     import DLFCN
