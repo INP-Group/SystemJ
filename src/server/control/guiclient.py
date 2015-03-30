@@ -151,7 +151,7 @@ class GuiClient(QDialog):
             command = QString()
             message = QString()
             stream >> command >> message
-            self._log(command, message)
+            self._log("RECEIVE: command: %s, message:%s" % (command, message))
 
             self.process_message(command, message)
             self.nextBlockSize = 0

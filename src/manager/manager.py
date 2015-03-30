@@ -74,10 +74,10 @@ class WorkerWidget(QtGui.QWidget):
             self.addChannell)
 
     def addChannell(self):
-        self.worker.addchanel(
+        self.worker.add_channel(
             random.choice(['ScalarChannel', 'NTimeChannel', 'DeltaChannel']))
 
-        channels = self.worker.getChannels()
+        channels = self.worker.get_channels()
         model = QStandardItemModel(self.tVChannells)
 
         for x in channels:
