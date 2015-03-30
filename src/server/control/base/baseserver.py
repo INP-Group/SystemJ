@@ -32,6 +32,7 @@ class BaseServer(BaseControl):
         if not self.tcp_server.listen(QHostAddress(host), port):
             self._log('Unable to start the server: {0}.'.format(
                 self.tcp_server.errorString()))
+            self.exec_()
             return
 
         self._log(
