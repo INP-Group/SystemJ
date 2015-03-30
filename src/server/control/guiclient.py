@@ -7,7 +7,8 @@ from project.settings import SIZEOF_UINT32
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *
-
+import os
+import time
 
 class GuiClient(QDialog):
 
@@ -33,6 +34,10 @@ class GuiClient(QDialog):
         self._add_command('RAW', self._command_echo)
         self._add_command('OFFLINE', self._command_off)
         self._add_command('HI', self._command_set_type)
+
+        self.local_commands = {
+            "FROM_FILE": self._command_from_file,
+        }
 
         self._init_socket()
         self._init_gui()
@@ -148,8 +153,12 @@ class GuiClient(QDialog):
                                     message.split(COMMAND_SPLITER)]
             else:
                 command, message = 'ECHO', self.LE_text.text()
-            self.update_gui('%s : %s' % (command, message))
-            self.send_message(command, message)
+
+            if command in self.local_commands.keys():
+                self.local_commands.get(command)(command, message)
+            else:
+                self.update_gui('%s : %s' % (command, message))
+                self.send_message(command, message)
         self.LE_text.setText('')
 
     def read_server(self):
@@ -182,3 +191,17 @@ class GuiClient(QDialog):
 
     def _command_set_type(self, command, message):
         self.send_message('SET_TYPE', 'guiclient')
+
+    def _command_from_file(self, command, message):
+        assert message
+        assert os.path.exists(message)
+
+        with open(message, 'r') as fio:
+            # не работает
+            # сервер не верно такие посылки обрабатывает
+            commands = fio.readlines()
+            res = [y.strip() for x in commands for y in x.split('|||')]
+            for i in xrange(len(res) / 2):
+                self.send_message(res[i * 2], res[i * 2 + 1])
+                time.sleep(1)
+
