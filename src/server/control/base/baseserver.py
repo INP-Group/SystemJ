@@ -63,8 +63,9 @@ class BaseServer(BaseControl):
         stream.writeUInt32(reply.size() - SIZEOF_UINT32)
         client.write(reply)
 
-    def remove_connection(self):
-        pass
+    def remove_connection(self, client):
+        assert client in self.users
+        del self.users[client]
 
     def socket_error(self):
         pass
@@ -73,13 +74,12 @@ class BaseServer(BaseControl):
         client_connection = self.tcp_server.nextPendingConnection()
         client_connection.nextBlockSize = 0
         self.connections.append(client_connection)
-        self.connect(client_connection, SIGNAL('readyRead()'),
+        client_connection.connect(client_connection, SIGNAL('readyRead()'),
                      self.receive_message)
-        self.connect(client_connection, SIGNAL('disconnected()'),
-                     self.remove_connection)
-        self.connect(client_connection, SIGNAL('error()'),
-                     self.socket_error)
-
+        client_connection.connect(client_connection, SIGNAL('disconnected()'),
+                                  lambda: self.remove_connection(client_connection))
+        client_connection.connect(client_connection, SIGNAL('error()'),
+                                  lambda: self.socket_error())
     def receive_message(self):
         for s in self.connections:
             if s.bytesAvailable() > 0:
@@ -135,3 +135,4 @@ class BaseServer(BaseControl):
         self._log("REMOVE USER: %s" % client)
         assert client in self.users
         del self.users[client]
+        client.close()

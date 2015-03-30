@@ -49,6 +49,8 @@ def start3():
     application = QtGui.QApplication(sys.argv)
     win = WorkerManager()
     win.show()
+
+
     sys.exit(application.exec_())
 
 if __name__ == '__main__':

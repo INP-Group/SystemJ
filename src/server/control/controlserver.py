@@ -22,7 +22,6 @@ class ControlServer(BaseServer):
 
         [self._add_command(x, self._command_send_to_manager) for x in self.manager_commands]
 
-
     def _command_managers(self, client, command, message):
         assert self.users
         data = str([info for key, info in self.users.items() if info.get('type') == 'manager'])

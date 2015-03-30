@@ -61,6 +61,7 @@ class BaseClient(BaseControl):
         stream.setVersion(QDataStream.Qt_4_2)
         stream.writeUInt32(0)
 
+        self._log("SEND: command - %s, message - %s" % (command, message))
         stream << QString(command) << QString(message)
 
         stream.device().seek(0)
