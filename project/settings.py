@@ -21,6 +21,7 @@ LOG_FOLDER = os.path.join(MEDIA_FOLDER, 'logs')
 DB_FOLDER = os.path.join(RES_FOLDER, 'dbs')
 
 
+check_and_create(os.path.join(RES_FOLDER, 'plots'))
 check_and_create(MEDIA_FOLDER)
 check_and_create(RES_FOLDER)
 check_and_create(LOG_FOLDER)

@@ -91,3 +91,10 @@ class PostgresqlStorage(Singleton):
         copy(*values)
         # print values
         self.connection.commit()
+
+    def get_data(self, channels, time_start, time_end):
+        sql = "SELECT * FROM {} WHERE channel_name in ({}) AND time >= '{}' AND time <= '{}' ORDER BY time".format(
+            self.tablename, ', '.join(["'%s'" % x for x in channels]),
+            time_start, time_end)
+        self.cursor.execute(sql)
+        return self.cursor.fetchall()
