@@ -11,7 +11,7 @@ class NTimeChannel(Channel):
 
     def processing(self, *args):
         now = time.time()
-        nowtime = str(datetime.datetime.now())
+        now_time = str(datetime.datetime.now())
         if now - self.start_time > self.get_property('timedelta'):
             self.start_time = now
             handle, val, params = self._gfa(args, 1), \
@@ -22,7 +22,7 @@ class NTimeChannel(Channel):
             self.default_log(text)
             self.send_message(self.default_form([self.name,
                                                  self.personal_name,
-                                                 handle, nowtime]))
+                                                 handle, now_time]))
 
         return 0
 
