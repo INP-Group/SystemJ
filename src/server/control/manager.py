@@ -59,14 +59,17 @@ class Manager(ConsoleClient):
         self._log('Add channel in random worker')
         # todo
         # параметры канала хранить где?
+        message = str(message)
+        channel_name, properties = [x.strip() for x in message.split('___')]
+        properties = eval(properties)
 
-        if str(message) not in self.all_channels or True:
-            self.all_channels.append(str(message))
+        if channel_name not in self.all_channels or True:
+            self.all_channels.append(message)
 
             # todo надо вставлять в конкретный
             worker = self.workers.values()[0]
             assert isinstance(worker, DaemonWorker)
-            worker.add_channel(chanName=str(message))
+            worker.add_channel(chanName=channel_name, properties=properties)
 
             self._log('Added channel')
         else:
@@ -115,13 +118,12 @@ class DaemonWorker(QThread):
         return self.name
 
     def add_channel(self, type='ScalarChannel',
-                    chanName='linthermcan.ThermosM.in0'):
+                    chanName='linthermcan.ThermosM.in0',
+                    properties=None):
 
         # todo
         type = 'ScalarChannel'
-
-        channel = ''
-
+        channel = None
         if type == 'ScalarChannel':
             channel = ChannelFactory.factory(
                 type, chanName, '%s - %s' %
@@ -141,5 +143,11 @@ class DaemonWorker(QThread):
                 (self.name, len(
                     self.channels)))
             channel.set_property('delta', .0005)
+
+        assert channel is not None
+
+        if isinstance(properties, dict) and properties:
+            for key, value in properties.items():
+                channel.set_property(key, value)
 
         self.channels.append(channel)

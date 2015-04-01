@@ -4,8 +4,8 @@ from src.server.control.base.baseserver import BaseServer
 from project.settings import COMMAND_SPLITER
 from PyQt4.QtCore import QString
 
-class ControlServer(BaseServer):
 
+class ControlServer(BaseServer):
     def __init__(self, argv, host, port):
         super(ControlServer, self).__init__(argv, host, port)
 
@@ -28,9 +28,11 @@ class ControlServer(BaseServer):
     def _command_managers(self, client, command, message):
         assert self.users
         data = str(
-            [info for key, info in self.users.items() if info.get('type') == 'manager'])
-        [self.send_message(x, 'RAW', data) for x, info in self.users.items() if info.get(
-            'type') == 'guiclient']
+            [info for key, info in self.users.items() if
+             info.get('type') == 'manager'])
+        [self.send_message(x, 'RAW', data) for x, info in self.users.items() if
+         info.get(
+             'type') == 'guiclient']
 
     def _command_set_type(self, client, command, message):
         assert self.users

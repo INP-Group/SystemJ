@@ -22,6 +22,6 @@ class BaseControl(QApplication):
     def _debug_off(self):
         self.is_debug = False
 
-    def _log(self, *args, **kwargs):
+    def _log(self, args):
         if self.is_debug:
-            print args, kwargs
+            print args
