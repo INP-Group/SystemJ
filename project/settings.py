@@ -9,7 +9,7 @@ def check_and_create(folder):
 
 
 DEPLOY = True
-
+LOG = False
 PROJECT_DIR = os.path.abspath(
     os.path.join(os.path.dirname(os.path.abspath(__file__)),
                  os.pardir))

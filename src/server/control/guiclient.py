@@ -3,7 +3,7 @@
 import datetime
 
 from project.settings import COMMAND_SPLITER
-from project.settings import SIZEOF_UINT32
+from project.settings import SIZEOF_UINT32, LOG
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *
@@ -28,7 +28,7 @@ class GuiClient(QDialog):
         self.server_port = port
 
         self.commands = {}
-        self.is_debug = True
+        self.is_debug = LOG
 
         self._add_command('ECHO', self._command_echo)
         self._add_command('RAW', self._command_echo)

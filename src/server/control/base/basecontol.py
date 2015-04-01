@@ -3,6 +3,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *
+from project.settings import LOG
 
 
 class BaseControl(QApplication):
@@ -11,7 +12,7 @@ class BaseControl(QApplication):
         super(BaseControl, self).__init__(argv)
 
         self.commands = {}
-        self.is_debug = True
+        self.is_debug = LOG
 
     def _add_command(self, name, func):
         self.commands[QString(name)] = func
