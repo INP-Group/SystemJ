@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 from src.server.control.base.baseserver import BaseServer
-
+from project.settings import COMMAND_SPLITER
+from PyQt4.QtCore import QString
 
 class ControlServer(BaseServer):
 
@@ -11,8 +12,8 @@ class ControlServer(BaseServer):
         self._add_command('USER_LIST', self._command_users)
         self._add_command('MANAGER_LIST', self._command_managers)
         self._add_command('SET_TYPE', self._command_set_type)
-        # self._add_command('CHL_ADD', self._command_channel_add)
         self._add_command('CHL_LIST', self._command_users)
+        self._add_command('FROM_FILE', self._command_from_file)
 
         self.manager_commands = [
             'CHL_ADD',
@@ -50,3 +51,17 @@ class ControlServer(BaseServer):
             if info.get('type') == 'manager':
                 self.send_message(client, 'CHL_ADD', message)
                 break
+
+    def _command_from_file(self, client, command, message):
+        commands = message.split("\n")
+        commands = list(filter(lambda x: COMMAND_SPLITER in x, commands))
+        for command in commands:
+            command, message = [y.strip() for y in str(command).split('|||')]
+            if command == 'SET_TYPE':
+                self._command_set_type(client, command, message)
+            elif QString(command) in self.manager_commands:
+                self._command_send_to_manager(client, command, message)
+            elif QString(command) in self.commands:
+                self.commands.get(QString(command))(client, command, message)
+            else:
+                print("Not found command", command, message)

@@ -197,11 +197,16 @@ class GuiClient(QDialog):
         assert os.path.exists(message)
 
         with open(message, 'r') as fio:
-            # не работает
-            # сервер не верно такие посылки обрабатывает
-            commands = fio.readlines()
-            res = [y.strip() for x in commands for y in x.split('|||')]
-            for i in xrange(len(res) / 2):
-                self.send_message(res[i * 2], res[i * 2 + 1])
-                time.sleep(1)
+            text = fio.read()
+        self.update_gui("%s : %s" % (command, message))
+        self.send_message("FROM_FILE", text)
+
+        # with open(message, 'r') as fio:
+        #     # не работает
+        #     # сервер не верно такие посылки обрабатывает
+        #     commands = fio.readlines()
+        #     res = [y.strip() for x in commands for y in x.split('|||')]
+        #     for i in xrange(len(res) / 2):
+        #         self.send_message(res[i * 2], res[i * 2 + 1])
+        #         time.sleep(1)
 
