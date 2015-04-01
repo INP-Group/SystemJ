@@ -1,23 +1,23 @@
 # -*- encoding: utf-8 -*-
 
 
-from src.channels.deltachannel import DeltaChannel
-from src.channels.ntimechannel import NTimeChannel
-from src.channels.scalarchannel import ScalarChannel
-from src.channels.simplechannel import SimpleChannel
+from src.channels.deltamonitor import DeltaMonitor
+from src.channels.ntimemonitor import NTimeMonitor
+from src.channels.scalarmonitor import ScalarMonitor
+from src.channels.simplemonitor import SimpleMonitor
 
 
-class ChannelFactory(object):
+class MonitorFactory(object):
 
     def factory(type, name, personale_name=None):
-        if type == 'ScalarChannel':
-            return ScalarChannel(name, personale_name)
-        if type == 'NTimeChannel':
-            return NTimeChannel(name, personale_name)
-        if type == 'DeltaChannel':
-            return DeltaChannel(name, personale_name)
-        if type == 'SimpleChannel':
-            return SimpleChannel(name, personale_name)
+        if type == 'ScalarMonitor':
+            return ScalarMonitor(name, personale_name)
+        if type == 'NTimeMonitor':
+            return NTimeMonitor(name, personale_name)
+        if type == 'DeltaMonitor':
+            return DeltaMonitor(name, personale_name)
+        if type == 'SimpleMonitor':
+            return SimpleMonitor(name, personale_name)
 
         assert 0, 'Bad shape creation: ' + type
 

@@ -3,10 +3,10 @@
 
 import datetime
 
-from src.base.channel import Channel
+from src.base.channel import Monitor
 
 
-class SimpleChannel(Channel):
+class SimpleMonitor(Monitor):
 
     def processing(self, *args):
         now_time = str(datetime.datetime.now())

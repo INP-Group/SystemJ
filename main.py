@@ -4,7 +4,7 @@ import sys
 
 import project.settings
 from research.manager.manager import WorkerManager
-from src.channels.simplechannel import SimpleChannel
+from src.channels.simplemonitor import SimpleMonitor
 
 if not project.settings.DEPLOY:
     import DLFCN
@@ -38,8 +38,8 @@ def start():
     mainwidow = MainWindow()
     mainwidow.show()
 
-    # scal = ScalarChannel("linvac.vacmatrix.Imes0")
-    scal = SimpleChannel('linthermcan.ThermosM.in0')
+    # scal = ScalarMonitor("linvac.vacmatrix.Imes0")
+    scal = SimpleMonitor('linthermcan.ThermosM.in0')
 
     sys.exit(application.exec_())
 

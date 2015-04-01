@@ -3,13 +3,13 @@
 
 import math
 
-from basechannel import BaseChannel
+from basemonitor import BaseMonitor
 from cdr_wrapper import Cdr
 from project.settings import CDR_LIB_PATH
 from PyQt4.QtCore import *
 
 
-class BaseDataChannel(BaseChannel):
+class BaseDataMonitor(BaseMonitor):
     valueChanged = pyqtSignal(QObject, float)
     valueMeasured = pyqtSignal(QObject, float)
 

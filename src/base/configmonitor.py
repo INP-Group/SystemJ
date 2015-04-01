@@ -4,7 +4,7 @@
 import ConfigParser
 
 
-class ConfigChannel(object):
+class ConfigMonitor(object):
 
     def __init__(self):
         self.config = ConfigParser.ConfigParser()

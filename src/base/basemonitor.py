@@ -3,7 +3,7 @@
 from PyQt4.QtCore import QObject
 
 
-class BaseChannel(QObject):
+class BaseMonitor(QObject):
     name = 'basechannel'
 
     def __init__(self):

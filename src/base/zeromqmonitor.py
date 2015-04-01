@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
 
 import zmq
-from basechannel import BaseChannel
+from basemonitor import BaseMonitor
 from project.settings import ZEROMQ_HOST
 from project.settings import ZEROMQ_PORT
 
 
-class ZeroMQChannel(BaseChannel):
+class ZeroMQMonitor(BaseMonitor):
 
     def __init__(self, host=ZEROMQ_HOST, port=ZEROMQ_PORT):
-        super(ZeroMQChannel, self).__init__()
+        super(ZeroMQMonitor, self).__init__()
         self.host = host
         self.port = port
 

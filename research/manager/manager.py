@@ -7,7 +7,7 @@ from PyQt4 import QtGui
 
 from PyQt4.QtGui import QStandardItem
 from PyQt4.QtGui import QStandardItemModel
-from src.base.channellfactory import ChannelFactory
+from src.base.channellfactory import MonitorFactory
 from research.manager.managerui import Ui_MainWindow as ManagerUI
 
 
@@ -54,13 +54,13 @@ class WorkerWidget(QtGui.QWidget):
 
         self.gridLayout = QtGui.QGridLayout(self)
         self.gridLayout.setObjectName('gridLayout')
-        self.PBAddChannel = QtGui.QPushButton(self)
-        self.PBAddChannel.setObjectName('pushButton')
-        self.PBAddChannel.setText('Add new random channel')
-        self.gridLayout.addWidget(self.PBAddChannel, 0, 0, 1, 1)
-        self.tVChannells = QtGui.QListView(self)
-        self.tVChannells.setObjectName('tVChannells')
-        self.gridLayout.addWidget(self.tVChannells, 0, 1, 2, 1)
+        self.PBAddMonitor = QtGui.QPushButton(self)
+        self.PBAddMonitor.setObjectName('pushButton')
+        self.PBAddMonitor.setText('Add new random channel')
+        self.gridLayout.addWidget(self.PBAddMonitor, 0, 0, 1, 1)
+        self.tVMonitors = QtGui.QListView(self)
+        self.tVMonitors.setObjectName('tVMonitors')
+        self.gridLayout.addWidget(self.tVMonitors, 0, 1, 2, 1)
         spacerItem = QtGui.QSpacerItem(
             20,
             242,
@@ -69,22 +69,22 @@ class WorkerWidget(QtGui.QWidget):
         self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
 
         self.connect(
-            self.PBAddChannel,
+            self.PBAddMonitor,
             QtCore.SIGNAL('clicked()'),
-            self.addChannell)
+            self.addMonitor)
 
-    def addChannell(self):
+    def addMonitor(self):
         self.worker.add_channel(
-            random.choice(['ScalarChannel', 'NTimeChannel', 'DeltaChannel']))
+            random.choice(['ScalarMonitor', 'NTimeMonitor', 'DeltaMonitor']))
 
         channels = self.worker.get_channels()
-        model = QStandardItemModel(self.tVChannells)
+        model = QStandardItemModel(self.tVMonitors)
 
         for x in channels:
             item = QStandardItem(x.getPName())
             model.appendRow(item)
 
-        self.tVChannells.setModel(model)
+        self.tVMonitors.setModel(model)
 
 
 class DaemonWorker(QtCore.QThread):
@@ -106,35 +106,35 @@ class DaemonWorker(QtCore.QThread):
     def __del__(self):
         self.wait()
 
-    def getChannels(self):
+    def getMonitors(self):
         return self.channels
 
     def getName(self):
         return self.name
 
-    def addchanel(self, type='ScalarChannel',
+    def addchanel(self, type='ScalarMonitor',
                   chanName='linthermcan.ThermosM.in0'):
 
         # todo
-        type = 'ScalarChannel'
+        type = 'ScalarMonitor'
 
         channel = ''
 
-        if type == 'ScalarChannel':
-            channel = ChannelFactory.factory(
+        if type == 'ScalarMonitor':
+            channel = MonitorFactory.factory(
                 type, chanName, '%s - %s' %
                 (self.name, len(
                     self.channels)))
 
-        if type == 'NTimeChannel':
-            channel = ChannelFactory.factory(
+        if type == 'NTimeMonitor':
+            channel = MonitorFactory.factory(
                 type, chanName, '%s - %s' %
                 (self.name, len(
                     self.channels)))
             channel.set_property('timedelta', 5.0)
 
-        if type == 'DeltaChannel':
-            channel = ChannelFactory.factory(
+        if type == 'DeltaMonitor':
+            channel = MonitorFactory.factory(
                 type, chanName, '%s - %s' %
                 (self.name, len(
                     self.channels)))

@@ -4,16 +4,16 @@
 import datetime
 import os
 
-from basedatachannel import BaseDataChannel
+from basedatamonitor import BaseDataMonitor
 from project.settings import LOG_FOLDER
-from src.base.zeromqchannel import ZeroMQChannel
+from src.base.zeromqmonitor import ZeroMQMonitor
 
 
-class Channel(BaseDataChannel, ZeroMQChannel):
+class Monitor(BaseDataMonitor, ZeroMQMonitor):
 
     def __init__(self, name, personal_name=None):
-        BaseDataChannel.__init__(self, name, personal_name)
-        ZeroMQChannel.__init__(self)
+        BaseDataMonitor.__init__(self, name, personal_name)
+        ZeroMQMonitor.__init__(self)
 
         self.valueChanged.connect(self.processing)
 

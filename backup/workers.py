@@ -8,7 +8,7 @@
 # this is a testing module, and almost everything in here is just there to make the script work
 # the relevant issues for the testing are noted in comments
 
-from src.channels.scalarchannel import ScalarChannel
+from src.channels.scalarmonitor import ScalarMonitor
 
 from PyQt4 import QtCore, QtGui
 import time
@@ -206,9 +206,9 @@ class Testobject2 (QtGui.QWidget):
         self.connect(
             self.buttonDaemon2,
             QtCore.SIGNAL('clicked()'),
-            self.addChannell)
+            self.addMonitor)
 
-    def addChannell(self):
+    def addMonitor(self):
         self.thread.addchanel()
 
     # the problem begins below: I'm not using signals, or queue, or whatever,
@@ -255,7 +255,7 @@ class DaemonWorker(QtCore.QThread):
             self.thread_to_run(mode='continue')
 
     def addchanel(self):
-        self.channels.append(ScalarChannel('linthermcan.ThermosM.in0'))
+        self.channels.append(ScalarMonitor('linthermcan.ThermosM.in0'))
 
     # stop = QtCore.pyqtSignal(int) # part of proposed solution
 

@@ -4,10 +4,10 @@
 import datetime
 import math
 
-from src.base.channel import Channel
+from src.base.channel import Monitor
 
 
-class DeltaChannel(Channel):
+class DeltaMonitor(Monitor):
 
     def processing(self, *args):
         now_time = str(datetime.datetime.now())

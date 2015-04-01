@@ -4,7 +4,7 @@ import sys
 
 import project.settings
 from project.settings import SIZEOF_UINT32
-from src.base.channellfactory import ChannelFactory
+from src.base.channellfactory import MonitorFactory
 from src.server.control.consoleclient import ConsoleClient
 
 if not project.settings.DEPLOY:
@@ -73,7 +73,7 @@ class Manager(ConsoleClient):
 
             self._log('Added channel')
         else:
-            self._log('Channel already exist')
+            self._log('Monitor already exist')
 
     def _command_worker_add(self, command, message):
         assert command
@@ -117,28 +117,28 @@ class DaemonWorker(QThread):
     def get_name(self):
         return self.name
 
-    def add_channel(self, type='ScalarChannel',
+    def add_channel(self, type='ScalarMonitor',
                     chanName='linthermcan.ThermosM.in0',
                     properties=None):
 
         # todo
-        type = 'ScalarChannel'
+        type = 'ScalarMonitor'
         channel = None
-        if type == 'ScalarChannel':
-            channel = ChannelFactory.factory(
+        if type == 'ScalarMonitor':
+            channel = MonitorFactory.factory(
                 type, chanName, '%s - %s' %
                 (self.name, len(
                     self.channels)))
 
-        if type == 'NTimeChannel':
-            channel = ChannelFactory.factory(
+        if type == 'NTimeMonitor':
+            channel = MonitorFactory.factory(
                 type, chanName, '%s - %s' %
                 (self.name, len(
                     self.channels)))
             channel.set_property('timedelta', 5.0)
 
-        if type == 'DeltaChannel':
-            channel = ChannelFactory.factory(
+        if type == 'DeltaMonitor':
+            channel = MonitorFactory.factory(
                 type, chanName, '%s - %s' %
                 (self.name, len(
                     self.channels)))

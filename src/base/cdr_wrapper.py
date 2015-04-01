@@ -117,7 +117,7 @@ class CdrWrapper(object):
             private_params)
         if ret < 0:
             raise Exception(
-                'Error while Registering Simple Channel Callback, errcode: %s' %
+                'Error while Registering Simple Monitor Callback, errcode: %s' %
                 ret)
 
         # We need to keep reference to c_callbacks or Garbage Collector will
@@ -130,7 +130,7 @@ class CdrWrapper(object):
         return ret
 
     def SetSimpleChanVal(self, handle, val):
-        """Sets Simple Channel Value by handle.
+        """Sets Simple Monitor Value by handle.
 
         handle - int, id of the channel
         val - double, value to set
@@ -145,12 +145,12 @@ class CdrWrapper(object):
             val)  # TODO: check if ret is ctypec.c_int
         if ret != 0:
             raise Exception(
-                'Error while Setting Simple Channel Value, errcode: %s' %
+                'Error while Setting Simple Monitor Value, errcode: %s' %
                 ret)
         return ret
 
     def GetSimpleChanVal(self, handle):
-        """Returns Simple Channel Value, gotten by handle.
+        """Returns Simple Monitor Value, gotten by handle.
 
         handle - int, id of the channel
 
@@ -164,7 +164,7 @@ class CdrWrapper(object):
         ret = self.library.CdrGetSimpleChanVal(handle, ctypes.byref(val))
         if ret != 0:
             raise Exception(
-                'Error while Getting Simple Channel Value, errcode: %s' %
+                'Error while Getting Simple Monitor Value, errcode: %s' %
                 ret)
         return val.value
 

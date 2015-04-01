@@ -40,7 +40,7 @@ class Stack(object):
         return self.__storage.pop()
 
 
-class Channel(object):
+class Monitor(object):
 
     def __init__(self, name, number):
         self.name = name
@@ -65,7 +65,7 @@ class Device(object):
         self.stopV = 1
 
     def addch(self, *args):
-        self.channels.append(Channel(args[0], args[1]))
+        self.channels.append(Monitor(args[0], args[1]))
         self.chV += 1
 
 

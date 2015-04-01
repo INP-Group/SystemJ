@@ -4,10 +4,10 @@
 import datetime
 import math
 import time
-from src.base.channel import Channel
+from src.base.channel import Monitor
 
 
-class ScalarChannel(Channel):
+class ScalarMonitor(Monitor):
 
     def processing(self, *args):
         now = time.time()
