@@ -5,6 +5,7 @@ import random
 import uuid
 
 import psycopg2
+from project.settings import LOG
 from src.base.singleton import Singleton
 
 
@@ -59,7 +60,8 @@ class PostgresqlStorage(Singleton):
 
         def copy(*values):
 
-            print 'Copy'
+            if LOG:
+                print 'Copy'
 
             temp_folder = '/tmp/temp_copy_files'
             unique_filename = str(uuid.uuid4())

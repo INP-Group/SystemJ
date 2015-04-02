@@ -35,10 +35,8 @@ class BaseServer(BaseControl):
             self.exec_()
             return
 
-        self._log(
-            'The server is running on port {0}.'.format(
+        print 'The server is running on port {0}.'.format(
                 self.tcp_server.serverPort())
-            + '\nRun the Fortune Client example now.')
 
         self.connect(self.tcp_server, SIGNAL('newConnection()'),
                      self.new_connection)

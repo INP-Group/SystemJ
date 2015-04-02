@@ -5,7 +5,7 @@ import datetime
 import os
 
 from basedatamonitor import BaseDataMonitor
-from project.settings import LOG_FOLDER
+from project.settings import LOG_FOLDER, LOG
 from src.base.zeromqmonitor import ZeroMQMonitor
 
 
@@ -30,7 +30,8 @@ class Monitor(BaseDataMonitor, ZeroMQMonitor):
     def default_log(self, text):
         with open(os.path.join(LOG_FOLDER, 'default_log.log'), 'a') as f:
             f.write('%s\n' % self.get_message(text))
-            print self.get_message(text)
+            if LOG:
+                print self.get_message(text)
 
     def default_form(self, args):
         return '\t'.join(str(v).replace("'", '') for v in args)
