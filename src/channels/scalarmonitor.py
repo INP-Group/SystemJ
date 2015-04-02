@@ -34,6 +34,7 @@ class ScalarMonitor(Monitor):
             if handle is not None:
                 if self.ch_prev_value is None:
                     self.ch_prev_value = self.ch_now_value
+
                 self.ch_now_value = handle
 
                 if self.ch_prev_value is None:
@@ -42,6 +43,10 @@ class ScalarMonitor(Monitor):
                 fl = math.fabs(self.ch_prev_value - self.ch_now_value) > \
                      self.get_property('delta')
                 if self.ch_prev_value is not None and fl:
+                    self.send_message(self.default_form(
+                        [self.name, self.personal_name, self.ch_prev_value,
+                         now_time]))
+
                     self.ch_prev_value = self.ch_now_value
 
                     self.send_message(self.default_form(
