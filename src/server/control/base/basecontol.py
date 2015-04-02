@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 
+from project.settings import LOG
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *
-from project.settings import LOG
 
 
 class BaseControl(QApplication):

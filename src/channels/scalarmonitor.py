@@ -4,6 +4,7 @@
 import datetime
 import math
 import time
+
 from src.base.channel import Monitor
 
 
@@ -13,16 +14,16 @@ class ScalarMonitor(Monitor):
         now = time.time()
         now_time = str(datetime.datetime.now())
         handle, val, params = self._gfa(args, 1), \
-                              self._gfa(args, 2), \
-                              self._gfa(args, 3)
+            self._gfa(args, 2), \
+            self._gfa(args, 3)
         text = '(%s), %s %s %s' % (self.personal_name, handle, val, params)
 
         if self.get_property('timedelta') is not None:
             if now - self.start_time > self.get_property('timedelta'):
                 self.start_time = now
                 handle, val, params = self._gfa(args, 1), \
-                                      self._gfa(args, 2), \
-                                      self._gfa(args, 3)
+                    self._gfa(args, 2), \
+                    self._gfa(args, 3)
 
                 self.send_message(self.default_form([self.name,
                                                      self.personal_name,
@@ -41,7 +42,7 @@ class ScalarMonitor(Monitor):
                     self.ch_prev_value = self.ch_now_value
 
                 fl = math.fabs(self.ch_prev_value - self.ch_now_value) > \
-                     self.get_property('delta')
+                    self.get_property('delta')
                 if self.ch_prev_value is not None and fl:
                     self.send_message(self.default_form(
                         [self.name, self.personal_name, self.ch_prev_value,

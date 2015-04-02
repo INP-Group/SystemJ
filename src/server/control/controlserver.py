@@ -1,11 +1,12 @@
 # -*- encoding: utf-8 -*-
 
-from src.server.control.base.baseserver import BaseServer
 from project.settings import COMMAND_SPLITER
 from PyQt4.QtCore import QString
+from src.server.control.base.baseserver import BaseServer
 
 
 class ControlServer(BaseServer):
+
     def __init__(self, argv, host, port):
         super(ControlServer, self).__init__(argv, host, port)
 
@@ -55,7 +56,7 @@ class ControlServer(BaseServer):
                 break
 
     def _command_from_file(self, client, command, message):
-        commands = message.split("\n")
+        commands = message.split('\n')
         commands = list(filter(lambda x: COMMAND_SPLITER in x, commands))
         for command in commands:
             command, message = [y.strip() for y in str(command).split('|||')]
@@ -66,4 +67,4 @@ class ControlServer(BaseServer):
             elif QString(command) in self.commands:
                 self.commands.get(QString(command))(client, command, message)
             else:
-                print("Not found command", command, message)
+                print('Not found command', command, message)

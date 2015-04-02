@@ -1,15 +1,16 @@
 # -*- encoding: utf-8 -*-
+import datetime
 import os
 
-from src.storage.postgresql import PostgresqlStorage
-from project.settings import POSTGRESQL_DB, RES_FOLDER
+import matplotlib.pyplot as plt
+
+from project.settings import POSTGRESQL_DB
 from project.settings import POSTGRESQL_HOST
 from project.settings import POSTGRESQL_PASSWORD
 from project.settings import POSTGRESQL_TABLE
 from project.settings import POSTGRESQL_USER
-import datetime
-
-import matplotlib.pyplot as plt
+from project.settings import RES_FOLDER
+from src.storage.postgresql import PostgresqlStorage
 
 
 def get_data_from_storage(channels, time_start, time_end):
@@ -19,7 +20,7 @@ def get_data_from_storage(channels, time_start, time_end):
                                 tablename=POSTGRESQL_TABLE,
                                 host=POSTGRESQL_HOST)
 
-    format = "%Y-%m-%d %H:%M:%S"
+    format = '%Y-%m-%d %H:%M:%S'
     time_start = time_start.strftime(format)
     time_end = time_end.strftime(format)
     data = storage.get_data(channels=channels, time_start=time_start,
@@ -96,7 +97,7 @@ def main():
         try:
             info_for_plot = prepare_data(value)
 
-            name = "%s_%s_%s" % (key, time_start, time_end)
+            name = '%s_%s_%s' % (key, time_start, time_end)
             show_plot(info_for_plot, name)
         except (TypeError, IndexError) as e:
             print(key, e)

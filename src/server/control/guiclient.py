@@ -1,14 +1,15 @@
 # -*- encoding: utf-8 -*-
 
 import datetime
+import os
 
 from project.settings import COMMAND_SPLITER
-from project.settings import SIZEOF_UINT32, LOG
+from project.settings import LOG
+from project.settings import SIZEOF_UINT32
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *
-import os
-import time
+
 
 class GuiClient(QDialog):
 
@@ -36,7 +37,7 @@ class GuiClient(QDialog):
         self._add_command('HI', self._command_set_type)
 
         self.local_commands = {
-            "FROM_FILE": self._command_from_file,
+            'FROM_FILE': self._command_from_file,
         }
 
         self._init_socket()
@@ -198,5 +199,5 @@ class GuiClient(QDialog):
 
         with open(message, 'r') as fio:
             text = fio.read()
-        self.update_gui("%s : %s" % (command, message))
-        self.send_message("FROM_FILE", text)
+        self.update_gui('%s : %s' % (command, message))
+        self.send_message('FROM_FILE', text)
