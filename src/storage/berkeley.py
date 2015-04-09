@@ -89,9 +89,10 @@ class BerkeleyStorage(Singleton):
             values = []
             for x in xrange(self.stored_id, self.stored_id + self.move_number):
                 try:
-                    info = self.database.get('%s' % x).split('\t')
-                    values.append([info[0], info[3], info[2]])
-                    self.database.delete('%s' % x)
+                    if self.database.get('%s' % x):
+                        info = self.database.get('%s' % x).split('\t')
+                        values.append([info[0], info[3], info[2]])
+                        self.database.delete('%s' % x)
                 except AttributeError as e:
                     print e, x, self.database.get('%s' % x)
 
