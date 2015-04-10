@@ -6,7 +6,7 @@ DROP TABLE datachannel CASCADE;
 CREATE TABLE datachannel (
    channel_name    TEXT NOT NULL,
    time          TIMESTAMP NOT NULL,
-   value         REAL
+   value         DOUBLE PRECISION
 );
 
 
