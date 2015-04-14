@@ -4,7 +4,7 @@ import os
 
 import matplotlib.pyplot as plt
 
-from project.settings import POSTGRESQL_DB
+from project.settings import POSTGRESQL_DB, MEDIA_FOLDER, check_and_create
 from project.settings import POSTGRESQL_HOST
 from project.settings import POSTGRESQL_PASSWORD
 from project.settings import POSTGRESQL_TABLE
@@ -46,7 +46,7 @@ def show_plot(data, name):
     plt.ylabel('Values')
     plt.plot(x_val, y_val)
     plt.plot(x_val, y_val, 'or')
-    plt.savefig(os.path.join(RES_FOLDER, 'plots', '%s.png' % name))
+    plt.savefig(os.path.join(MEDIA_FOLDER, 'plots', '%s.png' % name))
     plt.clf()
     plt.cla()
     # plt.show()
@@ -99,6 +99,7 @@ def main():
                                  microsecond=0)
 
     data_of_channels = get_data_from_storage(channels, time_start, time_end)
+    check_and_create(os.path.join(MEDIA_FOLDER, 'plots'))
 
     for key, value in data_of_channels.items():
         try:
