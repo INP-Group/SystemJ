@@ -5,7 +5,8 @@ import datetime
 import os
 
 from basedatamonitor import BaseDataMonitor
-from project.settings import LOG_FOLDER, LOG
+from project.settings import LOG
+from project.settings import LOG_FOLDER
 from src.base.zeromqmonitor import ZeroMQMonitor
 
 

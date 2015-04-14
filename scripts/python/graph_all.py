@@ -10,11 +10,13 @@ import os
 
 import matplotlib.pyplot as plt
 
-from project.settings import POSTGRESQL_DB, MEDIA_FOLDER, check_and_create
+from project.settings import MEDIA_FOLDER
+from project.settings import POSTGRESQL_DB
 from project.settings import POSTGRESQL_HOST
 from project.settings import POSTGRESQL_PASSWORD
 from project.settings import POSTGRESQL_TABLE
 from project.settings import POSTGRESQL_USER
+from project.settings import check_and_create
 from src.storage.postgresql import PostgresqlStorage
 
 
@@ -60,7 +62,9 @@ def show_plot(data, name):
 def prepare_data(data):
     times = []
     values = []
-    prev_time = data[0][0] if isinstance(data[0][0], datetime.datetime) else None
+    prev_time = data[0][0] if isinstance(
+        data[0][0],
+        datetime.datetime) else None
     prev_value = data[0][1] if isinstance(data[0][1], (float, int)) else None
 
     assert prev_value is not None

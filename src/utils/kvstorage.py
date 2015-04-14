@@ -2,7 +2,6 @@
 import os
 
 import pickledb
-
 from project.settings import DB_FOLDER
 
 

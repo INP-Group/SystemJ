@@ -36,7 +36,7 @@ class BaseServer(BaseControl):
             return
 
         print 'The server is running on port {0}.'.format(
-                self.tcp_server.serverPort())
+            self.tcp_server.serverPort())
 
         self.connect(self.tcp_server, SIGNAL('newConnection()'),
                      self.new_connection)
