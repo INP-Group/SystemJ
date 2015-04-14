@@ -100,3 +100,7 @@ class PostgresqlStorage(Singleton):
             time_start, time_end)
         self.cursor.execute(sql)
         return self.cursor.fetchall()
+
+    def raw_sql(self, sql):
+        self.cursor.execute(sql)
+        return self.cursor.fetchall()

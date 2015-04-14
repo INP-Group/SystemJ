@@ -1,5 +1,4 @@
 
-
 ## Эксплуатация
 
 
@@ -13,3 +12,10 @@
     python scripts/python/add_channels.py
     ```
     Этот скрипт добавит все нужные записи в нужные файлы
+
+
+Чтобы обновить файлы со списком каналов запустите скрипт
+
+```bash
+python scripts/python/update_channels.py
+```
