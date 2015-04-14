@@ -11,7 +11,7 @@ from src.base.basedatamonitor import BaseDataMonitor
 from src.base.zeromqmonitor import ZeroMQMonitor
 
 
-class FakeMonitor(BaseDataMonitor, ZeroMQMonitor):
+class TestMonitor(BaseDataMonitor, ZeroMQMonitor):
     def __init__(self, name, personal_name=None):
         BaseDataMonitor.__init__(self, name, personal_name)
         ZeroMQMonitor.__init__(self)

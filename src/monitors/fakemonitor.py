@@ -3,10 +3,10 @@
 
 import datetime
 
-from src.base.monitor import FakeMonitor
+from src.base.monitor import TestMonitor
 
 
-class SimpleCXMonitor(FakeMonitor):
+class FakeMonitor(TestMonitor):
 
     def processing(self, *args):
         now_time = str(datetime.datetime.now())
