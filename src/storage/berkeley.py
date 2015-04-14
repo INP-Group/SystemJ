@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 import os
-
 from bsddb3 import db
+
 from project.settings import DB_FOLDER
 from project.settings import POSTGRESQL_DB
 from project.settings import POSTGRESQL_HOST
@@ -11,7 +11,7 @@ from project.settings import POSTGRESQL_TABLE
 from project.settings import POSTGRESQL_USER
 from src.base.singleton import Singleton
 from src.storage.postgresql import PostgresqlStorage
-
+from src.utils.kvstorage import get
 
 class GeneratorId(Singleton):
     curid = 0
@@ -63,6 +63,8 @@ class BerkeleyStorage(Singleton):
         self.id = len(self.database)
         self.generator.setId(self.id)
 
+        self.get_id = get
+
     def __del__(self):
         self.database.close()
 
@@ -91,7 +93,11 @@ class BerkeleyStorage(Singleton):
                 try:
                     if self.database.get('%s' % x):
                         info = self.database.get('%s' % x).split('\t')
-                        values.append([info[0], info[3], info[2]])
+                        channel_id = self.get_id(info[0])
+                        if channel_id is None:
+                            raise Exception(
+                                "Not found channel_name in kvstorage")
+                        values.append([channel_id, info[3], info[2]])
                         self.database.delete('%s' % x)
                 except AttributeError as e:
                     print e, x, self.database.get('%s' % x)
