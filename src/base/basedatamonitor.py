@@ -30,6 +30,5 @@ class BaseDataMonitor(BaseMonitor):
     def processing(self, *args):
         raise NotImplemented('Callback')
 
-
     def setTolerance(self, tolerance):
         self.tolerance = tolerance

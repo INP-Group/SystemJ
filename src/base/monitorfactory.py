@@ -1,10 +1,11 @@
 # -*- encoding: utf-8 -*-
 
+from src.monitors.fakemonitor import FakeMonitor
 
-from src.channels.deltamonitor import DeltaCXMonitor
-from src.channels.ntimemonitor import NTimeCXMonitor
-from src.channels.scalarmonitor import ScalarCXMonitor
-from src.channels.simplemonitor import SimpleCXMonitor
+from src.monitors.deltamonitor import DeltaCXMonitor
+from src.monitors.ntimemonitor import NTimeCXMonitor
+from src.monitors.scalarmonitor import ScalarCXMonitor
+from src.monitors.simplemonitor import SimpleCXMonitor
 
 
 class MonitorFactory(object):
@@ -19,6 +20,8 @@ class MonitorFactory(object):
             return DeltaCXMonitor(name, personale_name)
         if monitor_type == 'SimpleMonitor':
             return SimpleCXMonitor(name, personale_name)
+        if monitor_type == 'FakeMonitor':
+            return FakeMonitor(name, personale_name)
 
         assert 0, 'Bad shape creation: ' + monitor_type
 
