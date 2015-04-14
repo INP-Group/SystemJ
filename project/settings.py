@@ -20,14 +20,6 @@ MEDIA_FOLDER = os.path.join(PROJECT_DIR, 'media')
 LOG_FOLDER = os.path.join(MEDIA_FOLDER, 'logs')
 DB_FOLDER = os.path.join(RES_FOLDER, 'dbs')
 
-
-check_and_create(os.path.join(RES_FOLDER, 'plots'))
-check_and_create(MEDIA_FOLDER)
-check_and_create(RES_FOLDER)
-check_and_create(LOG_FOLDER)
-check_and_create(DB_FOLDER)
-
-
 CDR_LIB_PATH = os.path.join(RES_FOLDER, 'libs', 'libCdr4PyQt.so')
 
 ZEROMQ_HOST = '127.0.0.1'
@@ -55,5 +47,13 @@ SIZEOF_UINT32 = 4
 
 COMMAND_SPLITER = '|||'
 
+try:
+    from project.local_settings import *
+except ImportError:
+    pass
 
-from project.local_settings import *
+check_and_create(os.path.join(RES_FOLDER, 'plots'))
+check_and_create(MEDIA_FOLDER)
+check_and_create(RES_FOLDER)
+check_and_create(LOG_FOLDER)
+check_and_create(DB_FOLDER)

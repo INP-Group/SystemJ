@@ -20,3 +20,8 @@ psycopg2
 pyOpenSSL
 
 matplotlib
+
+
+# key-value: simple
+# pickledb
+git+https://github.com/WarmongeR1/pickledb.git
