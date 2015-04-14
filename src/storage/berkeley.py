@@ -97,7 +97,7 @@ class BerkeleyStorage(Singleton):
                         if channel_id is None:
                             raise Exception(
                                 "Not found channel_name in kvstorage")
-                        values.append([channel_id, info[3], info[2]])
+                        values.append([info[3], info[2], channel_id])
                         self.database.delete('%s' % x)
                 except AttributeError as e:
                     print e, x, self.database.get('%s' % x)

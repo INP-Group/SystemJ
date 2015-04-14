@@ -14,9 +14,9 @@ CREATE TABLE channels
 
 
 CREATE TABLE datachannel (
-   channel_id    INTEGER references channels(id),
    time          TIMESTAMP NOT NULL,
    value         DOUBLE PRECISION
+   channel_id    INTEGER references channels(id),
 );
 
 
