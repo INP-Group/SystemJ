@@ -1,14 +1,6 @@
 
-CREATE DATABASE journal_database;
 
-DROP TABLE datachannel CASCADE;
-
-CREATE TABLE datachannel (
-   channel_name    TEXT NOT NULL,
-   time          TIMESTAMP NOT NULL,
-   value         DOUBLE PRECISION
-);
-
+\c journal_database;
 
 CREATE OR REPLACE FUNCTION insert_data_trigger()
     RETURNS TRIGGER AS
