@@ -25,3 +25,11 @@ CREATE TABLE datachannel (
 -- INSERT INTO test_datachannel (channel_id, time, value) VALUES (4, '2015-02-16 20:10:01.709486', 180.089);
 
 
+-- ALTER TABLE datachannel ADD COLUMN channel_id INTEGER references channels(id);
+-- UPDATE datachannel
+-- SET channel_id = channels.id
+-- FROM channels
+-- WHERE datachannel.channel_name = channels.channel_name;
+-- ALTER TABLE datachannel DROP COLUMN channel_name;
+-- vacuum verbose analyze;
+-- vacuum full;
