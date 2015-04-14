@@ -4,10 +4,10 @@
 import datetime
 import time
 
-from src.base.channel import Monitor
+from src.base.monitor import CXMonitor
 
 
-class NTimeMonitor(Monitor):
+class NTimeCXMonitor(CXMonitor):
 
     def processing(self, *args):
         now = time.time()

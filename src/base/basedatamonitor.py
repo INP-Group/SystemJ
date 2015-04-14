@@ -4,8 +4,6 @@
 import math
 
 from basemonitor import BaseMonitor
-from cdr_wrapper import Cdr
-from project.settings import CDR_LIB_PATH
 from PyQt4.QtCore import *
 
 
@@ -21,10 +19,6 @@ class BaseDataMonitor(BaseMonitor):
             self.personal_name = personal_name
         # todo hardcode
         self.name = name
-        self.cdr = Cdr(CDR_LIB_PATH)
-        # self.cdr = Cdr()
-        self.cx_chan = self.cdr.RegisterSimpleChan(name, self.callback)
-
         self.prev_val = 0.0  # value to compare with just received
         self.val = 0.0
         self.tolerance = 0.0
@@ -47,9 +41,6 @@ class BaseDataMonitor(BaseMonitor):
         self.valueMeasured.emit(self, self.val)
 
         return 0
-
-    def setValue(self, value):
-        self.cdr.SetSimpleChanVal(self.cx_chan, value)
 
     def setTolerance(self, tolerance):
         self.tolerance = tolerance

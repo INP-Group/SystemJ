@@ -5,10 +5,10 @@ import datetime
 import math
 import time
 
-from src.base.channel import Monitor
+from src.base.monitor import CXMonitor
 
 
-class ScalarMonitor(Monitor):
+class ScalarCXMonitor(CXMonitor):
 
     def processing(self, *args):
         now = time.time()

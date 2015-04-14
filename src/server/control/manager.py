@@ -4,7 +4,7 @@ import sys
 
 import project.settings
 from project.settings import SIZEOF_UINT32
-from src.base.channellfactory import MonitorFactory
+from src.base.monitorfactory import MonitorFactory
 from src.server.control.consoleclient import ConsoleClient
 
 if not project.settings.DEPLOY:
@@ -125,23 +125,20 @@ class DaemonWorker(QThread):
         type = 'ScalarMonitor'
         channel = None
         if type == 'ScalarMonitor':
-            channel = MonitorFactory.factory(
-                type, chanName, '%s - %s' %
-                (self.name, len(
-                    self.channels)))
+            channel = MonitorFactory.factory(type, chanName, '%s - %s' %
+                                             (self.name, len(
+                                                 self.channels)))
 
         if type == 'NTimeMonitor':
-            channel = MonitorFactory.factory(
-                type, chanName, '%s - %s' %
-                (self.name, len(
-                    self.channels)))
+            channel = MonitorFactory.factory(type, chanName, '%s - %s' %
+                                             (self.name, len(
+                                                 self.channels)))
             channel.set_property('timedelta', 5.0)
 
         if type == 'DeltaMonitor':
-            channel = MonitorFactory.factory(
-                type, chanName, '%s - %s' %
-                (self.name, len(
-                    self.channels)))
+            channel = MonitorFactory.factory(type, chanName, '%s - %s' %
+                                             (self.name, len(
+                                                 self.channels)))
             channel.set_property('delta', .0005)
 
         assert channel is not None
