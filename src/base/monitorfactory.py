@@ -9,6 +9,7 @@ from src.channels.simplemonitor import SimpleCXMonitor
 
 class MonitorFactory(object):
 
+    @staticmethod
     def factory(monitor_type, name, personale_name=None):
         if monitor_type == 'ScalarMonitor':
             return ScalarCXMonitor(name, personale_name)
@@ -21,4 +22,3 @@ class MonitorFactory(object):
 
         assert 0, 'Bad shape creation: ' + monitor_type
 
-    factory = staticmethod(factory)

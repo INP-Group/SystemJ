@@ -117,28 +117,22 @@ class DaemonWorker(QThread):
     def get_name(self):
         return self.name
 
-    def add_channel(self, type='ScalarMonitor',
+    def add_channel(self, monitor_type='ScalarMonitor',
                     chanName='linthermcan.ThermosM.in0',
                     properties=None):
 
         # todo
-        type = 'ScalarMonitor'
-        channel = None
-        if type == 'ScalarMonitor':
-            channel = MonitorFactory.factory(type, chanName, '%s - %s' %
-                                             (self.name, len(
-                                                 self.channels)))
+        monitor_type = 'ScalarMonitor'
+        if 'type' in properties:
+            monitor_type = properties.get('type')
 
-        if type == 'NTimeMonitor':
-            channel = MonitorFactory.factory(type, chanName, '%s - %s' %
+        channel = MonitorFactory.factory(monitor_type, chanName, '%s - %s' %
                                              (self.name, len(
                                                  self.channels)))
+        if monitor_type == 'NTimeMonitor':
             channel.set_property('timedelta', 5.0)
 
-        if type == 'DeltaMonitor':
-            channel = MonitorFactory.factory(type, chanName, '%s - %s' %
-                                             (self.name, len(
-                                                 self.channels)))
+        if monitor_type == 'DeltaMonitor':
             channel.set_property('delta', .0005)
 
         assert channel is not None

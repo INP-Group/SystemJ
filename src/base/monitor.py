@@ -59,11 +59,10 @@ class CXMonitor(BaseCXMonitor, ZeroMQMonitor):
         ZeroMQMonitor.__init__(self)
 
         self.valueChanged.connect(self.processing)
-
         self._post_init()
 
     def _post_init(self):
-        None
+        pass
 
     def get_message(self, text):
         return '[%s] [%s]: %s' % (datetime.datetime.now(),

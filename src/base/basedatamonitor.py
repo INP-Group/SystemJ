@@ -30,17 +30,6 @@ class BaseDataMonitor(BaseMonitor):
     def processing(self, *args):
         raise NotImplemented('Callback')
 
-    # the callback for cdr
-    def callback(self, handle, val, params):
-        self.val = val
-        if math.fabs(
-                self.val - self.prev_val) > self.tolerance or self.first_cycle:
-            self.first_cycle = False
-            self.prev_val = self.val
-            self.valueChanged.emit(self, self.val)
-        self.valueMeasured.emit(self, self.val)
-
-        return 0
 
     def setTolerance(self, tolerance):
         self.tolerance = tolerance

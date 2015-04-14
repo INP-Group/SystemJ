@@ -8,7 +8,9 @@ from PyQt4.QtCore import *
 
 
 class BaseCXMonitor(BaseDataMonitor):
-    def _post_init(self):
+
+    def __init__(self, name, personal_name=None):
+        super(BaseCXMonitor, self).__init__(name, personal_name)
         self.cdr = Cdr(CDR_LIB_PATH)
         self.cx_chan = self.cdr.RegisterSimpleChan(self.name, self.callback)
 
