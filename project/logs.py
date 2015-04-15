@@ -2,8 +2,7 @@
 """Модуль с функциями логгирования."""
 import logging
 import os
-
-from project.settings import LOG_FOLDER
+from project.settings import LOG_FOLDER, LOG
 
 LOG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
 
@@ -31,7 +30,7 @@ def __init_logger(level, file, log_format=None):
     log_obj.addHandler(__get_handler(file, level, log_format))
     # ---
     # для принтов в консоль
-    if level == logging.DEBUG:
+    if LOG and level == logging.DEBUG:
         log_obj.addHandler(__get_handler_std(level, log_format))
     # ---
     return log_obj
