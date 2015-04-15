@@ -29,3 +29,4 @@ static/
 project/local_settings.py
 /cxзшслду
 src/fedor
+deploy/supervisord

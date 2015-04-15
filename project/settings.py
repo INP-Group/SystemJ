@@ -2,26 +2,43 @@
 
 import os
 
-
-def check_and_create(folder):
-    if not os.path.exists(folder):
-        os.makedirs(folder)
-
-
 DEPLOY = True
 LOG = False
+
+USER = 'sapronov'
+VENV_FOLDER = '/home/sapronov/Develop/venv/journal'
+
+
+
+# --- folders
 PROJECT_DIR = os.path.abspath(
     os.path.join(os.path.dirname(os.path.abspath(__file__)),
                  os.pardir))
 RES_FOLDER_NAME = 'resources'
 RES_FOLDER = os.path.join(PROJECT_DIR, RES_FOLDER_NAME)
-
 MEDIA_FOLDER = os.path.join(PROJECT_DIR, 'media')
 LOG_FOLDER = os.path.join(MEDIA_FOLDER, 'logs')
 DB_FOLDER = os.path.join(RES_FOLDER, 'dbs')
+BIN_FOLDER = os.path.join(PROJECT_DIR, 'bin')
+DEPLOY_FOLDER = os.path.join(PROJECT_DIR, 'deploy')
 
+SUPERVISORD_FOLDER = os.path.join(DEPLOY_FOLDER, 'supervisord')
+VENV_ACTIVATE = os.path.join(VENV_FOLDER, 'bin/activate')
+VENV_PYTHON = os.path.join(VENV_FOLDER, 'bin/python')
+
+# --- libs
 CDR_LIB_PATH = os.path.join(RES_FOLDER, 'libs', 'libCdr4PyQt.so')
 
+
+# --- others
+
+LIST_SERVICE = [
+    'storage',
+    'manager',
+    'server',
+]
+
+# --- params
 ZEROMQ_HOST = '127.0.0.1'
 ZEROMQ_PORT = '5556'
 
@@ -30,7 +47,6 @@ SERVER_HOST = '127.0.0.1'
 
 MANAGER_TEST_PORT = 10001
 MANAGER_TEST_HOST = '127.0.0.1'
-
 
 POSTGRESQL_HOST = 'localhost'
 POSTGRESQL_DB = 'journal_database'
@@ -47,16 +63,23 @@ SIZEOF_UINT32 = 4
 
 COMMAND_SPLITER = '|||'
 
-check_and_create(os.path.join(RES_FOLDER, 'plots'))
-check_and_create(MEDIA_FOLDER)
-check_and_create(RES_FOLDER)
-check_and_create(LOG_FOLDER)
-check_and_create(DB_FOLDER)
-
 
 try:
     from project.logs import *
+    from project.functions import *
     from project.local_settings import *
 except ImportError as e:
     print(e)
 
+
+# --- create folders
+
+
+
+folders = [
+    MEDIA_FOLDER, RES_FOLDER, LOG_FOLDER, DB_FOLDER,
+    os.path.join(RES_FOLDER, 'plots'), BIN_FOLDER, DEPLOY_FOLDER,
+    SUPERVISORD_FOLDER,
+]
+
+[check_and_create(x) for x in folders]
