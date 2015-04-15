@@ -4,7 +4,7 @@ import datetime
 import os
 
 from project.settings import COMMAND_SPLITER
-from project.settings import LOG
+from project.settings import LOG, log_debug
 from project.settings import SIZEOF_UINT32
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -114,7 +114,7 @@ class GuiClient(QDialog):
         stream.setVersion(QDataStream.Qt_4_2)
         stream.writeUInt32(0)
 
-        self._log('SEND: command %s, message %s' % (command, message))
+        log_debug('SEND: command %s, message %s' % (command, message))
         stream << QString(command) << QString(message)
 
         stream.device().seek(0)
@@ -128,10 +128,6 @@ class GuiClient(QDialog):
 
     def _debug_off(self):
         self.is_debug = False
-
-    def _log(self, args):
-        if self.is_debug:
-            print args
 
     def server_has_stopped(self):
         self.socket.close()
@@ -175,7 +171,7 @@ class GuiClient(QDialog):
             command = QString()
             message = QString()
             stream >> command >> message
-            self._log('RECEIVE: command: %s, message:%s' % (command, message))
+            log_debug('RECEIVE: command: %s, message:%s' % (command, message))
 
             self.process_message(command, message)
             self.nextBlockSize = 0

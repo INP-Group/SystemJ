@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from src.server.control.base.baseclient import BaseClient
+from project.settings import log_error, log_debug
 
 
 class ConsoleClient(BaseClient):
@@ -35,10 +36,10 @@ class ConsoleClient(BaseClient):
 
     def server_has_error(self):
         self.send_message('OFFLINE', '')
-        print('Error: {}'.format(
+        log_error('Error: {}'.format(
             self.socket.errorString()))
         self.socket.close()
         self.quit()
 
     def _command_echo(self, command, message):
-        self._log('ECHO (command): %s' % message)
+        log_debug('ECHO (command): %s' % message)

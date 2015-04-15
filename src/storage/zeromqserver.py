@@ -3,7 +3,7 @@
 import threading
 
 import zmq
-from project.settings import LOG
+from project.settings import LOG, log_debug, log_info
 from project.settings import ZEROMQ_HOST
 from project.settings import ZEROMQ_PORT
 from src.storage.berkeley import BerkeleyStorage
@@ -24,12 +24,12 @@ class ZeroMQServer(threading.Thread):
 
     def start(self):
         try:
-            print('Server is started...')
+            log_info('Server is started...')
             while True:
                 message = self.sock.recv()
                 if message:
                     if LOG:
-                        print('Receive message: %s ' % message)
+                        log_debug('Receive message: %s ' % message)
                     self.berkeley_db.add(message)
                     self.sock.send('Saved')
         except KeyboardInterrupt:

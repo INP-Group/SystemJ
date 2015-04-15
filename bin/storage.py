@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from project.logs import log_info
 
 try:
     from __init__ import *
@@ -11,7 +12,7 @@ from src.storage.storage import Storage
 def start():
     storage = Storage()
     storage.start()
-    print('Server is stopped...')
+    log_info('Server is stopped...')
 
 
 if __name__ == '__main__':

@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from project.logs import log_error
 
 from project.settings import COMMAND_SPLITER
 from PyQt4.QtCore import QString
@@ -67,4 +68,4 @@ class ControlServer(BaseServer):
             elif QString(command) in self.commands:
                 self.commands.get(QString(command))(client, command, message)
             else:
-                print('Not found command', command, message)
+                log_error('Not found command', command, message)

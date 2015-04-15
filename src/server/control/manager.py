@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 import sys
+from project.logs import log_debug
 
 import project.settings
 from project.settings import SIZEOF_UINT32
@@ -56,7 +57,7 @@ class Manager(ConsoleClient):
         assert command
         assert message
         assert self.workers
-        self._log('Add channel in random worker')
+        log_debug('Add channel in random worker')
         # todo
         # параметры канала хранить где?
         message = str(message)
@@ -71,19 +72,19 @@ class Manager(ConsoleClient):
             assert isinstance(worker, DaemonWorker)
             worker.add_channel(chanName=channel_name, properties=properties)
 
-            self._log('Added channel')
+            log_debug('Added channel')
         else:
-            self._log('Monitor already exist')
+            log_debug('Monitor already exist')
 
     def _command_worker_add(self, command, message):
         assert command
         assert message
-        self._log('Add new worker')
+        log_debug('Add new worker')
         if str(message) not in self.workers:
             self.workers[str(message)] = DaemonWorker(name=str(message))
-            self._log('Added worker')
+            log_debug('Added worker')
         else:
-            self._log('Worker already exist')
+            log_debug('Worker already exist')
 
     def _command_worker_list(self, command, message):
         assert command

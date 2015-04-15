@@ -3,12 +3,13 @@
 
 import datetime
 import os
+from project.logs import log_info
 
 from project.settings import LOG
 from project.settings import LOG_FOLDER
-from src.base.basecxmonitor import BaseCXMonitor
+from src.base.cx.basecxmonitor import BaseCXMonitor
 from src.base.basedatamonitor import BaseDataMonitor
-from src.base.zeromqmonitor import ZeroMQMonitor
+from src.monitors.servicemonitor.zeromqmonitor import ZeroMQMonitor
 
 
 class TestMonitor(BaseDataMonitor, ZeroMQMonitor):
@@ -46,7 +47,7 @@ class TestMonitor(BaseDataMonitor, ZeroMQMonitor):
         with open(os.path.join(LOG_FOLDER, 'default_log.log'), 'a') as f:
             f.write('%s\n' % self.get_message(text))
             if LOG:
-                print self.get_message(text)
+                log_info(self.get_message(text))
 
     def default_form(self, args):
         return '\t'.join(str(v).replace("'", '') for v in args)
@@ -73,7 +74,7 @@ class CXMonitor(BaseCXMonitor, ZeroMQMonitor):
         with open(os.path.join(LOG_FOLDER, 'default_log.log'), 'a') as f:
             f.write('%s\n' % self.get_message(text))
             if LOG:
-                print self.get_message(text)
+                log_info(self.get_message(text))
 
     def default_form(self, args):
         return '\t'.join(str(v).replace("'", '') for v in args)

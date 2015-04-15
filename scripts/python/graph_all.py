@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from project.logs import log_error
 
 try:
     from __init__ import *
@@ -118,7 +119,7 @@ def main():
                 name = '%s_%s_%s' % (key, time_start, time_end)
                 show_plot(info_for_plot, name)
         except (TypeError, IndexError) as e:
-            print(key, e, value)
+            log_error(key, e, value)
             raise
         # else:
         #     break

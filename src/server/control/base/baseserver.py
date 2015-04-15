@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
 
 import sys
+from PyQt4.QtCore import SIGNAL
 
 import project.settings
-from project.settings import SIZEOF_UINT32
+
+from project.settings import SIZEOF_UINT32, log_error, log_info, log_debug
 from src.server.control.base.basecontol import BaseControl
 
 if not project.settings.DEPLOY:
@@ -30,13 +32,13 @@ class BaseServer(BaseControl):
         self.tcp_server = QTcpServer(self)
 
         if not self.tcp_server.listen(QHostAddress(host), port):
-            self._log('Unable to start the server: {0}.'.format(
+            log_error('Unable to start the server: {0}.'.format(
                 self.tcp_server.errorString()))
             self.exec_()
             return
 
-        print 'The server is running on port {0}.'.format(
-            self.tcp_server.serverPort())
+        log_info('The server is running on port {0}.'.format(
+            self.tcp_server.serverPort()))
 
         self.connect(self.tcp_server, SIGNAL('newConnection()'),
                      self.new_connection)
@@ -50,7 +52,7 @@ class BaseServer(BaseControl):
         self._add_command('USERS', self._command_users)
 
     def send_message(self, client, command, message=''):
-        self._log(
+        log_debug(
             'SEND COMMAND (server): command %s, message %s' %
             (command, message))
         reply = QByteArray()
@@ -103,7 +105,7 @@ class BaseServer(BaseControl):
     def process_message(self, client, command, message):
         client.nextBlockSize = 0
 
-        self._log('RECEIVE: command: %s, message: %s' % (command, message))
+        log_debug('RECEIVE: command: %s, message: %s' % (command, message))
         if command in self.commands:
             self.commands[command](client, command, message)
 
@@ -126,14 +128,14 @@ class BaseServer(BaseControl):
             self.send_message(client, 'BAD', 'Name already exist')
 
     def _command_echo(self, client, command, message):
-        self._log(
+        log_info(
             'ECHO (command): Client: {}, command: {}, message: {}'.format(
                 client.socketDescriptor(),
                 command, message)
         )
 
     def _command_offline(self, client, command, message):
-        self._log('REMOVE USER: %s' % client)
+        log_debug('REMOVE USER: %s' % client)
         assert client in self.users
         del self.users[client]
         client.close()

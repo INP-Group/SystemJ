@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
 
-from src.monitors.fakemonitor import FakeMonitor
+from src.monitors.datamonitor.fakemonitor import FakeMonitor
 
-from src.monitors.deltamonitor import DeltaCXMonitor
-from src.monitors.ntimemonitor import NTimeCXMonitor
-from src.monitors.scalarmonitor import ScalarCXMonitor
-from src.monitors.simplemonitor import SimpleCXMonitor
+from src.monitors.datamonitor.deltamonitor import DeltaCXMonitor
+from src.monitors.datamonitor.ntimemonitor import NTimeCXMonitor
+from src.monitors.datamonitor.scalarmonitor import ScalarCXMonitor
+from src.monitors.datamonitor.simplemonitor import SimpleCXMonitor
 
 
 class MonitorFactory(object):

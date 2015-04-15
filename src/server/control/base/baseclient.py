@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 
+from project.settings import log_debug, log_info, log_error
 from project.settings import SIZEOF_UINT32
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -50,7 +51,7 @@ class BaseClient(BaseControl):
 
     def server_has_error(self):
         self.send_message('OFFLINE')
-        self._log('Error: {}'.format(
+        log_error('Error: {}'.format(
             self.socket.errorString()))
         self.socket.close()
         self.quit()
@@ -61,7 +62,7 @@ class BaseClient(BaseControl):
         stream.setVersion(QDataStream.Qt_4_2)
         stream.writeUInt32(0)
 
-        self._log('SEND: command - %s, message - %s' % (command, message))
+        log_debug('SEND: command - %s, message - %s' % (command, message))
         stream << QString(command) << QString(message)
 
         stream.device().seek(0)
@@ -84,7 +85,7 @@ class BaseClient(BaseControl):
             command = QString()
             message = QString()
             stream >> command >> message
-            self._log(
+            log_debug(
                 'RECEIVE: command - %s, message - %s' % (command, message))
             self.process_message(command, message)
 
@@ -95,7 +96,7 @@ class BaseClient(BaseControl):
             self.commands[command](command, message)
 
     def _command_echo(self, command, message):
-        self._log('ECHO (command): %s' % message)
+        log_info('ECHO (command): %s' % message)
 
     def _command_off(self, command, message):
         self.socket.close()

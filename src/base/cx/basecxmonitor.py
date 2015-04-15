@@ -2,7 +2,7 @@
 import math
 
 from src.base.basedatamonitor import BaseDataMonitor
-from cdr_wrapper import Cdr
+from src.base.cx.cdr_wrapper import Cdr
 from project.settings import CDR_LIB_PATH
 from PyQt4.QtCore import *
 

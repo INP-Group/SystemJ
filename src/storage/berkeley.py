@@ -3,15 +3,16 @@
 import os
 from bsddb3 import db
 
-from project.settings import DB_FOLDER
+from project.settings import DB_FOLDER, log_error
 from project.settings import POSTGRESQL_DB
 from project.settings import POSTGRESQL_HOST
 from project.settings import POSTGRESQL_PASSWORD
 from project.settings import POSTGRESQL_TABLE
 from project.settings import POSTGRESQL_USER
-from src.base.singleton import Singleton
+from src.pattern.singleton import Singleton
 from src.storage.postgresql import PostgresqlStorage
 from src.utils.kvstorage import get
+
 
 class GeneratorId(Singleton):
     curid = 0
@@ -104,7 +105,7 @@ class BerkeleyStorage(Singleton):
                         values.append([info[3], info[2], channel_id])
                         self.database.delete('%s' % x)
                 except AttributeError as e:
-                    print e, x, self.database.get('%s' % x)
+                    log_error(e, x, self.database.get('%s' % x))
 
             self.sql_storage.add(*values)
 
