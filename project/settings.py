@@ -55,6 +55,8 @@ POSTGRESQL_PASSWORD = '1nakopitel!'
 
 SIZEOF_UINT32 = 4
 
+BERKELEY_SYNC_NUMBER = 500
+BERKELEY_MOVE_NUMBER = 2000
 
 # todo
 # нужны ли такие команды?

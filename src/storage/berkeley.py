@@ -8,8 +8,8 @@ from project.settings import DB_FOLDER
 from project.settings import POSTGRESQL_DB
 from project.settings import POSTGRESQL_HOST
 from project.settings import POSTGRESQL_PASSWORD
-from project.settings import POSTGRESQL_TABLE
-from project.settings import POSTGRESQL_USER
+from project.settings import POSTGRESQL_TABLE, BERKELEY_SYNC_NUMBER
+from project.settings import POSTGRESQL_USER, BERKELEY_MOVE_NUMBER
 from src.pattern.singleton import Singleton
 from src.storage.postgresql import PostgresqlStorage
 from src.utils.kvstorage import get
@@ -39,8 +39,8 @@ class BerkeleyStorage(Singleton):
 
         # todo
         # move_number == 1000
-        self.sync_number = 50
-        self.move_number = 100
+        self.sync_number = BERKELEY_SYNC_NUMBER
+        self.move_number = BERKELEY_MOVE_NUMBER
         self.stored_id = 0
 
         self.db_type = db.DB_BTREE
