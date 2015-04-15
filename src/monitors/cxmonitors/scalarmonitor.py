@@ -6,9 +6,12 @@ import math
 import time
 
 from src.base.monitor import CXMonitor
+from PyQt4.QtCore import QObject, pyqtSignal
 
 
 class ScalarCXMonitor(CXMonitor):
+
+    valueToStorage = pyqtSignal(QObject, object)
 
     def processing(self, *args):
         now = time.time()
@@ -25,9 +28,9 @@ class ScalarCXMonitor(CXMonitor):
                     self._gfa(args, 2), \
                     self._gfa(args, 3)
 
-                self.send_message(self.default_form([self.name,
-                                                     self.personal_name,
-                                                     handle, now_time]))
+                self.send_data(self.default_form([self.name,
+                                                  self.personal_name,
+                                                  handle, now_time]))
                 self.default_log(text)
 
             return 0
@@ -44,19 +47,19 @@ class ScalarCXMonitor(CXMonitor):
                 fl = math.fabs(self.ch_prev_value - self.ch_now_value) > \
                     self.get_property('delta')
                 if self.ch_prev_value is not None and fl:
-                    self.send_message(self.default_form(
+                    self.send_data(self.default_form(
                         [self.name, self.personal_name, self.ch_prev_value,
                          now_time]))
 
                     self.ch_prev_value = self.ch_now_value
 
-                    self.send_message(self.default_form(
+                    self.send_data(self.default_form(
                         [self.name, self.personal_name, handle, now_time]))
                     self.default_log(text)
             return 0
 
-        self.send_message(
-            self.default_form([self.name, self.personal_name, handle, now_time]))
+        self.send_data(self.default_form(
+            [self.name, self.personal_name, handle, now_time]))
         self.default_log(text)
 
         return 0

@@ -9,6 +9,8 @@ from src.base.monitor import CXMonitor
 
 class NTimeCXMonitor(CXMonitor):
 
+    valueToStorage = pyqtSignal(QObject, object)
+
     def processing(self, *args):
         now = time.time()
         now_time = str(datetime.datetime.now())
@@ -20,9 +22,9 @@ class NTimeCXMonitor(CXMonitor):
             text = '(%s), %s %s %s' % (self.personal_name, handle, val, params)
 
             self.default_log(text)
-            self.send_message(self.default_form([self.name,
-                                                 self.personal_name,
-                                                 handle, now_time]))
+            self.send_data(self.default_form([self.name,
+                                              self.personal_name,
+                                              handle, now_time]))
 
         return 0
 

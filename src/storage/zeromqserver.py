@@ -3,6 +3,7 @@
 import threading
 
 import zmq
+
 from project.logs import log_debug
 from project.logs import log_info
 from project.settings import LOG
@@ -28,11 +29,12 @@ class ZeroMQServer(threading.Thread):
         try:
             log_info('Server is started...')
             while True:
-                message = self.sock.recv()
-                if message:
+                json_data = self.sock.recv_json()
+                if json_data:
                     if LOG:
-                        log_debug('Receive message: %s ' % message)
-                    self.berkeley_db.add(message)
+                        log_debug('Receive message: %s, type: %s' % (
+                            json_data, type(json_data)))
+                    self.berkeley_db.add_json(json_data)
                     self.sock.send('Saved')
         except KeyboardInterrupt:
             self.stop()

@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 import os
-
 from bsddb3 import db
+
 from project.logs import log_error
 from project.settings import DB_FOLDER
 from project.settings import POSTGRESQL_DB
@@ -70,6 +70,13 @@ class BerkeleyStorage(Singleton):
     def __del__(self):
         self.database.close()
 
+    def add_json(self, data_dict):
+        for key, values in data_dict.items():
+            [self.add(
+                "%s\t%s\t%s" % (key, val.get('value'), val.get('time'))
+            )
+             for val in values]
+
     def add(self, value):
         self.id = GeneratorId().getid()
         self.database.put(str(self.id), value)
@@ -103,7 +110,8 @@ class BerkeleyStorage(Singleton):
                         if channel_id is None:
                             raise Exception(
                                 'Not found channel_name in kvstorage')
-                        values.append([info[3], info[2], channel_id])
+                        values.append([info[2], info[1],
+                                       channel_id])  # time, value, channel_id
                         self.database.delete('%s' % x)
                 except AttributeError as e:
                     log_error(e, x, self.database.get('%s' % x))

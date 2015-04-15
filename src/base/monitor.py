@@ -72,4 +72,5 @@ class CXMonitor(BaseCXMonitor, ZeroMQMonitor):
                 log_info(self.get_message(text))
 
     def default_form(self, args):
-        return '\t'.join(str(v).replace("'", '') for v in args)
+        return {'name': args[0], 'value': args[2], 'time': args[3]}
+        # return '\t'.join(str(v).replace("'", '') for v in args)

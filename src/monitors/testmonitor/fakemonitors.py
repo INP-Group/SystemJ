@@ -8,6 +8,8 @@ from src.base.monitor import TestMonitor
 
 class CustomFakeMonitor(TestMonitor):
 
+    valueToStorage = pyqtSignal(QObject, object)
+
     def __init__(self, name, frequency=100):
         super(CustomFakeMonitor, self).__init__(name)
         self.startTimer(frequency)
@@ -22,12 +24,14 @@ class CustomFakeMonitor(TestMonitor):
         text = '(%s), %s %s %s' % (self.personal_name, handle, val, params)
 
         self.default_log(text)
-        self.send_message(
-            self.default_form([self.name, self.personal_name, handle, now_time]))
+        self.send_data(self.default_form(
+            [self.name, self.personal_name, handle, now_time]))
         return 0
 
 
 class EasyFakeMonitor(CustomFakeMonitor):
+
+    valueToStorage = pyqtSignal(QObject, object)
 
     def __init__(self, name):
         super(EasyFakeMonitor, self).__init__(name, 100)
@@ -35,11 +39,15 @@ class EasyFakeMonitor(CustomFakeMonitor):
 
 class HardFakeMonitor(CustomFakeMonitor):
 
+    valueToStorage = pyqtSignal(QObject, object)
+
     def __init__(self, name):
         super(HardFakeMonitor, self).__init__(name, 10)
 
 
 class MiddleFakeMonitor(CustomFakeMonitor):
+
+    valueToStorage = pyqtSignal(QObject, object)
 
     def __init__(self, name):
         super(MiddleFakeMonitor, self).__init__(name, 50)

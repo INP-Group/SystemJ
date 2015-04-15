@@ -2,11 +2,14 @@
 
 import sys
 
+import zmq
+
 import project.settings
 from project.logs import log_debug
-from project.settings import SIZEOF_UINT32
+from project.settings import ZEROMQ_HOST, ZEROMQ_PORT
 from src.base.monitorfactory import MonitorFactory
 from src.server.control.consoleclient import ConsoleClient
+
 
 if not project.settings.DEPLOY:
     import DLFCN
@@ -67,10 +70,17 @@ class Manager(ConsoleClient):
         if channel_name not in self.all_channels or True:
             self.all_channels.append(message)
 
-            # todo надо вставлять в конкретный
-            worker = self.workers.values()[0]
-            assert isinstance(worker, DaemonWorker)
-            worker.add_channel(chanName=channel_name, properties=properties)
+            # todo
+            # равномерно раскидываем каналы по воркерам
+            min_channels = sys.maxint
+            min_worker = None
+            for worker in self.workers.values():
+                if worker.get_len_channels() < min_channels:
+                    min_worker = worker
+                    min_channels = worker.get_len_channels()
+
+            assert isinstance(min_worker, DaemonWorker)
+            min_worker.add_channel(chanName=channel_name, properties=properties)
 
             log_debug('Added channel')
         else:
@@ -108,6 +118,34 @@ class DaemonWorker(QThread):
         QThread.__init__(self, parent)
         self.name = name
         self.channels = []
+        self.startTimer(1000)  # every second
+        self.channels_data = []
+
+        # todo должна быть возможность подмены этих параметров динамически
+        self.host = ZEROMQ_HOST
+        self.port = ZEROMQ_PORT
+        self.attempt = 0
+        self.max_attempt = 10
+
+    def timerEvent(self, event):
+        """
+        Каждый период времени отправляем пачку в zeromq
+        :param event:
+        :return:
+        """
+        if self.channels_data:
+            data_for_storage = {}
+            for data in self.channels_data:
+                if not data.get('name') in data_for_storage:
+                    data_for_storage[data.get('name')] = []
+                data_for_storage[data.get('name')].append(
+                    {'time': data.get('time'), 'value': data.get('value')})
+
+            self.send_data(data_for_storage)
+        self.channels_data = []
+
+    def get_len_channels(self):
+        return len(self.channels)
 
     def __del__(self):
         self.wait()
@@ -117,6 +155,30 @@ class DaemonWorker(QThread):
 
     def get_name(self):
         return self.name
+
+    def store_data(self, *args):
+        self.channels_data.append(args[1])
+
+    def send_data(self, json_data):
+        # init zeromqsocket
+        if self.attempt >= self.max_attempt:
+            self.store_data(json_data)
+            return
+
+        context = zmq.Context()
+        sock = context.socket(zmq.REQ)
+        sock.connect('tcp://%s:%s' % (self.host, self.port))
+
+        sock.send_json(json_data)
+        answer = sock.recv()
+        if answer.strip() == 'Saved':
+            sock.close()
+            self.attempt = 0
+            return
+        else:
+            sock.close()
+            self.attempt += 1
+            self.send_message(json_data)
 
     def add_channel(self, monitor_type='ScalarMonitor',
                     chanName='linthermcan.ThermosM.in0',
@@ -141,5 +203,5 @@ class DaemonWorker(QThread):
         if isinstance(properties, dict) and properties:
             for key, value in properties.items():
                 channel.set_property(key, value)
-
+        channel.valueToStorage.connect(self.store_data)
         self.channels.append(channel)
