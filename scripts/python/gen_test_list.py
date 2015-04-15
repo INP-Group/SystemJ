@@ -6,11 +6,11 @@ def main():
     sql_add_lines = []
     sql_del_lines = []
     command_lines = []
-    for x in xrange(0, 1000):
+    for x in xrange(0, 10000):
         name_channel = 'test_channel_%s' % x
         sql_add = "INSERT INTO channels (channel_name) VALUES ('%s'); \n" % name_channel
         sql_del = 'DELETE FROM channels WHERE channel_name = %s; \n' % name_channel
-        command_line = "CHL_ADD ||| %s ___ {'type': 'EasyFakeMonitor'} \n" % name_channel
+        command_line = "CHL_ADD ||| %s ___ {'type': 'HardFakeMonitor'} \n" % name_channel
 
         sql_add_lines.append(sql_add)
         sql_del_lines.append(sql_del)
