@@ -7,7 +7,6 @@ from src.base.monitor import CXMonitor
 
 
 class SimpleCXMonitor(CXMonitor):
-
     valueToStorage = pyqtSignal(QObject, object)
 
     def processing(self, *args):
@@ -18,7 +17,6 @@ class SimpleCXMonitor(CXMonitor):
             args, 3)
 
         text = '(%s), %s %s %s' % (self.personal_name, handle, val, params)
-
 
         self.default_log(text)
         self.send_data(self.default_form(

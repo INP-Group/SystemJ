@@ -2,14 +2,13 @@
 
 import sys
 
-import zmq
-
 import project.settings
+import zmq
 from project.logs import log_debug
-from project.settings import ZEROMQ_HOST, ZEROMQ_PORT
+from project.settings import ZEROMQ_HOST
+from project.settings import ZEROMQ_PORT
 from src.base.monitorfactory import MonitorFactory
 from src.server.control.consoleclient import ConsoleClient
-
 
 if not project.settings.DEPLOY:
     import DLFCN
@@ -72,7 +71,7 @@ class Manager(ConsoleClient):
 
             # todo
             # равномерно раскидываем каналы по воркерам
-            min_channels = sys.maxint
+            min_channels = sys.maxsize
             min_worker = None
             for worker in self.workers.values():
                 if worker.get_len_channels() < min_channels:
@@ -80,7 +79,9 @@ class Manager(ConsoleClient):
                     min_channels = worker.get_len_channels()
 
             assert isinstance(min_worker, DaemonWorker)
-            min_worker.add_channel(chanName=channel_name, properties=properties)
+            min_worker.add_channel(
+                chanName=channel_name,
+                properties=properties)
 
             log_debug('Added channel')
         else:
@@ -128,10 +129,11 @@ class DaemonWorker(QThread):
         self.max_attempt = 10
 
     def timerEvent(self, event):
-        """
-        Каждый период времени отправляем пачку в zeromq
+        """Каждый период времени отправляем пачку в zeromq.
+
         :param event:
         :return:
+
         """
         if self.channels_data:
             data_for_storage = {}

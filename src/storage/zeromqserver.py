@@ -3,7 +3,6 @@
 import threading
 
 import zmq
-
 from project.logs import log_debug
 from project.logs import log_info
 from project.settings import LOG

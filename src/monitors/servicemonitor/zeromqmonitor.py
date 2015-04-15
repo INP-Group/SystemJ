@@ -3,18 +3,19 @@
 import zmq
 from project.settings import ZEROMQ_HOST
 from project.settings import ZEROMQ_PORT
+from PyQt4.QtCore import QObject
+from PyQt4.QtCore import pyqtSignal
 from src.base.basemonitor import BaseMonitor
-from PyQt4.QtCore import QObject, pyqtSignal
 
 
 class ZeroMQMonitor(BaseMonitor):
 
     valueToStorage = pyqtSignal(QObject, object)
+
     def __init__(self, host=ZEROMQ_HOST, port=ZEROMQ_PORT):
         super(ZeroMQMonitor, self).__init__()
         self.host = host
         self.port = port
-
 
         self.attempt = 0
         self.max_attempt = 10

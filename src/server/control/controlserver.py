@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import sys
+
 from project.logs import log_error
 from project.settings import COMMAND_SPLITER
 from PyQt4.QtCore import QString
@@ -44,11 +45,10 @@ class ControlServer(BaseServer):
             self.users[client]['cnt_worker'] = 0
         self.send_message(client, 'SET')
 
-
     def _command_send_to_manager(self, client, command, message):
 
         def minimum_with_key(users, key='cnt_monitors'):
-            min_cnt = sys.maxint
+            min_cnt = sys.maxsize
             min_client = users[0][0]
             for client, info in users:
                 if info.get(key) < min_cnt:
@@ -56,13 +56,16 @@ class ControlServer(BaseServer):
                     min_client = client
             return min_client
 
-        managers = [(client, info) for client, info in self.users.items() if info.get('type') == 'manager']
+        managers = [
+            (client,
+             info) for client,
+            info in self.users.items() if info.get('type') == 'manager']
 
         if len(managers) == 1:
             real_manager = managers[0][0]
             real_manager_info = managers[0][0]
         elif len(managers) == 0:
-            raise Exception("Not found managers")
+            raise Exception('Not found managers')
         else:
             if command == 'CHL_ADD':
                 real_manager = minimum_with_key(managers, 'cnt_monitors')
@@ -77,7 +80,6 @@ class ControlServer(BaseServer):
             self.users[real_manager]['cnt_monitors'] += 1
         if command == 'WORKER_ADD':
             self.users[real_manager]['cnt_worker'] += 1
-
 
     def _command_channel_add(self, client, command, message):
         # todo

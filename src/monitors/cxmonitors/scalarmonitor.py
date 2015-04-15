@@ -5,8 +5,9 @@ import datetime
 import math
 import time
 
+from PyQt4.QtCore import QObject
+from PyQt4.QtCore import pyqtSignal
 from src.base.monitor import CXMonitor
-from PyQt4.QtCore import QObject, pyqtSignal
 
 
 class ScalarCXMonitor(CXMonitor):

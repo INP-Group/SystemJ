@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 import os
-from bsddb3 import db
 
+from bsddb3 import db
 from project.logs import log_error
 from project.settings import DB_FOLDER
 from project.settings import POSTGRESQL_DB
@@ -73,9 +73,9 @@ class BerkeleyStorage(Singleton):
     def add_json(self, data_dict):
         for key, values in data_dict.items():
             [self.add(
-                "%s\t%s\t%s" % (key, val.get('value'), val.get('time'))
+                '%s\t%s\t%s' % (key, val.get('value'), val.get('time'))
             )
-             for val in values]
+                for val in values]
 
     def add(self, value):
         self.id = GeneratorId().getid()
