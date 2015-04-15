@@ -6,7 +6,7 @@ def main():
     sql_add_lines = []
     sql_del_lines = []
     command_lines = []
-    for x in xrange(0, 500):
+    for x in xrange(0, 50000):
         name_channel = 'test_channel_%s' % x
         sql_add = "INSERT INTO channels (channel_name) VALUES ('%s'); \n" % name_channel
         sql_del = 'DELETE FROM channels WHERE channel_name = %s; \n' % name_channel

@@ -11,7 +11,7 @@ from project.settings import POSTGRESQL_PASSWORD
 from project.settings import POSTGRESQL_TABLE
 from project.settings import POSTGRESQL_USER
 from src.storage.postgresql import PostgresqlStorage
-from src.utils.kvstorage import set
+from src.utils.kvstorage import load
 
 
 def update_list():
@@ -24,8 +24,9 @@ def update_list():
 
     results = storage.raw_sql('SELECT * FROM %s ' % table_name)
     assert results
+    base = load()
     for channel_id, name in results:
-        set(unicode(name), channel_id)
+        base.set(unicode(name), channel_id)
 
 
 if __name__ == '__main__':
