@@ -29,7 +29,11 @@ def __init_logger(level, file, log_format=None):
     log_obj = logging.getLogger()
     log_obj.setLevel(logging.DEBUG)
     log_obj.addHandler(__get_handler(file, level, log_format))
-    # log_obj.addHandler(__get_handler_std(level, log_format))
+    # ---
+    # для принтов в консоль
+    if level == logging.DEBUG:
+        log_obj.addHandler(__get_handler_std(level, log_format))
+    # ---
     return log_obj
 
 
