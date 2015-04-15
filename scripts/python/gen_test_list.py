@@ -18,7 +18,6 @@ def main():
         sql_del_lines.append(sql_del)
         command_lines.append(command_line)
 
-
     with open('channels_add.sql', 'w') as fio:
         fio.writelines(sql_add_lines)
 

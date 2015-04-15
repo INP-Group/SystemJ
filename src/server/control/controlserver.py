@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import sys
 from project.logs import log_error
 from project.settings import COMMAND_SPLITER
 from PyQt4.QtCore import QString
@@ -38,13 +39,34 @@ class ControlServer(BaseServer):
     def _command_set_type(self, client, command, message):
         assert self.users
         self.users[client]['type'] = str(message)
+        if str(message) == 'manager':
+            self.users[client]['cnt_monitors'] = 0
         self.send_message(client, 'SET')
 
     def _command_send_to_manager(self, client, command, message):
-        for client, info in self.users.items():
-            if info.get('type') == 'manager':
-                self.send_message(client, command, message)
-                break
+        managers = [(client, info) for client, info in self.users.items() if info.get('type') == 'manager']
+
+        if len(managers) > 1:
+            # todo
+            # сделать адекватное распределение нагрузки между менеджерами
+            min_cnt = sys.maxint
+            min_client = managers[0][0]
+            for client, info in managers:
+                if info.get('cnt_monitors') < min_cnt:
+                    min_cnt = info.get('cnt_monitors')
+                    min_client = client
+
+            self.send_message(min_client, command, message)
+            if command is 'CHL_ADD':
+                self.users[min_client]['cnt_monitors'] += 1
+
+        elif len(managers):
+            self.send_message(managers[0][0], command, message)
+            if command is 'CHL_ADD':
+                self.users[managers[0][0]]['cnt_monitors'] += 1
+        else:
+            raise Exception("Not found managers")
+
 
     def _command_channel_add(self, client, command, message):
         # todo
