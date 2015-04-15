@@ -7,16 +7,21 @@ except ImportError:
     pass
 
 import os
+
+from project.settings import POSTGRESQL_DB
+from project.settings import POSTGRESQL_HOST
+from project.settings import POSTGRESQL_PASSWORD
+from project.settings import POSTGRESQL_TABLE
+from project.settings import POSTGRESQL_USER
+from project.settings import RES_FOLDER
 from src.storage.postgresql import PostgresqlStorage
-from project.settings import POSTGRESQL_DB, POSTGRESQL_USER, \
-    POSTGRESQL_PASSWORD, POSTGRESQL_TABLE, POSTGRESQL_HOST, RES_FOLDER
 from src.utils.kvstorage import set
 
 
 def main():
     file_path = os.path.join(RES_FOLDER, 'channels', 'to_add.txt')
     if not os.path.exists(file_path):
-        raise Exception("not found file: %s" % file_path)
+        raise Exception('not found file: %s' % file_path)
 
     with open(file_path, 'r') as fio:
         channels = fio.readlines()
@@ -28,11 +33,11 @@ def main():
                                 tablename=POSTGRESQL_TABLE,
                                 host=POSTGRESQL_HOST)
 
-    [storage.raw_sql("INSERT INTO %s (channel_name) VALUES (%s)" %
+    [storage.raw_sql('INSERT INTO %s (channel_name) VALUES (%s)' %
                      (table_name, x))
-    for x in channels]
+     for x in channels]
 
-    results = storage.raw_sql("SELECT * FROM %s " % table_name)
+    results = storage.raw_sql('SELECT * FROM %s ' % table_name)
     assert results
     for channel_id, name in results:
         set(unicode(name), channel_id)

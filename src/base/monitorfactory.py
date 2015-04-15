@@ -1,8 +1,7 @@
 # -*- encoding: utf-8 -*-
 
-from src.monitors.datamonitor.fakemonitor import FakeMonitor
-
 from src.monitors.datamonitor.deltamonitor import DeltaCXMonitor
+from src.monitors.datamonitor.fakemonitor import FakeMonitor
 from src.monitors.datamonitor.ntimemonitor import NTimeCXMonitor
 from src.monitors.datamonitor.scalarmonitor import ScalarCXMonitor
 from src.monitors.datamonitor.simplemonitor import SimpleCXMonitor
@@ -24,4 +23,3 @@ class MonitorFactory(object):
             return FakeMonitor(name, personale_name)
 
         assert 0, 'Bad shape creation: ' + monitor_type
-

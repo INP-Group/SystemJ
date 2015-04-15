@@ -1,14 +1,15 @@
 # -*- encoding: utf-8 -*-
 
 import os
-from bsddb3 import db
 
-from project.settings import DB_FOLDER, log_error
+from bsddb3 import db
+from project.settings import DB_FOLDER
 from project.settings import POSTGRESQL_DB
 from project.settings import POSTGRESQL_HOST
 from project.settings import POSTGRESQL_PASSWORD
 from project.settings import POSTGRESQL_TABLE
 from project.settings import POSTGRESQL_USER
+from project.settings import log_error
 from src.pattern.singleton import Singleton
 from src.storage.postgresql import PostgresqlStorage
 from src.utils.kvstorage import get
@@ -101,7 +102,7 @@ class BerkeleyStorage(Singleton):
                             channel_id = self.get_id(info[0])
                         if channel_id is None:
                             raise Exception(
-                                "Not found channel_name in kvstorage")
+                                'Not found channel_name in kvstorage')
                         values.append([info[3], info[2], channel_id])
                         self.database.delete('%s' % x)
                 except AttributeError as e:

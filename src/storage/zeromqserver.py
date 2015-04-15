@@ -3,9 +3,11 @@
 import threading
 
 import zmq
-from project.settings import LOG, log_debug, log_info
+from project.settings import LOG
 from project.settings import ZEROMQ_HOST
 from project.settings import ZEROMQ_PORT
+from project.settings import log_debug
+from project.settings import log_info
 from src.storage.berkeley import BerkeleyStorage
 
 

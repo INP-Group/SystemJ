@@ -1,7 +1,9 @@
 # -*- encoding: utf-8 -*-
 
-from project.settings import log_debug, log_info, log_error
 from project.settings import SIZEOF_UINT32
+from project.settings import log_debug
+from project.settings import log_error
+from project.settings import log_info
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *

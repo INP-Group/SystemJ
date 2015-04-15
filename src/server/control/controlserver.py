@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 from project.logs import log_error
-
 from project.settings import COMMAND_SPLITER
 from PyQt4.QtCore import QString
 from src.server.control.base.baseserver import BaseServer

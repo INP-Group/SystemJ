@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 import math
 
-from src.base.basedatamonitor import BaseDataMonitor
-from src.base.cx.cdr_wrapper import Cdr
 from project.settings import CDR_LIB_PATH
 from PyQt4.QtCore import *
+from src.base.basedatamonitor import BaseDataMonitor
+from src.base.cx.cdr_wrapper import Cdr
 
 
 class BaseCXMonitor(BaseDataMonitor):
@@ -18,7 +18,7 @@ class BaseCXMonitor(BaseDataMonitor):
     def callback(self, handle, val, params):
         self.val = val
         if math.fabs(
-                        self.val - self.prev_val) > self.tolerance or self.first_cycle:
+                self.val - self.prev_val) > self.tolerance or self.first_cycle:
             self.first_cycle = False
             self.prev_val = self.val
             self.valueChanged.emit(self, self.val)

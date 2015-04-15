@@ -5,10 +5,12 @@ try:
 except ImportError:
     pass
 
+from project.settings import POSTGRESQL_DB
+from project.settings import POSTGRESQL_HOST
+from project.settings import POSTGRESQL_PASSWORD
+from project.settings import POSTGRESQL_TABLE
+from project.settings import POSTGRESQL_USER
 from src.storage.postgresql import PostgresqlStorage
-from project.settings import POSTGRESQL_DB, POSTGRESQL_USER, \
-    POSTGRESQL_PASSWORD, POSTGRESQL_TABLE, POSTGRESQL_HOST
-
 from src.utils.kvstorage import set
 
 
@@ -20,7 +22,7 @@ def update_list():
                                 tablename=POSTGRESQL_TABLE,
                                 host=POSTGRESQL_HOST)
 
-    results = storage.raw_sql("SELECT * FROM %s " % table_name)
+    results = storage.raw_sql('SELECT * FROM %s ' % table_name)
     assert results
     for channel_id, name in results:
         set(unicode(name), channel_id)

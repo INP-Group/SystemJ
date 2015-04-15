@@ -1,8 +1,6 @@
 # -*- encoding: utf-8 -*-
 
 
-import math
-
 from basemonitor import BaseMonitor
 from PyQt4.QtCore import *
 

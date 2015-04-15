@@ -3,16 +3,17 @@
 
 import datetime
 import os
-from project.logs import log_info
 
+from project.logs import log_info
 from project.settings import LOG
 from project.settings import LOG_FOLDER
-from src.base.cx.basecxmonitor import BaseCXMonitor
 from src.base.basedatamonitor import BaseDataMonitor
+from src.base.cx.basecxmonitor import BaseCXMonitor
 from src.monitors.servicemonitor.zeromqmonitor import ZeroMQMonitor
 
 
 class TestMonitor(BaseDataMonitor, ZeroMQMonitor):
+
     def __init__(self, name, personal_name=None):
         BaseDataMonitor.__init__(self, name, personal_name)
         ZeroMQMonitor.__init__(self)

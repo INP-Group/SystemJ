@@ -1,11 +1,13 @@
 # -*- encoding: utf-8 -*-
 
 import sys
-from PyQt4.QtCore import SIGNAL
 
 import project.settings
-
-from project.settings import SIZEOF_UINT32, log_error, log_info, log_debug
+from project.settings import SIZEOF_UINT32
+from project.settings import log_debug
+from project.settings import log_error
+from project.settings import log_info
+from PyQt4.QtCore import SIGNAL
 from src.server.control.base.basecontol import BaseControl
 
 if not project.settings.DEPLOY:

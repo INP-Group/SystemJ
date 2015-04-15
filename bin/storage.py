@@ -1,12 +1,11 @@
 # -*- encoding: utf-8 -*-
 from project.logs import log_info
+from src.storage.storage import Storage
 
 try:
     from __init__ import *
 except ImportError:
     pass
-
-from src.storage.storage import Storage
 
 
 def start():

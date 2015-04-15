@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
 
+from project.settings import log_debug
+from project.settings import log_error
 from src.server.control.base.baseclient import BaseClient
-from project.settings import log_error, log_debug
 
 
 class ConsoleClient(BaseClient):

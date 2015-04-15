@@ -1,16 +1,10 @@
 # -*- encoding: utf-8 -*-
-from project.logs import log_error
-
-try:
-    from __init__ import *
-except ImportError:
-    pass
-
 import datetime
 import os
 
 import matplotlib.pyplot as plt
 
+from project.logs import log_error
 from project.settings import MEDIA_FOLDER
 from project.settings import POSTGRESQL_DB
 from project.settings import POSTGRESQL_HOST
@@ -19,6 +13,11 @@ from project.settings import POSTGRESQL_TABLE
 from project.settings import POSTGRESQL_USER
 from project.settings import check_and_create
 from src.storage.postgresql import PostgresqlStorage
+
+try:
+    from __init__ import *
+except ImportError:
+    pass
 
 
 def get_data_from_storage(channels, time_start, time_end):

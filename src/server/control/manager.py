@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 
 import sys
-from project.logs import log_debug
 
 import project.settings
+from project.logs import log_debug
 from project.settings import SIZEOF_UINT32
 from src.base.monitorfactory import MonitorFactory
 from src.server.control.consoleclient import ConsoleClient
@@ -128,8 +128,8 @@ class DaemonWorker(QThread):
             monitor_type = properties.get('type')
 
         channel = MonitorFactory.factory(monitor_type, chanName, '%s - %s' %
-                                             (self.name, len(
-                                                 self.channels)))
+                                         (self.name, len(
+                                             self.channels)))
         if monitor_type == 'NTimeMonitor':
             channel.set_property('timedelta', 5.0)
 

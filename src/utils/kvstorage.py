@@ -10,6 +10,7 @@ def _load(filepath=None, force_dump=True):
         filepath = os.path.join(DB_FOLDER, 'kvstorage.db')
     return pickledb.load(filepath, force_dump)
 
+
 def set(key, value):
     _load().set(key, value)
 
