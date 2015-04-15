@@ -12,7 +12,7 @@ from project.settings import POSTGRESQL_TABLE, BERKELEY_SYNC_NUMBER
 from project.settings import POSTGRESQL_USER, BERKELEY_MOVE_NUMBER
 from src.pattern.singleton import Singleton
 from src.storage.postgresql import PostgresqlStorage
-from src.utils.kvstorage import get
+from src.utils.kvstorage import get, load
 
 
 class GeneratorId(Singleton):
@@ -65,7 +65,12 @@ class BerkeleyStorage(Singleton):
         self.id = len(self.database)
         self.generator.setId(self.id)
 
-        self.get_id = get
+        # todo
+        # может список в динамике обновится
+        self.kv_storage = load()
+
+    def get_id(self, name):
+        return self.kv_storage.get(name)
 
     def __del__(self):
         self.database.close()
@@ -106,6 +111,7 @@ class BerkeleyStorage(Singleton):
                         if channel_id is None:
                             from scripts.python.update_channels import update_list
                             update_list()
+                            self.kv_storage = load()
                             channel_id = self.get_id(info[0])
                         if channel_id is None:
                             raise Exception(
