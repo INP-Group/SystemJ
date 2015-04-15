@@ -20,9 +20,6 @@ class TestMonitor(BaseDataMonitor, ZeroMQMonitor):
 
         self.valueChanged.connect(self.processing)
 
-        self.startTimer(100)
-        self._post_init()
-
     def timerEvent(self, event):
         self.val += 10
         if self.val > 100:
@@ -35,9 +32,6 @@ class TestMonitor(BaseDataMonitor, ZeroMQMonitor):
 
     def setTolerance(self, tolerance):
         self.tolerance = tolerance
-
-    def _post_init(self):
-        None
 
     def get_message(self, text):
         return '[%s] [%s]: %s' % (datetime.datetime.now(),

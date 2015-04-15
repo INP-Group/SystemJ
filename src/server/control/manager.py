@@ -123,13 +123,13 @@ class DaemonWorker(QThread):
                     properties=None):
 
         # todo
-        monitor_type = 'ScalarMonitor'
-        if 'type' in properties:
-            monitor_type = properties.get('type')
+        monitor_type = properties.get('type', 'ScalarMonitor')
+        frequency = properties.get('frequency', 100)
 
         channel = MonitorFactory.factory(monitor_type, chanName, '%s - %s' %
                                          (self.name, len(
-                                             self.channels)))
+                                             self.channels)),
+                                         frequency=frequency)
         if monitor_type == 'NTimeMonitor':
             channel.set_property('timedelta', 5.0)
 
