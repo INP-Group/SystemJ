@@ -4,7 +4,7 @@
 import datetime
 
 from src.base.monitor import TestMonitor
-
+from PyQt4.QtCore import pyqtSignal
 
 class CustomFakeMonitor(TestMonitor):
 

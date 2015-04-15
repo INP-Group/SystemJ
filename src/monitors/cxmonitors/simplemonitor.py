@@ -4,7 +4,7 @@
 import datetime
 
 from src.base.monitor import CXMonitor
-
+from PyQt4.QtCore import pyqtSignal
 
 class SimpleCXMonitor(CXMonitor):
     valueToStorage = pyqtSignal(QObject, object)

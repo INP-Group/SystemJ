@@ -5,7 +5,7 @@ import datetime
 import time
 
 from src.base.monitor import CXMonitor
-
+from PyQt4.QtCore import pyqtSignal
 
 class NTimeCXMonitor(CXMonitor):
 

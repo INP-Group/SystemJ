@@ -5,7 +5,7 @@ import datetime
 import math
 
 from src.base.monitor import CXMonitor
-
+from PyQt4.QtCore import pyqtSignal
 
 class DeltaCXMonitor(CXMonitor):
 
