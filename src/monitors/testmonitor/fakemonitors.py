@@ -11,7 +11,7 @@ class CustomFakeMonitor(TestMonitor):
     def __init__(self, name, frequency=100):
         super(CustomFakeMonitor, self).__init__(name)
         self.startTimer(frequency)
-        
+
     def processing(self, *args):
         now_time = str(datetime.datetime.now())
         handle, val, params = self._gfa(
@@ -28,14 +28,18 @@ class CustomFakeMonitor(TestMonitor):
 
 
 class EasyFakeMonitor(CustomFakeMonitor):
+
     def __init__(self, name):
         super(EasyFakeMonitor, self).__init__(name, 100)
 
 
 class HardFakeMonitor(CustomFakeMonitor):
+
     def __init__(self, name):
         super(HardFakeMonitor, self).__init__(name, 10)
 
+
 class MiddleFakeMonitor(CustomFakeMonitor):
+
     def __init__(self, name):
         super(MiddleFakeMonitor, self).__init__(name, 50)

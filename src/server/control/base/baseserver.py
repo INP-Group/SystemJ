@@ -3,10 +3,10 @@
 import sys
 
 import project.settings
-from project.settings import SIZEOF_UINT32
 from project.logs import log_debug
 from project.logs import log_error
 from project.logs import log_info
+from project.settings import SIZEOF_UINT32
 from PyQt4.QtCore import SIGNAL
 from src.server.control.base.basecontol import BaseControl
 
@@ -55,7 +55,7 @@ class BaseServer(BaseControl):
         self._add_command('USERS', self._command_users)
 
     def test(self):
-        log_debug("hiiiii")
+        log_debug('hiiiii')
 
     def send_message(self, client, command, message=''):
         log_debug(
@@ -71,14 +71,13 @@ class BaseServer(BaseControl):
         client.write(reply)
 
     def remove_connection(self, client):
-        log_debug("Remove connection")
+        log_debug('Remove connection')
         assert client in self.users
         del self.users[client]
-        log_debug("Stop remove connection")
+        log_debug('Stop remove connection')
 
     def socket_error(self):
-        log_debug("Socker error")
-        pass
+        log_debug('Socker error')
 
     def new_connection(self):
         client_connection = self.tcp_server.nextPendingConnection()

@@ -5,8 +5,8 @@ import random
 import uuid
 
 import psycopg2
-from project.settings import LOG
 from project.logs import log_debug
+from project.settings import LOG
 from src.pattern.singleton import Singleton
 
 

@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
-from project.settings import LOG, log_debug
+from project.settings import LOG
+from project.settings import log_debug
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *

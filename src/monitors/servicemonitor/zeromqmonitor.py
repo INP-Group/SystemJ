@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 
 import zmq
-from src.base.basemonitor import BaseMonitor
 from project.settings import ZEROMQ_HOST
 from project.settings import ZEROMQ_PORT
+from src.base.basemonitor import BaseMonitor
 
 
 class ZeroMQMonitor(BaseMonitor):

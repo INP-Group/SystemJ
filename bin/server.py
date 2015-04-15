@@ -5,13 +5,13 @@ try:
 except ImportError:
     pass
 
+import signal
 import sys
 
 from project.settings import SERVER_HOST
 from project.settings import SERVER_PORT
-from src.server.control.controlserver import ControlServer
 from PyQt4.QtCore import QCoreApplication
-import signal
+from src.server.control.controlserver import ControlServer
 
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, signal.SIG_DFL)

@@ -9,7 +9,6 @@ USER = 'sapronov'
 VENV_FOLDER = '/home/sapronov/Develop/venv/journal'
 
 
-
 # --- folders
 PROJECT_DIR = os.path.abspath(
     os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -73,7 +72,6 @@ except ImportError as e:
 
 
 # --- create folders
-
 
 
 folders = [
