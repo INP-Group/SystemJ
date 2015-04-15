@@ -1,10 +1,11 @@
 # -*- encoding: utf-8 -*-
 
-
 import datetime
 
-from src.base.monitor import TestMonitor
+from PyQt4.QtCore import QObject
 from PyQt4.QtCore import pyqtSignal
+from src.base.monitor import TestMonitor
+
 
 class CustomFakeMonitor(TestMonitor):
 

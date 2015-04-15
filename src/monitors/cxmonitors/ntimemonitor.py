@@ -4,8 +4,10 @@
 import datetime
 import time
 
-from src.base.monitor import CXMonitor
+from PyQt4.QtCore import QObject
 from PyQt4.QtCore import pyqtSignal
+from src.base.monitor import CXMonitor
+
 
 class NTimeCXMonitor(CXMonitor):
 
