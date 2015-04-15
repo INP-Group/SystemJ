@@ -41,31 +41,42 @@ class ControlServer(BaseServer):
         self.users[client]['type'] = str(message)
         if str(message) == 'manager':
             self.users[client]['cnt_monitors'] = 0
+            self.users[client]['cnt_worker'] = 0
         self.send_message(client, 'SET')
 
+
     def _command_send_to_manager(self, client, command, message):
+
+        def minimum_with_key(users, key='cnt_monitors'):
+            min_cnt = sys.maxint
+            min_client = users[0][0]
+            for client, info in users:
+                if info.get(key) < min_cnt:
+                    min_cnt = info.get(key)
+                    min_client = client
+            return min_client
+
         managers = [(client, info) for client, info in self.users.items() if info.get('type') == 'manager']
 
-        if len(managers) > 1:
-            # todo
-            # сделать адекватное распределение нагрузки между менеджерами
-            min_cnt = sys.maxint
-            min_client = managers[0][0]
-            for client, info in managers:
-                if info.get('cnt_monitors') < min_cnt:
-                    min_cnt = info.get('cnt_monitors')
-                    min_client = client
-
-            self.send_message(min_client, command, message)
-            if command is 'CHL_ADD':
-                self.users[min_client]['cnt_monitors'] += 1
-
-        elif len(managers):
-            self.send_message(managers[0][0], command, message)
-            if command is 'CHL_ADD':
-                self.users[managers[0][0]]['cnt_monitors'] += 1
-        else:
+        if len(managers) == 1:
+            real_manager = managers[0][0]
+            real_manager_info = managers[0][0]
+        elif len(managers) == 0:
             raise Exception("Not found managers")
+        else:
+            if command == 'CHL_ADD':
+                real_manager = minimum_with_key(managers, 'cnt_monitors')
+            elif command == 'WORKER_ADD':
+                real_manager = minimum_with_key(managers, 'cnt_worker')
+            else:
+                real_manager = managers[0][0]
+
+        self.send_message(real_manager, command, message)
+
+        if command == 'CHL_ADD':
+            self.users[real_manager]['cnt_monitors'] += 1
+        if command == 'WORKER_ADD':
+            self.users[real_manager]['cnt_worker'] += 1
 
 
     def _command_channel_add(self, client, command, message):
