@@ -1,15 +1,11 @@
 # -*- encoding: utf-8 -*-
 
 import os
-
 from bsddb3 import db
-from project.settings import DB_FOLDER
-from project.settings import POSTGRESQL_DB
-from project.settings import POSTGRESQL_HOST
-from project.settings import POSTGRESQL_PASSWORD
-from project.settings import POSTGRESQL_TABLE
-from project.settings import POSTGRESQL_USER
-from project.settings import log_error
+
+from project.settings import DB_FOLDER, POSTGRESQL_DB, POSTGRESQL_HOST, \
+    POSTGRESQL_PASSWORD, POSTGRESQL_TABLE, POSTGRESQL_USER
+from project.logs import log_error
 from src.pattern.singleton import Singleton
 from src.storage.postgresql import PostgresqlStorage
 from src.utils.kvstorage import get

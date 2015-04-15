@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
 
-from project.settings import LOG
+from project.settings import LOG, log_debug
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *
 
 
-class BaseControl(QApplication):
+class BaseControl(QObject):
 
-    def __init__(self, argv):
-        super(BaseControl, self).__init__(argv)
+    def __init__(self):
+        super(BaseControl, self).__init__()
 
         self.commands = {}
         self.is_debug = LOG

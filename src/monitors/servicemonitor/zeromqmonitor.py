@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 import zmq
-from basemonitor import BaseMonitor
+from src.base.basemonitor import BaseMonitor
 from project.settings import ZEROMQ_HOST
 from project.settings import ZEROMQ_PORT
 

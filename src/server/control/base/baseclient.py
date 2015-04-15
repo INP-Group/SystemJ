@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 
 from project.settings import SIZEOF_UINT32
-from project.settings import log_debug
-from project.settings import log_error
-from project.settings import log_info
+from project.logs import log_debug
+from project.logs import log_error
+from project.logs import log_info
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *
@@ -12,8 +12,8 @@ from src.server.control.base.basecontol import BaseControl
 
 class BaseClient(BaseControl):
 
-    def __init__(self, argv, host, port, client_name=None):
-        super(BaseClient, self).__init__(argv)
+    def __init__(self, host, port, client_name=None):
+        super(BaseClient, self).__init__()
 
         self.server_host = host
         self.server_port = port

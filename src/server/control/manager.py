@@ -26,9 +26,9 @@ else:
 
 class Manager(ConsoleClient):
 
-    def __init__(self, argv, host, port):
+    def __init__(self, host, port):
         client_name = 'Test_manager'
-        super(Manager, self).__init__(argv, host, port, client_name)
+        super(Manager, self).__init__(host, port, client_name)
 
         self.all_channels = []
 

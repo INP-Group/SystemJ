@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
 
-from project.settings import log_debug
-from project.settings import log_error
+from project.logs import log_debug
+from project.logs import log_error
 from src.server.control.base.baseclient import BaseClient
 
 
 class ConsoleClient(BaseClient):
 
-    def __init__(self, argv, host, port, client_name=None):
-        super(ConsoleClient, self).__init__(argv, host, port, client_name=None)
+    def __init__(self, host, port, client_name=None):
+        super(ConsoleClient, self).__init__(host, port, client_name=None)
 
         self.server_host = host
         self.server_port = port
@@ -40,7 +40,7 @@ class ConsoleClient(BaseClient):
         log_error('Error: {}'.format(
             self.socket.errorString()))
         self.socket.close()
-        self.quit()
+        exit(1)
 
     def _command_echo(self, command, message):
         log_debug('ECHO (command): %s' % message)

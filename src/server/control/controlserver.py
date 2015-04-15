@@ -7,8 +7,8 @@ from src.server.control.base.baseserver import BaseServer
 
 class ControlServer(BaseServer):
 
-    def __init__(self, argv, host, port):
-        super(ControlServer, self).__init__(argv, host, port)
+    def __init__(self, host, port):
+        super(ControlServer, self).__init__(host, port)
 
         self._add_command('USER_LIST', self._command_users)
         self._add_command('MANAGER_LIST', self._command_managers)

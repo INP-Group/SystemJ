@@ -4,9 +4,9 @@ import sys
 
 import project.settings
 from project.settings import SIZEOF_UINT32
-from project.settings import log_debug
-from project.settings import log_error
-from project.settings import log_info
+from project.logs import log_debug
+from project.logs import log_error
+from project.logs import log_info
 from PyQt4.QtCore import SIGNAL
 from src.server.control.base.basecontol import BaseControl
 
@@ -28,8 +28,8 @@ else:
 
 class BaseServer(BaseControl):
 
-    def __init__(self, argv, host, port):
-        super(BaseServer, self).__init__(argv)
+    def __init__(self, host, port):
+        super(BaseServer, self).__init__()
 
         self.tcp_server = QTcpServer(self)
 
@@ -44,6 +44,7 @@ class BaseServer(BaseControl):
 
         self.connect(self.tcp_server, SIGNAL('newConnection()'),
                      self.new_connection)
+
         self.connections = []
         self.users = {}
 
@@ -52,6 +53,9 @@ class BaseServer(BaseControl):
         self._add_command('OFFLINE', self._command_offline)
         self._add_command('ECHO', self._command_echo)
         self._add_command('USERS', self._command_users)
+
+    def test(self):
+        log_debug("hiiiii")
 
     def send_message(self, client, command, message=''):
         log_debug(
@@ -67,10 +71,13 @@ class BaseServer(BaseControl):
         client.write(reply)
 
     def remove_connection(self, client):
+        log_debug("Remove connection")
         assert client in self.users
         del self.users[client]
+        log_debug("Stop remove connection")
 
     def socket_error(self):
+        log_debug("Socker error")
         pass
 
     def new_connection(self):
