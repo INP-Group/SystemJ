@@ -49,6 +49,7 @@ COMMAND_SPLITER = '|||'
 
 try:
     from project.local_settings import *
+    from project.logs import *
 except ImportError:
     pass
 
@@ -57,3 +58,5 @@ check_and_create(MEDIA_FOLDER)
 check_and_create(RES_FOLDER)
 check_and_create(LOG_FOLDER)
 check_and_create(DB_FOLDER)
+
+
