@@ -12,7 +12,7 @@ from project.settings import POSTGRESQL_DB, POSTGRESQL_USER, \
 from src.utils.kvstorage import set
 
 
-def main():
+def update_list():
     table_name = 'channels'
     storage = PostgresqlStorage(database=POSTGRESQL_DB,
                                 user=POSTGRESQL_USER,
@@ -27,4 +27,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    update_list()

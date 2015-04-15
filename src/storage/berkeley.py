@@ -95,6 +95,10 @@ class BerkeleyStorage(Singleton):
                         info = self.database.get('%s' % x).split('\t')
                         channel_id = self.get_id(info[0])
                         if channel_id is None:
+                            from scripts.python.update_channels import update_list
+                            update_list()
+                            channel_id = self.get_id(info[0])
+                        if channel_id is None:
                             raise Exception(
                                 "Not found channel_name in kvstorage")
                         values.append([info[3], info[2], channel_id])
