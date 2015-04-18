@@ -11,7 +11,7 @@ PyQt4
 configparser
 pyyaml
 
-pyzmq
+
 # http://blog-tree.com/post/2013/11/daemons-under-supervisor
 pyzmq
 bsddb3
@@ -24,7 +24,7 @@ matplotlib
 
 # key-value: simple
 # pickledb
-git+https://github.com/WarmongeR1/pickledb.git
+# git+https://github.com/WarmongeR1/pickledb.git
 umemcache
 python-ultramemcached
 
