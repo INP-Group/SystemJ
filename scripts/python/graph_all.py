@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import ultramemcache
 from src.utils.kvstorage import load
 
 try:
@@ -10,7 +11,7 @@ import datetime
 import os
 
 from project.logs import log_error
-from project.settings import MEDIA_FOLDER
+from project.settings import MEDIA_FOLDER, MEMCACHE_SERVER
 from project.settings import POSTGRESQL_DB
 from project.settings import POSTGRESQL_HOST
 from project.settings import POSTGRESQL_PASSWORD
@@ -112,7 +113,7 @@ def prepare_data(data):
 
 
 def main():
-    kvstorage = load(force_dump=False)
+    kvstorage = ultramemcache.Client([MEMCACHE_SERVER], debug=0)
     channels = []
     for x in xrange(0, 10):
         # channels.append('linvac.vacmatrix.Imes%s' % x)
@@ -142,8 +143,7 @@ def main():
             if value:
                 times, values, np_test = prepare_data(value)
 
-                name = '%s_%s_%s' % (
-                kvstorage.get_name_by_id(key), time_start, time_end)
+                name = '%s_%s_%s' % (key, time_start, time_end)
                 show_plot(times, values, np_test, name)
         except (TypeError, IndexError) as e:
             log_error(key, e, value)

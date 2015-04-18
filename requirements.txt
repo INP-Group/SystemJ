@@ -25,7 +25,8 @@ matplotlib
 # key-value: simple
 # pickledb
 git+https://github.com/WarmongeR1/pickledb.git
-
+umemcache
+python-ultramemcached
 
 # statistic
 graphviz
