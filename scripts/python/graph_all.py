@@ -1,8 +1,13 @@
 # -*- encoding: utf-8 -*-
+from src.utils.kvstorage import load
+
+try:
+    from __init__ import *
+except ImportError:
+    pass
+
 import datetime
 import os
-
-import matplotlib.pyplot as plt
 
 from project.logs import log_error
 from project.settings import MEDIA_FOLDER
@@ -13,11 +18,9 @@ from project.settings import POSTGRESQL_TABLE
 from project.settings import POSTGRESQL_USER
 from project.settings import check_and_create
 from src.storage.postgresql import PostgresqlStorage
-
-try:
-    from __init__ import *
-except ImportError:
-    pass
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 
 
 def get_data_from_storage(channels, time_start, time_end):
@@ -39,20 +42,38 @@ def get_data_from_storage(channels, time_start, time_end):
         data_of_channels[x] = []
 
     for x in data:
-        data_of_channels[x[0]].append((x[1], x[2]))
+        dtime = x[0]
+        # хак
+        # чтобы время соответствовало формату '%Y-%m-%d %H:%M:%S.%f'
+        if not dtime.microsecond:
+            dtime = dtime.replace(microsecond=1)
+        data_of_channels[x[-1]].append((dtime, x[1]))  # data, value, channel_id
 
     return data_of_channels
 
 
-def show_plot(data, name):
-    x_val = data[0]
-    y_val = data[1]
+def show_plot(times, values, np_test, name):
+    x_val, y_val = np.loadtxt(np_test, delimiter=',', unpack=True,
+                              converters={
+                                  0: mdates.strpdate2num(
+                                      '%Y-%m-%d %H:%M:%S.%f')})
+
+    # x_val = times
+    # y_val = values
     # plt.hold(False)
     plt.title(name)
     plt.xlabel('Time')
     plt.ylabel('Values')
-    plt.plot(x_val, y_val)
-    plt.plot(x_val, y_val, 'or')
+    plt.plot_date(x=x_val,
+                  y=y_val,
+                  marker='o',
+                  markerfacecolor='red',
+                  fmt='b-',
+                  label='value',
+                  linewidth=2
+                  )
+    # plt.plot(x_val, y_val)
+    # plt.plot(x_val, y_val, 'or')
     plt.savefig(os.path.join(MEDIA_FOLDER, 'plots', '%s.png' % name))
     plt.clf()
     plt.cla()
@@ -66,6 +87,7 @@ def prepare_data(data):
         data[0][0],
         datetime.datetime) else None
     prev_value = data[0][1] if isinstance(data[0][1], (float, int)) else None
+    np_test = []
 
     assert prev_value is not None
     assert prev_time is not None
@@ -78,18 +100,23 @@ def prepare_data(data):
             for t in xrange(1, int(delta.total_seconds())):
                 times.append(prev_time + datetime.timedelta(seconds=t))
                 values.append(prev_value)
+                np_test.append("%s,%s" % (
+                    prev_time + datetime.timedelta(seconds=t), prev_value))
             prev_time = cur_time
             prev_value = cur_value
         times.append(cur_time)
         values.append(cur_value)
+        np_test.append("%s,%s" % (cur_time, cur_value))
 
-    return times, values
+    return times, values, np_test
 
 
 def main():
+    kvstorage = load()
     channels = []
-    for x in xrange(0, 99):
-        channels.append('linvac.vacmatrix.Imes%s' % x)
+    for x in xrange(0, 10):
+        # channels.append('linvac.vacmatrix.Imes%s' % x)
+        channels.append(kvstorage.get('linvac.vacmatrix.Imes%s' % x))
 
     time_start = datetime.datetime(year=2015,
                                    month=4,
@@ -113,10 +140,11 @@ def main():
     for key, value in data_of_channels.items():
         try:
             if value:
-                info_for_plot = prepare_data(value)
+                times, values, np_test = prepare_data(value)
 
-                name = '%s_%s_%s' % (key, time_start, time_end)
-                show_plot(info_for_plot, name)
+                name = '%s_%s_%s' % (
+                kvstorage.get_name_by_id(key), time_start, time_end)
+                show_plot(times, values, np_test, name)
         except (TypeError, IndexError) as e:
             log_error(key, e, value)
             raise

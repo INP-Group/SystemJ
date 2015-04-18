@@ -23,6 +23,13 @@ def set(key, value):
 def get(key):
     return load().get(key)
 
+def get_name_by_id(value):
+    data = load()
+    keys = data.getall()
+    for key in keys:
+        if value == data.get(key):
+            return key
+
 
 if __name__ == '__main__':
     pass
