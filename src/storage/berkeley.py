@@ -2,6 +2,7 @@
 
 import os
 from bsddb3 import db
+
 import ultramemcache
 
 from project.logs import log_error
@@ -13,6 +14,7 @@ from project.settings import POSTGRESQL_TABLE, BERKELEY_SYNC_NUMBER
 from project.settings import POSTGRESQL_USER, BERKELEY_MOVE_NUMBER
 from src.pattern.singleton import Singleton
 from src.storage.postgresql import PostgresqlStorage
+from scripts.python.update_channels import update_list
 
 
 class GeneratorId(Singleton):
@@ -67,6 +69,7 @@ class BerkeleyStorage(Singleton):
 
         # todo
         # может список в динамике обновится
+        update_list()
         self.kv_storage = ultramemcache.Client([MEMCACHE_SERVER], debug=0)
 
     def get_id(self, name):
