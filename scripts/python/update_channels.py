@@ -26,7 +26,7 @@ def update_list():
     assert results
     base = load(force_dump=False)
     for channel_id, name in results:
-        base.set(name, channel_id)
+        base.set(unicode(name), channel_id)
 
     base.dump()
 
