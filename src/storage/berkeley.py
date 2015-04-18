@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 import os
-
 from bsddb3 import db
+
 from project.logs import log_error
 from project.settings import DB_FOLDER
 from project.settings import POSTGRESQL_DB
@@ -12,7 +12,7 @@ from project.settings import POSTGRESQL_TABLE, BERKELEY_SYNC_NUMBER
 from project.settings import POSTGRESQL_USER, BERKELEY_MOVE_NUMBER
 from src.pattern.singleton import Singleton
 from src.storage.postgresql import PostgresqlStorage
-from src.utils.kvstorage import get, load
+from src.utils.kvstorage import load
 
 
 class GeneratorId(Singleton):
@@ -109,11 +109,12 @@ class BerkeleyStorage(Singleton):
                         info = self.database.get('%s' % x).split('\t')
                         channel_id = self.get_id(info[0])
                         if channel_id is None:
-                            from scripts.python.update_channels import update_list
-                            update_list()
-                            self.kv_storage = load()
-                            channel_id = self.get_id(info[0])
-                        if channel_id is None:
+                            # from scripts.python.update_channels import update_list
+                            # update_list()
+                            # self.kv_storage = load()
+                            # channel_id = self.get_id(info[0])
+                            # чтение с диска во время обработки большого потока
+                            # приводит к блокировке по диску.
                             raise Exception(
                                 'Not found channel_name in kvstorage')
                         values.append([info[2], info[1],
