@@ -112,7 +112,7 @@ def prepare_data(data):
 
 
 def main():
-    kvstorage = load()
+    kvstorage = load(force_dump=False)
     channels = []
     for x in xrange(0, 10):
         # channels.append('linvac.vacmatrix.Imes%s' % x)

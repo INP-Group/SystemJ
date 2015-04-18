@@ -24,9 +24,11 @@ def update_list():
 
     results = storage.raw_sql('SELECT * FROM %s ' % table_name)
     assert results
-    base = load()
+    base = load(force_dump=False)
     for channel_id, name in results:
-        base.set(unicode(name), channel_id)
+        base.set(name, channel_id)
+
+    base.dump()
 
 
 if __name__ == '__main__':

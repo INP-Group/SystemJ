@@ -2,18 +2,28 @@
 import os
 
 import pickledb
+
 from project.settings import DB_FOLDER
 
 __all__ = [
     '_load',
     'set',
-    'get'
+    'get',
+    'get_name_by_id',
 ]
+
 
 def load(filepath=None, force_dump=True):
     if filepath is None:
         filepath = os.path.join(DB_FOLDER, 'kvstorage.db')
-    return pickledb.load(filepath, force_dump)
+    try:
+        base = pickledb.load(filepath, force_dump)
+    except ValueError as e:
+        os.remove(filepath)
+        base = pickledb.load(filepath, force_dump)
+    finally:
+        return base
+
 
 
 def set(key, value):
@@ -22,6 +32,7 @@ def set(key, value):
 
 def get(key):
     return load().get(key)
+
 
 def get_name_by_id(value):
     data = load()
