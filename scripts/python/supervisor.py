@@ -1,14 +1,8 @@
 # -*- encoding: utf-8 -*-
 import os
 
-from project.settings import BIN_FOLDER
-from project.settings import DEPLOY_FOLDER
-from project.settings import LIST_SERVICE
-from project.settings import LOG_FOLDER
-from project.settings import PROJECT_DIR
-from project.settings import USER
-from project.settings import VENV_PYTHON
-from project.settings import log_info
+from project.settings import BIN_FOLDER, DEPLOY_FOLDER, LIST_SERVICE, \
+    LOG_FOLDER, PROJECT_DIR, USER, VENV_PYTHON, log_info
 
 
 def create_supervisord_service(service):

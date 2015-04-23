@@ -5,8 +5,7 @@ import sys
 import project.settings
 import zmq
 from project.logs import log_debug
-from project.settings import ZEROMQ_HOST
-from project.settings import ZEROMQ_PORT
+from project.settings import ZEROMQ_HOST, ZEROMQ_PORT
 from src.base.monitorfactory import MonitorFactory
 from src.server.control.consoleclient import ConsoleClient
 

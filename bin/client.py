@@ -8,8 +8,7 @@ except ImportError:
 import signal
 import sys
 
-from project.settings import SERVER_HOST
-from project.settings import SERVER_PORT
+from project.settings import SERVER_HOST, SERVER_PORT
 from PyQt4.QtGui import QApplication
 from src.server.control.guiclient import GuiClient
 

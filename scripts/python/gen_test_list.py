@@ -12,8 +12,8 @@ def main():
     copy_lines = []
 
     for x in xrange(cnt_workers):
-        name_worker = "worker_%s" % x
-        command_lines.append("WORKER_ADD ||| %s\n" % name_worker)
+        name_worker = 'worker_%s' % x
+        command_lines.append('WORKER_ADD ||| %s\n' % name_worker)
 
     for x in xrange(0, cnt_channels):
         name_channel = 'test_channel_%s' % x
@@ -24,7 +24,7 @@ def main():
                              % name_channel)
         command_lines.append(
             "CHL_ADD ||| %s ___ {'type': 'EasyFakeMonitor'} \n" % name_channel)
-        copy_lines.append("%s\n" % name_channel)
+        copy_lines.append('%s\n' % name_channel)
 
     with open('copy_data.txt', 'w') as fio:
         fio.writelines(copy_lines)

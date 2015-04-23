@@ -4,9 +4,7 @@ import datetime
 import os
 
 from project.logs import log_debug
-from project.settings import COMMAND_SPLITER
-from project.settings import LOG
-from project.settings import SIZEOF_UINT32
+from project.settings import COMMAND_SPLITER, LOG, SIZEOF_UINT32
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *

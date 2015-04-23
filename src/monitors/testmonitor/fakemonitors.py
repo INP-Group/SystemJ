@@ -2,8 +2,7 @@
 
 import datetime
 
-from PyQt4.QtCore import QObject
-from PyQt4.QtCore import pyqtSignal
+from PyQt4.QtCore import QObject, pyqtSignal
 from src.base.monitor import TestMonitor
 
 

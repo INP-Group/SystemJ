@@ -2,7 +2,6 @@
 import os
 
 import pickledb
-
 from project.settings import DB_FOLDER
 
 __all__ = ['_load', 'set', 'get', 'get_name_by_id', ]

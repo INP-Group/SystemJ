@@ -1,27 +1,23 @@
 # -*- encoding: utf-8 -*-
+import datetime
+import os
+
+import matplotlib.dates as mdates
+import matplotlib.pyplot as plt
+import numpy as np
+
 import ultramemcache
+from project.logs import log_error
+from project.settings import MEDIA_FOLDER, MEMCACHE_SERVER, \
+    POSTGRESQL_DB, POSTGRESQL_HOST, POSTGRESQL_PASSWORD, \
+    POSTGRESQL_TABLE, POSTGRESQL_USER, check_and_create
+from src.storage.postgresql import PostgresqlStorage
 from src.utils.kvstorage import load
 
 try:
     from __init__ import *
 except ImportError:
     pass
-
-import datetime
-import os
-
-from project.logs import log_error
-from project.settings import MEDIA_FOLDER, MEMCACHE_SERVER
-from project.settings import POSTGRESQL_DB
-from project.settings import POSTGRESQL_HOST
-from project.settings import POSTGRESQL_PASSWORD
-from project.settings import POSTGRESQL_TABLE
-from project.settings import POSTGRESQL_USER
-from project.settings import check_and_create
-from src.storage.postgresql import PostgresqlStorage
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 
 
 def get_data_from_storage(channels, time_start, time_end):
@@ -49,8 +45,8 @@ def get_data_from_storage(channels, time_start, time_end):
         # чтобы время соответствовало формату '%Y-%m-%d %H:%M:%S.%f'
         if not dtime.microsecond:
             dtime = dtime.replace(microsecond=1)
-        data_of_channels[x[-1]].append(
-            (dtime, x[1]))  # data, value, channel_id
+        data_of_channels[x[-1]].append((dtime, x[1])
+                                       )  # data, value, channel_id
 
     return data_of_channels
 
@@ -102,14 +98,14 @@ def prepare_data(data):
             for t in xrange(1, int(delta.total_seconds())):
                 times.append(prev_time + datetime.timedelta(seconds=t))
                 values.append(prev_value)
-                np_test.append("%s,%s" %
+                np_test.append('%s,%s' %
                                (prev_time + datetime.timedelta(seconds=t),
                                 prev_value))
             prev_time = cur_time
             prev_value = cur_value
         times.append(cur_time)
         values.append(cur_value)
-        np_test.append("%s,%s" % (cur_time, cur_value))
+        np_test.append('%s,%s' % (cur_time, cur_value))
 
     return times, values, np_test
 

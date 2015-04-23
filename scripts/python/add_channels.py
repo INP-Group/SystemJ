@@ -7,12 +7,8 @@ except ImportError:
 
 import os
 
-from project.settings import POSTGRESQL_DB
-from project.settings import POSTGRESQL_HOST
-from project.settings import POSTGRESQL_PASSWORD
-from project.settings import POSTGRESQL_TABLE
-from project.settings import POSTGRESQL_USER
-from project.settings import RES_FOLDER
+from project.settings import POSTGRESQL_DB, POSTGRESQL_HOST, \
+    POSTGRESQL_PASSWORD, POSTGRESQL_TABLE, POSTGRESQL_USER, RES_FOLDER
 from src.storage.postgresql import PostgresqlStorage
 from src.utils.kvstorage import set
 

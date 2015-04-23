@@ -1,10 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 import zmq
-from project.settings import ZEROMQ_HOST
-from project.settings import ZEROMQ_PORT
-from PyQt4.QtCore import QObject
-from PyQt4.QtCore import pyqtSignal
+from project.settings import ZEROMQ_HOST, ZEROMQ_PORT
+from PyQt4.QtCore import QObject, pyqtSignal
 from src.base.basemonitor import BaseMonitor
 
 

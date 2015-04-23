@@ -1,20 +1,16 @@
 # -*- encoding: utf-8 -*-
 
 import os
-from bsddb3 import db
 
 import ultramemcache
-
+from bsddb3 import db
 from project.logs import log_error
-from project.settings import DB_FOLDER, MEMCACHE_SERVER
-from project.settings import POSTGRESQL_DB
-from project.settings import POSTGRESQL_HOST
-from project.settings import POSTGRESQL_PASSWORD
-from project.settings import POSTGRESQL_TABLE, BERKELEY_SYNC_NUMBER
-from project.settings import POSTGRESQL_USER, BERKELEY_MOVE_NUMBER
+from project.settings import BERKELEY_MOVE_NUMBER, BERKELEY_SYNC_NUMBER, \
+    DB_FOLDER, MEMCACHE_SERVER, POSTGRESQL_DB, POSTGRESQL_HOST, \
+    POSTGRESQL_PASSWORD, POSTGRESQL_TABLE, POSTGRESQL_USER
+from scripts.python.update_channels import update_list
 from src.pattern.singleton import Singleton
 from src.storage.postgresql import PostgresqlStorage
-from scripts.python.update_channels import update_list
 
 
 class GeneratorId(Singleton):

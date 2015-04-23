@@ -5,14 +5,10 @@ try:
 except ImportError:
     pass
 
-from project.settings import POSTGRESQL_DB
-from project.settings import POSTGRESQL_HOST
-from project.settings import POSTGRESQL_PASSWORD
-from project.settings import POSTGRESQL_TABLE
-from project.settings import POSTGRESQL_USER, MEMCACHE_SERVER
-from src.storage.postgresql import PostgresqlStorage
-# from src.utils.kvstorage import load
 import ultramemcache
+from project.settings import MEMCACHE_SERVER, POSTGRESQL_DB, \
+    POSTGRESQL_HOST, POSTGRESQL_PASSWORD, POSTGRESQL_TABLE, POSTGRESQL_USER
+from src.storage.postgresql import PostgresqlStorage
 
 
 def update_list():

@@ -3,9 +3,7 @@
 import sys
 
 import project.settings
-from project.logs import log_debug
-from project.logs import log_error
-from project.logs import log_info
+from project.logs import log_debug, log_error, log_info
 from project.settings import SIZEOF_UINT32
 from PyQt4.QtCore import SIGNAL
 from src.server.control.base.basecontol import BaseControl

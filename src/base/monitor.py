@@ -4,8 +4,7 @@ import datetime
 import os
 
 from project.logs import log_info
-from project.settings import LOG
-from project.settings import LOG_FOLDER
+from project.settings import LOG, LOG_FOLDER
 from src.base.basedatamonitor import BaseDataMonitor
 from src.base.cx.basecxmonitor import BaseCXMonitor
 from src.monitors.servicemonitor.zeromqmonitor import ZeroMQMonitor

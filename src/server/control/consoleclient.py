@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-from project.logs import log_debug
-from project.logs import log_error
+from project.logs import log_debug, log_error
 from src.server.control.base.baseclient import BaseClient
 
 

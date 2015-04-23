@@ -1,11 +1,7 @@
 # -*- encoding: utf-8 -*-
-from project.settings import POSTGRESQL_DB
-from project.settings import POSTGRESQL_HOST
-from project.settings import POSTGRESQL_PASSWORD
-from project.settings import POSTGRESQL_TABLE
-from project.settings import POSTGRESQL_USER
-from project.settings import ZEROMQ_HOST
-from project.settings import ZEROMQ_PORT
+from project.settings import POSTGRESQL_DB, \
+    POSTGRESQL_HOST, POSTGRESQL_PASSWORD, POSTGRESQL_TABLE, \
+    POSTGRESQL_USER, ZEROMQ_HOST, ZEROMQ_PORT
 from src.storage.berkeley import BerkeleyStorage
 from src.storage.postgresql import PostgresqlStorage
 from src.storage.zeromqserver import ZeroMQServer
