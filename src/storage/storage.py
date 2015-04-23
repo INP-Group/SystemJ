@@ -12,7 +12,6 @@ from src.storage.zeromqserver import ZeroMQServer
 
 
 class Storage(object):
-
     def __init__(self):
         self.sql_storage = PostgresqlStorage(database=POSTGRESQL_DB,
                                              user=POSTGRESQL_USER,
@@ -20,7 +19,8 @@ class Storage(object):
                                              tablename=POSTGRESQL_TABLE,
                                              host=POSTGRESQL_HOST)
         self.berkeley_db = BerkeleyStorage(sql_storage=self.sql_storage)
-        self.zeromq = ZeroMQServer(host=ZEROMQ_HOST, port=ZEROMQ_PORT,
+        self.zeromq = ZeroMQServer(host=ZEROMQ_HOST,
+                                   port=ZEROMQ_PORT,
                                    berkeley_db=self.berkeley_db)
 
     def start(self):

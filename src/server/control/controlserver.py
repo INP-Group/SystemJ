@@ -8,7 +8,6 @@ from src.server.control.base.baseserver import BaseServer
 
 
 class ControlServer(BaseServer):
-
     def __init__(self, host, port):
         super(ControlServer, self).__init__(host, port)
 
@@ -18,24 +17,20 @@ class ControlServer(BaseServer):
         self._add_command('CHL_LIST', self._command_users)
         self._add_command('FROM_FILE', self._command_from_file)
 
-        self.manager_commands = [
-            'CHL_ADD',
-            'WORKER_ADD',
-            'WORKER_DEL',
-            'WORKER_LIST',
-        ]
+        self.manager_commands = ['CHL_ADD',
+                                 'WORKER_ADD',
+                                 'WORKER_DEL',
+                                 'WORKER_LIST', ]
 
         [self._add_command(x, self._command_send_to_manager)
          for x in self.manager_commands]
 
     def _command_managers(self, client, command, message):
         assert self.users
-        data = str(
-            [info for key, info in self.users.items() if
-             info.get('type') == 'manager'])
-        [self.send_message(x, 'RAW', data) for x, info in self.users.items() if
-         info.get(
-             'type') == 'guiclient']
+        data = str([info for key, info in self.users.items()
+                    if info.get('type') == 'manager'])
+        [self.send_message(x, 'RAW', data) for x, info in self.users.items()
+         if info.get('type') == 'guiclient']
 
     def _command_set_type(self, client, command, message):
         assert self.users
@@ -46,7 +41,6 @@ class ControlServer(BaseServer):
         self.send_message(client, 'SET')
 
     def _command_send_to_manager(self, client, command, message):
-
         def minimum_with_key(users, key='cnt_monitors'):
             min_cnt = sys.maxsize
             min_client = users[0][0]
@@ -56,10 +50,8 @@ class ControlServer(BaseServer):
                     min_client = client
             return min_client
 
-        managers = [
-            (client,
-             info) for client,
-            info in self.users.items() if info.get('type') == 'manager']
+        managers = [(client, info) for client, info in self.users.items()
+                    if info.get('type') == 'manager']
 
         if len(managers) == 1:
             real_manager = managers[0][0]

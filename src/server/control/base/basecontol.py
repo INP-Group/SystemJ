@@ -8,7 +8,6 @@ from PyQt4.QtNetwork import *
 
 
 class BaseControl(QObject):
-
     def __init__(self):
         super(BaseControl, self).__init__()
 

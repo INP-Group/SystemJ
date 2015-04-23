@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 
-
 import datetime
 import math
 import time
@@ -30,8 +29,8 @@ class ScalarCXMonitor(CXMonitor):
                     self._gfa(args, 3)
 
                 self.send_data(self.default_form([self.name,
-                                                  self.personal_name,
-                                                  handle, now_time]))
+                                                  self.personal_name, handle,
+                                                  now_time]))
                 self.default_log(text)
 
             return 0
@@ -48,19 +47,20 @@ class ScalarCXMonitor(CXMonitor):
                 fl = math.fabs(self.ch_prev_value - self.ch_now_value) > \
                     self.get_property('delta')
                 if self.ch_prev_value is not None and fl:
-                    self.send_data(self.default_form(
-                        [self.name, self.personal_name, self.ch_prev_value,
-                         now_time]))
+                    self.send_data(
+                        self.default_form([self.name, self.personal_name,
+                                           self.ch_prev_value, now_time]))
 
                     self.ch_prev_value = self.ch_now_value
 
-                    self.send_data(self.default_form(
-                        [self.name, self.personal_name, handle, now_time]))
+                    self.send_data(self.default_form([self.name,
+                                                      self.personal_name,
+                                                      handle, now_time]))
                     self.default_log(text)
             return 0
 
-        self.send_data(self.default_form(
-            [self.name, self.personal_name, handle, now_time]))
+        self.send_data(self.default_form([self.name, self.personal_name,
+                                          handle, now_time]))
         self.default_log(text)
 
         return 0

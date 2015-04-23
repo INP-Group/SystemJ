@@ -6,7 +6,6 @@ from src.server.control.base.baseclient import BaseClient
 
 
 class ConsoleClient(BaseClient):
-
     def __init__(self, host, port, client_name=None):
         super(ConsoleClient, self).__init__(host, port, client_name=None)
 
@@ -37,8 +36,7 @@ class ConsoleClient(BaseClient):
 
     def server_has_error(self):
         self.send_message('OFFLINE', '')
-        log_error('Error: {}'.format(
-            self.socket.errorString()))
+        log_error('Error: {}'.format(self.socket.errorString()))
         self.socket.close()
         exit(1)
 

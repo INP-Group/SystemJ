@@ -8,7 +8,6 @@ from src.base.cx.cdr_wrapper import Cdr
 
 
 class BaseCXMonitor(BaseDataMonitor):
-
     def __init__(self, name, personal_name=None):
         super(BaseCXMonitor, self).__init__(name, personal_name)
         self.cdr = Cdr(CDR_LIB_PATH)
@@ -18,7 +17,7 @@ class BaseCXMonitor(BaseDataMonitor):
     def callback(self, handle, val, params):
         self.val = val
         if math.fabs(
-                self.val - self.prev_val) > self.tolerance or self.first_cycle:
+            self.val - self.prev_val) > self.tolerance or self.first_cycle:
             self.first_cycle = False
             self.prev_val = self.val
             self.valueChanged.emit(self, self.val)

@@ -12,7 +12,6 @@ from src.storage.berkeley import BerkeleyStorage
 
 
 class ZeroMQServer(threading.Thread):
-
     def __init__(self, host=ZEROMQ_HOST, port=ZEROMQ_PORT, berkeley_db=None):
         threading.Thread.__init__(self)
         self.context = zmq.Context()
@@ -31,8 +30,8 @@ class ZeroMQServer(threading.Thread):
                 json_data = self.sock.recv_json()
                 if json_data:
                     if LOG:
-                        log_debug('Receive message: %s, type: %s' % (
-                            json_data, type(json_data)))
+                        log_debug('Receive message: %s, type: %s' %
+                                  (json_data, type(json_data)))
                     self.berkeley_db.add_json(json_data)
                     self.sock.send('Saved')
         except KeyboardInterrupt:

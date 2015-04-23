@@ -64,10 +64,4 @@ log_critical = __log_method(logging.CRITICAL, 'critical.log')
 log_error = __log_method(logging.ERROR, 'error.log')
 log_track = __log_method(logging.INFO, 'tracking.log')
 
-__all__ = [
-    'log_info',
-    'log_debug',
-    'log_critical',
-    'log_error',
-    'log_track',
-]
+__all__ = ['log_info', 'log_debug', 'log_critical', 'log_error', 'log_track', ]

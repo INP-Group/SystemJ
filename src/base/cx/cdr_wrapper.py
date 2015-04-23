@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 
-
 import ctypes
 import sys
 
@@ -19,7 +18,6 @@ else:
 
 
 class CdrWrapper(object):
-
     """
     CDR Wrapper class ver0.7, see use example below
     """
@@ -60,11 +58,8 @@ class CdrWrapper(object):
         INNER: wraps python function by ctypes descriptor for c++
 
         """
-        CB_FUNC = ctypes.CFUNCTYPE(
-            ctypes.c_int,
-            ctypes.c_int,
-            ctypes.c_double,
-            ctypes.c_void_p)
+        CB_FUNC = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_int, ctypes.c_double,
+                                   ctypes.c_void_p)
         ret = CB_FUNC(python_callable)
         return ret
 
@@ -81,6 +76,7 @@ class CdrWrapper(object):
                 for x in self.callbacks[name]:
                     x(h, v, p)
             return 0
+
         return cb
 
     def RegisterSimpleChan(self, name, callback, private_params=None):
@@ -106,19 +102,14 @@ class CdrWrapper(object):
         c_cb = self.MakeChanCallback(cb)
 
         self.library.CdrRegisterSimpleChan.argtypes = [
-            ctypes.c_char_p,
-            ctypes.c_char_p,
-            ctypes.c_void_p,
-            ctypes.c_void_p]
-        ret = self.library.CdrRegisterSimpleChan(
-            name,
-            self.argv0,
-            c_cb,
-            private_params)
+            ctypes.c_char_p, ctypes.c_char_p, ctypes.c_void_p, ctypes.c_void_p
+        ]
+        ret = self.library.CdrRegisterSimpleChan(name, self.argv0, c_cb,
+                                                 private_params)
         if ret < 0:
             raise Exception(
-                'Error while Registering Simple Monitor Callback, errcode: %s' %
-                ret)
+                'Error while Registering Simple Monitor Callback, errcode: %s'
+                % ret)
 
         # We need to keep reference to c_callbacks or Garbage Collector will
         # destroy it.
@@ -137,16 +128,14 @@ class CdrWrapper(object):
 
         """
         self.library.CdrSetSimpleChanVal.restype = ctypes.c_int
-        self.library.CdrSetSimpleChanVal.argtypes = [
-            ctypes.c_int,
-            ctypes.c_double]
+        self.library.CdrSetSimpleChanVal.argtypes = [ctypes.c_int,
+                                                     ctypes.c_double]
         ret = self.library.CdrSetSimpleChanVal(
-            handle,
-            val)  # TODO: check if ret is ctypec.c_int
+            handle, val
+        )  # TODO: check if ret is ctypec.c_int
         if ret != 0:
             raise Exception(
-                'Error while Setting Simple Monitor Value, errcode: %s' %
-                ret)
+                'Error while Setting Simple Monitor Value, errcode: %s' % ret)
         return ret
 
     def GetSimpleChanVal(self, handle):
@@ -157,15 +146,13 @@ class CdrWrapper(object):
         """
         self.library.CdrGetSimpleChanVal.restype = ctypes.c_int
         self.library.CdrGetSimpleChanVal.argtypes = [
-            ctypes.c_int,
-            ctypes.POINTER(
-                ctypes.c_double)]
+            ctypes.c_int, ctypes.POINTER(ctypes.c_double)
+        ]
         val = ctypes.c_double(0.0)
         ret = self.library.CdrGetSimpleChanVal(handle, ctypes.byref(val))
         if ret != 0:
             raise Exception(
-                'Error while Getting Simple Monitor Value, errcode: %s' %
-                ret)
+                'Error while Getting Simple Monitor Value, errcode: %s' % ret)
         return val.value
 
     #############################################
@@ -185,10 +172,8 @@ class CdrWrapper(object):
         """
         # TODO: may be better to define callback prototype ones in class but
         # not with callback
-        bigCB_FUNC = ctypes.CFUNCTYPE(
-            ctypes.c_int,
-            ctypes.c_int,
-            ctypes.c_void_p)
+        bigCB_FUNC = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_int,
+                                      ctypes.c_void_p)
         ret = bigCB_FUNC(python_callable)
         return ret
 
@@ -205,10 +190,11 @@ class CdrWrapper(object):
                 for x in self.bigc_callbacks[name]:
                     x(h, p)
             return 0
+
         return cb
 
-    def RegisterSimpleBigc(
-            self, name, max_datasize, callback, private_params=None):
+    def RegisterSimpleBigc(self, name, max_datasize, callback,
+                           private_params=None):
         """Registers cdr callback by specified name event(???), with optional
         private params."""
         if name in self.registered_bigcs:
@@ -221,21 +207,16 @@ class CdrWrapper(object):
         c_cb = self.MakeBigcCallbackIfNeeded(cb)
 
         self.library.CdrRegisterSimpleBigc.argtypes = [
-            ctypes.c_char_p,
-            ctypes.c_char_p,
-            ctypes.c_int,
-            ctypes.c_void_p,
-            ctypes.c_void_p]
-        ret = self.library.CdrRegisterSimpleBigc(
-            name,
-            self.argv0,
-            max_datasize,
-            c_cb,
-            private_params)
+            ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p,
+            ctypes.c_void_p
+        ]
+        ret = self.library.CdrRegisterSimpleBigc(name, self.argv0,
+                                                 max_datasize, c_cb,
+                                                 private_params)
         if ret < 0:
             raise Exception(
-                'Error while Registering Simple BigChan Callback, errcode: %s' %
-                ret)
+                'Error while Registering Simple BigChan Callback, errcode: %s'
+                % ret)
 
         # We need to keep reference to c_callbacks or Garbage Collector will
         # destroy it.
@@ -257,15 +238,10 @@ class CdrWrapper(object):
         """
         self.library.CdrGetSimpleBigcData.restype = ctypes.c_int
         self.library.CdrGetSimpleBigcData.argtypes = [
-            ctypes.c_int,
-            ctypes.c_int,
-            ctypes.c_int,
-            ctypes.c_void_p]
-        read_count = self.library.CdrGetSimpleBigcData(
-            handle,
-            byte_offset,
-            bytes_count,
-            buf_void_p)
+            ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_void_p
+        ]
+        read_count = self.library.CdrGetSimpleBigcData(handle, byte_offset,
+                                                       bytes_count, buf_void_p)
         if read_count < 0:
             raise Exception(
                 'Error while Getting Simple BigChan Data, errcode: %s' %
@@ -281,15 +257,13 @@ class CdrWrapper(object):
 
         """
         self.library.CdrSetSimpleBigcParam.restype = ctypes.c_int
-        self.library.CdrSetSimpleBigcParam.argtypes = [
-            ctypes.c_int,
-            ctypes.c_int,
-            ctypes.c_int]
+        self.library.CdrSetSimpleBigcParam.argtypes = [ctypes.c_int,
+                                                       ctypes.c_int,
+                                                       ctypes.c_int]
         ret = self.library.CdrSetSimpleBigcParam(handle, n, val)
         if ret < 0:
             raise Exception(
-                'Error while Setting Simple BigChan Param, errcode: %s' %
-                ret)
+                'Error while Setting Simple BigChan Param, errcode: %s' % ret)
         return ret
 
     def GetSimpleBigcParam(self, handle, n):
@@ -301,16 +275,13 @@ class CdrWrapper(object):
         """
         self.library.CdrGetSimpleBigcParam.restype = ctypes.c_int
         self.library.CdrGetSimpleBigcParam.argtypes = [
-            ctypes.c_int,
-            ctypes.c_int,
-            ctypes.POINTER(
-                ctypes.c_int)]
+            ctypes.c_int, ctypes.c_int, ctypes.POINTER(ctypes.c_int)
+        ]
         val = ctypes.c_int(0)
         ret = self.library.CdrGetSimpleBigcParam(handle, n, ctypes.byref(val))
         if ret < 0:
             raise Exception(
-                'Error while Getting Simple BigChan Param, errcode: %s' %
-                ret)
+                'Error while Getting Simple BigChan Param, errcode: %s' % ret)
         return val.value
 
 
@@ -319,11 +290,8 @@ class Singleton(type):
 
     def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:
-            cls._instances[cls] = super(
-                Singleton,
-                cls).__call__(
-                *args,
-                **kwargs)
+            cls._instances[cls] = super(Singleton, cls).__call__(*args,
+                                                                 **kwargs)
         return cls._instances[cls]
 
 

@@ -31,9 +31,10 @@ class GeneratorId(Singleton):
 
 
 class BerkeleyStorage(Singleton):
-
-    def __init__(self, filename=os.path.join(DB_FOLDER, 'berkeley.db'),
-                 read=False, sql_storage=None):
+    def __init__(self,
+                 filename=os.path.join(DB_FOLDER, 'berkeley.db'),
+                 read=False,
+                 sql_storage=None):
         self.filename = filename
         self.database = db.DB()
 
@@ -80,10 +81,8 @@ class BerkeleyStorage(Singleton):
 
     def add_json(self, data_dict):
         for key, values in data_dict.items():
-            [self.add(
-                '%s\t%s\t%s' % (key, val.get('value'), val.get('time'))
-            )
-                for val in values]
+            [self.add('%s\t%s\t%s' % (key, val.get('value'), val.get('time')))
+             for val in values]
 
     def add(self, value):
         self.id = GeneratorId().getid()

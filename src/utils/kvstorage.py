@@ -5,12 +5,7 @@ import pickledb
 
 from project.settings import DB_FOLDER
 
-__all__ = [
-    '_load',
-    'set',
-    'get',
-    'get_name_by_id',
-]
+__all__ = ['_load', 'set', 'get', 'get_name_by_id', ]
 
 
 def load(filepath=None, force_dump=True):
@@ -23,7 +18,6 @@ def load(filepath=None, force_dump=True):
         base = pickledb.load(filepath, force_dump)
     finally:
         return base
-
 
 
 def set(key, value):

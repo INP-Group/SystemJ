@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 
-
 from basemonitor import BaseMonitor
 from PyQt4.QtCore import *
 

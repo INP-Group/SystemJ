@@ -34,7 +34,8 @@ def get_data_from_storage(channels, time_start, time_end):
     format = '%Y-%m-%d %H:%M:%S'
     time_start = time_start.strftime(format)
     time_end = time_end.strftime(format)
-    data = storage.get_data(channels=channels, time_start=time_start,
+    data = storage.get_data(channels=channels,
+                            time_start=time_start,
                             time_end=time_end)
 
     data_of_channels = {}
@@ -48,16 +49,18 @@ def get_data_from_storage(channels, time_start, time_end):
         # чтобы время соответствовало формату '%Y-%m-%d %H:%M:%S.%f'
         if not dtime.microsecond:
             dtime = dtime.replace(microsecond=1)
-        data_of_channels[x[-1]].append((dtime, x[1]))  # data, value, channel_id
+        data_of_channels[x[-1]].append(
+            (dtime, x[1]))  # data, value, channel_id
 
     return data_of_channels
 
 
 def show_plot(times, values, np_test, name):
-    x_val, y_val = np.loadtxt(np_test, delimiter=',', unpack=True,
-                              converters={
-                                  0: mdates.strpdate2num(
-                                      '%Y-%m-%d %H:%M:%S.%f')})
+    x_val, y_val = np.loadtxt(
+        np_test,
+        delimiter=',',
+        unpack=True,
+        converters={0: mdates.strpdate2num('%Y-%m-%d %H:%M:%S.%f')})
 
     # x_val = times
     # y_val = values
@@ -71,8 +74,7 @@ def show_plot(times, values, np_test, name):
                   markerfacecolor='red',
                   fmt='b-',
                   label='value',
-                  linewidth=2
-                  )
+                  linewidth=2)
     # plt.plot(x_val, y_val)
     # plt.plot(x_val, y_val, 'or')
     plt.savefig(os.path.join(MEDIA_FOLDER, 'plots', '%s.png' % name))
@@ -84,9 +86,8 @@ def show_plot(times, values, np_test, name):
 def prepare_data(data):
     times = []
     values = []
-    prev_time = data[0][0] if isinstance(
-        data[0][0],
-        datetime.datetime) else None
+    prev_time = data[0][0] if isinstance(data[0][0],
+                                         datetime.datetime) else None
     prev_value = data[0][1] if isinstance(data[0][1], (float, int)) else None
     np_test = []
 
@@ -101,8 +102,9 @@ def prepare_data(data):
             for t in xrange(1, int(delta.total_seconds())):
                 times.append(prev_time + datetime.timedelta(seconds=t))
                 values.append(prev_value)
-                np_test.append("%s,%s" % (
-                    prev_time + datetime.timedelta(seconds=t), prev_value))
+                np_test.append("%s,%s" %
+                               (prev_time + datetime.timedelta(seconds=t),
+                                prev_value))
             prev_time = cur_time
             prev_value = cur_value
         times.append(cur_time)

@@ -1,17 +1,13 @@
 # -*- encoding: utf-8 -*-
 
-
 # Sapronov Alexander
 # sapronov.alexander92@gmail.com
 # 2014
-
-
 """
 reqs:
 ply
 CppHeaderParser
 """
-
 
 import re
 
@@ -26,7 +22,6 @@ def getValues(l, n=4):
 
 
 class Stack(object):
-
     def __init__(self):
         self.__storage = []
 
@@ -41,14 +36,12 @@ class Stack(object):
 
 
 class Monitor(object):
-
     def __init__(self, name, number):
         self.name = name
         self.number = number
 
 
 class Device(object):
-
     def __init__(self, level, name, shortname):
         self.startV = 0
         self.stopV = 0
@@ -70,7 +63,6 @@ class Device(object):
 
 
 class DeviceInfo(object):
-
     def __init__(self):
         # read enums
         filepath = 'db_ic.h'
@@ -87,14 +79,10 @@ class DeviceInfo(object):
         for line in data:
             try:
                 items = [x.strip() for x in re.search(r, line).groups()]
-                self.addPropToDevice(
-                    items[0].strip(),
-                    'phys_max',
-                    items[1].strip())
-                self.addPropToDevice(
-                    items[0].strip(),
-                    'phys_min',
-                    items[2].strip())
+                self.addPropToDevice(items[0].strip(), 'phys_max',
+                                     items[1].strip())
+                self.addPropToDevice(items[0].strip(), 'phys_min',
+                                     items[2].strip())
             except AttributeError:
                 pass
 
@@ -161,10 +149,9 @@ class DeviceInfo(object):
                         shortname = items[0]
                         cur_level += '.%s' % shortname
                         # print cur_level
-                        dev = cur_device = Device(
-                            level=cur_level,
-                            name=name_channel,
-                            shortname=shortname)
+                        dev = cur_device = Device(level=cur_level,
+                                                  name=name_channel,
+                                                  shortname=shortname)
                         dev.start()
                         devices[name_channel] = dev
                         stack.push(dev)
@@ -186,6 +173,7 @@ class DeviceInfo(object):
 
 def start():
     a = DeviceInfo()
+
 
 if __name__ == '__main__':
     start()

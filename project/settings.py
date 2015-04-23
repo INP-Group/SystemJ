@@ -8,11 +8,9 @@ LOG = False
 USER = 'sapronov'
 VENV_FOLDER = '/home/sapronov/Develop/venv/journal'
 
-
 # --- folders
 PROJECT_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                 os.pardir))
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
 RES_FOLDER_NAME = 'resources'
 RES_FOLDER = os.path.join(PROJECT_DIR, RES_FOLDER_NAME)
 MEDIA_FOLDER = os.path.join(PROJECT_DIR, 'media')
@@ -28,14 +26,9 @@ VENV_PYTHON = os.path.join(VENV_FOLDER, 'bin/python')
 # --- libs
 CDR_LIB_PATH = os.path.join(RES_FOLDER, 'libs', 'libCdr4PyQt.so')
 
-
 # --- others
 
-LIST_SERVICE = [
-    'storage',
-    'manager',
-    'server',
-]
+LIST_SERVICE = ['storage', 'manager', 'server', ]
 
 # --- params
 ZEROMQ_HOST = '127.0.0.1'
@@ -65,7 +58,6 @@ BERKELEY_MOVE_NUMBER = 200
 
 COMMAND_SPLITER = '|||'
 
-
 try:
     from project.logs import *
     from project.functions import *
@@ -73,14 +65,15 @@ try:
 except ImportError as e:
     print(e)
 
-
 # --- create folders
 
-
-folders = [
-    MEDIA_FOLDER, RES_FOLDER, LOG_FOLDER, DB_FOLDER,
-    os.path.join(RES_FOLDER, 'plots'), BIN_FOLDER, DEPLOY_FOLDER,
-    SUPERVISORD_FOLDER,
-]
+folders = [MEDIA_FOLDER,
+           RES_FOLDER,
+           LOG_FOLDER,
+           DB_FOLDER,
+           os.path.join(RES_FOLDER, 'plots'),
+           BIN_FOLDER,
+           DEPLOY_FOLDER,
+           SUPERVISORD_FOLDER, ]
 
 [check_and_create(x) for x in folders]

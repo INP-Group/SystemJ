@@ -27,7 +27,6 @@ else:
 
 
 class BaseServer(BaseControl):
-
     def __init__(self, host, port):
         super(BaseServer, self).__init__()
 
@@ -58,9 +57,8 @@ class BaseServer(BaseControl):
         log_debug('hiiiii')
 
     def send_message(self, client, command, message=''):
-        log_debug(
-            'SEND COMMAND (server): command %s, message %s' %
-            (command, message))
+        log_debug('SEND COMMAND (server): command %s, message %s' %
+                  (command, message))
         reply = QByteArray()
         stream = QDataStream(reply, QIODevice.WriteOnly)
         stream.setVersion(QDataStream.Qt_4_2)
@@ -85,9 +83,9 @@ class BaseServer(BaseControl):
         self.connections.append(client_connection)
         client_connection.connect(client_connection, SIGNAL('readyRead()'),
                                   self.receive_message)
-        client_connection.connect(client_connection, SIGNAL('disconnected()'),
-                                  lambda: self.remove_connection(
-                                      client_connection))
+        client_connection.connect(
+            client_connection, SIGNAL('disconnected()'),
+            lambda: self.remove_connection(client_connection))
         client_connection.connect(client_connection, SIGNAL('error()'),
                                   lambda: self.socket_error())
 
@@ -136,11 +134,8 @@ class BaseServer(BaseControl):
             self.send_message(client, 'BAD', 'Name already exist')
 
     def _command_echo(self, client, command, message):
-        log_info(
-            'ECHO (command): Client: {}, command: {}, message: {}'.format(
-                client.socketDescriptor(),
-                command, message)
-        )
+        log_info('ECHO (command): Client: {}, command: {}, message: {}'.format(
+            client.socketDescriptor(), command, message))
 
     def _command_offline(self, client, command, message):
         log_debug('REMOVE USER: %s' % client)

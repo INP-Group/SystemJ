@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 
-
 import datetime
 import os
 
@@ -13,7 +12,6 @@ from src.monitors.servicemonitor.zeromqmonitor import ZeroMQMonitor
 
 
 class TestMonitor(BaseDataMonitor, ZeroMQMonitor):
-
     def __init__(self, name, personal_name=None):
         BaseDataMonitor.__init__(self, name, personal_name)
         ZeroMQMonitor.__init__(self)
@@ -35,8 +33,7 @@ class TestMonitor(BaseDataMonitor, ZeroMQMonitor):
 
     def get_message(self, text):
         return '[%s] [%s]: %s' % (datetime.datetime.now(),
-                                  self.__class__.__name__,
-                                  text)
+                                  self.__class__.__name__, text)
 
     def default_log(self, text):
         with open(os.path.join(LOG_FOLDER, 'default_log.log'), 'a') as f:
@@ -49,7 +46,6 @@ class TestMonitor(BaseDataMonitor, ZeroMQMonitor):
 
 
 class CXMonitor(BaseCXMonitor, ZeroMQMonitor):
-
     def __init__(self, name, personal_name=None):
         BaseCXMonitor.__init__(self, name, personal_name)
         ZeroMQMonitor.__init__(self)
@@ -62,8 +58,7 @@ class CXMonitor(BaseCXMonitor, ZeroMQMonitor):
 
     def get_message(self, text):
         return '[%s] [%s]: %s' % (datetime.datetime.now(),
-                                  self.__class__.__name__,
-                                  text)
+                                  self.__class__.__name__, text)
 
     def default_log(self, text):
         with open(os.path.join(LOG_FOLDER, 'default_log.log'), 'a') as f:

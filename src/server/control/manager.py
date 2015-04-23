@@ -27,7 +27,6 @@ else:
 
 
 class Manager(ConsoleClient):
-
     def __init__(self, host, port):
         client_name = 'Test_manager'
         super(Manager, self).__init__(host, port, client_name)
@@ -79,9 +78,8 @@ class Manager(ConsoleClient):
                     min_channels = worker.get_len_channels()
 
             assert isinstance(min_worker, DaemonWorker)
-            min_worker.add_channel(
-                chanName=channel_name,
-                properties=properties)
+            min_worker.add_channel(chanName=channel_name,
+                                   properties=properties)
 
             log_debug('Added channel')
         else:
@@ -105,7 +103,6 @@ class Manager(ConsoleClient):
 
 
 class DaemonWorker(QThread):
-
     """10к сокетов не получается создать.
 
     Надо сигналы одной группы собирать с помощью этого воркера Затем
@@ -141,7 +138,8 @@ class DaemonWorker(QThread):
                 if not data.get('name') in data_for_storage:
                     data_for_storage[data.get('name')] = []
                 data_for_storage[data.get('name')].append(
-                    {'time': data.get('time'), 'value': data.get('value')})
+                    {'time': data.get('time'),
+                     'value': data.get('value')})
 
             self.send_data(data_for_storage)
         self.channels_data = []
@@ -182,7 +180,8 @@ class DaemonWorker(QThread):
             self.attempt += 1
             self.send_message(json_data)
 
-    def add_channel(self, monitor_type='ScalarMonitor',
+    def add_channel(self,
+                    monitor_type='ScalarMonitor',
                     chanName='linthermcan.ThermosM.in0',
                     properties=None):
 
@@ -190,9 +189,9 @@ class DaemonWorker(QThread):
         monitor_type = properties.get('type', 'ScalarMonitor')
         frequency = properties.get('frequency', 100)
 
-        channel = MonitorFactory.factory(monitor_type, chanName, '%s - %s' %
-                                         (self.name, len(
-                                             self.channels)),
+        channel = MonitorFactory.factory(monitor_type, chanName,
+                                         '%s - %s' % (self.name,
+                                                      len(self.channels)),
                                          frequency=frequency)
         if monitor_type == 'NTimeMonitor':
             channel.set_property('timedelta', 5.0)

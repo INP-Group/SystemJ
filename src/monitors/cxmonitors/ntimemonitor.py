@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 
-
 import datetime
 import time
 
@@ -24,8 +23,7 @@ class NTimeCXMonitor(CXMonitor):
             text = '(%s), %s %s %s' % (self.personal_name, handle, val, params)
 
             self.default_log(text)
-            self.send_data(self.default_form([self.name,
-                                              self.personal_name,
+            self.send_data(self.default_form([self.name, self.personal_name,
                                               handle, now_time]))
 
         return 0

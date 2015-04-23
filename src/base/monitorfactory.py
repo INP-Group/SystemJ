@@ -8,7 +8,6 @@ from src.monitors.testmonitor.fakemonitors import *
 
 
 class MonitorFactory(object):
-
     @staticmethod
     def factory(monitor_type, name, personale_name=None, frequency=100):
         if monitor_type == 'ScalarMonitor':

@@ -18,9 +18,10 @@ def main():
     for x in xrange(0, cnt_channels):
         name_channel = 'test_channel_%s' % x
         sql_add_lines.append(
-            "INSERT INTO channels (channel_name) VALUES ('%s'); \n" % name_channel)
-        sql_del_lines.append(
-            'DELETE FROM channels WHERE channel_name = %s; \n' % name_channel)
+            "INSERT INTO channels (channel_name) VALUES ('%s'); \n" %
+            name_channel)
+        sql_del_lines.append('DELETE FROM channels WHERE channel_name = %s; \n'
+                             % name_channel)
         command_lines.append(
             "CHL_ADD ||| %s ___ {'type': 'EasyFakeMonitor'} \n" % name_channel)
         copy_lines.append("%s\n" % name_channel)
@@ -36,5 +37,7 @@ def main():
 
     with open('commands.txt', 'w') as fio:
         fio.writelines(command_lines)
+
+
 if __name__ == '__main__':
     main()

@@ -13,7 +13,6 @@ from PyQt4.QtNetwork import *
 
 
 class GuiClient(QDialog):
-
     def __init__(self, parent=None, host='localhost', port='10000'):
         super(GuiClient, self).__init__(parent)
 
@@ -37,9 +36,7 @@ class GuiClient(QDialog):
         self._add_command('OFFLINE', self._command_off)
         self._add_command('HI', self._command_set_type)
 
-        self.local_commands = {
-            'FROM_FILE': self._command_from_file,
-        }
+        self.local_commands = {'FROM_FILE': self._command_from_file, }
 
         self._init_socket()
         self._init_gui()
@@ -95,11 +92,8 @@ class GuiClient(QDialog):
 
     # Update GUI
     def update_gui(self, text):
-        now = str(datetime.datetime.now().strftime(
-            '%Y-%m-%d %H:%M:%S'))
-        message = '<p>{}</p> <font color=red>You</font> > {}'.format(
-            now, text
-        )
+        now = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+        message = '<p>{}</p> <font color=red>You</font> > {}'.format(now, text)
         self.TE_browser.append(message)
 
         # Create connection to server
@@ -135,8 +129,7 @@ class GuiClient(QDialog):
         self.PB_Connect.setEnabled(True)
 
     def server_has_error(self):
-        self.update_gui('Error: {}'.format(
-            self.socket.errorString()))
+        self.update_gui('Error: {}'.format(self.socket.errorString()))
         self.socket.close()
         self.PB_Connect.setEnabled(True)
 
@@ -147,8 +140,8 @@ class GuiClient(QDialog):
         else:
             message = self.LE_text.text()
             if COMMAND_SPLITER in message:
-                command, message = [str(x).strip() for x in
-                                    message.split(COMMAND_SPLITER)]
+                command, message = [str(x).strip()
+                                    for x in message.split(COMMAND_SPLITER)]
             else:
                 command, message = 'ECHO', self.LE_text.text()
 

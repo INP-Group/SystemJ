@@ -11,7 +11,6 @@ from src.server.control.base.basecontol import BaseControl
 
 
 class BaseClient(BaseControl):
-
     def __init__(self, host, port, client_name=None):
         super(BaseClient, self).__init__()
 
@@ -53,8 +52,7 @@ class BaseClient(BaseControl):
 
     def server_has_error(self):
         self.send_message('OFFLINE')
-        log_error('Error: {}'.format(
-            self.socket.errorString()))
+        log_error('Error: {}'.format(self.socket.errorString()))
         self.socket.close()
         self.quit()
 
@@ -87,8 +85,8 @@ class BaseClient(BaseControl):
             command = QString()
             message = QString()
             stream >> command >> message
-            log_debug(
-                'RECEIVE: command - %s, message - %s' % (command, message))
+            log_debug('RECEIVE: command - %s, message - %s' %
+                      (command, message))
             self.process_message(command, message)
 
             self.nextBlockSize = 0

@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 
-
 import datetime
 import math
 
@@ -29,12 +28,13 @@ class DeltaCXMonitor(CXMonitor):
 
                 self.ch_prev_value = self.ch_now_value
 
-                text = '(%s), %s %s %s' % (
-                    self.personal_name, handle, val, params)
+                text = '(%s), %s %s %s' % (self.personal_name, handle, val,
+                                           params)
                 self.default_log(text)
 
-                self.send_data(self.default_form(
-                    [self.name, self.personal_name, handle, now_time]))
+                self.send_data(self.default_form([self.name,
+                                                  self.personal_name, handle,
+                                                  now_time]))
 
         return 0
 
