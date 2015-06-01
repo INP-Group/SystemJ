@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 
 import os
+from bsddb3 import db
 
 import ultramemcache
-from bsddb3 import db
+
 from project.logs import log_error
 from project.settings import BERKELEY_MOVE_NUMBER, BERKELEY_SYNC_NUMBER, \
     DB_FOLDER, MEMCACHE_SERVER, POSTGRESQL_DB, POSTGRESQL_HOST, \
@@ -114,7 +115,9 @@ class BerkeleyStorage(Singleton):
                             # чтение с диска во время обработки большого потока
                             # приводит к блокировке по диску.
                             raise Exception(
-                                'Not found channel_name in kvstorage')
+                                'Not found channel_name in kvstorage: %s' %
+                                info[0]
+                            )
                         values.append([info[2], info[1],
                                        channel_id])  # time, value, channel_id
                         self.database.delete('%s' % x)
