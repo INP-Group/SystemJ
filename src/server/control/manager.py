@@ -61,8 +61,16 @@ class Manager(ConsoleClient):
         # todo
         # параметры канала хранить где?
         message = str(message)
-        channel_name, properties = [x.strip() for x in message.split('___')]
-        properties = eval(properties)
+        if '___' in message:
+            channel_name, properties = [x.strip() for x in message.split('___')]
+            properties = eval(properties)
+        else:
+            channel_name = message.strip()
+            properties = {}
+
+        assert isinstance(properties, dict)
+        assert channel_name
+        assert isinstance(channel_name, str)
 
         if channel_name not in self.all_channels or True:
             self.all_channels.append(message)
