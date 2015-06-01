@@ -9,6 +9,7 @@ import ccxv4.ccda as ccda
 class BaseCX4Monitor(BaseDataMonitor):
     def __init__(self, name, personal_name=None):
         super(BaseCX4Monitor, self).__init__(name, personal_name)
+        assert int(self.name)
         self.cx_chan = ccda.sdchan(None, "", "cx::mid:60.NAME.%s" % self.name)
         self.cx_chan.valueChanged.connect(self.callback)
 
