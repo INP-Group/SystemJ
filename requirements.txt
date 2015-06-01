@@ -31,3 +31,5 @@ python-ultramemcached
 # statistic
 graphviz
 pycallgraph
+
+cython
