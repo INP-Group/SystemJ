@@ -86,7 +86,7 @@ class BerkeleyStorage(Singleton):
         self.database.put(str(self.id), value)
 
         if not self.id % self.sync_number:
-            self.database.sync()
+            # self.database.sync()
             self.check()
 
     def length(self):
