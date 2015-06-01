@@ -193,7 +193,7 @@ class DaemonWorker(QThread):
                     properties=None):
 
         # todo
-        monitor_type = properties.get('type', 'ScalarMonitor')
+        monitor_type = properties.get('type', 'SimpleMonitor')
         frequency = properties.get('frequency', 100)
 
         channel = MonitorFactory.factory(monitor_type, chanName,
