@@ -3,7 +3,7 @@ import math
 
 from PyQt4.QtCore import *
 from src.base.basedatamonitor import BaseDataMonitor
-import ccda
+import ccxv4.ccda as ccda
 # imports for testing
 
 class BaseCX4Monitor(BaseDataMonitor):
