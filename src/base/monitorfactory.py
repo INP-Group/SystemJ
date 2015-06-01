@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 
-from src.monitors.cxmonitors.deltamonitor import DeltaCXMonitor
-from src.monitors.cxmonitors.ntimemonitor import NTimeCXMonitor
-from src.monitors.cxmonitors.scalarmonitor import ScalarCXMonitor
-from src.monitors.cxmonitors.simplemonitor import SimpleCXMonitor
+from src.monitors.cx4monitors.deltamonitor import DeltaCXMonitor
+from src.monitors.cx4monitors.ntimemonitor import NTimeCXMonitor
+from src.monitors.cx4monitors.scalarmonitor import ScalarCXMonitor
+from src.monitors.cx4monitors.simplemonitor import SimpleCXMonitor
 from src.monitors.testmonitor.fakemonitors import *
 
 
