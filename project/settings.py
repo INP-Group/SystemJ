@@ -5,8 +5,8 @@ import os
 DEPLOY = True
 LOG = False
 
-USER = 'sapronov'
-VENV_FOLDER = '/home/sapronov/Develop/venv/journal'
+USER = 'username'
+VENV_FOLDER = 'folder'
 
 # --- folders
 PROJECT_DIR = os.path.abspath(
@@ -20,8 +20,7 @@ BIN_FOLDER = os.path.join(PROJECT_DIR, 'bin')
 DEPLOY_FOLDER = os.path.join(PROJECT_DIR, 'deploy')
 
 SUPERVISORD_FOLDER = os.path.join(DEPLOY_FOLDER, 'supervisord')
-VENV_ACTIVATE = os.path.join(VENV_FOLDER, 'bin/activate')
-VENV_PYTHON = os.path.join(VENV_FOLDER, 'bin/python')
+
 
 # --- libs
 CDR_LIB_PATH = os.path.join(RES_FOLDER, 'libs', 'libCdr4PyQt.so')
@@ -40,11 +39,11 @@ SERVER_HOST = '127.0.0.1'
 MANAGER_TEST_PORT = 10001
 MANAGER_TEST_HOST = '127.0.0.1'
 
-POSTGRESQL_HOST = 'localhost'
-POSTGRESQL_DB = 'journal_database'
-POSTGRESQL_TABLE = 'datachannel'
-POSTGRESQL_USER = 'postgres'
-POSTGRESQL_PASSWORD = '1nakopitel!'
+POSTGRESQL_HOST = ''
+POSTGRESQL_DB = ''
+POSTGRESQL_TABLE = ''
+POSTGRESQL_USER = ''
+POSTGRESQL_PASSWORD = ''
 
 MEMCACHE_SERVER = '127.0.0.1:11211'
 SIZEOF_UINT32 = 4
@@ -64,6 +63,10 @@ try:
     from project.local_settings import *
 except ImportError as e:
     print(e)
+
+
+VENV_ACTIVATE = os.path.join(VENV_FOLDER, 'bin/activate')
+VENV_PYTHON = os.path.join(VENV_FOLDER, 'bin/python')
 
 # --- create folders
 
